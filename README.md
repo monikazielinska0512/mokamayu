@@ -24,7 +24,7 @@ When we see the app looks good on DEV, then DEV is merged into MAIN.
 MAIN is like a production environment, we don't want to necessary touch is, it's like a high-end working product :)
 DEV will be an environment for testing our changes, so the production is untouched and won't break in worst cases :D
 
-##Branch naming convention
+## Branch naming convention
 
 If we create tasks in JIRA then:
     /feature/*task_number*
