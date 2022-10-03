@@ -1,8 +1,0 @@
-version: "Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)"
-options: "9a1a92567da5ba281853eeb8aa848932366c22d4c906cd6a3183548b7eafb970"
-build_start_time: [1662626591, 466464996]
-build_end_time: [1662626594, 391230106]
-inputs:
-  "/Users/justyna/mokamayu/macos/Flutter/GeneratedPluginRegistrant.swift": [1662626577, 532680988]
-  "/Users/justyna/mokamayu/macos/Runner/AppDelegate.swift": [1661846670, 0]
-  "/Users/justyna/mokamayu/macos/Runner/MainFlutterWindow.swift": [1661846670, 0]
