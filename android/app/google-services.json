@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "366123228302",
+    "project_id": "mokamayu-e0c0d",
+    "storage_bucket": "mokamayu-e0c0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366123228302:android:3d98f40ea8af246735fddf",
+        "android_client_info": {
+          "package_name": "com.example.mokamayu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366123228302-30assb5ljvqq6a6b37ptis7094a2d2tk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcYlljR5DqWdf1duuSx3O_b5FfJ_18Sv0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366123228302-30assb5ljvqq6a6b37ptis7094a2d2tk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "366123228302-fsa5fktl35091if5e509h87th7l1kcf2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mokamayu"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
