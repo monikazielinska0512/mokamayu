@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailextController = TextEditingController();
+
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;

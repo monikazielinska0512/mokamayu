@@ -11,11 +11,12 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
+  TextEditingController _emailTextController = TextEditingController();
+
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
 
-  TextEditingController _emailTextController = TextEditingController();
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   @override
@@ -42,10 +43,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           key: _form,
                           child: Padding(
                               padding: EdgeInsets.fromLTRB(
-                                  20,
-                                  MediaQuery.of(context).size.height * 0.05,
-                                  20,
-                                  0),
+                                  20, deviceHeight(context) * 0.05, 20, 0),
                               child: Column(children: <Widget>[
                                 reusableTextField(
                                     "Enter Email address",

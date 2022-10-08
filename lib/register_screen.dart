@@ -16,6 +16,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController _retypepasswordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _usernameTextController = TextEditingController();
+
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -69,10 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           key: _form,
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(
-                                20,
-                                MediaQuery.of(context).size.height * 0.05,
-                                20,
-                                0),
+                                20, deviceHeight(context) * 0.05, 20, 0),
                             child: Column(
                               children: <Widget>[
                                 SizedBox(
