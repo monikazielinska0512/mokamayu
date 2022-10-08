@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mokamayu/main.dart';
+import 'package:mokamayu/generated/l10n.dart';
+import 'package:mokamayu/home_screen.dart';
 import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/reusable_widgets/reusable_button.dart';
 
@@ -31,8 +32,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text(
-            "Sign up",
+          title: Text(
+            S.of(context).sign_up,
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
@@ -77,38 +78,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   height: 5,
                                 ),
                                 reusableTextField(
-                                    "Enter username",
+                                    S.of(context).enter_username,
                                     Icons.person_outline,
                                     false,
                                     _usernameTextController,
-                                    ''),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                reusableTextField("Enter email", Icons.mail,
-                                    false, _emailTextController, ''),
+                                    '',
+                                    context),
                                 SizedBox(
                                   height: 5,
                                 ),
                                 reusableTextField(
-                                    "Enter password",
+                                    S.of(context).enter_email,
+                                    Icons.mail,
+                                    false,
+                                    _emailTextController,
+                                    '',
+                                    context),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                reusableTextField(
+                                    S.of(context).enter_password,
                                     Icons.lock_outline,
                                     true,
                                     _passwordTextController,
-                                    ''),
+                                    '',
+                                    context),
                                 SizedBox(
                                   height: 5,
                                 ),
                                 reusableTextField(
-                                    "Confirm password",
+                                    S.of(context).confirm_password,
                                     Icons.lock_outline,
                                     true,
                                     _retypepasswordTextController,
-                                    _passwordTextController.text),
+                                    _passwordTextController.text,
+                                    context),
                                 SizedBox(
                                   height: 5,
                                 ),
-                                reusableButton(context, "Sign up", () {
+                                reusableButton(context, S.of(context).sign_up,
+                                    () {
                                   if (_form.currentState!.validate()) {
                                     FirebaseAuth.instance
                                         .createUserWithEmailAndPassword(

@@ -1,0 +1,13 @@
+{
+    "sign_up": " Sign up",
+    "sign_in": "Log in",
+    "forgot_password": "Forgot Password?",
+    "no_account": "Don't have account?",
+    "enter_password": "Enter Password",
+    "enter_username": "Enter Username",
+    "enter_email": "Enter Email",
+    "confirm_password": "Confirm Password",
+    "reset_password": "Reset Password",
+    "please_enter_test": "Please enter text",
+    "passwords_dont_match": "Passwords do not match"
+}
