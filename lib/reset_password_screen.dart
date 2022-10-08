@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/reusable_widgets/reusable_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,8 +28,8 @@ class _ResetPasswordState extends State<ResetPassword> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text(
-            "Reset Password",
+          title: Text(
+            S.of(context).reset_password,
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
@@ -46,15 +47,17 @@ class _ResetPasswordState extends State<ResetPassword> {
                                   20, deviceHeight(context) * 0.05, 20, 0),
                               child: Column(children: <Widget>[
                                 reusableTextField(
-                                    "Enter Email address",
+                                    S.of(context).enter_email,
                                     Icons.mail,
                                     false,
                                     _emailTextController,
-                                    ''),
+                                    '',
+                                    context),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                reusableButton(context, "Reset Password", () {
+                                reusableButton(
+                                    context, S.of(context).reset_password, () {
                                   if (_form.currentState!.validate()) {
                                     FirebaseAuth.instance
                                         .sendPasswordResetEmail(

@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mokamayu/generated/l10n.dart';
+import 'package:mokamayu/home_screen.dart';
 import 'package:mokamayu/register_screen.dart';
 import 'package:mokamayu/reset_password_screen.dart';
 import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/reusable_widgets/reusable_button.dart';
-import 'package:mokamayu/main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -67,22 +68,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 5,
                               ),
                               reusableTextField(
-                                  "Enter email",
+                                  S.of(context).enter_email,
                                   Icons.person_outline,
                                   false,
                                   _emailextController,
-                                  ''),
+                                  '',
+                                  context),
                               SizedBox(
                                 height: 20,
                               ),
                               reusableTextField(
-                                  "Enter password",
+                                  S.of(context).enter_password,
                                   Icons.lock_outline,
                                   true,
                                   _passwordTextController,
-                                  ''),
+                                  '',
+                                  context),
                               forgottenPassword(context),
-                              reusableButton(context, "Log in", () {
+                              reusableButton(context, S.of(context).sign_in,
+                                  () {
                                 if (_form.currentState!.validate()) {
                                   FirebaseAuth.instance
                                       .signInWithEmailAndPassword(
@@ -112,15 +116,14 @@ class _LoginScreenState extends State<LoginScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't have account?",
-            style: TextStyle(color: Colors.black)),
+        Text(S.of(context).no_account, style: TextStyle(color: Colors.black)),
         GestureDetector(
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => RegisterScreen()));
           },
-          child: const Text(
-            " Sign Up",
+          child: Text(
+            S.of(context).sign_up,
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         )
@@ -135,8 +138,8 @@ Widget forgottenPassword(BuildContext context) {
     height: 35,
     alignment: Alignment.bottomRight,
     child: TextButton(
-      child: const Text(
-        "Forgot Password?",
+      child: Text(
+        S.of(context).forgot_password,
         style: TextStyle(color: Colors.black),
         textAlign: TextAlign.right,
       ),
