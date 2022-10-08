@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a en locale. All the
+// This is a library that provides messages for a pl locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,28 +18,28 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'en';
+  String get localeName => 'pl';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "confirm_password":
-            MessageLookupByLibrary.simpleMessage("Confirm Password"),
-        "enter_email": MessageLookupByLibrary.simpleMessage("Enter Email"),
+            MessageLookupByLibrary.simpleMessage("Potwierdź hasło"),
+        "enter_email":
+            MessageLookupByLibrary.simpleMessage("Wprowadź adres email"),
         "enter_password":
-            MessageLookupByLibrary.simpleMessage("Enter Password"),
+            MessageLookupByLibrary.simpleMessage("Wprowadź hasło"),
         "enter_username":
-            MessageLookupByLibrary.simpleMessage("Enter Username"),
+            MessageLookupByLibrary.simpleMessage("Wprowadź nazwę użytkownika"),
         "forgot_password":
-            MessageLookupByLibrary.simpleMessage("Forgot Password?"),
-        "no_account":
-            MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
+            MessageLookupByLibrary.simpleMessage("Zapomniałeś hasła?"),
+        "no_account": MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
         "passwords_dont_match":
-            MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+            MessageLookupByLibrary.simpleMessage("Hasła nie są identyczne"),
         "please_enter_test":
-            MessageLookupByLibrary.simpleMessage("Please enter text"),
+            MessageLookupByLibrary.simpleMessage("Proszę wprowadzić tekst"),
         "reset_password":
-            MessageLookupByLibrary.simpleMessage("Reset Password"),
-        "sign_in": MessageLookupByLibrary.simpleMessage("Log in"),
-        "sign_up": MessageLookupByLibrary.simpleMessage(" Sign up")
+            MessageLookupByLibrary.simpleMessage("Zresetuj hasło"),
+        "sign_in": MessageLookupByLibrary.simpleMessage("Zaloguj się"),
+        "sign_up": MessageLookupByLibrary.simpleMessage(" Zarejestruj się")
       };
 }

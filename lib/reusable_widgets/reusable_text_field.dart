@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:mokamayu/generated/l10n.dart';
 
-TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller, String confirmPasswordController) {
+TextFormField reusableTextField(
+    String text,
+    IconData icon,
+    bool isPasswordType,
+    TextEditingController controller,
+    String confirmPasswordController,
+    BuildContext context) {
   return TextFormField(
     validator: (value) {
       if (value!.isEmpty) {
-        return 'Please enter text';
+        return S.of(context).please_enter_test;
       }
       if (confirmPasswordController != '') {
         if (value != confirmPasswordController) {
-          return 'Passwords do not match';
+          return S.of(context).passwords_dont_match;
         }
         return null;
       }

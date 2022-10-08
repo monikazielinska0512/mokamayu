@@ -49,6 +49,116 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// ` Sign up`
+  String get sign_up {
+    return Intl.message(
+      ' Sign up',
+      name: 'sign_up',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log in`
+  String get sign_in {
+    return Intl.message(
+      'Log in',
+      name: 'sign_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot Password?`
+  String get forgot_password {
+    return Intl.message(
+      'Forgot Password?',
+      name: 'forgot_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't have account?`
+  String get no_account {
+    return Intl.message(
+      'Don\'t have account?',
+      name: 'no_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Password`
+  String get enter_password {
+    return Intl.message(
+      'Enter Password',
+      name: 'enter_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Username`
+  String get enter_username {
+    return Intl.message(
+      'Enter Username',
+      name: 'enter_username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Email`
+  String get enter_email {
+    return Intl.message(
+      'Enter Email',
+      name: 'enter_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Password`
+  String get confirm_password {
+    return Intl.message(
+      'Confirm Password',
+      name: 'confirm_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get reset_password {
+    return Intl.message(
+      'Reset Password',
+      name: 'reset_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter text`
+  String get please_enter_test {
+    return Intl.message(
+      'Please enter text',
+      name: 'please_enter_test',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords do not match`
+  String get passwords_dont_match {
+    return Intl.message(
+      'Passwords do not match',
+      name: 'passwords_dont_match',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -57,6 +167,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'pl'),
     ];
   }
 
