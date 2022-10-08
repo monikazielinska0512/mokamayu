@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/register_screen.dart';
+import 'package:mokamayu/reset_password_screen.dart';
 import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/reusable_widgets/reusable_button.dart';
+import 'package:mokamayu/main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -12,16 +15,20 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _emailextController = TextEditingController();
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
 
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 222, 201, 174),
+        backgroundColor: Color.fromARGB(255, 244, 232, 217),
         body: Container(
+            width: deviceWidth(context),
+            height: deviceHeight(context),
             child: SingleChildScrollView(
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(
@@ -48,7 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                       ),
-                      Container(
+                      Form(
+                        key: _form,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(20,
                               MediaQuery.of(context).size.height * 0.05, 20, 0),
@@ -58,10 +66,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 5,
                               ),
                               reusableTextField(
-                                  "Enter username",
+                                  "Enter email",
                                   Icons.person_outline,
                                   false,
-                                  _emailTextController),
+                                  _emailextController,
+                                  ''),
                               SizedBox(
                                 height: 20,
                               ),
@@ -69,11 +78,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                   "Enter password",
                                   Icons.lock_outline,
                                   true,
-                                  _passwordTextController),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              reusableButton(context, "Log in", () {}),
+                                  _passwordTextController,
+                                  ''),
+                              forgottenPassword(context),
+                              reusableButton(context, "Log in", () {
+                                if (_form.currentState!.validate()) {
+                                  FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                          email: _emailextController.text,
+                                          password:
+                                              _passwordTextController.text)
+                                      .then((value) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MyHomePage(title: 'Mokamayu')));
+                                  }).onError((error, stackTrace) {
+                                    print("Error ${error.toString()}");
+                                  });
+                                }
+                              }),
                               signUpOption()
                             ],
                           ),
@@ -101,4 +126,21 @@ class _LoginScreenState extends State<LoginScreen> {
       ],
     );
   }
+}
+
+Widget forgottenPassword(BuildContext context) {
+  return Container(
+    width: MediaQuery.of(context).size.width,
+    height: 35,
+    alignment: Alignment.bottomRight,
+    child: TextButton(
+      child: const Text(
+        "Forgot Password?",
+        style: TextStyle(color: Colors.black),
+        textAlign: TextAlign.right,
+      ),
+      onPressed: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ResetPassword())),
+    ),
+  );
 }
