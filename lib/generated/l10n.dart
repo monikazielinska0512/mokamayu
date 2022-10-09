@@ -159,6 +159,26 @@ class S {
       args: [],
     );
   }
+
+  /// `The email address is badly formatted`
+  String get bad_email {
+    return Intl.message(
+      'The email address is badly formatted',
+      name: 'bad_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must be at least 6 characters long`
+  String get bad_password {
+    return Intl.message(
+      'Password must be at least 6 characters long',
+      name: 'bad_password',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

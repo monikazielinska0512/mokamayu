@@ -83,7 +83,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     false,
                                     _usernameTextController,
                                     '',
-                                    context),
+                                    context,
+                                    false),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -93,7 +94,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     false,
                                     _emailTextController,
                                     '',
-                                    context),
+                                    context,
+                                    true),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -103,7 +105,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     true,
                                     _passwordTextController,
                                     '',
-                                    context),
+                                    context,
+                                    false),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -113,7 +116,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     true,
                                     _retypepasswordTextController,
                                     _passwordTextController.text,
-                                    context),
+                                    context,
+                                    false),
                                 SizedBox(
                                   height: 5,
                                 ),

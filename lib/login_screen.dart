@@ -60,8 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       Form(
                         key: _form,
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(20,
-                              MediaQuery.of(context).size.height * 0.05, 20, 0),
+                          padding: EdgeInsets.fromLTRB(
+                              20, deviceHeight(context) * 0.05, 20, 0),
                           child: Column(
                             children: <Widget>[
                               SizedBox(
@@ -73,7 +73,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   false,
                                   _emailextController,
                                   '',
-                                  context),
+                                  context,
+                                  true),
                               SizedBox(
                                 height: 20,
                               ),
@@ -83,7 +84,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   true,
                                   _passwordTextController,
                                   '',
-                                  context),
+                                  context,
+                                  false),
                               forgottenPassword(context),
                               reusableButton(context, S.of(context).sign_in,
                                   () {

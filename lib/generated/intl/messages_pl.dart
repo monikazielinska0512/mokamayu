@@ -22,6 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "bad_email": MessageLookupByLibrary.simpleMessage(
+            "Email został wprowadzony w złym formacie"),
+        "bad_password": MessageLookupByLibrary.simpleMessage(
+            "Hasło musi mieć długość przynajmniej 6 znaków"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Potwierdź hasło"),
         "enter_email":
