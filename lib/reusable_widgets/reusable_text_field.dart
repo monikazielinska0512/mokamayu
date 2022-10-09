@@ -7,18 +7,23 @@ TextFormField reusableTextField(
     bool isPasswordType,
     TextEditingController controller,
     String confirmPasswordController,
-    BuildContext context) {
+    BuildContext context,
+    bool isEmailType) {
   return TextFormField(
     validator: (value) {
-      if (value!.isEmpty) {
-        return S.of(context).please_enter_test;
-      }
-      if (confirmPasswordController != '') {
-        if (value != confirmPasswordController) {
-          return S.of(context).passwords_dont_match;
-        }
-        return null;
-      }
+      if (value!.isEmpty) return S.of(context).please_enter_test;
+
+      if (confirmPasswordController != '' && value != confirmPasswordController)
+        return S.of(context).passwords_dont_match;
+
+      if (isEmailType &&
+          !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+              .hasMatch(controller.text)) return S.of(context).bad_email;
+
+      if (isPasswordType &&
+          confirmPasswordController != '' &&
+          controller.text.length < 6) return S.of(context).bad_password;
+
       return null;
     },
     controller: controller,

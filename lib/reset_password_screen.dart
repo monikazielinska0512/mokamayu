@@ -52,7 +52,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     false,
                                     _emailTextController,
                                     '',
-                                    context),
+                                    context,
+                                    true),
                                 const SizedBox(
                                   height: 20,
                                 ),

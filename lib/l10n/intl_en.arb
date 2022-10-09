@@ -9,5 +9,7 @@
     "confirm_password": "Confirm Password",
     "reset_password": "Reset Password",
     "please_enter_test": "Please enter text",
-    "passwords_dont_match": "Passwords do not match"
+    "passwords_dont_match": "Passwords do not match",
+    "bad_email": "The email address is badly formatted",
+    "bad_password": "Password must be at least 6 characters long"
 }
