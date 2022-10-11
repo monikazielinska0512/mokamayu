@@ -60,6 +60,16 @@ class S {
     );
   }
 
+  /// ` Sign out`
+  String get sign_out {
+    return Intl.message(
+      ' Sign out',
+      name: 'sign_out',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Log in`
   String get sign_in {
     return Intl.message(
@@ -170,11 +180,61 @@ class S {
     );
   }
 
-  /// `Password must be at least 6 characters long`
+  /// `Password should be at least 6 characters long`
   String get bad_password {
     return Intl.message(
-      'Password must be at least 6 characters long',
+      'Password should be at least 6 characters long',
       name: 'bad_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your email or password is wrong`
+  String get wrong_password {
+    return Intl.message(
+      'Your email or password is wrong',
+      name: 'wrong_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The email address is already in use by another account`
+  String get email_already_used {
+    return Intl.message(
+      'The email address is already in use by another account',
+      name: 'email_already_used',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User does not exist`
+  String get user_not_exist {
+    return Intl.message(
+      'User does not exist',
+      name: 'user_not_exist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An error occured. Please try again later`
+  String get error_message {
+    return Intl.message(
+      'An error occured. Please try again later',
+      name: 'error_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DISMISS`
+  String get dismiss {
+    return Intl.message(
+      'DISMISS',
+      name: 'dismiss',
       desc: '',
       args: [],
     );

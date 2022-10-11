@@ -28,12 +28,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Hasło musi mieć długość przynajmniej 6 znaków"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Potwierdź hasło"),
+        "dismiss": MessageLookupByLibrary.simpleMessage("ZAMKNIJ"),
+        "email_already_used": MessageLookupByLibrary.simpleMessage(
+            "Podany adres email jest już zajęty przez innego użytkownika"),
         "enter_email":
             MessageLookupByLibrary.simpleMessage("Wprowadź adres email"),
         "enter_password":
             MessageLookupByLibrary.simpleMessage("Wprowadź hasło"),
         "enter_username":
             MessageLookupByLibrary.simpleMessage("Wprowadź nazwę użytkownika"),
+        "error_message": MessageLookupByLibrary.simpleMessage(
+            "Wystąpił błąd. Proszę spróbować ponownie później."),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Zapomniałeś hasła?"),
         "no_account": MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
@@ -44,6 +49,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Zresetuj hasło"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Zaloguj się"),
-        "sign_up": MessageLookupByLibrary.simpleMessage(" Zarejestruj się")
+        "sign_out": MessageLookupByLibrary.simpleMessage("Wyloguj się"),
+        "sign_up": MessageLookupByLibrary.simpleMessage(" Zarejestruj się"),
+        "user_not_exist": MessageLookupByLibrary.simpleMessage(
+            "Podany użytkownik nie istnieje"),
+        "wrong_password":
+            MessageLookupByLibrary.simpleMessage("Hasło lub email jest błędne")
       };
 }

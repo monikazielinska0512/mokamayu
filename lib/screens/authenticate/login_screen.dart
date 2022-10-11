@@ -1,11 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/home_screen.dart';
-import 'package:mokamayu/register_screen.dart';
-import 'package:mokamayu/reset_password_screen.dart';
+import 'package:mokamayu/screens/home/home_screen.dart';
+import 'package:mokamayu/screens/authenticate/register_screen.dart';
+import 'package:mokamayu/screens/authenticate/reset_password_screen.dart';
 import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/reusable_widgets/reusable_button.dart';
+import 'package:mokamayu/services/auth.dart';
+import 'package:mokamayu/services/auth_exception_handler.dart';
+
+import '../../models/login_user.dart';
+import '../../reusable_widgets/reusable_snackbar.dart';
+import '../../utils/validator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,13 +20,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailextController = TextEditingController();
-
+  final AuthService _auth = AuthService();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailtextController = TextEditingController();
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
-
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   @override
@@ -64,18 +68,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               20, deviceHeight(context) * 0.05, 20, 0),
                           child: Column(
                             children: <Widget>[
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                               reusableTextField(
                                   S.of(context).enter_email,
                                   Icons.person_outline,
                                   false,
-                                  _emailextController,
-                                  '',
-                                  context,
-                                  true),
-                              SizedBox(
+                                  _emailtextController,
+                                  (value) => Validator.validateEmail(
+                                      _emailtextController.text, context)),
+                              const SizedBox(
                                 height: 20,
                               ),
                               reusableTextField(
@@ -83,30 +86,35 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Icons.lock_outline,
                                   true,
                                   _passwordTextController,
-                                  '',
-                                  context,
-                                  false),
+                                  (value) => Validator.validatePassword(
+                                      _passwordTextController.text, context)),
                               forgottenPassword(context),
                               reusableButton(context, S.of(context).sign_in,
-                                  () {
+                                  () async {
                                 if (_form.currentState!.validate()) {
-                                  FirebaseAuth.instance
-                                      .signInWithEmailAndPassword(
-                                          email: _emailextController.text,
+                                  final status =
+                                      await _auth.signInEmailPassword(LoginUser(
+                                          email: _emailtextController.text,
                                           password:
-                                              _passwordTextController.text)
-                                      .then((value) {
+                                              _passwordTextController.text));
+                                  if (status == AuthStatus.successful) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                MyHomePage(title: 'Mokamayu')));
-                                  }).onError((error, stackTrace) {
-                                    print("Error ${error.toString()}");
-                                  });
+                                                const MyHomePage(
+                                                    title: 'Mokamayu')));
+                                  } else {
+                                    final error = AuthExceptionHandler
+                                        .generateErrorMessage(status, context);
+                                    CustomSnackBar.showErrorSnackBar(
+                                      context,
+                                      message: error,
+                                    );
+                                  }
                                 }
                               }),
-                              signUpOption()
+                              signUpOption(),
                             ],
                           ),
                         ),
@@ -121,8 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
         Text(S.of(context).no_account, style: TextStyle(color: Colors.black)),
         GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => RegisterScreen()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const RegisterScreen()));
           },
           child: Text(
             S.of(context).sign_up,
@@ -145,8 +155,8 @@ Widget forgottenPassword(BuildContext context) {
         style: TextStyle(color: Colors.black),
         textAlign: TextAlign.right,
       ),
-      onPressed: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ResetPassword())),
+      onPressed: () => Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const ResetPassword())),
     ),
   );
 }

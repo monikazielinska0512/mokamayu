@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/home_screen.dart';
+import 'package:mokamayu/screens/home/home_screen.dart';
 import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/reusable_widgets/reusable_button.dart';
+import 'package:mokamayu/services/auth.dart';
+import 'package:mokamayu/utils/validator.dart';
+
+import '../../models/login_user.dart';
+import '../../reusable_widgets/reusable_snackbar.dart';
+import '../../services/auth_exception_handler.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -13,15 +18,15 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _retypepasswordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _usernameTextController = TextEditingController();
-
+  final AuthService _auth = AuthService();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _retypepasswordTextController =
+      TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _usernameTextController = TextEditingController();
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
-
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   @override
@@ -74,7 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 20, deviceHeight(context) * 0.05, 20, 0),
                             child: Column(
                               children: <Widget>[
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 reusableTextField(
@@ -82,10 +87,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     Icons.person_outline,
                                     false,
                                     _usernameTextController,
-                                    '',
-                                    context,
-                                    false),
-                                SizedBox(
+                                    (value) => Validator.checkIfEmptyField(
+                                        _usernameTextController.text, context)),
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 reusableTextField(
@@ -93,10 +97,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     Icons.mail,
                                     false,
                                     _emailTextController,
-                                    '',
-                                    context,
-                                    true),
-                                SizedBox(
+                                    (value) => Validator.validateEmail(
+                                        _emailTextController.text, context)),
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 reusableTextField(
@@ -104,10 +107,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     Icons.lock_outline,
                                     true,
                                     _passwordTextController,
-                                    '',
-                                    context,
-                                    false),
-                                SizedBox(
+                                    (value) => Validator.validatePassword(
+                                        _passwordTextController.text, context)),
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 reusableTextField(
@@ -115,29 +117,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     Icons.lock_outline,
                                     true,
                                     _retypepasswordTextController,
-                                    _passwordTextController.text,
-                                    context,
-                                    false),
-                                SizedBox(
+                                    (value) =>
+                                        Validator.checkIfPasswordsIdentical(
+                                            _retypepasswordTextController.text,
+                                            _passwordTextController.text,
+                                            context)),
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 reusableButton(context, S.of(context).sign_up,
-                                    () {
+                                    () async {
                                   if (_form.currentState!.validate()) {
-                                    FirebaseAuth.instance
-                                        .createUserWithEmailAndPassword(
+                                    final status = await _auth
+                                        .registerEmailPassword(LoginUser(
                                             email: _emailTextController.text,
                                             password:
-                                                _passwordTextController.text)
-                                        .then((value) {
+                                                _passwordTextController.text));
+                                    if (status == AuthStatus.successful) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => MyHomePage(
-                                                  title: 'Mokamayu')));
-                                    }).onError((error, stackTrace) {
-                                      print("Error ${error.toString()}");
-                                    });
+                                              builder: (context) =>
+                                                  const MyHomePage(
+                                                      title: 'Mokamayu')));
+                                    } else {
+                                      final error = AuthExceptionHandler
+                                          .generateErrorMessage(
+                                              status, context);
+                                      CustomSnackBar.showErrorSnackBar(
+                                        context,
+                                        message: error,
+                                      );
+                                    }
                                   }
                                 })
                               ],

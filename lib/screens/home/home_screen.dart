@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mokamayu/screens/authenticate/login_screen.dart';
+import 'package:mokamayu/services/auth.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -11,6 +13,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
+  final AuthService _auth = AuthService();
 
   static List<Widget> pages = <Widget>[
     Container(),
@@ -31,6 +34,22 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        leading: GestureDetector(
+          onTap: () {},
+          child: const Icon(
+            Icons.menu,
+          ),
+        ),
+        actions: [
+          PopupMenuButton<int>(
+              onSelected: (item) => onSelected(context, item),
+              itemBuilder: (context) => [
+                    const PopupMenuItem(
+                      value: 0,
+                      child: Text('Sign out'),
+                    )
+                  ])
+        ],
       ),
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -63,5 +82,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+
+  void onSelected(BuildContext context, int item) {
+    switch (item) {
+      case 0:
+        _auth.signOut();
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
+        break;
+    }
   }
 }
