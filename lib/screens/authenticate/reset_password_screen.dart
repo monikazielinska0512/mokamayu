@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/reusable_widgets/reusable_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mokamayu/services/auth.dart';
+
+import '../../reusable_widgets/reusable_snackbar.dart';
+import '../../services/auth_exception_handler.dart';
+import '../../utils/validator.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -12,12 +16,11 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  TextEditingController _emailTextController = TextEditingController();
-
+  final AuthService _auth = AuthService();
+  final TextEditingController _emailTextController = TextEditingController();
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
-
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   @override
@@ -38,7 +41,7 @@ class _ResetPasswordState extends State<ResetPassword> {
             height: deviceHeight(context),
             child: SingleChildScrollView(
                 child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 150, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
                     child: Column(children: <Widget>[
                       Form(
                           key: _form,
@@ -51,20 +54,28 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     Icons.mail,
                                     false,
                                     _emailTextController,
-                                    '',
-                                    context,
-                                    true),
+                                    (value) => Validator.validateEmail(
+                                        _emailTextController.text, context)),
                                 const SizedBox(
                                   height: 20,
                                 ),
                                 reusableButton(
-                                    context, S.of(context).reset_password, () {
+                                    context, S.of(context).reset_password,
+                                    () async {
                                   if (_form.currentState!.validate()) {
-                                    FirebaseAuth.instance
-                                        .sendPasswordResetEmail(
-                                            email: _emailTextController.text)
-                                        .then((value) =>
-                                            Navigator.of(context).pop());
+                                    dynamic result = await _auth.resetPassword(
+                                        _emailTextController.text);
+                                    if (result != AuthStatus.successful) {
+                                      final error = AuthExceptionHandler
+                                          .generateErrorMessage(
+                                              result, context);
+                                      CustomSnackBar.showErrorSnackBar(
+                                        context,
+                                        message: error,
+                                      );
+                                    } else {
+                                      Navigator.of(context).pop();
+                                    }
                                   }
                                 })
                               ]))),

@@ -25,14 +25,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "bad_email": MessageLookupByLibrary.simpleMessage(
             "The email address is badly formatted"),
         "bad_password": MessageLookupByLibrary.simpleMessage(
-            "Password must be at least 6 characters long"),
+            "Password should be at least 6 characters long"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "dismiss": MessageLookupByLibrary.simpleMessage("DISMISS"),
+        "email_already_used": MessageLookupByLibrary.simpleMessage(
+            "The email address is already in use by another account"),
         "enter_email": MessageLookupByLibrary.simpleMessage("Enter Email"),
         "enter_password":
             MessageLookupByLibrary.simpleMessage("Enter Password"),
         "enter_username":
             MessageLookupByLibrary.simpleMessage("Enter Username"),
+        "error_message": MessageLookupByLibrary.simpleMessage(
+            "An error occured. Please try again later"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "no_account":
@@ -44,6 +49,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Log in"),
-        "sign_up": MessageLookupByLibrary.simpleMessage(" Sign up")
+        "sign_out": MessageLookupByLibrary.simpleMessage(" Sign out"),
+        "sign_up": MessageLookupByLibrary.simpleMessage(" Sign up"),
+        "user_not_exist":
+            MessageLookupByLibrary.simpleMessage("User does not exist"),
+        "wrong_password": MessageLookupByLibrary.simpleMessage(
+            "Your email or password is wrong")
       };
 }
