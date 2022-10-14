@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.fromLTRB(
                         0, deviceHeight(context) * 0.05, 0, 0),
                     child: Column(children: <Widget>[
-                      Container(
+                      SizedBox(
                         height: deviceWidth(context),
                         child: Stack(
                           children: <Widget>[
