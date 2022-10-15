@@ -20,7 +20,6 @@ def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
-//def minSdkVersion = localProperties.getProperty('flutter.minSdkVersion').toInteger()
 
 apply plugin: 'com.android.application'
 // START: FlutterFire Configuration
