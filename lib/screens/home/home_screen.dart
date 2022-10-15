@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/screens/profile_screen.dart';
+import 'package:mokamayu/screens/profile/profile_screen.dart';
 import 'package:mokamayu/screens/social/social_screen.dart';
 import 'package:mokamayu/screens/wardrobe/wardrobe_screen.dart';
 import '../../reusable_widgets/navbar.dart';
