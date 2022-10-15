@@ -6,7 +6,6 @@ import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/screens/wardrobe/tags.dart';
 import 'package:mokamayu/services/database/database_service.dart';
 import 'package:mokamayu/services/storage.dart';
-
 import '../../models/wardrobe/clothes.dart';
 
 class ClothesAddScreen extends StatefulWidget {
@@ -24,8 +23,6 @@ class _ClothesAddScreenState extends State<ClothesAddScreen> {
   String? _clothesSize = "";
   String? _clothesType = Tags.types[0];
   final List<String> _chosenStyles = [];
-
-
 
   @override
   Widget build(BuildContext context) {
