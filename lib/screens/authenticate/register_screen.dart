@@ -128,6 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 reusableButton(context, S.of(context).sign_up,
                                     () async {
+
                                   if (_form.currentState!.validate()) {
                                     final status = await _auth
                                         .registerEmailPassword(LoginUser(
@@ -135,13 +136,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             password:
                                                 _passwordTextController.text));
                                     if (status == AuthStatus.successful) {
+                                      DatabaseService.addUser();
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   const MyHomePage(
                                                       title: 'Mokamayu')));
-                                      DatabaseService.addUser();
                                     } else {
                                       final error = AuthExceptionHandler
                                           .generateErrorMessage(

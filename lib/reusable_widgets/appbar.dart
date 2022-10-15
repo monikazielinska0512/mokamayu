@@ -4,6 +4,7 @@ import '../services/auth.dart';
 
 AppBar customAppBar(BuildContext context, String title) {
   final AuthService _auth = AuthService();
+
   void onSelected(BuildContext context, int item) {
     switch (item) {
       case 0:

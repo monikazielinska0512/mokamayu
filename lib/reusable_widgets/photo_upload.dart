@@ -3,21 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
+import '../services/auth.dart';
+
 
 class ImageUpload extends StatefulWidget {
   const ImageUpload({Key? key}) : super(key: key);
   @override
   _ImageUploadState createState() => _ImageUploadState();
 }
+
 class _ImageUploadState extends State<ImageUpload> {
   firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
   File? _image;
   final ImagePicker _picker = ImagePicker();
-  String imagePathStorage = "";
+  String destinationPath = "";
+  final String uid = AuthService().getCurrentUserUID();
+
+  void setDestination(){
+    final fileName = basename(_image!.path);
+    final destination = '$uid/clothes/$fileName';
+    destinationPath = destination;
+  }
+
+  String getDestination(){
+    return destinationPath;
+  }
 
   Future pickImageFromGallery() async {
     final pickImage = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
+      print(uid);
       if (pickImage != null) {
         _image = File(pickImage.path);
       } else {
@@ -28,8 +43,10 @@ class _ImageUploadState extends State<ImageUpload> {
   Future imageFromCamera() async {
     final pickImage = await _picker.pickImage(source: ImageSource.camera);
     setState(() {
+      print(uid);
       if (pickImage != null) {
         _image = File(pickImage.path);
+        uploadFile();
       } else {
         print('No image selected.');
       }
@@ -37,23 +54,17 @@ class _ImageUploadState extends State<ImageUpload> {
   }
 
   Future uploadFile() async {
-    if (_image == null) return;
     final fileName = basename(_image!.path);
-    //TODO Dodawać do folderu UUID użytkownika, żeby wszystkie zdjęcia były pod jednym folderem
-    //TODO Jak dostać path do zdjęcia?
-    final destination = 'clothes/$fileName';
+    final destination = '$uid/clothes/$fileName';
+    print(destination);
     try {
       final ref = firebase_storage.FirebaseStorage.instance.ref(destination);
       await ref.putFile(_image!);
-      imagePathStorage  = destination;
     } catch (e) {
-      print('Error Occured');
+      print('Error occurred');
     }
   }
 
-  String get getImagePathStorage {
-    return imagePathStorage;
-  }
 
   @override
   Widget build(BuildContext context) {
