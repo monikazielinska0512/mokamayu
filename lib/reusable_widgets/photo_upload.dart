@@ -13,6 +13,7 @@ class _ImageUploadState extends State<ImageUpload> {
   firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
   File? _image;
   final ImagePicker _picker = ImagePicker();
+  String imagePathStorage = "";
 
   Future pickImageFromGallery() async {
     final pickImage = await _picker.pickImage(source: ImageSource.gallery);
@@ -34,16 +35,24 @@ class _ImageUploadState extends State<ImageUpload> {
       }
     });
   }
+
   Future uploadFile() async {
     if (_image == null) return;
     final fileName = basename(_image!.path);
+    //TODO Dodawać do folderu UUID użytkownika, żeby wszystkie zdjęcia były pod jednym folderem
+    //TODO Jak dostać path do zdjęcia?
     final destination = 'clothes/$fileName';
     try {
       final ref = firebase_storage.FirebaseStorage.instance.ref(destination);
       await ref.putFile(_image!);
+      imagePathStorage  = destination;
     } catch (e) {
       print('Error Occured');
     }
+  }
+
+  String get getImagePathStorage {
+    return imagePathStorage;
   }
 
   @override

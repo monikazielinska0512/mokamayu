@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mokamayu/models/clothes.dart';
 import 'package:mokamayu/reusable_widgets/photo_upload.dart';
 import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
-
 
 class ClothesAddScreen extends StatefulWidget {
   const ClothesAddScreen({Key? key}) : super(key: key);
@@ -15,7 +15,6 @@ class _ClothesAddScreenState extends State<ClothesAddScreen> {
   final List<String> sizes = ['34', '38', 'XS', 'S', 'M', 'L', 'XL', 'XXL'];
   final List<String> types = ['One', 'Two', 'Three', 'Four'].toList();
   final List<String> styles = <String>["Classic", "Super", "Cool", "defde", "efewf", "qwrwerwrerw", "Classic", "Super", "Cool", "defde", "efewf", "qwrwerwrerw"];
-
 
   String? _clothesSize = "";
   String? dropdownValue = "A";
@@ -74,7 +73,6 @@ class _ClothesAddScreenState extends State<ClothesAddScreen> {
                       onSelected: (bool selected) {
                         setState(() {
                           _clothesSize = selected ? sizes[index] : null;
-
                         });});}).toList()),
             const Text("Style"),
             Wrap(
@@ -87,13 +85,9 @@ class _ClothesAddScreenState extends State<ClothesAddScreen> {
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
               onPressed: () {
-                final data = {
-                  "clothes_name": _clothesNameController.text,
-                  "type": dropdownValue.toString(),
-                  "size": _clothesSize.toString(),
-                  "style": _chosenStyles.toString(),
-                  "photo_path": ""};
-                print(data);
+                Clothes data = Clothes(name: _clothesNameController.text,
+                    type: dropdownValue.toString(), size: _clothesSize.toString(), styles: _chosenStyles );
+
               },
               child: const Text('Add new clothes'),
             )
