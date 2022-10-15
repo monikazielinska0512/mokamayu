@@ -10,14 +10,6 @@ class WardrobeScreen extends StatefulWidget {
 }
 
 class _WardrobeScreenState extends State<WardrobeScreen> {
-  // final FirebaseAuth auth = FirebaseAuth.instance;
-  //
-  // String getCurrentUserUID() {
-  //   final User? user = auth.currentUser;
-  //   final uid = user?.uid;
-  //   return uid.toString();
-  //   // here you write the codes to input the data into firestore
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
