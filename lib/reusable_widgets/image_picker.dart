@@ -10,7 +10,6 @@ class ImagePick extends StatefulWidget {
 }
 
 class _ImagePickState extends State<ImagePick> {
-
   final ImagePicker _picker = ImagePicker();
   File? _image;
 
@@ -19,7 +18,9 @@ class _ImagePickState extends State<ImagePick> {
     setState(() {
       if (pickImage != null) {
         _image = File(pickImage.path);
-      } else {print('No image selected');}
+      } else {
+        print('No image selected');
+      }
     });
   }
 
