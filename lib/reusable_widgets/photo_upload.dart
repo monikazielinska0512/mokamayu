@@ -1,70 +1,27 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:path/path.dart';
-import '../services/auth.dart';
 
+class ImagePick extends StatefulWidget {
+  const ImagePick({Key? key}) : super(key: key);
 
-class ImageUpload extends StatefulWidget {
-  const ImageUpload({Key? key}) : super(key: key);
   @override
-  _ImageUploadState createState() => _ImageUploadState();
+  _ImagePickState createState() => _ImagePickState();
 }
 
-class _ImageUploadState extends State<ImageUpload> {
-  firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
-  File? _image;
+class _ImagePickState extends State<ImagePick> {
+
   final ImagePicker _picker = ImagePicker();
-  String destinationPath = "";
-  final String uid = AuthService().getCurrentUserUID();
+  File? _image;
 
-  void setDestination(){
-    final fileName = basename(_image!.path);
-    final destination = '$uid/clothes/$fileName';
-    destinationPath = destination;
-  }
-
-  String getDestination(){
-    return destinationPath;
-  }
-
-  Future pickImageFromGallery() async {
-    final pickImage = await _picker.pickImage(source: ImageSource.gallery);
+  Future pickImage(ImageSource source) async {
+    final pickImage = await _picker.pickImage(source: source);
     setState(() {
-      print(uid);
       if (pickImage != null) {
         _image = File(pickImage.path);
-      } else {
-        print('No image selected');
-      }
+      } else {print('No image selected');}
     });
   }
-  Future imageFromCamera() async {
-    final pickImage = await _picker.pickImage(source: ImageSource.camera);
-    setState(() {
-      print(uid);
-      if (pickImage != null) {
-        _image = File(pickImage.path);
-        uploadFile();
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
-
-  Future uploadFile() async {
-    final fileName = basename(_image!.path);
-    final destination = '$uid/clothes/$fileName';
-    print(destination);
-    try {
-      final ref = firebase_storage.FirebaseStorage.instance.ref(destination);
-      await ref.putFile(_image!);
-    } catch (e) {
-      print('Error occurred');
-    }
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,37 +36,33 @@ class _ImageUploadState extends State<ImageUpload> {
               _showPicker(context);
             },
             child: _image != null
-                ?
-            Column(
-            children: <Widget>[
-              ClipRRect(
-              child: Image.file(
-                _image!,
-                width: 400,
-                height: 400,
-                fit: BoxFit.fitHeight,
-              ),
-            ),
-              ElevatedButton.icon(
-              onPressed: () {
-    setState(() {
-    _image = null; //this is important
-    });
-    },
-    label: const Text('Remove Image'),
-    icon: const Icon(Icons.close)
-    )
-    ])
+                ? Column(children: <Widget>[
+                    ClipRRect(
+                      child: Image.file(
+                        _image!,
+                        width: 400,
+                        height: 400,
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
+                    ElevatedButton.icon(
+                        onPressed: () {
+                          setState(() {
+                            _image = null; //this is important
+                          });
+                        },
+                        label: const Text('Remove Image'),
+                        icon: const Icon(Icons.close))
+                  ])
                 : Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey[200]),
-              width: 300,
-              height: 400,
-              child: Icon(
-                Icons.camera_alt,
-                color: Colors.grey[800],
-              ),
-            ),
+                    decoration: BoxDecoration(color: Colors.grey[200]),
+                    width: 300,
+                    height: 400,
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: Colors.grey[800],
+                    ),
+                  ),
           ),
         ),
       ],
@@ -127,7 +80,7 @@ class _ImageUploadState extends State<ImageUpload> {
                   leading: const Icon(Icons.photo_camera),
                   title: const Text('Camera'),
                   onTap: () {
-                    imageFromCamera();
+                    pickImage(ImageSource.camera);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -135,7 +88,7 @@ class _ImageUploadState extends State<ImageUpload> {
                     leading: const Icon(Icons.photo_library),
                     title: const Text('Gallery'),
                     onTap: () {
-                      pickImageFromGallery();
+                      pickImage(ImageSource.gallery);
                       Navigator.of(context).pop();
                     }),
               ],

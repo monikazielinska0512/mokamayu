@@ -2,6 +2,7 @@ class Clothes {
   String name;
   String size;
   String type;
+  String photoURL;
   List<String>? styles;
   DateTime? created;
 
@@ -9,6 +10,7 @@ class Clothes {
       {required this.name,
       required this.type,
       required this.size,
+      required this.photoURL,
       this.styles,
       this.created});
 
@@ -18,6 +20,7 @@ class Clothes {
       'type': type,
       'size': size,
       'styles': styles,
+      'photo_url': photoURL,
       'created': DateTime.now()
     };
   }
