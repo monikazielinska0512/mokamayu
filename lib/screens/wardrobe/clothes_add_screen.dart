@@ -3,26 +3,28 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
-import 'package:mokamayu/screens/wardrobe/tags.dart';
+import 'package:mokamayu/res/tags.dart';
 import 'package:mokamayu/services/database/database_service.dart';
 import 'package:mokamayu/services/storage.dart';
 import '../../models/wardrobe/clothes.dart';
+import '../../reusable_widgets/dropdown_menu.dart';
 
-class ClothesAddScreen extends StatefulWidget {
-  const ClothesAddScreen({Key? key}) : super(key: key);
+class AddClothesForm extends StatefulWidget {
+  const AddClothesForm({Key? key}) : super(key: key);
+
   @override
-  _ClothesAddScreenState createState() => _ClothesAddScreenState();
+  _AddClothesFormState createState() => _AddClothesFormState();
 }
 
-class _ClothesAddScreenState extends State<ClothesAddScreen> {
+class _AddClothesFormState extends State<AddClothesForm> {
   final TextEditingController _clothesNameController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+  final List<String> _chosenStyles = [];
+
   File? _image;
-
-
   String? _clothesSize = "";
   String? _clothesType = Tags.types[0];
-  final List<String> _chosenStyles = [];
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +33,6 @@ class _ClothesAddScreenState extends State<ClothesAddScreen> {
         body: SingleChildScrollView(
             child: Column(
           children: <Widget>[
-
-            const Text("Fotka"),
             Column(
               children: <Widget>[
                 const SizedBox(
@@ -48,8 +48,8 @@ class _ClothesAddScreenState extends State<ClothesAddScreen> {
                             ClipRRect(
                               child: Image.file(
                                 _image!,
-                                width: 400,
-                                height: 400,
+                                width: 200,
+                                height: 200,
                                 fit: BoxFit.fitHeight,
                               ),
                             ),
@@ -80,17 +80,9 @@ class _ClothesAddScreenState extends State<ClothesAddScreen> {
                 _clothesNameController, null),
 
             const Text("Type"),
-            DropdownButtonFormField<String>(
-              value: _clothesType,
-              items: Tags.types.map((label) => DropdownMenuItem(
-                        child: Text(label),
-                        value: label,
-                      ))
-                  .toList(),
-              onChanged: (value) {
-                setState(() => _clothesType = value);
-              },
-            ),
+            DropDownMenu(_clothesType, Tags.types, (value) {
+              setState(() => _clothesType = value);
+            }),
 
             const Text("Size"),
             Wrap(
@@ -123,6 +115,7 @@ class _ClothesAddScreenState extends State<ClothesAddScreen> {
                     photoURL: photoURL.toString(),
                     styles: _chosenStyles);
                 DatabaseService.addToWardrobe(data);
+                Navigator.of(context).pop();
               },
               child: const Text('Add new clothes'),
             )
