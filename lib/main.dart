@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mokamayu/screens/authenticate/login_screen.dart';
 import 'package:mokamayu/services/auth.dart';
-import 'models/firebase_user.dart';
+import 'models/user/firebase_user.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 import 'package:provider/provider.dart';

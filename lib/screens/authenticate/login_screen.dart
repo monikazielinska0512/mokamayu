@@ -8,7 +8,7 @@ import 'package:mokamayu/reusable_widgets/reusable_button.dart';
 import 'package:mokamayu/services/auth.dart';
 import 'package:mokamayu/services/auth_exception_handler.dart';
 
-import '../../models/login_user.dart';
+import '../../models/user/login_user.dart';
 import '../../reusable_widgets/reusable_snackbar.dart';
 import '../../utils/validator.dart';
 

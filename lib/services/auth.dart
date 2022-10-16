@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import '../models/login_user.dart';
-import '../models/firebase_user.dart';
+import '../models/user/firebase_user.dart';
+import '../models/user/login_user.dart';
 import 'auth_exception_handler.dart';
 
 class AuthService {
