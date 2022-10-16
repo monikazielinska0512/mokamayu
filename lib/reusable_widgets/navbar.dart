@@ -19,7 +19,7 @@ BottomNavigationBar NavBar(
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.event_outlined),
-        label: 'Calendar',
+        label: 'Social',
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.person_outlined),
