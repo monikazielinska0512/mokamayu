@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/profile/profile_screen.dart';
 import 'package:mokamayu/screens/social/social_screen.dart';
-import 'package:mokamayu/screens/wardrobe/wardrobe_screen.dart';
 import '../../reusable_widgets/navbar.dart';
 import '../outfits/outfits_screen.dart';
+import '../wardrobe/wardrobe_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
