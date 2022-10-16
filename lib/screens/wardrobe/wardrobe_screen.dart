@@ -64,12 +64,9 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, "Wardrobe Screen"),
-      body: Column(
-        children: <Widget>[
-          const Text("Witaj w twojej szafie!"),
-          Text(
-              "Jesteś zalogowany jako: " + AuthService().getCurrentUserUID()),
+        appBar: customAppBar(context, "Wardrobe Screen"),
+        body: Column(children: <Widget>[
+          Text("Jesteś zalogowany jako: " + AuthService().getCurrentUserUID()),
           FloatingActionButton(
             onPressed: () {
               Navigator.push(
@@ -81,10 +78,8 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
             child: const Icon(Icons.add),
           ),
           Expanded(
-            child: photoGridView(_items)
-          ),
-        ],
-      ),
-    );
-    }
+              child: Padding(
+                  padding: const EdgeInsets.all(20.0), child: photoGridView(_items)))
+        ]));
   }
+}
