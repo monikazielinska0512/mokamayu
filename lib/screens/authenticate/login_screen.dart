@@ -8,7 +8,7 @@ import 'package:mokamayu/reusable_widgets/reusable_button.dart';
 import 'package:mokamayu/services/auth.dart';
 import 'package:mokamayu/services/auth_exception_handler.dart';
 
-import '../../models/login_user.dart';
+import '../../models/user/login_user.dart';
 import '../../reusable_widgets/reusable_snackbar.dart';
 import '../../utils/validator.dart';
 
@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.fromLTRB(
                         0, deviceHeight(context) * 0.05, 0, 0),
                     child: Column(children: <Widget>[
-                      Container(
+                      SizedBox(
                         height: deviceWidth(context),
                         child: Stack(
                           children: <Widget>[
