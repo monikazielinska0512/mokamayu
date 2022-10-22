@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/authenticate/login_screen.dart';
 import 'package:mokamayu/services/auth.dart';
 
+import '../user_profile/user_profile_screen.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
@@ -20,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Container(),
     Container(),
     Container(),
-    Container(),
+    const UserProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
