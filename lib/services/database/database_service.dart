@@ -32,7 +32,7 @@ class DatabaseService {
         .collection('users')
         .doc(userUid)
         .collection('clothes')
-        .add(clothes.toMap());
+        .add(clothes.toFirestore());
   }
 
   static Stream<QuerySnapshot> readClothes() {

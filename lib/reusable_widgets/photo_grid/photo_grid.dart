@@ -36,8 +36,8 @@ class PhotoGrid extends StatelessWidget {
               var clothesInfo = snapshot.data!.docs[index];
               String docID = snapshot.data!.docs[index].id;
               String name = clothesInfo['name'];
-              String photoUrl = clothesInfo['photo_url'];
-              return PhotoBox(photoUrl);
+              String photoURL = clothesInfo['photoURL'];
+              return PhotoBox(docID, photoURL, context);
             },
           );
         }
