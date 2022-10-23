@@ -115,7 +115,7 @@ class _AddClothesFormState extends State<AddClothesForm> {
                     type: _clothesType.toString(),
                     photoURL: photoURL.toString(),
                     styles: _chosenStyles);
-                DatabaseService.addToWardrobe(data);
+                DatabaseService.addClothes(data);
                 Navigator.of(context).pop(const WardrobeScreen());
               },
               child: const Text('Add new clothes'),

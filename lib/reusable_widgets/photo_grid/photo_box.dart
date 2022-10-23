@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/wardrobe/clothes_edit_screen.dart';
 
-//TODO On tap Photo you are directed to edit page
 GestureDetector PhotoBox(String id, String photoUrl, BuildContext context){
   return GestureDetector(
       child: Container(

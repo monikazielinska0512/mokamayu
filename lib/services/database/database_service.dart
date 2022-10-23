@@ -27,7 +27,7 @@ class DatabaseService {
         .catchError((e) => print(e));
   }
 
-  static Future<void> addToWardrobe(Clothes clothes) async {
+  static Future<void> addClothes(Clothes clothes) async {
     await db
         .collection('users')
         .doc(userUid)
@@ -56,5 +56,35 @@ class DatabaseService {
 
   Future<void> updateFriendsList(List<String> friendsList) async {
     await db.collection('friends').doc(userUid).set({'friends': friendsList});
+  }
+
+  static Future<void> removeClothes(String id) async {
+    await db
+        .collection("users")
+        .doc(userUid)
+        .collection("clothes")
+        .doc(id)
+        .delete()
+        .then(
+          (doc) => print("Document deleted"),
+          onError: (e) => print("Error updating document $e"),
+        );
+  }
+
+  static Future<void> updateClothes(String id, Clothes clothes) async {
+    await db
+        .collection("users")
+        .doc(userUid)
+        .collection("clothes")
+        .doc(id)
+        .update({
+      "name": clothes.name,
+      "type": clothes.type,
+      "size": clothes.size,
+      "photoURL": clothes.photoURL,
+      "created": clothes.created,
+      "styles": clothes.styles,
+    }).then((value) => print("DocumentSnapshot successfully updated!"),
+            onError: (e) => print("Error updating document $e"));
   }
 }
