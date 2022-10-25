@@ -1,11 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:mokamayu/reusable_widgets/reusable_button.dart';
-import 'package:mokamayu/services/storage.dart';
-import 'package:path/path.dart';
-
 import 'add_clothes_form.dart';
 
 class ImageUploads extends StatefulWidget {
@@ -16,8 +11,6 @@ class ImageUploads extends StatefulWidget {
 }
 
 class _ImageUploadsState extends State<ImageUploads> {
-  firebase_storage.FirebaseStorage storage = StorageService().open();
-
   File? _photo;
   final ImagePicker _picker = ImagePicker();
 
@@ -79,6 +72,7 @@ class _ImageUploadsState extends State<ImageUploads> {
       if (pickedFile != null) {
         _photo = File(pickedFile.path);
       } else {
+        //TODO toast
         print('No image selected.');
       }
     });
@@ -88,21 +82,6 @@ class _ImageUploadsState extends State<ImageUploads> {
     setState(() {
       _photo = null;
     });
-  }
-
-  Future uploadFile() async {
-    if (_photo == null) return;
-    final fileName = basename(_photo!.path);
-    final destination = 'files/$fileName';
-
-    try {
-      final ref = firebase_storage.FirebaseStorage.instance
-          .ref(destination)
-          .child('file/');
-      await ref.putFile(_photo!);
-    } catch (e) {
-      print('error occured');
-    }
   }
 
   void _showPicker(
