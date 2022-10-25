@@ -21,6 +21,11 @@ class StorageService{
     }
   }
 
+  firebase_storage.FirebaseStorage open()  {
+    return firebase_storage.FirebaseStorage.instance;
+  }
+
+
   Future<String> getURLFile(File? file) async {
     String stringFuture = await uploadFile(file);
     return stringFuture.toString();

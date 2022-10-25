@@ -89,8 +89,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   (value) => Validator.validatePassword(
                                       _passwordTextController.text, context)),
                               forgottenPassword(context),
-                              reusableButton(context, S.of(context).sign_in,
-                                  () async {
+                              reusableButton(context,
+                                  title: S.of(context).sign_in,
+                                  onTap: () async {
                                 if (_form.currentState!.validate()) {
                                   final status =
                                       await _auth.signInEmailPassword(LoginUser(

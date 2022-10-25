@@ -60,8 +60,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                                   height: 20,
                                 ),
                                 reusableButton(
-                                    context, S.of(context).reset_password,
-                                    () async {
+                                    context,
+                                    title: S.of(context).reset_password,
+                                    onTap: () async {
                                   if (_form.currentState!.validate()) {
                                     dynamic result = await _auth.resetPassword(
                                         _emailTextController.text);
