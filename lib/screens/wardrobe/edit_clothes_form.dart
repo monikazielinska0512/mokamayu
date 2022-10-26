@@ -78,12 +78,24 @@ class _EditClothesFormState extends State<EditClothesForm> {
               "type": _typeController,
               "size": _sizeController,
               "styles": _stylesController,
-            }).then(
-                (value) => print("DocumentSnapshot successfully updated!"),
+            }).then((value) => print("DocumentSnapshot successfully updated!"),
                 onError: (e) => print("Error updating document $e"));
             Navigator.of(context).pop();
-            },
-          child: const Text("Zaktualizuj"))
+          },
+          child: const Text("Zaktualizuj")),
+          TextButton(onPressed: (){
+            final clothesRef = db
+                .collection("users")
+                .doc(AuthService().getCurrentUserUID())
+                .collection("clothes")
+                .doc(widget.clothesID);
+
+            clothesRef.delete().then(
+                  (doc) => print("Document deleted"),
+              onError: (e) => print("Error updating document $e"),
+            );
+            Navigator.of(context).pop();
+          }, child: Text("Usuń ubranie"))
     ]));
   }
 
