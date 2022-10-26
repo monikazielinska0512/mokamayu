@@ -27,7 +27,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     child: PhotoGrid()))
           ]),
           FloatingButton(
-              context, ImageUploads(), const Icon(Icons.add))
+              context, const ImageUploads(), const Icon(Icons.add))
         ]));
   }
 }

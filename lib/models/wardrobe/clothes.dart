@@ -1,34 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// class Clothes {
-//   String name;
-//   String size;
-//   String type;
-//   String photoURL;
-//   List<String>? styles;
-//   DateTime? created;
-//
-//   Clothes(
-//       {required this.name,
-//       required this.type,
-//       required this.size,
-//       required this.photoURL,
-//       this.styles,
-//       this.created});
-//
-//   Map<String, dynamic> toMap() {
-//     return {
-//       'name': name,
-//       'type': type,
-//       'size': size,
-//       'styles': styles,
-//       'photo_url': photoURL,
-//       'created': DateTime.now()
-//     };
-//   }
-// }
-
-
 class Clothes {
   final String name;
   final String type;
@@ -46,6 +17,7 @@ class Clothes {
     this.styles,
     this.created,
   });
+
 
   factory Clothes.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -71,5 +43,22 @@ class Clothes {
       if (created != null) "created": created,
       if (styles != null) "styles": styles,
     };
+  }
+
+  String get getName {
+    return name;
+  }
+
+  String get getType {
+    return type;
+  }
+  String get getSize {
+    return size;
+  }
+  String get URL {
+    return photoURL;
+  }
+  List<String>? get getStyles {
+    return styles;
   }
 }
