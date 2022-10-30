@@ -128,13 +128,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 reusableButton(context, S.of(context).sign_up,
                                     () async {
                                   if (_form.currentState!.validate()) {
-                                    final status = await _auth.register(
-                                        LoginUser(
+                                    final status = await _auth
+                                        .registerEmailPassword(LoginUser(
                                             email: _emailTextController.text,
                                             password:
-                                                _passwordTextController.text,
-                                            username:
-                                                _usernameTextController.text));
+                                                _passwordTextController.text));
                                     if (status == AuthStatus.successful) {
                                       DatabaseService.addUser();
                                       Navigator.push(

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/services/auth.dart';
 import '../../models/wardrobe/clothes.dart';
-import '../../screens/wardrobe/edit_clothes_form.dart';
+import '../../screens/wardrobe/form/edit_clothes_form.dart';
 import '../../services/database/database_service.dart';
 
 GestureDetector PhotoBox(String id, String photoUrl, BuildContext context) {
   return GestureDetector(
       onTap: () async {
-        final ref = db.collection("users").doc(AuthService().getCurrentUserUID())
+        final ref = database.collection("users").doc(AuthService().getCurrentUserUID())
             .collection("clothes").doc(id)
             .withConverter(
           fromFirestore: Clothes.fromFirestore,

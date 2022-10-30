@@ -21,7 +21,6 @@ class StorageService{
     }
   }
 
-
   firebase_storage.FirebaseStorage open()  {
     return firebase_storage.FirebaseStorage.instance;
   }

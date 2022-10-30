@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Clothes {
-  final String name;
-  final String type;
-  final String size;
-  final String photoURL;
+  final String? name;
+  final String? type;
+  final String? size;
+  final String? photoURL;
   final List<String>? styles;
   final DateTime? created;
 
@@ -45,17 +45,17 @@ class Clothes {
     };
   }
 
-  String get getName {
+  String? get getName {
     return name;
   }
 
-  String get getType {
+  String? get getType {
     return type;
   }
-  String get getSize {
+  String? get getSize {
     return size;
   }
-  String get URL {
+  String? get URL {
     return photoURL;
   }
   List<String>? get getStyles {

@@ -1,10 +1,11 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/services/auth.dart';
-import '../../models/wardrobe/clothes.dart';
-import '../../res/tags.dart';
-import '../../reusable_widgets/dropdown_menu.dart';
-import '../../reusable_widgets/reusable_text_field.dart';
-import '../../services/database/database_service.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import '../../../models/wardrobe/clothes.dart';
+import '../../../res/tags.dart';
+import '../../../reusable_widgets/dropdown_menu.dart';
+import '../../../reusable_widgets/reusable_text_field.dart';
+import '../../../services/database/database_service.dart';
 
 class EditClothesForm extends StatefulWidget {
   Clothes? clothes;
@@ -19,7 +20,7 @@ class EditClothesForm extends StatefulWidget {
 
 class _EditClothesFormState extends State<EditClothesForm> {
   List<String>? _stylesController = [];
-  final TextEditingController _nameController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
   String? _sizeController = "";
   String? _typeController = Tags.types[0];
 
@@ -36,19 +37,15 @@ class _EditClothesFormState extends State<EditClothesForm> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(children: <Widget>[
-      const SizedBox(height: 20),
-      Text(_stylesController.toString()),
-      const SizedBox(height: 20),
-      Text(_typeController.toString()),
-      DropDownMenu(_typeController, Tags.types, (value) {
-        setState(() => _typeController = value);
-      }),
-      const SizedBox(height: 20),
-      Text(_nameController.text.toString()),
       reusableTextField(
           "Clothes name", Icons.person_outline, false, _nameController, null),
-      const SizedBox(height: 20),
-      Text(_sizeController.toString()),
+      DropDownMenu(_typeController, Tags.types, (value) {
+        setState(() => _typeController = value);
+      }, (value) {
+        if (value == null) {
+          return 'Type is required';
+        }
+      }),
       Wrap(
           children: List<Widget>.generate(Tags.sizes.length, (int index) {
         return ChoiceChip(
@@ -67,35 +64,25 @@ class _EditClothesFormState extends State<EditClothesForm> {
       ),
       TextButton(
           onPressed: () {
-            final clothesRef = db
-                .collection("users")
-                .doc(AuthService().getCurrentUserUID())
-                .collection("clothes")
-                .doc(widget.clothesID);
-
-            clothesRef.update({
-              "name": _nameController.text,
-              "type": _typeController,
-              "size": _sizeController,
-              "styles": _stylesController,
-            }).then((value) => print("DocumentSnapshot successfully updated!"),
-                onError: (e) => print("Error updating document $e"));
+            DatabaseService.updateClothes(
+                widget.clothesID,
+                Clothes(
+                    name: _nameController.text,
+                    type: _typeController,
+                    size: _sizeController,
+                    styles: _stylesController,
+                    photoURL: widget.clothes?.photoURL));
             Navigator.of(context).pop();
           },
-          child: const Text("Zaktualizuj")),
-          TextButton(onPressed: (){
-            final clothesRef = db
-                .collection("users")
-                .doc(AuthService().getCurrentUserUID())
-                .collection("clothes")
-                .doc(widget.clothesID);
-
-            clothesRef.delete().then(
-                  (doc) => print("Document deleted"),
-              onError: (e) => print("Error updating document $e"),
-            );
+          child: const Text("Update")),
+      TextButton(
+          onPressed: () {
+            DatabaseService.removeClothes(widget.clothesID);
+            FirebaseStorage.instance.refFromURL(widget.clothes!.photoURL!).delete();
             Navigator.of(context).pop();
-          }, child: Text("Usuń ubranie"))
+          },
+          child: const Text("Delete")),
+      const BackButton()
     ]));
   }
 

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'add_clothes_form.dart';
+import 'form.dart';
 
 class ImageUploads extends StatefulWidget {
   const ImageUploads({Key? key}) : super(key: key);
@@ -59,7 +60,7 @@ class _ImageUploadsState extends State<ImageUploads> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      AddClothesForm(photo: _photo)));
+                                      FormScreen(clothesID: null, photo: _photo)));
                         }
                       : null,
                   child: const Text("Przejdź dalej"))),
@@ -72,7 +73,6 @@ class _ImageUploadsState extends State<ImageUploads> {
       if (pickedFile != null) {
         _photo = File(pickedFile.path);
       } else {
-        //TODO toast
         print('No image selected.');
       }
     });
