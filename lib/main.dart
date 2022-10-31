@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mokamayu/res/colors.dart';
 import 'package:mokamayu/services/auth.dart';
 import 'package:mokamayu/wrapper.dart';
 import 'models/user/firebase_user.dart';
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
         supportedLocales: S.delegate.supportedLocales,
         title: 'Mokamayu',
         theme: ThemeData(
-          primarySwatch: Colors.pink,
+          colorScheme: ColorScheme.fromSwatch()
+              .copyWith(secondary: CustomColors.primary),
         ),
         home: const Wrapper(),
       ),

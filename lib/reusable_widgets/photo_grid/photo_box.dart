@@ -1,41 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/services/auth.dart';
-import '../../models/wardrobe/clothes.dart';
-import '../../screens/wardrobe/form/edit_clothes_form.dart';
-import '../../services/database/database_service.dart';
+import 'package:mokamayu/res/colors.dart';
+import 'package:mokamayu/res/text_styles.dart';
 
-GestureDetector PhotoBox(String id, String photoUrl, BuildContext context) {
-  return GestureDetector(
-      onTap: () async {
-        final ref = database.collection("users").doc(AuthService().getCurrentUserUID())
-            .collection("clothes").doc(id)
-            .withConverter(
-          fromFirestore: Clothes.fromFirestore,
-          toFirestore: (Clothes city, _) => city.toFirestore(),
-        );
-        final docSnap = await ref.get();
-        final city = docSnap.data(); // Convert to City object
-        if (city != null) {
-          print(city.toFirestore().toString());
-        } else {
-          print("No such document.");
-        }
+class PhotoCard extends StatelessWidget {
+  QueryDocumentSnapshot<Object?> object;
 
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => (EditClothesForm(clothes: city, clothesID: id,))));
-      },
-      child: Center(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20.0),
-          child: Container(
-            alignment: Alignment.center,
-            constraints: const BoxConstraints(
-              maxWidth: 300,
-              maxHeight: 400,
-            ),
-            child: Image.network(photoUrl, fit: BoxFit.fill),
+  PhotoCard({Key? key, required this.object}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 0,
+      color: CustomColors.soft,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Column(children: [
+        Padding(padding: EdgeInsets.all(10), child:
+          ClipRRect(
+          borderRadius: BorderRadius.circular(15), // Image border
+          child: SizedBox.fromSize(
+            size: const Size.fromRadius(120), // Image radius
+            child: Image.network(object['photoURL'], fit: BoxFit.fill),
           ),
-        )));
+        )),
+        Text(object['name'], style: TextStyles.paragraphRegularSemiBold14()),
+
+      ]),
+    );
+  }
 }

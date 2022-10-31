@@ -79,18 +79,6 @@ class _AddClothesFormState extends State<AddClothesForm> {
                                 });
                           }).toList());
                     }),
-                // Wrap(
-                //     children:
-                //         List<Widget>.generate(Tags.sizes.length, (int index) {
-                //   return ChoiceChip(
-                //       label: Text(Tags.sizes[index]),
-                //       selected: _sizeController == Tags.sizes[index],
-                //       onSelected: (bool selected) {
-                //         setState(() {
-                //           _sizeController = selected ? Tags.sizes[index] : null;
-                //         });
-                //       });
-                // }).toList()),
                 const SizedBox(
                   height: 40,
                 ),

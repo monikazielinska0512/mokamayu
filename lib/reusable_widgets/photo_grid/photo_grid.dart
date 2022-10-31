@@ -19,7 +19,7 @@ class PhotoGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: stream,
+      stream: DatabaseService.readClothes(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           CustomSnackBar.showErrorSnackBar(context);
@@ -27,6 +27,14 @@ class PhotoGrid extends StatelessWidget {
           return GridView.builder(
             scrollDirection: getScrollDirection(),
             itemCount: snapshot.data!.docs.length,
+          return Center(
+              child: GridView.builder(
+            shrinkWrap: true,
+            itemCount: snapshot.data?.docs.length,
+            itemBuilder: (BuildContext context, int index) {
+              var clothesInfo = snapshot.data!.docs[index];
+              return PhotoCard(object: clothesInfo);
+            },
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 10.0,

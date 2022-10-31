@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mokamayu/services/auth.dart';
 import '../../models/wardrobe/clothes.dart';
 
-final FirebaseFirestore db = FirebaseFirestore.instance;
-final CollectionReference userCollection = db.collection('users');
+FirebaseFirestore database = FirebaseFirestore.instance;
 
 class DatabaseService {
   static String? userUid = AuthService().getCurrentUserUID();
@@ -28,17 +27,17 @@ class DatabaseService {
   }
 
   static Future<void> addClothes(Clothes clothes) async {
-    await db
+    await database
         .collection('users')
-        .doc(userUid)
+        .doc(AuthService().getCurrentUserUID())
         .collection('clothes')
         .add(clothes.toFirestore());
   }
 
   static Stream<QuerySnapshot> readClothes() {
-    return db
+    return database
         .collection('users')
-        .doc(userUid)
+        .doc(AuthService().getCurrentUserUID())
         .collection('clothes')
         .snapshots();
   }
@@ -59,9 +58,9 @@ class DatabaseService {
   }
 
   static Future<void> removeClothes(String id) async {
-    await db
+    await database
         .collection("users")
-        .doc(userUid)
+        .doc(AuthService().getCurrentUserUID())
         .collection("clothes")
         .doc(id)
         .delete()
@@ -72,9 +71,9 @@ class DatabaseService {
   }
 
   static Future<void> updateClothes(String id, Clothes clothes) async {
-    await db
+    await database
         .collection("users")
-        .doc(userUid)
+        .doc(AuthService().getCurrentUserUID())
         .collection("clothes")
         .doc(id)
         .update({

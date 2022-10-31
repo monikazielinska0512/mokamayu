@@ -3,24 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/res/tags.dart';
 import 'package:mokamayu/screens/wardrobe/form/choice_chips_form.dart';
 
+import '../../../models/wardrobe/clothes.dart';
+import 'filter_chips_field.dart';
+
 class FormScreen extends StatefulWidget {
+  Clothes? clothes;
   String? clothesID;
   File? photo;
 
-  FormScreen({Key? key, required this.clothesID, required this.photo})
+  FormScreen({Key? key, required this.clothesID, this.photo, required clothes})
       : super(key: key);
-
   @override
   _FormScreenState createState() => _FormScreenState();
 }
 
 class _FormScreenState extends State<FormScreen> {
-  final _formKey = GlobalKey<FormState>();
 
+  final _formKey = GlobalKey<FormState>();
   String _name = "";
   String selectedType = "Type";
   String? selectedSize = "";
-  List<String>? _stylesController = [];
+  List<String> _selectedStyles = [];
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +70,12 @@ class _FormScreenState extends State<FormScreen> {
                     onChanged: (size) {
                       selectedSize = size;
                     }),
-
+                FilterChipFormField(
+                    list: Tags.styles,
+                    onChanged: (size) {
+                      _selectedStyles = size;
+                      print(_selectedStyles.toString());
+                    }),
                 TextButton(
                   child: const Text('Add clothes'),
                   onPressed: () {
