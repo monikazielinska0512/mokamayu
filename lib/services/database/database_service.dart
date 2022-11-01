@@ -42,4 +42,12 @@ class DatabaseService {
         .collection('clothes')
         .snapshots();
   }
+
+  static Stream<QuerySnapshot> readOutfits() {
+    return db
+        .collection('users')
+        .doc(userUid)
+        .collection('outfits')
+        .snapshots();
+  }
 }

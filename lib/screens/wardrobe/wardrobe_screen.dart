@@ -3,6 +3,7 @@ import 'package:mokamayu/reusable_widgets/appbar.dart';
 import 'package:mokamayu/reusable_widgets/photo_grid/photo_grid.dart';
 import '../../reusable_widgets/floating_button.dart';
 import '../../services/auth.dart';
+import '../../services/database/database_service.dart';
 import 'clothes_add_screen.dart';
 
 class WardrobeScreen extends StatefulWidget {
@@ -21,13 +22,12 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
           Column(children: [
             Text(
                 "Jesteś zalogowany jako: " + AuthService().getCurrentUserUID()),
-            const Expanded(
+            Expanded(
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-                    child: PhotoGrid()))
+                    child: PhotoGrid(stream: DatabaseService.readClothes())))
           ]),
-          FloatingButton(
-              context, const AddClothesForm(), const Icon(Icons.add))
+          FloatingButton(context, const AddClothesForm(), const Icon(Icons.add))
         ]));
   }
 }

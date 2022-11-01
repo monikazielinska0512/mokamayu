@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/profile/profile_screen.dart';
 import 'package:mokamayu/screens/social/social_screen.dart';
 import '../../reusable_widgets/navbar.dart';
+import '../outfits/createOutfitDialog.dart';
 import '../outfits/outfits_screen.dart';
 import '../wardrobe/wardrobe_screen.dart';
 
@@ -27,11 +28,28 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  FloatingActionButton? checkForOutfitsScreen() {
+    if (_selectedIndex == 1) {
+      return FloatingActionButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomDialogBox.outfitsDialog(context);
+                });
+          },
+          backgroundColor: Color.fromARGB(255, 244, 232, 217),
+          child: Icon(Icons.add));
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[_selectedIndex],
-      bottomNavigationBar: NavBar(context, _selectedIndex, _onItemTapped)
-    );
+        body: pages[_selectedIndex],
+        floatingActionButton: checkForOutfitsScreen(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: NavBar(context, _selectedIndex, _onItemTapped));
   }
 }
