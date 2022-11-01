@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mokamayu/screens/outfits/outfits_add_screen.dart';
 
 class CustomDialogBox {
   static outfitsDialog(BuildContext context) {
@@ -10,7 +11,12 @@ class CustomDialogBox {
       title: Text('Create a look'),
       children: <Widget>[
         SimpleDialogOption(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CreateOutfitPage()));
+          },
           child: Text('By yourself'),
         ),
         SimpleDialogOption(

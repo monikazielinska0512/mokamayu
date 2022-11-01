@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/profile/profile_screen.dart';
 import 'package:mokamayu/screens/social/social_screen.dart';
 import '../../reusable_widgets/navbar.dart';
-import '../outfits/createOutfitDialog.dart';
+import '../outfits/create_outfit_dialog.dart';
 import '../outfits/outfits_screen.dart';
 import '../wardrobe/wardrobe_screen.dart';
 

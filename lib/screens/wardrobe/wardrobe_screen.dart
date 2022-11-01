@@ -25,7 +25,9 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
             Expanded(
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-                    child: PhotoGrid(stream: DatabaseService.readClothes())))
+                    child: PhotoGrid(
+                        stream: DatabaseService.readClothes(),
+                        flagHorizontal: false)))
           ]),
           FloatingButton(context, const AddClothesForm(), const Icon(Icons.add))
         ]));

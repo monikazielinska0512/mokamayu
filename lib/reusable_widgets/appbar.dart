@@ -14,6 +14,7 @@ AppBar customAppBar(BuildContext context, String title) {
         break;
     }
   }
+
   return AppBar(
     title: Text(title),
     leading: GestureDetector(
@@ -26,11 +27,11 @@ AppBar customAppBar(BuildContext context, String title) {
       PopupMenuButton<int>(
           onSelected: (item) => onSelected(context, item),
           itemBuilder: (context) => [
-            const PopupMenuItem(
-              value: 0,
-              child: Text('Sign out'),
-            )
-          ])
+                const PopupMenuItem(
+                  value: 0,
+                  child: Text('Sign out'),
+                )
+              ])
     ],
   );
 }

@@ -5,9 +5,19 @@ import '../../res/custom_colors.dart';
 import '../reusable_snackbar.dart';
 
 class PhotoGrid extends StatelessWidget {
-  const PhotoGrid({Key? key, required this.stream}) : super(key: key);
+  const PhotoGrid(
+      {Key? key, required this.stream, required this.flagHorizontal})
+      : super(key: key);
 
   final Stream<QuerySnapshot> stream;
+  final bool flagHorizontal;
+
+  Axis checkIfHorizontal() {
+    if (flagHorizontal) {
+      return Axis.horizontal;
+    }
+    return Axis.vertical;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +28,7 @@ class PhotoGrid extends StatelessWidget {
           CustomSnackBar.showErrorSnackBar(context);
         } else if (snapshot.hasData || snapshot.data != null) {
           return GridView.builder(
+            scrollDirection: checkIfHorizontal(),
             itemCount: snapshot.data!.docs.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
