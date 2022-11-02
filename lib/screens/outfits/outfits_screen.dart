@@ -15,20 +15,19 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        Column(children: [
-          Expanded(
-              child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-                  child: PhotoGrid(stream: DatabaseService.readOutfits())))
-        ]),
-      ]),
-      floatingActionButton: checkForOutfitsScreen(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
+        floatingActionButton: createOutfitButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        body: Stack(children: [
+          Column(children: [
+            Expanded(
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
+                    child: PhotoGrid(stream: DatabaseService.readOutfits())))
+          ]),
+        ]));
   }
 
-  FloatingActionButton? checkForOutfitsScreen() {
+  FloatingActionButton createOutfitButton() {
     return FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -37,7 +36,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
                 return CustomDialogBox.outfitsDialog(context);
               });
         },
-        backgroundColor: Color.fromARGB(255, 244, 232, 217),
-        child: Icon(Icons.add));
+        backgroundColor: const Color.fromARGB(255, 244, 232, 217),
+        child: const Icon(Icons.add));
   }
 }
