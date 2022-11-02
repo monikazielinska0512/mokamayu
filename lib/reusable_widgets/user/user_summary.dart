@@ -29,7 +29,12 @@ Widget userSummary(BuildContext context, User? user,
                     style: TextStyle(
                         fontSize: fontSize, overflow: TextOverflow.clip)),
                 if (AuthService().getCurrentUserUID() != user?.uid) ...[
-                  reusableButton(context, 'Add friend', () => {},
+                  reusableButton(
+                      context,
+                      'Add friend',
+                      () => {
+                            // TODO(karina)
+                          },
                       shouldExpand: false)
                 ],
               ],

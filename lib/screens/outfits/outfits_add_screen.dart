@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../reusable_widgets/appbar.dart';
@@ -33,7 +32,7 @@ class _CreateOutfitPageState extends State<CreateOutfitPage> {
               height: 300,
               child: PhotoGrid(
                 stream: DatabaseService.readClothes(),
-                flagHorizontal: true,
+                scrollVertically: false,
               ),
             )
           ],

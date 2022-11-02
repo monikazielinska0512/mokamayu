@@ -23,12 +23,11 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                 "Jesteś zalogowany jako: " + AuthService().getCurrentUserUID()),
             Expanded(
                 child: Padding(
-                    padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-                    child: PhotoGrid(
-                        stream: DatabaseService.readClothes(),
-                        flagHorizontal: false)))
-          ])]),
-        floatingActionButton: FloatingButton(context, const AddClothesForm(), const Icon(Icons.add))
-        );
+                    padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
+                    child: PhotoGrid(stream: DatabaseService.readClothes())))
+          ])
+        ]),
+        floatingActionButton: FloatingButton(
+            context, const AddClothesForm(), const Icon(Icons.add)));
   }
 }

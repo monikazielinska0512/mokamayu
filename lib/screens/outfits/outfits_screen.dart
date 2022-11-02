@@ -19,9 +19,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
         Expanded(
             child: Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-                child: PhotoGrid(
-                    stream: DatabaseService.readOutfits(),
-                    flagHorizontal: false)))
+                child: PhotoGrid(stream: DatabaseService.readOutfits())))
       ]),
     ]));
   }

@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/res/tags.dart';
+import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/services/database/database_service.dart';
 import 'package:mokamayu/services/storage.dart';
+
 import '../../models/wardrobe/clothes.dart';
 import '../../reusable_widgets/dropdown_menu.dart';
 
@@ -24,7 +26,6 @@ class _AddClothesFormState extends State<AddClothesForm> {
   File? _image;
   String? _clothesSize = "";
   String? _clothesType = Tags.types[0];
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,12 +79,10 @@ class _AddClothesFormState extends State<AddClothesForm> {
             const Text("Nazwa"),
             reusableTextField("Clothes name", Icons.person_outline, false,
                 _clothesNameController, null),
-
             const Text("Type"),
             DropDownMenu(_clothesType, Tags.types, (value) {
               setState(() => _clothesType = value);
             }),
-
             const Text("Size"),
             Wrap(
                 children: List<Widget>.generate(Tags.sizes.length, (int index) {
