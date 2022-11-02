@@ -5,6 +5,7 @@ import 'package:mokamayu/screens/profile/profile_screen.dart';
 import 'package:mokamayu/screens/social/social_screen.dart';
 
 import '../../generated/l10n.dart';
+import '../../reusable_widgets/drawer.dart';
 import '../../reusable_widgets/navbar.dart';
 import '../../services/auth.dart';
 import '../outfits/outfits_screen.dart';
@@ -44,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
     return Scaffold(
         appBar: customAppBar(context, pageLabels[_selectedIndex]),
+        drawer: drawer(context),
         body: pages[_selectedIndex],
         bottomNavigationBar:
             NavBar(context, _selectedIndex, _onItemTapped, pageLabels));
