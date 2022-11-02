@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mokamayu/services/auth.dart';
-
 import '../../models/wardrobe/clothes.dart';
 
 final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -41,6 +40,14 @@ class DatabaseService {
         .collection('users')
         .doc(userUid)
         .collection('clothes')
+        .snapshots();
+  }
+
+  static Stream<QuerySnapshot> readOutfits() {
+    return db
+        .collection('users')
+        .doc(userUid)
+        .collection('outfits')
         .snapshots();
   }
 
