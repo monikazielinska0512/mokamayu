@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/screens/home/home_screen.dart';
-import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/reusable_widgets/reusable_button.dart';
+import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
+import 'package:mokamayu/screens/home/home_screen.dart';
 import 'package:mokamayu/services/auth.dart';
 import 'package:mokamayu/services/database/database_service.dart';
 import 'package:mokamayu/utils/validator.dart';
+
 import '../../models/user/login_user.dart';
 import '../../reusable_widgets/reusable_snackbar.dart';
 import '../../services/auth_exception_handler.dart';
@@ -24,8 +25,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _usernameTextController = TextEditingController();
+
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
+
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
@@ -127,13 +130,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 reusableButton(context, S.of(context).sign_up,
                                     () async {
-
                                   if (_form.currentState!.validate()) {
-                                    final status = await _auth
-                                        .registerEmailPassword(LoginUser(
+                                    final status = await _auth.register(
+                                        LoginUser(
                                             email: _emailTextController.text,
                                             password:
-                                                _passwordTextController.text));
+                                                _passwordTextController.text,
+                                            username:
+                                                _usernameTextController.text));
                                     if (status == AuthStatus.successful) {
                                       DatabaseService.addUser();
                                       Navigator.push(

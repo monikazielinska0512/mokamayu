@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mokamayu/services/auth.dart';
+
 import '../../models/wardrobe/clothes.dart';
 
 final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -10,8 +11,8 @@ class DatabaseService {
 
   final CollectionReference userClothesCollection =
       db.collection('users').doc(userUid).collection('clothes');
-  final CollectionReference userFriendsCollection =
-      db.collection('users').doc(userUid).collection('friends');
+  final DocumentReference userFriendsCollection =
+      db.collection('friends').doc(userUid);
   final CollectionReference userOutfitCollection =
       db.collection('users').doc(userUid).collection('outfits');
 
@@ -41,5 +42,12 @@ class DatabaseService {
         .doc(userUid)
         .collection('clothes')
         .snapshots();
+  }
+
+  Stream<DocumentSnapshot<Object?>> getFriendsList() =>
+      userFriendsCollection.snapshots();
+
+  Future<void> updateFriendsList(List<String> friendsList) async {
+    await db.collection('friends').doc(userUid).set({'friends': friendsList});
   }
 }

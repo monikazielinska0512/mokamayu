@@ -220,10 +220,10 @@ class S {
     );
   }
 
-  /// `An error occured. Please try again later`
+  /// `An error occurred. Please try again later`
   String get error_message {
     return Intl.message(
-      'An error occured. Please try again later',
+      'An error occurred. Please try again later',
       name: 'error_message',
       desc: '',
       args: [],
@@ -235,6 +235,46 @@ class S {
     return Intl.message(
       'DISMISS',
       name: 'dismiss',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Closet`
+  String get closet {
+    return Intl.message(
+      'Closet',
+      name: 'closet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outfits`
+  String get outfits {
+    return Intl.message(
+      'Outfits',
+      name: 'outfits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Social`
+  String get social {
+    return Intl.message(
+      'Social',
+      name: 'social',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message(
+      'Profile',
+      name: 'profile',
       desc: '',
       args: [],
     );
