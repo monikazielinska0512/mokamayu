@@ -23,7 +23,7 @@ Widget userSummary(BuildContext context, User? user,
             padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(user?.displayName ?? user?.email ?? 'Username',
                     style: TextStyle(
