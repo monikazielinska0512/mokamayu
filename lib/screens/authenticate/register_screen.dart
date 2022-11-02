@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/screens/home/home_screen.dart';
-import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
-import 'package:mokamayu/reusable_widgets/reusable_button.dart';
+import 'package:mokamayu/widgets/fields/reusable_text_field.dart';
+import 'package:mokamayu/widgets/buttons/reusable_button.dart';
 import 'package:mokamayu/services/auth.dart';
 import 'package:mokamayu/services/database/database_service.dart';
 import 'package:mokamayu/utils/validator.dart';
 import '../../models/user/login_user.dart';
-import '../../reusable_widgets/reusable_snackbar.dart';
+import '../../widgets/reusable_snackbar.dart';
 import '../../services/auth_exception_handler.dart';
 
 class RegisterScreen extends StatefulWidget {

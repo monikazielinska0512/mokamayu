@@ -17,16 +17,16 @@ class PhotoCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Column(children: [
-        Padding(padding: EdgeInsets.all(10), child:
-          ClipRRect(
-          borderRadius: BorderRadius.circular(15), // Image border
-          child: SizedBox.fromSize(
-            size: const Size.fromRadius(120), // Image radius
-            child: Image.network(object['photoURL'], fit: BoxFit.fill),
-          ),
-        )),
+        Padding(
+            padding: const EdgeInsets.all(10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15), // Image border
+              child: SizedBox.fromSize(
+                size: const Size.fromRadius(120), // Image radius
+                child: Image.network(object['photoURL'], fit: BoxFit.fill),
+              ),
+            )),
         Text(object['name'], style: TextStyles.paragraphRegularSemiBold14()),
-
       ]),
     );
   }

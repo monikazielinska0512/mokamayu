@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../res/colors.dart';
-import '../res/text_styles.dart';
+import '../../res/colors.dart';
+import '../../res/text_styles.dart';
 
 class SearchBar extends StatefulWidget {
   String title;

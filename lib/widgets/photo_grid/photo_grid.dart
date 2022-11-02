@@ -5,17 +5,14 @@ import 'package:mokamayu/services/database/database_service.dart';
 import '../../res/custom_colors.dart';
 import '../reusable_snackbar.dart';
 
-class PhotoGrid extends StatelessWidget {
-  const PhotoGrid(
-      {Key? key, required this.stream, this.scrollVertically = true})
-      : super(key: key);
+class PhotoGrid extends StatefulWidget {
+  PhotoGrid({Key? key}) : super(key: key);
 
-  final Stream<QuerySnapshot> stream;
-  final bool scrollVertically;
+  @override
+  _PhotoGridState createState() => _PhotoGridState();
+}
 
-  Axis getScrollDirection() =>
-      scrollVertically ? Axis.vertical : Axis.horizontal;
-
+class _PhotoGridState extends State<PhotoGrid> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -37,26 +34,19 @@ class PhotoGrid extends StatelessWidget {
             },
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 10.0,
-              mainAxisSpacing: 10,
+              childAspectRatio: 2.0,
+              crossAxisSpacing: 2.0,
+              mainAxisSpacing: 2,
+              mainAxisExtent: 300,
             ),
-            itemBuilder: (BuildContext context, int index) {
-              var clothesInfo = snapshot.data!.docs[index];
-              String docID = snapshot.data!.docs[index].id;
-              String name = clothesInfo['name'];
-              String photoURL = clothesInfo['photoURL'];
-              return PhotoBox(docID, photoURL, context);
-            },
-          );
+          ));
         }
-
         return const Center(
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(
-              CustomColors.firebaseOrange,
-            ),
+            child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(
+            CustomColors.primary,
           ),
-        );
+        ));
       },
     );
   }

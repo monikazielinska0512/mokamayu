@@ -2,8 +2,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import '../../../models/wardrobe/clothes.dart';
 import '../../../res/tags.dart';
-import '../../../reusable_widgets/dropdown_menu.dart';
-import '../../../reusable_widgets/reusable_text_field.dart';
+import '../../../widgets/dropdown_menu.dart';
+import '../../../widgets/fields/reusable_text_field.dart';
 import '../../../services/database/database_service.dart';
 
 class EditClothesForm extends StatefulWidget {
