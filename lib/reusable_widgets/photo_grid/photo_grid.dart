@@ -1,23 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/reusable_widgets/photo_grid/photo_box.dart';
+
 import '../../res/custom_colors.dart';
 import '../reusable_snackbar.dart';
 
 class PhotoGrid extends StatelessWidget {
   const PhotoGrid(
-      {Key? key, required this.stream, required this.flagHorizontal})
+      {Key? key, required this.stream, this.scrollVertically = true})
       : super(key: key);
 
   final Stream<QuerySnapshot> stream;
-  final bool flagHorizontal;
+  final bool scrollVertically;
 
-  Axis checkIfHorizontal() {
-    if (flagHorizontal) {
-      return Axis.horizontal;
-    }
-    return Axis.vertical;
-  }
+  Axis getScrollDirection() =>
+      scrollVertically ? Axis.vertical : Axis.horizontal;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +25,7 @@ class PhotoGrid extends StatelessWidget {
           CustomSnackBar.showErrorSnackBar(context);
         } else if (snapshot.hasData || snapshot.data != null) {
           return GridView.builder(
-            scrollDirection: checkIfHorizontal(),
+            scrollDirection: getScrollDirection(),
             itemCount: snapshot.data!.docs.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

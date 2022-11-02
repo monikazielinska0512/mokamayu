@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Email został wprowadzony w złym formacie"),
         "bad_password": MessageLookupByLibrary.simpleMessage(
             "Hasło musi mieć długość przynajmniej 6 znaków"),
+        "closet": MessageLookupByLibrary.simpleMessage("Szafa"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Potwierdź hasło"),
         "dismiss": MessageLookupByLibrary.simpleMessage("ZAMKNIJ"),
@@ -42,15 +43,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Zapomniałeś hasła?"),
         "no_account": MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
+        "outfits": MessageLookupByLibrary.simpleMessage("Stylizacje"),
         "passwords_dont_match":
             MessageLookupByLibrary.simpleMessage("Hasła nie są identyczne"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Proszę wprowadzić tekst"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profil"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Zresetuj hasło"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Zaloguj się"),
         "sign_out": MessageLookupByLibrary.simpleMessage("Wyloguj się"),
         "sign_up": MessageLookupByLibrary.simpleMessage(" Zarejestruj się"),
+        "social": MessageLookupByLibrary.simpleMessage("Społeczność"),
         "user_not_exist": MessageLookupByLibrary.simpleMessage(
             "Podany użytkownik nie istnieje"),
         "wrong_password":

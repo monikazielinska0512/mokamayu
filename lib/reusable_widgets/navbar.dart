@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 BottomAppBar NavBar(
-    BuildContext context, int _selectedIndex, Function _onItemTapped) {
+    BuildContext context, int _selectedIndex, Function _onItemTapped, List<String> pageLabels) {
   return BottomAppBar(
       shape: CircularNotchedRectangle(),
       notchMargin: 12,
@@ -12,22 +12,22 @@ BottomAppBar NavBar(
         onTap: (index) {
           _onItemTapped(index);
         },
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.checkroom_outlined),
-            label: 'Closet',
+            icon: const Icon(Icons.checkroom_outlined),
+            label: pageLabels[0],
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.collections_outlined),
-            label: 'Outfits',
+            icon: const Icon(Icons.collections_outlined),
+            label: pageLabels[1],
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.event_outlined),
-            label: 'Social',
+            icon: const Icon(Icons.event_outlined),
+            label: pageLabels[2],
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outlined),
-            label: 'Profile',
+            icon: const Icon(Icons.person_outlined),
+            label: pageLabels[3],
           ),
         ],
       ));
