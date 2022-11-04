@@ -1,29 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/reusable_widgets/photo_grid/photo_box.dart';
-import 'package:mokamayu/services/database/database_service.dart';
-import '../../res/custom_colors.dart';
+import '../../res/colors.dart';
 import '../reusable_snackbar.dart';
 
-class PhotoGrid extends StatefulWidget {
-  PhotoGrid({Key? key}) : super(key: key);
+class PhotoGrid extends StatelessWidget {
+  final Stream<QuerySnapshot> stream;
 
-  @override
-  _PhotoGridState createState() => _PhotoGridState();
-}
+  PhotoGrid({Key? key, required this.stream}) : super(key: key);
 
-class _PhotoGridState extends State<PhotoGrid> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: DatabaseService.readClothes(),
+      stream: stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           CustomSnackBar.showErrorSnackBar(context);
         } else if (snapshot.hasData || snapshot.data != null) {
-          return GridView.builder(
-            scrollDirection: getScrollDirection(),
-            itemCount: snapshot.data!.docs.length,
           return Center(
               child: GridView.builder(
             shrinkWrap: true,

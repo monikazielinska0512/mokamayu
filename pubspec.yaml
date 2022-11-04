@@ -65,7 +65,6 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -79,10 +78,6 @@ flutter:
       fonts:
         - asset: fonts/Poppins-Regular.ttf
         - asset: fonts/Poppins-SemiBold.ttf
-
-  # To add assets to your application, add an assets section, like this:
-#  assets:
-#    - assets/fonts
 
 
   #   - images/a_dot_ham.jpeg

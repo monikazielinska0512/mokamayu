@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/widgets/fields/reusable_text_field.dart';
-import 'package:mokamayu/widgets/buttons/reusable_button.dart';
+
 import 'package:mokamayu/services/auth.dart';
 
-import '../../widgets/reusable_snackbar.dart';
+import '../../reusable_widgets/buttons/reusable_button.dart';
+import '../../reusable_widgets/fields/reusable_text_field.dart';
+import '../../reusable_widgets/reusable_snackbar.dart';
 import '../../services/auth_exception_handler.dart';
 import '../../utils/validator.dart';
 
@@ -62,8 +63,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                                   height: 20,
                                 ),
                                 reusableButton(context,
-                                    title: S.of(context).reset_password,
-                                    onTap: () async {
+                                    S.of(context).reset_password,
+                                    () async {
                                   if (_form.currentState!.validate()) {
                                     dynamic result = await _auth.resetPassword(
                                         _emailTextController.text);

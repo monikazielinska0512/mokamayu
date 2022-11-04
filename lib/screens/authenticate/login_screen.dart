@@ -3,13 +3,13 @@ import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/screens/home/home_screen.dart';
 import 'package:mokamayu/screens/authenticate/register_screen.dart';
 import 'package:mokamayu/screens/authenticate/reset_password_screen.dart';
-import 'package:mokamayu/widgets/fields/reusable_text_field.dart';
-import 'package:mokamayu/widgets/buttons/reusable_button.dart';
 import 'package:mokamayu/services/auth.dart';
 import 'package:mokamayu/services/auth_exception_handler.dart';
 
 import '../../models/user/login_user.dart';
-import '../../widgets/reusable_snackbar.dart';
+import '../../reusable_widgets/buttons/reusable_button.dart';
+import '../../reusable_widgets/fields/reusable_text_field.dart';
+import '../../reusable_widgets/reusable_snackbar.dart';
 import '../../utils/validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -92,8 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _passwordTextController.text, context)),
                               forgottenPassword(context),
                               reusableButton(context,
-                                  title: S.of(context).sign_in,
-                                  onTap: () async {
+                                   S.of(context).sign_in,
+                                  () async {
                                 if (_form.currentState!.validate()) {
                                   final status =
                                       await _auth.signInEmailPassword(LoginUser(

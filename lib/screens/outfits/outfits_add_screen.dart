@@ -32,10 +32,10 @@ class _CreateOutfitPageState extends State<CreateOutfitPage> {
               height: 300,
               child: PhotoGrid(
                 stream: DatabaseService.readClothes(),
-                scrollVertically: false,
               ),
             )
           ],
         ));
   }
 }
+
