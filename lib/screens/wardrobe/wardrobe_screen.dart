@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/res/colors.dart';
+import 'package:mokamayu/screens/wardrobe/form/add_photo_screen.dart';
 import 'package:mokamayu/services/database/database_service.dart';
 import '../../res/tags.dart';
 import '../../reusable_widgets/basic_page.dart';
@@ -9,7 +10,6 @@ import '../../reusable_widgets/chips/choice_chips.dart';
 import '../../reusable_widgets/fields/search_bar.dart';
 import '../../reusable_widgets/page_title.dart';
 import '../../reusable_widgets/photo_grid/photo_grid.dart';
-
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
@@ -59,7 +59,12 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
             ],
           ),
           FloatingButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PhotoPickerScreen()));
+              },
               icon: const Icon(Icons.add),
               backgroundColor: CustomColors.primary,
               padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),

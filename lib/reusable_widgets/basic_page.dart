@@ -23,6 +23,7 @@ class BasicPage extends StatelessWidget {
                   top: MediaQuery.of(context).size.height * 0.05,
                   left: MediaQuery.of(context).size.width * 0.0533,
                   right: MediaQuery.of(context).size.width * 0.0533,
+                  bottom: MediaQuery.of(context).size.width * 0.05,
                 ),
                 child: child)));
   }
