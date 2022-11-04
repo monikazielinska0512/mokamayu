@@ -60,7 +60,7 @@ class AuthService {
     }
   }
 
-  String getCurrentUserUID() {
+  String getCurrentUserID() {
     final User? user = _auth.currentUser;
     final uid = user?.uid;
     return uid.toString();
