@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "The email address is badly formatted"),
         "bad_password": MessageLookupByLibrary.simpleMessage(
             "Password should be at least 6 characters long"),
+        "closet": MessageLookupByLibrary.simpleMessage("Closet"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "dismiss": MessageLookupByLibrary.simpleMessage("DISMISS"),
@@ -37,20 +38,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "enter_username":
             MessageLookupByLibrary.simpleMessage("Enter Username"),
         "error_message": MessageLookupByLibrary.simpleMessage(
-            "An error occured. Please try again later"),
+            "An error occurred. Please try again later"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "no_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
+        "outfits": MessageLookupByLibrary.simpleMessage("Outfits"),
         "passwords_dont_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Please enter text"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Log in"),
         "sign_out": MessageLookupByLibrary.simpleMessage(" Sign out"),
         "sign_up": MessageLookupByLibrary.simpleMessage(" Sign up"),
+        "social": MessageLookupByLibrary.simpleMessage("Social"),
         "user_not_exist":
             MessageLookupByLibrary.simpleMessage("User does not exist"),
         "wrong_password": MessageLookupByLibrary.simpleMessage(

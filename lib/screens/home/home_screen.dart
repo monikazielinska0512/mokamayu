@@ -1,10 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/screens/authenticate/login_screen.dart';
-import 'package:mokamayu/services/auth.dart';
+import 'package:mokamayu/reusable_widgets/appbar.dart';
+import 'package:mokamayu/screens/profile/profile_screen.dart';
+import 'package:mokamayu/screens/social/social_screen.dart';
+
+import '../../generated/l10n.dart';
+import '../../reusable_widgets/drawer.dart';
+import '../../reusable_widgets/navbar.dart';
+import '../../services/auth.dart';
+import '../outfits/outfits_screen.dart';
+import '../wardrobe/wardrobe_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
   final String title;
 
   @override
@@ -12,15 +20,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static final User user = AuthService().currentUser!;
   int _selectedIndex = 0;
-  final AuthService _auth = AuthService();
-
   static List<Widget> pages = <Widget>[
-    Container(),
-    Container(),
-    Container(),
-    Container(),
-    Container(),
+    const WardrobeScreen(),
+    const OutfitsScreen(),
+    const SocialScreen(),
+    ProfileScreen(user: user),
   ];
 
   void _onItemTapped(int index) {
@@ -31,66 +37,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> pageLabels = [
+      S.of(context).closet,
+      S.of(context).outfits,
+      S.of(context).social,
+      S.of(context).profile,
+    ];
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        leading: GestureDetector(
-          onTap: () {},
-          child: const Icon(
-            Icons.menu,
-          ),
-        ),
-        actions: [
-          PopupMenuButton<int>(
-              onSelected: (item) => onSelected(context, item),
-              itemBuilder: (context) => [
-                    const PopupMenuItem(
-                      value: 0,
-                      child: Text('Sign out'),
-                    )
-                  ])
-        ],
-      ),
-      body: pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          _onItemTapped(index);
-        },
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.checkroom_outlined),
-            label: 'Closet',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.collections_outlined),
-            label: 'Outfits',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.folder_outlined),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.event_outlined),
-            label: 'Calendar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outlined),
-            label: 'Profile',
-          ),
-        ],
-      ),
-    );
-  }
-
-  void onSelected(BuildContext context, int item) {
-    switch (item) {
-      case 0:
-        _auth.signOut();
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()));
-        break;
-    }
+        appBar: customAppBar(context, pageLabels[_selectedIndex]),
+        drawer: drawer(context),
+        body: pages[_selectedIndex],
+        bottomNavigationBar:
+            NavBar(context, _selectedIndex, _onItemTapped, pageLabels));
   }
 }

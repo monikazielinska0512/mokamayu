@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import '../models/login_user.dart';
-import '../models/firebase_user.dart';
+
+import '../models/user/firebase_user.dart';
+import '../models/user/login_user.dart';
 import 'auth_exception_handler.dart';
 
 class AuthService {
@@ -16,6 +17,8 @@ class AuthService {
     return _auth.authStateChanges().map(_firebaseUser);
   }
 
+  User? get currentUser => _auth.currentUser;
+
   Future signInEmailPassword(LoginUser _login) async {
     await _auth
         .signInWithEmailAndPassword(
@@ -27,14 +30,16 @@ class AuthService {
     return _status;
   }
 
-  Future registerEmailPassword(LoginUser _login) async {
+  Future register(LoginUser _login) async {
     await _auth
         .createUserWithEmailAndPassword(
             email: _login.email.toString(),
             password: _login.password.toString())
         .then((value) => _status = AuthStatus.successful)
         .catchError(
-            (e) => _status = AuthExceptionHandler.handleAuthException(e));
+            (e) => _status = AuthExceptionHandler.handleAuthException(e))
+        .whenComplete(
+            () => _auth.currentUser?.updateDisplayName(_login.username));
     return _status;
   }
 
@@ -53,5 +58,11 @@ class AuthService {
     } catch (e) {
       return null;
     }
+  }
+
+  String getCurrentUserUID() {
+    final User? user = _auth.currentUser;
+    final uid = user?.uid;
+    return uid.toString();
   }
 }
