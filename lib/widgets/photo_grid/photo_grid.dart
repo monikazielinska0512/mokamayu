@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/reusable_widgets/photo_grid/photo_box.dart';
-import '../../res/colors.dart';
+import 'package:mokamayu/widgets/photo_grid/photo_box.dart';
+import '../../constants/colors.dart';
 import '../reusable_snackbar.dart';
 
 class PhotoGrid extends StatelessWidget {

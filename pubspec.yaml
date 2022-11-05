@@ -34,12 +34,12 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cloud_firestore: ^4.0.2
-  cloud_functions: ^4.0.2
+  cloud_firestore: ^4.0.4
+  cloud_functions: ^4.0.3
   cupertino_icons: ^1.0.2
-  firebase_core: ^2.1.0
-  firebase_auth: ^4.0.2
-  firebase_storage: ^11.0.2
+  firebase_core: ^2.1.1
+  firebase_auth: ^4.1.1
+  firebase_storage: ^11.0.4
   image_picker: ^0.8.4
   provider: ^6.0.3
   path: ^1.8.0
@@ -49,6 +49,7 @@ dependencies:
   flutter_styled_toast: ^2.1.3
   unicons: any
   fluentui_system_icons: ^1.1.185
+  google_nav_bar: ^5.0.6
 
 dev_dependencies:
   flutter_test:
@@ -68,20 +69,23 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-  uses-material-design: true
-
   assets:
-     - assets/
-     
+    - assets/images/
   fonts:
     - family: Montserrat
       fonts:
-        - asset: fonts/Montserrat-Medium.ttf
-        - asset: fonts/Montserrat-Semibold.ttf
+        - asset: assets/fonts/Montserrat-Medium.ttf
+        - asset: assets/fonts/Montserrat-Semibold.ttf
     - family: Poppins
       fonts:
-        - asset: fonts/Poppins-Regular.ttf
-        - asset: fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
 
 
   #   - images/a_dot_ham.jpeg

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/res/constants.dart';
-import 'package:mokamayu/services/auth.dart';
+import 'package:mokamayu/constants/constants.dart';
+import '../../services/authentication/auth.dart';
 import '../buttons/reusable_button.dart';
 
 Widget userSummary(BuildContext context, User? user,

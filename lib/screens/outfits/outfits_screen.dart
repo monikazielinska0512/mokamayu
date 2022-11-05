@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../reusable_widgets/photo_grid/photo_grid.dart';
+import '../../widgets/photo_grid/photo_grid.dart';
 import '../../services/database/database_service.dart';
 import 'create_outfit_dialog.dart';
 

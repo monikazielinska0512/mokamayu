@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/reusable_widgets/user/user_summary.dart';
+import 'package:mokamayu/widgets/user/user_summary.dart';
 
 import '../screens/authenticate/login_screen.dart';
-import '../services/auth.dart';
+import '../services/authentication/auth.dart';
 
 Drawer drawer(BuildContext context) {
   AuthService _auth = AuthService();

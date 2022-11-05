@@ -3,13 +3,13 @@ import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/screens/home/home_screen.dart';
 import 'package:mokamayu/screens/authenticate/register_screen.dart';
 import 'package:mokamayu/screens/authenticate/reset_password_screen.dart';
-import 'package:mokamayu/services/auth.dart';
-import 'package:mokamayu/services/auth_exception_handler.dart';
+import 'package:mokamayu/services/authentication/auth_exception_handler.dart';
 
 import '../../models/user/login_user.dart';
-import '../../reusable_widgets/buttons/reusable_button.dart';
-import '../../reusable_widgets/fields/reusable_text_field.dart';
-import '../../reusable_widgets/reusable_snackbar.dart';
+import '../../services/authentication/auth.dart';
+import '../../widgets/buttons/reusable_button.dart';
+import '../../widgets/fields/reusable_text_field.dart';
+import '../../widgets/reusable_snackbar.dart';
 import '../../utils/validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -48,14 +48,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: <Widget>[
                             Positioned(
                               child: Image.asset(
-                                "assets/mountains.png",
+                                "assets/images/mountains.png",
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
                             Positioned(
                               right: 70,
                               child: Image.asset(
-                                "assets/girl.png",
+                                "assets/images/girl.png",
                                 fit: BoxFit.fitWidth,
                                 height: 210,
                               ),
@@ -91,8 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   (value) => Validator.validatePassword(
                                       _passwordTextController.text, context)),
                               forgottenPassword(context),
-                              reusableButton(context,
-                                   S.of(context).sign_in,
+                              reusableButton(context, S.of(context).sign_in,
                                   () async {
                                 if (_form.currentState!.validate()) {
                                   final status =
@@ -155,7 +154,7 @@ Widget forgottenPassword(BuildContext context) {
     child: TextButton(
       child: Text(
         S.of(context).forgot_password,
-        style: TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.black),
         textAlign: TextAlign.right,
       ),
       onPressed: () => Navigator.push(context,

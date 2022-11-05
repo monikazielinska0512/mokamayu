@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:mokamayu/res/colors.dart';
-import 'package:mokamayu/services/auth.dart';
+import 'package:mokamayu/constants/colors.dart';
+import 'package:mokamayu/services/authentication/auth.dart';
 import 'package:mokamayu/wrapper.dart';
 import 'models/user/firebase_user.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

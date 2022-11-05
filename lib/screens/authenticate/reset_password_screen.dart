@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
-
-import 'package:mokamayu/services/auth.dart';
-
-import '../../reusable_widgets/buttons/reusable_button.dart';
-import '../../reusable_widgets/fields/reusable_text_field.dart';
-import '../../reusable_widgets/reusable_snackbar.dart';
-import '../../services/auth_exception_handler.dart';
+import '../../services/authentication/auth.dart';
+import '../../widgets/buttons/reusable_button.dart';
+import '../../widgets/fields/reusable_text_field.dart';
+import '../../services/authentication/auth_exception_handler.dart';
 import '../../utils/validator.dart';
+import '../../widgets/reusable_snackbar.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
