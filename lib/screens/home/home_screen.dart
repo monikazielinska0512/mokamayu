@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/reusable_widgets/appbar.dart';
 import 'package:mokamayu/screens/profile/profile_screen.dart';
 import 'package:mokamayu/screens/social/social_screen.dart';
 
 import '../../generated/l10n.dart';
+import '../../reusable_widgets/appbar.dart';
 import '../../reusable_widgets/drawer.dart';
 import '../../reusable_widgets/navbar.dart';
 import '../../services/auth.dart';

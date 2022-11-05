@@ -3,12 +3,12 @@ import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/screens/home/home_screen.dart';
 import 'package:mokamayu/screens/authenticate/register_screen.dart';
 import 'package:mokamayu/screens/authenticate/reset_password_screen.dart';
-import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
-import 'package:mokamayu/reusable_widgets/reusable_button.dart';
 import 'package:mokamayu/services/auth.dart';
 import 'package:mokamayu/services/auth_exception_handler.dart';
 
 import '../../models/user/login_user.dart';
+import '../../reusable_widgets/buttons/reusable_button.dart';
+import '../../reusable_widgets/fields/reusable_text_field.dart';
 import '../../reusable_widgets/reusable_snackbar.dart';
 import '../../utils/validator.dart';
 
@@ -23,16 +23,18 @@ class _LoginScreenState extends State<LoginScreen> {
   final AuthService _auth = AuthService();
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailtextController = TextEditingController();
+
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
+
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 244, 232, 217),
-        body: Container(
+        backgroundColor: const Color.fromARGB(255, 244, 232, 217),
+        body: SizedBox(
             width: deviceWidth(context),
             height: deviceHeight(context),
             child: SingleChildScrollView(
@@ -51,12 +53,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             Positioned(
+                              right: 70,
                               child: Image.asset(
                                 "assets/girl.png",
                                 fit: BoxFit.fitWidth,
                                 height: 210,
                               ),
-                              right: 70,
                             )
                           ],
                         ),
@@ -89,7 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   (value) => Validator.validatePassword(
                                       _passwordTextController.text, context)),
                               forgottenPassword(context),
-                              reusableButton(context, S.of(context).sign_in,
+                              reusableButton(context,
+                                   S.of(context).sign_in,
                                   () async {
                                 if (_form.currentState!.validate()) {
                                   final status =

@@ -13,7 +13,7 @@ TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
     decoration: InputDecoration(
       prefixIcon: Icon(
         icon,
-        color: Color.fromARGB(255, 126, 68, 68),
+        color: const Color.fromARGB(255, 126, 68, 68),
       ),
       labelText: text,
       labelStyle: TextStyle(color: Colors.black.withOpacity(0.9)),
