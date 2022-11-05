@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../reusable_widgets/appbar.dart';
-import '../../reusable_widgets/photo_grid/photo_grid.dart';
+import '../../widgets/appbar.dart';
+import '../../widgets/photo_grid/photo_grid.dart';
 import '../../services/database/database_service.dart';
 
 class CreateOutfitPage extends StatefulWidget {

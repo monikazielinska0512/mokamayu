@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/res/colors.dart';
-import 'package:mokamayu/res/text_styles.dart';
+import 'package:mokamayu/constants/colors.dart';
+import 'package:mokamayu/constants/text_styles.dart';
 
 class PhotoCard extends StatelessWidget {
   QueryDocumentSnapshot<Object?> object;

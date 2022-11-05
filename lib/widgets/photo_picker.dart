@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mokamayu/res/colors.dart';
+import 'package:mokamayu/constants/colors.dart';
 
 class PhotoPicker extends StatefulWidget {
   File? photo;

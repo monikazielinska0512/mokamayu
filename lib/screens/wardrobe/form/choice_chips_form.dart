@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../res/tags.dart';
 
 class ChoiceChipFormField extends StatefulWidget {
   ChoiceChipFormField({

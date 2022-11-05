@@ -4,10 +4,10 @@ import 'package:mokamayu/screens/profile/profile_screen.dart';
 import 'package:mokamayu/screens/social/social_screen.dart';
 
 import '../../generated/l10n.dart';
-import '../../reusable_widgets/appbar.dart';
-import '../../reusable_widgets/drawer.dart';
-import '../../reusable_widgets/navbar.dart';
-import '../../services/auth.dart';
+import '../../services/authentication/auth.dart';
+import '../../widgets/appbar.dart';
+import '../../widgets/drawer.dart';
+import '../../widgets/navbar.dart';
 import '../outfits/outfits_screen.dart';
 import '../wardrobe/wardrobe_screen.dart';
 
@@ -29,11 +29,6 @@ class _MyHomePageState extends State<MyHomePage> {
     ProfileScreen(user: user),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +43,11 @@ class _MyHomePageState extends State<MyHomePage> {
         drawer: drawer(context),
         body: pages[_selectedIndex],
         bottomNavigationBar:
-            NavBar(context, _selectedIndex, _onItemTapped, pageLabels));
+            NavBar(selectedIndex: _selectedIndex, onTabChange: (int index) {
+              setState(() {
+                print(index);
+                _selectedIndex = index;
+              });
+            }));
   }
 }

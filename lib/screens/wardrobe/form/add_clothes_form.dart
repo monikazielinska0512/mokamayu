@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/wardrobe/wardrobe_screen.dart';
 import 'package:mokamayu/services/storage.dart';
 
+import '../../../constants/tags.dart';
 import '../../../models/wardrobe/clothes.dart';
-import '../../../res/tags.dart';
-import '../../../reusable_widgets/dropdown_menu.dart';
-import '../../../reusable_widgets/fields/reusable_text_field.dart';
+import '../../../widgets/dropdown_menu.dart';
+import '../../../widgets/fields/reusable_text_field.dart';
 import '../../../services/database/database_service.dart';
 
 class AddClothesForm extends StatefulWidget {

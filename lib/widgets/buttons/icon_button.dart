@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/res/colors.dart';
+import 'package:mokamayu/constants/colors.dart';
 
 class CustomIconButton extends StatelessWidget {
   Function()? onPressed;

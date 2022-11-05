@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../res/colors.dart';
-import '../../res/text_styles.dart';
+import '../../constants/colors.dart';
+import '../../constants/text_styles.dart';
 
 class ChoiceChips extends StatefulWidget {
   final List chipsList;

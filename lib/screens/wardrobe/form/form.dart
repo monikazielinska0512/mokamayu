@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/res/tags.dart';
+import 'package:mokamayu/constants/tags.dart';
 import 'package:mokamayu/screens/wardrobe/form/choice_chips_form.dart';
 
 import '../../../models/wardrobe/clothes.dart';
