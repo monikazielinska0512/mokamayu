@@ -1,97 +1,99 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/constants/tags.dart';
-import 'package:mokamayu/screens/wardrobe/form/choice_chips_form.dart';
+import 'package:mokamayu/constants/text_styles.dart';
 
-import '../../../models/wardrobe/clothes.dart';
-import 'filter_chips_field.dart';
+import '../../../widgets/chips/choice_chips.dart';
+import 'choice_form_field.dart';
 
-class FormScreen extends StatefulWidget {
-  Clothes? clothes;
-  String? clothesID;
-  File? photo;
+class ClothesForm extends StatefulWidget {
+  final File? photo;
 
-  FormScreen({Key? key, required this.clothesID, this.photo, required clothes})
-      : super(key: key);
+  const ClothesForm({Key? key, required this.photo}) : super(key: key);
+
   @override
-  _FormScreenState createState() => _FormScreenState();
+  _ClothesFormState createState() => _ClothesFormState();
 }
 
-class _FormScreenState extends State<FormScreen> {
+class _ClothesFormState extends State<ClothesForm> {
+  String _type = "";
+  String _size = "";
+
+  @override
+  void initState() {
+    String _type = "";
+    String _size = "";
+    super.initState();
+  }
 
   final _formKey = GlobalKey<FormState>();
-  String _name = "";
-  String selectedType = "Type";
-  String? selectedSize = "";
-  List<String> _selectedStyles = [];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Form(
-          key: _formKey,
-          autovalidateMode: AutovalidateMode.always,
-          child: Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const Text('Name of your clothes'),
-                TextFormField(
-                  onSaved: (value) => _name = value!,
-                  validator: (value) {
-                    if (value!.length < 3) {
-                      return 'a minimum of 3 characters is required';
-                    }
-                    return null;
-                  },
-                ),
-                DropdownButtonFormField<String>(
-                  value: selectedType,
-                  hint: const Text(
-                    'Clothes type',
+    return Padding(
+        padding:
+            const EdgeInsets.only(top: 30, bottom: 10, left: 30, right: 30),
+        child: SingleChildScrollView(
+            child: Form(
+                key: _formKey,
+                child: Column(children: [
+                  TextFormField(
+                      autovalidateMode: AutovalidateMode.disabled,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter name';
+                        }
+                        if (value.length > 20) {
+                          return 'Maximum lenght is 20 characters';
+                        }
+                        return null;
+                      },
+                      style: const TextStyle(
+                          fontSize: 26,
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w600),
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        labelText: 'Enter your clothes name',
+                        labelStyle: TextStyle(
+                            fontSize: 22,
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.w600),
+                        focusedBorder: InputBorder.none,
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        contentPadding: EdgeInsets.only(
+                            left: 10, bottom: 0, top: 11, right: 15),
+                      )),
+                  const SizedBox(height: 10),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: ChoiceChipsFormField(
+                        autoValidate: true,
+                        validator: (value) {
+                          if (value == "") {
+                            return 'Wybrano M';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) => _size = value!,
+                        chipsList: ["XS", "S", "M", "L", "XL", "XXL"],
+                      )),
+                  const SizedBox(height: 100),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Valid')),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Not Valid')));
+                      }
+                    },
+                    child: const Text('Add clothes'),
                   ),
-                  onChanged: (salutation) =>
-                      setState(() => selectedType = salutation!),
-                  validator: (value) =>
-                      value == "Type" ? 'Field required' : null,
-                  items: ["Type", 'M', 'S', "XL", "L"]
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-                ChoiceChipFormField(
-                    list: Tags.sizes,
-                    validator: (size) => size == null ? 'Field required' : null,
-                    onChanged: (size) {
-                      selectedSize = size;
-                    }),
-                FilterChipFormField(
-                    list: Tags.styles,
-                    onChanged: (size) {
-                      _selectedStyles = size;
-                      print(_selectedStyles.toString());
-                    }),
-                TextButton(
-                  child: const Text('Add clothes'),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        _formKey.currentState?.save();
-                      });
-                    }
-                  },
-                ),
-                const SizedBox(height: 50.0),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+                ]))));
   }
 }

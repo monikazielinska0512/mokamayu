@@ -4,8 +4,6 @@ import '../../../widgets/photo_picker.dart';
 import 'add_clothes_form.dart';
 
 class PhotoPickerScreen extends StatefulWidget {
-  final PhotoPicker _picker = PhotoPicker(width: 370, height: 600);
-
   PhotoPickerScreen({Key? key}) : super(key: key);
 
   @override
@@ -15,35 +13,28 @@ class PhotoPickerScreen extends StatefulWidget {
 class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
   @override
   Widget build(BuildContext context) {
+    final PhotoPicker _picker = PhotoPicker(
+        width: 370, height: MediaQuery.of(context).size.height * 0.7);
     return BasicPage(
         context: context,
         child: Center(
             child: SizedBox(
                 height: double.maxFinite,
                 child: Column(children: <Widget>[
-                  widget._picker,
+                    BackButton(),
+                  _picker,
+                  const SizedBox(height: 10),
                   TextButton(
                       onPressed: () {
-                        widget._picker.photo != null
+                        _picker.photo != null
                             ? Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AddClothesForm(
-                                        photo: widget._picker.photo)))
+                                    builder: (context) =>
+                                        AddClothesForm(photo: _picker.photo)))
                             : null;
                       },
-                      child: Text("elo"))
+                      child: const Text("Przjedź dalej"))
                 ]))));
   }
 }
-
-// Padding(
-//     padding: const EdgeInsets.all(20.0),
-//     child: ElevatedButton(
-//         onPressed: () {
-// //           print(_picker.photo);
-// //         },
-//         child: const Text("Przejdź dalej"))),
-// // child: ElevatedButton(
-//     onPressed:
-// //     child: const Text("Przejdź dalej"))),
