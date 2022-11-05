@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-BottomAppBar NavBar(
-    BuildContext context, int _selectedIndex, Function _onItemTapped, List<String> pageLabels) {
+BottomAppBar NavBar(BuildContext context, int _selectedIndex,
+    Function _onItemTapped, List<String> pageLabels) {
   return BottomAppBar(
       shape: CircularNotchedRectangle(),
       notchMargin: 12,
