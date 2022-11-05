@@ -8,7 +8,6 @@ import '../../reusable_widgets/appbar.dart';
 import '../../reusable_widgets/drawer.dart';
 import '../../reusable_widgets/navbar.dart';
 import '../../services/auth.dart';
-import '../outfits/create_outfit_dialog.dart';
 import '../outfits/outfits_screen.dart';
 import '../wardrobe/wardrobe_screen.dart';
 
@@ -44,30 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
       S.of(context).social,
       S.of(context).profile,
     ];
-
-    FloatingActionButton? checkForOutfitsScreen() {
-      if (_selectedIndex == 1) {
-        return FloatingActionButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return CustomDialogBox.outfitsDialog(context);
-                  });
-            },
-            backgroundColor: Color.fromARGB(255, 244, 232, 217),
-            child: Icon(Icons.add));
-      }
-      return null;
-    }
-
     return Scaffold(
         appBar: customAppBar(context, pageLabels[_selectedIndex]),
         drawer: drawer(context),
         body: pages[_selectedIndex],
-        floatingActionButton: checkForOutfitsScreen(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        // bottomNavigationBar: NavBar(context, _selectedIndex, _onItemTapped));
         bottomNavigationBar:
             NavBar(context, _selectedIndex, _onItemTapped, pageLabels));
   }
