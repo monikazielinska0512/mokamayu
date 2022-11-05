@@ -49,7 +49,7 @@ class TextStyles {
         color: color);
   }
 
-  static TextStyle h6([Color? color]) {
+  static TextStyle h6({Color? color = Colors.black}) {
     return TextStyle(
         fontSize: 18,
         fontFamily: "Montserrat",
@@ -81,7 +81,7 @@ class TextStyles {
         color: color);
   }
 
-  static TextStyle paragraphRegular16([Color? color]) {
+  static TextStyle paragraphRegular16([Color? color = Colors.black]) {
     return TextStyle(
         fontSize: 16,
         fontFamily: "Poppins",
@@ -89,12 +89,11 @@ class TextStyles {
         color: color);
   }
 
-  static TextStyle paragraphRegularSemiBold16([Color? color]) {
+  static TextStyle paragraphRegularSemiBold16() {
     return TextStyle(
         fontSize: 16,
         fontFamily: "Poppins",
-        fontWeight: FontWeight.w600,
-        color: color);
+        fontWeight: FontWeight.w600);
   }
 
   static TextStyle paragraphRegular14([Color? color]) {

@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../generated/l10n.dart';
-import '../../reusable_widgets/buttons/reusable_button.dart';
-import '../../reusable_widgets/photo_grid/photo_grid.dart';
-import '../../reusable_widgets/user/user_summary.dart';
-import '../../services/auth.dart';
+import '../../services/authentication/auth.dart';
+import '../../widgets/buttons/reusable_button.dart';
+import '../../widgets/photo_grid/photo_grid.dart';
+import '../../widgets/user/user_summary.dart';
 import '../../services/database/database_service.dart';
 
 

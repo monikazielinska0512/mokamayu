@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mokamayu/services/auth.dart';
 import '../../models/wardrobe/clothes.dart';
+import '../authentication/auth.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 

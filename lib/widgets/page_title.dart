@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import '../res/colors.dart';
-import '../res/text_styles.dart';
+import '../constants/colors.dart';
+import '../constants/text_styles.dart';
 
 class PageTitle extends StatelessWidget {
   final String title;

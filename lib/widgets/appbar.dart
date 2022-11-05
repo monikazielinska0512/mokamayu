@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens/authenticate/login_screen.dart';
-import '../services/auth.dart';
+import '../services/authentication/auth.dart';
 
 AppBar customAppBar(BuildContext context, String title) {
   final AuthService _auth = AuthService();

@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mokamayu/screens/outfits/create_outfit_dialog.dart';
 import 'package:mokamayu/screens/profile/profile_screen.dart';
 import 'package:mokamayu/screens/social/social_screen.dart';
 
 import '../../generated/l10n.dart';
-import '../../reusable_widgets/appbar.dart';
-import '../../reusable_widgets/drawer.dart';
-import '../../reusable_widgets/navbar.dart';
-import '../../services/auth.dart';
-import '../outfits/create_outfit_dialog.dart';
+import '../../services/authentication/auth.dart';
+import '../../widgets/appbar.dart';
+import '../../widgets/drawer.dart';
+import '../../widgets/navbar.dart';
 import '../outfits/outfits_screen.dart';
 import '../wardrobe/wardrobe_screen.dart';
 
@@ -30,12 +30,6 @@ class _MyHomePageState extends State<MyHomePage> {
     ProfileScreen(user: user),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     List<String> pageLabels = [
@@ -55,8 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     return CustomDialogBox.outfitsDialog(context);
                   });
             },
-            backgroundColor: Color.fromARGB(255, 244, 232, 217),
-            child: Icon(Icons.add));
+            backgroundColor: const Color.fromARGB(255, 244, 232, 217),
+            child: const Icon(Icons.add));
       }
       return null;
     }
@@ -68,7 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButton: checkForOutfitsScreen(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         // bottomNavigationBar: NavBar(context, _selectedIndex, _onItemTapped));
-        bottomNavigationBar:
-            NavBar(context, _selectedIndex, _onItemTapped, pageLabels));
+        bottomNavigationBar: NavBar(
+            selectedIndex: _selectedIndex,
+            onTabChange: (int index) {
+              setState(() {
+                print(index);
+                _selectedIndex = index;
+              });
+            }));
   }
 }
