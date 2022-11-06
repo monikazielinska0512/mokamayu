@@ -21,7 +21,7 @@ class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
             child: SizedBox(
                 height: double.maxFinite,
                 child: Column(children: <Widget>[
-                    BackButton(),
+                  BackButton(),
                   _picker,
                   const SizedBox(height: 10),
                   TextButton(

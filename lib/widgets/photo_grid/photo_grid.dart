@@ -38,7 +38,7 @@ class PhotoGrid extends StatelessWidget {
                     childAspectRatio: 2.0,
                     crossAxisSpacing: 2.0,
                     mainAxisSpacing: 2,
-                    mainAxisExtent: 300,
+                    mainAxisExtent: 250,
                   )
                 : const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
