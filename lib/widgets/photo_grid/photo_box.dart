@@ -14,33 +14,76 @@ class PhotoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String photoUrl = object['photo_url'];
     String name = object['name'];
-    return GestureDetector(
-      onTap: () async {
-        print('here');
-      },
-      child: Card(
-        elevation: 4,
-        color: CustomColors.soft,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Column(children: [
-          Padding(
-              padding: const EdgeInsets.all(10),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15), // Image border
-                child: SizedBox.fromSize(
-                  size: scrollVertically
-                      ? const Size.fromRadius(100)
-                      : const Size.fromRadius(60), // Image radius
+    return !scrollVertically
+        ? Draggable(
+            // onTap: () async {
+            //   print(object.id);
+            // },
+            data: [object.id],
+            feedback: Card(
+              elevation: 4,
+              color: CustomColors.soft,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Column(children: [
+                Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15), // Image border
+                      child: SizedBox.fromSize(
+                        size: scrollVertically
+                            ? const Size.fromRadius(100)
+                            : const Size.fromRadius(60), // Image radius
 
-                  child: Image.network(photoUrl, fit: BoxFit.fill),
-                ),
-              )),
-          if (scrollVertically)
-            Text(name, style: TextStyles.paragraphRegularSemiBold14()),
-        ]),
-      ),
-    );
+                        child: Image.network(photoUrl, fit: BoxFit.fill),
+                      ),
+                    )),
+              ]),
+            ),
+            child: Card(
+              elevation: 4,
+              color: CustomColors.soft,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Column(children: [
+                Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15), // Image border
+                      child: SizedBox.fromSize(
+                        size: scrollVertically
+                            ? const Size.fromRadius(100)
+                            : const Size.fromRadius(60), // Image radius
+
+                        child: Image.network(photoUrl, fit: BoxFit.fill),
+                      ),
+                    )),
+              ]),
+            ),
+          )
+        : Card(
+            elevation: 4,
+            color: CustomColors.soft,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: Column(children: [
+              Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15), // Image border
+                    child: SizedBox.fromSize(
+                      size: scrollVertically
+                          ? const Size.fromRadius(100)
+                          : const Size.fromRadius(60), // Image radius
+
+                      child: Image.network(photoUrl, fit: BoxFit.fill),
+                    ),
+                  )),
+              Text(name, style: TextStyles.paragraphRegularSemiBold14()),
+            ]),
+          );
   }
 }

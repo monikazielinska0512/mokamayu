@@ -13,6 +13,7 @@ class CreateOutfitPage extends StatefulWidget {
 }
 
 class _CreateOutfitPageState extends State<CreateOutfitPage> {
+  bool accepted = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +21,27 @@ class _CreateOutfitPageState extends State<CreateOutfitPage> {
         body: Column(
           children: <Widget>[
             //canvas for dragging photos
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 450.0,
-              color: Color.fromARGB(255, 244, 232, 217),
+            DragTarget(
+              builder: (context, candidateData, rejectedData) {
+                return accepted
+                    ? Container(
+                        height: 450.0,
+                        width: MediaQuery.of(context).size.width,
+                        color: Color.fromARGB(255, 244, 232, 217),
+                      )
+                    : Container(
+                        height: 450.0,
+                        width: MediaQuery.of(context).size.width,
+                        color: Color.fromARGB(255, 244, 232, 217),
+                      );
+              },
+              onWillAccept: (data) {
+                return true;
+              },
+              onAccept: (data) {
+                accepted = true;
+              },
+              onMove: (details) {},
             ),
             //categories for wardrobe
             //TODO
