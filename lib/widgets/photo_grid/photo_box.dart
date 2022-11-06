@@ -5,13 +5,17 @@ import 'package:mokamayu/constants/text_styles.dart';
 
 class PhotoCard extends StatelessWidget {
   QueryDocumentSnapshot<Object?> object;
+  final bool scrollVertically;
 
-  PhotoCard({Key? key, required this.object}) : super(key: key);
+  PhotoCard({Key? key, required this.object, required this.scrollVertically})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String photoUrl = object['photo_url'];
+    String name = object['name'];
     return Card(
-      elevation: 0,
+      elevation: 4,
       color: CustomColors.soft,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
@@ -22,11 +26,15 @@ class PhotoCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15), // Image border
               child: SizedBox.fromSize(
-                size: const Size.fromRadius(120), // Image radius
-                child: Image.network(object['photoURL'], fit: BoxFit.fill),
+                size: scrollVertically
+                    ? const Size.fromRadius(120)
+                    : const Size.fromRadius(60), // Image radius
+
+                child: Image.network(photoUrl, fit: BoxFit.fill),
               ),
             )),
-        Text(object['name'], style: TextStyles.paragraphRegularSemiBold14()),
+        if (scrollVertically)
+          Text(name, style: TextStyles.paragraphRegularSemiBold14()),
       ]),
     );
   }

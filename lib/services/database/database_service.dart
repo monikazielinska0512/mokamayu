@@ -35,8 +35,6 @@ class DatabaseService {
     return db.collection('users').doc(userID).collection('outfits').snapshots();
   }
 
-
-
   Stream<DocumentSnapshot<Object?>> getFriendsList() =>
       userFriendsCollection.snapshots();
 
