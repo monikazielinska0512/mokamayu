@@ -1,8 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/constants/text_styles.dart';
-
+import 'package:mokamayu/models/wardrobe/clothes.dart';
+import 'package:mokamayu/screens/home/home_screen.dart';
+import 'package:provider/provider.dart';
+import '../../../models/wardrobe/clothes.dart';
+import '../../../services/clothes_provider.dart';
+import '../../../services/database/database_service.dart';
+import '../../../services/storage.dart';
 import '../../../widgets/chips/choice_chips.dart';
+import '../wardrobe_screen.dart';
 import 'choice_form_field.dart';
 
 class ClothesForm extends StatefulWidget {
@@ -82,11 +88,32 @@ class _ClothesFormState extends State<ClothesForm> {
                       )),
                   const SizedBox(height: 100),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Valid')),
                         );
+
+                        //to sobie dodalam do testowania
+
+                        // var photoURL = await StorageService()
+                        //     .uploadAndGetURLFile(widget.photo);
+                        // Clothes data = Clothes(
+                        //     name: "text",
+                        //     size: _size.toString(),
+                        //     type: _type.toString(),
+                        //     photoURL: photoURL.toString(),
+                        //     styles: null);
+
+                        // DatabaseService.addClothes(data);
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => ChangeNotifierProvider(
+                        //               create: (_) => ClothesProvider(),
+                        //               child:
+                        //                   const MyHomePage(title: 'Mokamayu'),
+                        //             )));
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Not Valid')));

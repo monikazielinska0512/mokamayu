@@ -22,19 +22,22 @@ class WardrobeScreen extends StatefulWidget {
 }
 
 class _WardrobeScreenState extends State<WardrobeScreen> {
-  late Future<List<Clothes>> clothesList;
+  Future<List<Clothes>>? clothesList;
 
   @override
   void initState() {
+    clothesList =
+        Provider.of<ClothesProvider>(context, listen: false).readClothesOnce();
+    Future.delayed(Duration.zero).then((value) {
+      Provider.of<ClothesProvider>(context, listen: false)
+          .setClothes(clothesList!);
+    });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    clothesList =
-        Provider.of<ClothesProvider>(context, listen: false).readClothesOnce();
-    Provider.of<ClothesProvider>(context, listen: false)
-        .setClothes(clothesList);
     return BasicPage(
         context: context,
         child: Stack(children: [

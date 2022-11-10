@@ -7,7 +7,7 @@ import '../../models/wardrobe/clothes.dart';
 
 class CustomDialogBox {
   static outfitsDialog(
-      BuildContext context, Future<List<Clothes>> clothesList) {
+      BuildContext context, Future<List<Clothes>>? clothesList) {
     return SimpleDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),

@@ -6,8 +6,8 @@ import 'database/database_service.dart';
 
 class ClothesProvider extends ChangeNotifier {
   List<Clothes> clothesList = [];
-  late Future<List<Clothes>> futureClothesList;
-  Future<List<Clothes>> get getClothesList => futureClothesList;
+  Future<List<Clothes>>? futureClothesList;
+  Future<List<Clothes>>? get getClothesList => futureClothesList;
 
   void setClothes(Future<List<Clothes>> clothesList) {
     futureClothesList = clothesList;
@@ -25,8 +25,6 @@ class ClothesProvider extends ChangeNotifier {
         .toList() as List<Clothes>;
 
     clothesList = _clothes;
-    // futureClothesList = clothesList as Future<List<Clothes>>;
-    notifyListeners();
     return clothesList;
   }
 }

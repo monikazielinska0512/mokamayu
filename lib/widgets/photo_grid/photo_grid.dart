@@ -6,11 +6,11 @@ import '../reusable_snackbar.dart';
 
 class PhotoGrid extends StatelessWidget {
   final bool scrollVertically;
-  Future<List<Clothes>> clothesList;
+  Future<List<Clothes>>? clothesList;
 
   PhotoGrid({
     Key? key,
-    required this.clothesList,
+    this.clothesList,
     this.scrollVertically = true,
   }) : super(key: key);
 
@@ -22,9 +22,7 @@ class PhotoGrid extends StatelessWidget {
     return FutureBuilder<List<Clothes>>(
       future: clothesList,
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          CustomSnackBar.showErrorSnackBar(context);
-        } else if (snapshot.hasData || snapshot.data != null) {
+        if (snapshot.hasData || snapshot.data != null) {
           return Center(
               child: GridView.builder(
             scrollDirection: getScrollDirection(),
