@@ -1,3 +1,8 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mokamayu/constants/colors.dart';
@@ -11,6 +16,18 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  if (kDebugMode) {
+    try {
+      //do testowania na emulatorach lokalnie - tu akurat moje ip, wiec jak cos to u siebie zmiencie
+      FirebaseFirestore.instance.useFirestoreEmulator('192.168.1.37', 8080);
+      await FirebaseAuth.instance.useAuthEmulator('192.168.1.37', 9099);
+    } catch (e) {
+      // ignore: avoids_print
+      print(e);
+    }
+  }
+
   runApp(const MyApp());
 }
 

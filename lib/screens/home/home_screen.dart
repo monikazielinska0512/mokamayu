@@ -39,29 +39,10 @@ class _MyHomePageState extends State<MyHomePage> {
       S.of(context).profile,
     ];
 
-    FloatingActionButton? checkForOutfitsScreen() {
-      if (_selectedIndex == 1) {
-        return FloatingActionButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return CustomDialogBox.outfitsDialog(context);
-                  });
-            },
-            backgroundColor: const Color.fromARGB(255, 244, 232, 217),
-            child: const Icon(Icons.add));
-      }
-      return null;
-    }
-
     return Scaffold(
         appBar: customAppBar(context, pageLabels[_selectedIndex]),
         drawer: drawer(context),
-        body: pages[_selectedIndex],
-        floatingActionButton: checkForOutfitsScreen(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        // bottomNavigationBar: NavBar(context, _selectedIndex, _onItemTapped));
+        body: IndexedStack(index: _selectedIndex, children: pages),
         bottomNavigationBar: NavBar(
             selectedIndex: _selectedIndex,
             onTabChange: (int index) {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/screens/home/home_screen.dart';
+import 'package:mokamayu/services/clothes_provider.dart';
 import 'package:mokamayu/utils/validator.dart';
+import 'package:provider/provider.dart';
 import '../../models/user/login_user.dart';
 import '../../services/authentication/auth.dart';
 import '../../widgets/buttons/reusable_button.dart';
@@ -127,8 +129,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 reusableButton(context, S.of(context).sign_up,
                                     () async {
                                   if (_form.currentState!.validate()) {
-                                    final status = await _auth
-                                        .register(LoginUser(
+                                    final status = await _auth.register(
+                                        LoginUser(
                                             email: _emailTextController.text,
                                             password:
                                                 _passwordTextController.text));
@@ -137,8 +139,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const MyHomePage(
-                                                      title: 'Mokamayu')));
+                                                  ChangeNotifierProvider(
+                                                    create: (_) =>
+                                                        ClothesProvider(),
+                                                    child: const MyHomePage(
+                                                        title: 'Mokamayu'),
+                                                  )));
                                     } else {
                                       final error = AuthExceptionHandler
                                           .generateErrorMessage(

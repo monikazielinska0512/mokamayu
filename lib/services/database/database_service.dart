@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import '../../models/wardrobe/clothes.dart';
 import '../authentication/auth.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
+
+Stream<QuerySnapshot>? clothes;
 
 class DatabaseService {
   static String? userID = AuthService().getCurrentUserID();
@@ -23,16 +26,22 @@ class DatabaseService {
         .add(clothes.toFirestore());
   }
 
-  static Stream<QuerySnapshot> readClothes() {
-    return db
+  static Stream<QuerySnapshot>? readClothes() {
+    clothes = db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
         .collection('clothes')
         .snapshots();
+
+    return clothes;
   }
 
   static Stream<QuerySnapshot> readOutfits() {
     return db.collection('users').doc(userID).collection('outfits').snapshots();
+  }
+
+  static Stream<QuerySnapshot>? getClothesFromWardrobe() {
+    return clothes;
   }
 
   Stream<DocumentSnapshot<Object?>> getFriendsList() =>

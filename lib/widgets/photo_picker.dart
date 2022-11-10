@@ -44,7 +44,8 @@ class _PhotoPickerState extends State<PhotoPicker> {
   }
 
   Future pickImage(ImageSource source) async {
-    final pickedFile = await widget.picker.pickImage(source: source);
+    final pickedFile =
+        await widget.picker.pickImage(source: source, imageQuality: 50);
     setState(() {
       if (pickedFile != null) {
         widget.photo = File(pickedFile.path);

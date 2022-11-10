@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mokamayu/models/wardrobe/clothes.dart';
 import 'package:mokamayu/screens/wardrobe/form/add_photo_screen.dart';
+import 'package:mokamayu/services/clothes_provider.dart';
 import 'package:mokamayu/services/database/database_service.dart';
+import 'package:provider/provider.dart';
 import '../../constants/colors.dart';
 import '../../constants/tags.dart';
 import '../../widgets/basic_page.dart';
@@ -19,8 +22,19 @@ class WardrobeScreen extends StatefulWidget {
 }
 
 class _WardrobeScreenState extends State<WardrobeScreen> {
+  late Future<List<Clothes>> clothesList;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    clothesList =
+        Provider.of<ClothesProvider>(context, listen: false).readClothesOnce();
+    Provider.of<ClothesProvider>(context, listen: false)
+        .setClothes(clothesList);
     return BasicPage(
         context: context,
         child: Stack(children: [
@@ -52,10 +66,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                 )),
               ]),
               const SizedBox(height: 15),
-              Expanded(
-                  child: PhotoGrid(
-                stream: DatabaseService.readClothes(),
-              ))
+              Expanded(child: PhotoGrid(clothesList: clothesList))
             ],
           ),
           FloatingButton(

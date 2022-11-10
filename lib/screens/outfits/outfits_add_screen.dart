@@ -1,60 +1,45 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'package:mokamayu/models/user/firebase_user.dart';
+import 'package:mokamayu/models/wardrobe/clothes.dart';
+import 'package:mokamayu/services/photo_tapped.dart';
+import 'package:mokamayu/widgets/drag_target_container.dart';
+import 'package:provider/provider.dart';
+import '../../services/clothes_provider.dart';
 import '../../widgets/appbar.dart';
 import '../../widgets/photo_grid/photo_grid.dart';
 import '../../services/database/database_service.dart';
 
-class CreateOutfitPage extends StatefulWidget {
-  const CreateOutfitPage({Key? key}) : super(key: key);
+class CreateOutfitPage extends StatelessWidget {
+  CreateOutfitPage({Key? key, required this.clothesList}) : super(key: key);
+  late Future<List<Clothes>> clothesList;
 
-  @override
-  State<CreateOutfitPage> createState() => _CreateOutfitPageState();
-}
-
-class _CreateOutfitPageState extends State<CreateOutfitPage> {
-  bool accepted = false;
   @override
   Widget build(BuildContext context) {
+    // late Future<List<Clothes>> clothesList =
+    //     Provider.of<ClothesProvider>(context, listen: false).getClothesList
+    //         as Future<List<Clothes>>;
+    print('reload');
     return Scaffold(
-        appBar: customAppBar(context, "Create a look"),
-        body: Column(
-          children: <Widget>[
-            //canvas for dragging photos
-            DragTarget(
-              builder: (context, candidateData, rejectedData) {
-                return accepted
-                    ? Container(
-                        height: 450.0,
-                        width: MediaQuery.of(context).size.width,
-                        color: Color.fromARGB(255, 244, 232, 217),
-                      )
-                    : Container(
-                        height: 450.0,
-                        width: MediaQuery.of(context).size.width,
-                        color: Color.fromARGB(255, 244, 232, 217),
-                      );
-              },
-              onWillAccept: (data) {
-                return true;
-              },
-              onAccept: (data) {
-                accepted = true;
-              },
-              onMove: (details) {},
+      appBar: customAppBar(context, "Create a look"),
+      body: Column(
+        children: <Widget>[
+          const DragTargetContainer(),
+          //categories for wardrobe
+          //TODO
+          //photos from wardrobe (button add if no photos) - scroll horizontally
+          SizedBox(
+            width: double.infinity,
+            height: 300,
+            child: PhotoGrid(
+              clothesList: clothesList,
+              scrollVertically: false,
             ),
-            //categories for wardrobe
-            //TODO
-            //photos from wardrobe (button add if no photos) - scroll horizontally
-            SizedBox(
-              width: double.infinity,
-              height: 300,
-              child: PhotoGrid(
-                stream: DatabaseService.readClothes(),
-                scrollVertically: false,
-              ),
-            )
-          ],
-        ));
+          )
+        ],
+      ),
+      //),
+    );
   }
 }
