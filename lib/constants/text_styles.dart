@@ -90,7 +90,7 @@ class TextStyles {
   }
 
   static TextStyle paragraphRegularSemiBold16() {
-    return TextStyle(
+    return  TextStyle(
         fontSize: 16,
         fontFamily: "Poppins",
         fontWeight: FontWeight.w600);
