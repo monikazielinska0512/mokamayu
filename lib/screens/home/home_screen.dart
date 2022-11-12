@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: customAppBar(context, pageLabels[_selectedIndex]),
         drawer: drawer(context),
-        body: pages[_selectedIndex],
+        body: IndexedStack(index: _selectedIndex, children: pages),
         bottomNavigationBar: NavBar(
             selectedIndex: _selectedIndex,
             onTabChange: (int index) {

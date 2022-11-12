@@ -96,24 +96,25 @@ class _ClothesFormState extends State<ClothesForm> {
 
                         //to sobie dodalam do testowania
 
-                        // var photoURL = await StorageService()
-                        //     .uploadAndGetURLFile(widget.photo);
-                        // Clothes data = Clothes(
-                        //     name: "text",
-                        //     size: _size.toString(),
-                        //     type: _type.toString(),
-                        //     photoURL: photoURL.toString(),
-                        //     styles: null);
+                        var photoURL = await StorageService()
+                            .uploadAndGetURLFile(widget.photo);
+                        Clothes data = Clothes(
+                            name: "text",
+                            size: _size.toString(),
+                            type: _type.toString(),
+                            photoURL: photoURL.toString(),
+                            styles: null);
 
-                        // DatabaseService.addClothes(data);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => ChangeNotifierProvider(
-                        //               create: (_) => ClothesProvider(),
-                        //               child:
-                        //                   const MyHomePage(title: 'Mokamayu'),
-                        //             )));
+                        Provider.of<ClothesProvider>(context, listen: false)
+                            .addClothes(data);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChangeNotifierProvider(
+                                      create: (_) => ClothesProvider(),
+                                      child:
+                                          const MyHomePage(title: 'Mokamayu'),
+                                    )));
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Not Valid')));

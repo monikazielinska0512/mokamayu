@@ -23,6 +23,7 @@ class FloatingButton extends StatelessWidget {
         child: Padding(
             padding: padding,
             child: FloatingActionButton(
+              heroTag: null,
               elevation: 3,
               onPressed: onPressed,
               backgroundColor: backgroundColor,

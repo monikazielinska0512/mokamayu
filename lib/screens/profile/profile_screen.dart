@@ -24,6 +24,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          clothesList = Provider.of<ClothesProvider>(context, listen: false)
+              .getClothesList;
+        }));
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -61,14 +65,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Expanded(
                 child: TabBarView(children: [
+                  PhotoGrid(clothesList: clothesList),
                   PhotoGrid(
-                      clothesList:
-                          Provider.of<ClothesProvider>(context, listen: false)
-                              .getClothesList),
-                  PhotoGrid(
-                      clothesList:
-                          Provider.of<ClothesProvider>(context, listen: false)
-                              .getClothesList), //potem podmienie na outfity
+                      clothesList: clothesList), //potem podmienie na outfity
                 ]),
               ),
             ],

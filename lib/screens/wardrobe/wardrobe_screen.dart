@@ -77,7 +77,10 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => PhotoPickerScreen()));
+                        builder: (context) => ChangeNotifierProvider(
+                              create: (_) => ClothesProvider(),
+                              child: PhotoPickerScreen(),
+                            )));
               },
               icon: const Icon(Icons.add),
               backgroundColor: CustomColors.primary,

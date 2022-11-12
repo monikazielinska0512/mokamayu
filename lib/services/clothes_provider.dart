@@ -27,4 +27,14 @@ class ClothesProvider extends ChangeNotifier {
     clothesList = _clothes;
     return clothesList;
   }
+
+  Future<void> addClothes(Clothes clothes) async {
+    await db
+        .collection('users')
+        .doc(AuthService().getCurrentUserID())
+        .collection('clothes')
+        .add(clothes.toFirestore());
+
+    notifyListeners();
+  }
 }
