@@ -4,12 +4,13 @@ import 'package:mokamayu/screens/home/home_screen.dart';
 import 'package:mokamayu/services/clothes_provider.dart';
 import 'package:mokamayu/utils/validator.dart';
 import 'package:provider/provider.dart';
+
 import '../../models/user/login_user.dart';
 import '../../services/authentication/auth.dart';
+import '../../services/authentication/auth_exception_handler.dart';
 import '../../widgets/buttons/reusable_button.dart';
 import '../../widgets/fields/reusable_text_field.dart';
 import '../../widgets/reusable_snackbar.dart';
-import '../../services/authentication/auth_exception_handler.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -25,8 +26,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _usernameTextController = TextEditingController();
+
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
+
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
@@ -57,13 +60,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           children: <Widget>[
                             Positioned(
                               child: Image.asset(
-                                "assets/mountains_zoomed.png",
+                                "assets/images/mountains.png",
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
                             Positioned(
                               child: Image.asset(
-                                "assets/woman.png",
+                                "assets/images/woman.png",
                                 fit: BoxFit.fitWidth,
                                 height: 260,
                               ),

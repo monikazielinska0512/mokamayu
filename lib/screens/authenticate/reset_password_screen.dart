@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
+
 import '../../services/authentication/auth.dart';
-import '../../widgets/buttons/reusable_button.dart';
-import '../../widgets/fields/reusable_text_field.dart';
 import '../../services/authentication/auth_exception_handler.dart';
 import '../../utils/validator.dart';
+import '../../widgets/buttons/reusable_button.dart';
+import '../../widgets/fields/reusable_text_field.dart';
 import '../../widgets/reusable_snackbar.dart';
 
 class ResetPassword extends StatefulWidget {
@@ -60,8 +61,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                reusableButton(context,
-                                    S.of(context).reset_password,
+                                reusableButton(
+                                    context, S.of(context).reset_password,
                                     () async {
                                   if (_form.currentState!.validate()) {
                                     dynamic result = await _auth.resetPassword(
@@ -83,7 +84,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       Container(
                         width: deviceWidth(context),
                         child: Image.asset(
-                          "assets/navigationAsset.png",
+                          "assets/images/navigationAsset.png",
                           fit: BoxFit.fitWidth,
                         ),
                       )
