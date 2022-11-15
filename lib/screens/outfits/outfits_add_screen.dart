@@ -1,41 +1,45 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import '../../reusable_widgets/appbar.dart';
-import '../../reusable_widgets/photo_grid/photo_grid.dart';
+import 'package:mokamayu/models/user/firebase_user.dart';
+import 'package:mokamayu/models/wardrobe/clothes.dart';
+import 'package:mokamayu/services/photo_tapped.dart';
+import 'package:mokamayu/widgets/drag_target_container.dart';
+import 'package:provider/provider.dart';
+import '../../services/clothes_provider.dart';
+import '../../widgets/appbar.dart';
+import '../../widgets/photo_grid/photo_grid.dart';
 import '../../services/database/database_service.dart';
 
-class CreateOutfitPage extends StatefulWidget {
-  const CreateOutfitPage({Key? key}) : super(key: key);
+class CreateOutfitPage extends StatelessWidget {
+  CreateOutfitPage({Key? key, this.clothesList}) : super(key: key);
+  Future<List<Clothes>>? clothesList;
 
-  @override
-  State<CreateOutfitPage> createState() => _CreateOutfitPageState();
-}
-
-class _CreateOutfitPageState extends State<CreateOutfitPage> {
   @override
   Widget build(BuildContext context) {
+    // late Future<List<Clothes>> clothesList =
+    //     Provider.of<ClothesProvider>(context, listen: false).getClothesList
+    //         as Future<List<Clothes>>;
+    print('reload');
     return Scaffold(
-        appBar: customAppBar(context, "Create a look"),
-        body: Column(
-          children: <Widget>[
-            //canvas for dragging photos
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 450.0,
-              color: Color.fromARGB(255, 244, 232, 217),
+      appBar: customAppBar(context, "Create a look"),
+      body: Column(
+        children: <Widget>[
+          const DragTargetContainer(),
+          //categories for wardrobe
+          //TODO
+          //photos from wardrobe (button add if no photos) - scroll horizontally
+          SizedBox(
+            width: double.infinity,
+            height: 300,
+            child: PhotoGrid(
+              clothesList: clothesList,
+              scrollVertically: false,
             ),
-            //categories for wardrobe
-            //TODO
-            //photos from wardrobe (button add if no photos) - scroll horizontally
-            SizedBox(
-              width: double.infinity,
-              height: 300,
-              child: PhotoGrid(
-                stream: DatabaseService.readClothes(),
-                scrollVertically: false,
-              ),
-            )
-          ],
-        ));
+          )
+        ],
+      ),
+      //),
+    );
   }
 }

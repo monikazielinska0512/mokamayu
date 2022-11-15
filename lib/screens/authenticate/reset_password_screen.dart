@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
-import 'package:mokamayu/reusable_widgets/reusable_button.dart';
-import 'package:mokamayu/services/auth.dart';
 
-import '../../reusable_widgets/reusable_snackbar.dart';
-import '../../services/auth_exception_handler.dart';
+import '../../services/authentication/auth.dart';
+import '../../services/authentication/auth_exception_handler.dart';
 import '../../utils/validator.dart';
+import '../../widgets/buttons/reusable_button.dart';
+import '../../widgets/fields/reusable_text_field.dart';
+import '../../widgets/reusable_snackbar.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -18,22 +18,24 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
   final AuthService _auth = AuthService();
   final TextEditingController _emailTextController = TextEditingController();
+
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
+
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 244, 232, 217),
+        backgroundColor: const Color.fromARGB(255, 244, 232, 217),
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text(
             S.of(context).reset_password,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
         body: Container(
@@ -82,7 +84,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       Container(
                         width: deviceWidth(context),
                         child: Image.asset(
-                          "assets/navigationAsset.png",
+                          "assets/images/navigationAsset.png",
                           fit: BoxFit.fitWidth,
                         ),
                       )

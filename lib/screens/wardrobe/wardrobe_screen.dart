@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/reusable_widgets/photo_grid/photo_grid.dart';
-
-import '../../reusable_widgets/floating_button.dart';
-import '../../services/auth.dart';
-import '../../services/database/database_service.dart';
-import 'clothes_add_screen.dart';
+import 'package:mokamayu/models/wardrobe/clothes.dart';
+import 'package:mokamayu/screens/wardrobe/add_photo_screen.dart';
+import 'package:mokamayu/services/clothes_provider.dart';
+import 'package:provider/provider.dart';
+import '../../constants/colors.dart';
+import '../../widgets/basic_page.dart';
+import '../../widgets/buttons/floating_button.dart';
+import '../../widgets/buttons/icon_button.dart';
+import '../../widgets/fields/search_bar.dart';
+import '../../widgets/page_title.dart';
+import '../../widgets/photo_grid/photo_grid.dart';
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
@@ -14,20 +19,70 @@ class WardrobeScreen extends StatefulWidget {
 }
 
 class _WardrobeScreenState extends State<WardrobeScreen> {
+  Future<List<Clothes>>? clothesList;
+
+  @override
+  void initState() {
+    clothesList =
+        Provider.of<ClothesProvider>(context, listen: false).readClothesOnce();
+    Future.delayed(Duration.zero).then((value) {
+      Provider.of<ClothesProvider>(context, listen: false)
+          .setClothes(clothesList!);
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(children: [
-          Column(children: [
-            Text(
-                "Jesteś zalogowany jako: " + AuthService().getCurrentUserUID()),
-            Expanded(
-                child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-                    child: PhotoGrid(stream: DatabaseService.readClothes())))
-          ])
-        ]),
-        floatingActionButton: FloatingButton(
-            context, const AddClothesForm(), const Icon(Icons.add)));
+    return BasicPage(
+        context: context,
+        child: Stack(children: [
+          Column(
+            children: [
+              Column(children: [
+                PageTitle(
+                    title: "Your Wardrobe",
+                    description: "Explore your clothes"),
+                const SizedBox(height: 20),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.075,
+                    child: Row(children: [
+                      Expanded(
+                          child: SearchBar(
+                              title: "Search", hintTitle: "Name of clothes")),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.045),
+                      CustomIconButton(
+                          onPressed: () {},
+                          width: MediaQuery.of(context).size.width * 0.15,
+                          icon: Icons.filter_list)
+                    ])),
+                const SizedBox(height: 15),
+                // ChoiceChips(
+                //     chipsList: Tags.types.sublist(
+                //   2,
+                // )),
+              ]),
+              const SizedBox(height: 15),
+              Expanded(child: PhotoGrid(clothesList: clothesList))
+            ],
+          ),
+          FloatingButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider(
+                              create: (_) => ClothesProvider(),
+                              child: PhotoPickerScreen(),
+                            )));
+              },
+              icon: const Icon(Icons.add),
+              backgroundColor: CustomColors.primary,
+              padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
+              alignment: Alignment.bottomRight)
+        ]));
   }
 }

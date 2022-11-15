@@ -3,13 +3,15 @@ import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/screens/home/home_screen.dart';
 import 'package:mokamayu/screens/authenticate/register_screen.dart';
 import 'package:mokamayu/screens/authenticate/reset_password_screen.dart';
-import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
-import 'package:mokamayu/reusable_widgets/reusable_button.dart';
-import 'package:mokamayu/services/auth.dart';
-import 'package:mokamayu/services/auth_exception_handler.dart';
+import 'package:mokamayu/services/authentication/auth_exception_handler.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/user/login_user.dart';
-import '../../reusable_widgets/reusable_snackbar.dart';
+import '../../services/authentication/auth.dart';
+import '../../services/clothes_provider.dart';
+import '../../widgets/buttons/reusable_button.dart';
+import '../../widgets/fields/reusable_text_field.dart';
+import '../../widgets/reusable_snackbar.dart';
 import '../../utils/validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -23,16 +25,18 @@ class _LoginScreenState extends State<LoginScreen> {
   final AuthService _auth = AuthService();
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailtextController = TextEditingController();
+
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
+
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 244, 232, 217),
-        body: Container(
+        backgroundColor: const Color.fromARGB(255, 244, 232, 217),
+        body: SizedBox(
             width: deviceWidth(context),
             height: deviceHeight(context),
             child: SingleChildScrollView(
@@ -46,17 +50,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: <Widget>[
                             Positioned(
                               child: Image.asset(
-                                "assets/mountains.png",
+                                "assets/images/mountains.png",
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
                             Positioned(
+                              right: 70,
                               child: Image.asset(
-                                "assets/girl.png",
+                                "assets/images/girl.png",
                                 fit: BoxFit.fitWidth,
                                 height: 210,
                               ),
-                              right: 70,
                             )
                           ],
                         ),
@@ -102,8 +106,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const MyHomePage(
-                                                    title: 'Mokamayu')));
+                                                ChangeNotifierProvider(
+                                                  create: (_) =>
+                                                      ClothesProvider(),
+                                                  child: const MyHomePage(
+                                                      title: 'Mokamayu'),
+                                                )));
                                   } else {
                                     final error = AuthExceptionHandler
                                         .generateErrorMessage(status, context);
@@ -126,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(S.of(context).no_account, style: TextStyle(color: Colors.black)),
+        Text(S.of(context).no_account, style: const TextStyle(color: Colors.black)),
         GestureDetector(
           onTap: () {
             Navigator.push(
@@ -136,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           child: Text(
             S.of(context).sign_up,
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         )
       ],
@@ -152,7 +160,7 @@ Widget forgottenPassword(BuildContext context) {
     child: TextButton(
       child: Text(
         S.of(context).forgot_password,
-        style: TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.black),
         textAlign: TextAlign.right,
       ),
       onPressed: () => Navigator.push(context,

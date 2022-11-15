@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/authenticate/login_screen.dart';
 import 'package:mokamayu/screens/home/home_screen.dart';
+import 'package:mokamayu/services/clothes_provider.dart';
 import 'package:provider/provider.dart';
 import 'models/user/firebase_user.dart';
 
@@ -14,7 +15,11 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return const LoginScreen();
     } else {
-      return const MyHomePage(title: 'Mokamayu');
+      return ChangeNotifierProvider(
+        create: (_) => ClothesProvider(),
+        child: const MyHomePage(title: 'Mokamayu'),
+      );
+      // const MyHomePage(title: 'Mokamayu');
     }
   }
 }

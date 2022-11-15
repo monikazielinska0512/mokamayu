@@ -1,1 +1,0 @@
-// TODO Edit and delete clothes

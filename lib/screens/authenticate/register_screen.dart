@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/reusable_widgets/reusable_button.dart';
-import 'package:mokamayu/reusable_widgets/reusable_text_field.dart';
 import 'package:mokamayu/screens/home/home_screen.dart';
-import 'package:mokamayu/services/auth.dart';
-import 'package:mokamayu/services/database/database_service.dart';
+import 'package:mokamayu/services/clothes_provider.dart';
 import 'package:mokamayu/utils/validator.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/user/login_user.dart';
-import '../../reusable_widgets/reusable_snackbar.dart';
-import '../../services/auth_exception_handler.dart';
+import '../../services/authentication/auth.dart';
+import '../../services/authentication/auth_exception_handler.dart';
+import '../../widgets/buttons/reusable_button.dart';
+import '../../widgets/fields/reusable_text_field.dart';
+import '../../widgets/reusable_snackbar.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
-        body: Container(
+        body: SizedBox(
             width: deviceWidth(context),
             height: deviceHeight(context),
             child: SingleChildScrollView(
@@ -53,24 +54,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding:
                         EdgeInsets.fromLTRB(0, deviceHeight(context) * 0, 0, 0),
                     child: Column(children: <Widget>[
-                      Container(
+                      SizedBox(
                         height: deviceWidth(context),
                         child: Stack(
                           children: <Widget>[
                             Positioned(
                               child: Image.asset(
-                                "assets/mountains_zoomed.png",
+                                "assets/images/mountains.png",
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
                             Positioned(
+                              right: 20,
+                              bottom: 6,
                               child: Image.asset(
-                                "assets/woman.png",
+                                "assets/images/woman.png",
                                 fit: BoxFit.fitWidth,
                                 height: 260,
                               ),
-                              right: 20,
-                              bottom: 6,
                             )
                           ],
                         ),
@@ -135,17 +136,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         LoginUser(
                                             email: _emailTextController.text,
                                             password:
-                                                _passwordTextController.text,
-                                            username:
-                                                _usernameTextController.text));
+                                                _passwordTextController.text));
                                     if (status == AuthStatus.successful) {
-                                      DatabaseService.addUser();
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const MyHomePage(
-                                                      title: 'Mokamayu')));
+                                                  ChangeNotifierProvider(
+                                                    create: (_) =>
+                                                        ClothesProvider(),
+                                                    child: const MyHomePage(
+                                                        title: 'Mokamayu'),
+                                                  )));
                                     } else {
                                       final error = AuthExceptionHandler
                                           .generateErrorMessage(
