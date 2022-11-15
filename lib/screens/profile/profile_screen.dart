@@ -1,13 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:mokamayu/reusable_widgets/photo_grid/photo_grid.dart';
+
 import '../../generated/l10n.dart';
-import '../../models/wardrobe/clothes.dart';
-import '../../services/authentication/auth.dart';
-import '../../services/clothes_provider.dart';
-import '../../widgets/buttons/reusable_button.dart';
-import '../../widgets/photo_grid/photo_grid.dart';
-import '../../widgets/user/user_summary.dart';
+import '../../reusable_widgets/reusable_button.dart';
+import '../../reusable_widgets/user/user_summary.dart';
+import '../../services/auth.dart';
 import '../../services/database/database_service.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -20,20 +18,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Future<List<Clothes>>? clothesList;
-
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          clothesList = Provider.of<ClothesProvider>(context, listen: false)
-              .getClothesList;
-        }));
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           userSummary(context, widget.user, imageRadius: 60),
-          if (AuthService().getCurrentUserID() != widget.user.uid) ...[
+          if (AuthService().getCurrentUserUID() != widget.user.uid) ...[
             reusableButton(
                 context,
                 'Create outfit for ${widget.user.displayName ?? widget.user.email}',
@@ -65,9 +57,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Expanded(
                 child: TabBarView(children: [
-                  PhotoGrid(clothesList: clothesList),
-                  PhotoGrid(
-                      clothesList: clothesList), //potem podmienie na outfity
+                  PhotoGrid(stream: DatabaseService.readClothes()),
+                  PhotoGrid(stream: DatabaseService.readOutfits()),
                 ]),
               ),
             ],
