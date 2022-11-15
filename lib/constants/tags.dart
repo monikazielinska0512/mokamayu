@@ -9,14 +9,19 @@ class Tags {
   ];
 
   static const List<String> types = [
-    "",
     'Type',
     'Skirt',
     'T-Shirt',
     'Dress',
     "Shoes",
     "Hat",
-    "Sweater"
+    "Sweater",
+    'XS',
+    'S',
+    'M',
+    'L',
+    'XL',
+    'XXL'
   ];
   static const List<String> styles = [
     "Classic",

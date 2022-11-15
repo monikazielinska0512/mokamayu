@@ -134,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(S.of(context).no_account, style: TextStyle(color: Colors.black)),
+        Text(S.of(context).no_account, style: const TextStyle(color: Colors.black)),
         GestureDetector(
           onTap: () {
             Navigator.push(
@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           child: Text(
             S.of(context).sign_up,
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         )
       ],

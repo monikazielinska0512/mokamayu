@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/colors.dart';
-import '../../../constants/text_styles.dart';
+import '../../../../constants/colors.dart';
+import '../../../../constants/text_styles.dart';
 
 class ChoiceChipsFormField extends FormField<String> {
   final List chipsList;
@@ -11,7 +11,7 @@ class ChoiceChipsFormField extends FormField<String> {
       required this.chipsList,
       required FormFieldSetter<String> onSaved,
       required FormFieldValidator<String> validator,
-      String? initialValue = null,
+      String initialValue = "",
       bool autoValidate = true})
       : super(
             key: key,
@@ -31,7 +31,7 @@ class ChoiceChipsFormField extends FormField<String> {
                           shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          backgroundColor: Colors.transparent,
+                          backgroundColor: CustomColors.soft,
                           selectedColor:
                               CustomColors.colorList[index].withOpacity(0.2),
                           labelStyle: state.value == chipsList[index]

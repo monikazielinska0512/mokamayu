@@ -12,8 +12,8 @@ class CustomDialogBox {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      backgroundColor: Color.fromARGB(255, 244, 232, 217),
-      title: Text('Create a look'),
+      backgroundColor: const Color.fromARGB(255, 244, 232, 217),
+      title: const Text('Create a look'),
       children: <Widget>[
         SimpleDialogOption(
           onPressed: () {
@@ -25,15 +25,15 @@ class CustomDialogBox {
                           child: CreateOutfitPage(clothesList: clothesList),
                         )));
           },
-          child: Text('By yourself'),
+          child: const Text('By yourself'),
         ),
         SimpleDialogOption(
           onPressed: () {
             //TODO in the future
           },
-          child: Text('With applied filters'),
+          child: const Text('With applied filters'),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
       ],
