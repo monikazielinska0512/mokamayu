@@ -12,8 +12,8 @@ import '../../widgets/photo_grid/photo_grid.dart';
 import '../../services/database/database_service.dart';
 
 class CreateOutfitPage extends StatelessWidget {
-  CreateOutfitPage({Key? key, required this.clothesList}) : super(key: key);
-  late Future<List<Clothes>> clothesList;
+  CreateOutfitPage({Key? key, this.clothesList}) : super(key: key);
+  Future<List<Clothes>>? clothesList;
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../models/wardrobe/clothes.dart';
 import '../../services/clothes_provider.dart';
 import '../../widgets/photo_grid/photo_grid.dart';
-import '../../services/database/database_service.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -17,20 +16,21 @@ class OutfitsScreen extends StatefulWidget {
 }
 
 class _OutfitsScreenState extends State<OutfitsScreen> {
-  late Future<List<Clothes>> clothesList;
+  Future<List<Clothes>>? clothesList;
 
   @override
   Widget build(BuildContext context) {
-    clothesList =
-        Provider.of<ClothesProvider>(context, listen: false).getClothesList;
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          clothesList = Provider.of<ClothesProvider>(context, listen: false)
+              .getClothesList;
+        }));
     return Scaffold(
         body: Stack(children: [
       Column(children: [
-        // Expanded(
-        //     child: Padding(
-        //         padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-        //         child: PhotoGrid(clothesList: DatabaseService.readOutfits()))
-        //         )
+        Expanded(
+            child: Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
+                child: PhotoGrid(clothesList: clothesList)))
       ]),
       FloatingButton(
           onPressed: () {

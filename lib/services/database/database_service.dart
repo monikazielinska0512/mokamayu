@@ -18,23 +18,25 @@ class DatabaseService {
   final DocumentReference userFriendsCollection =
       db.collection('friends').doc(userID);
 
-  static Future<void> addClothes(Clothes clothes) async {
-    await db
-        .collection('users')
-        .doc(AuthService().getCurrentUserID())
-        .collection('clothes')
-        .add(clothes.toFirestore());
-  }
+  //moved to clothes provider
 
-  static Stream<QuerySnapshot>? readClothes() {
-    clothes = db
-        .collection('users')
-        .doc(AuthService().getCurrentUserID())
-        .collection('clothes')
-        .snapshots();
+  // static Future<void> addClothes(Clothes clothes) async {
+  //   await db
+  //       .collection('users')
+  //       .doc(AuthService().getCurrentUserID())
+  //       .collection('clothes')
+  //       .add(clothes.toFirestore());
+  // }
 
-    return clothes;
-  }
+  // static Stream<QuerySnapshot>? readClothes() {
+  //   clothes = db
+  //       .collection('users')
+  //       .doc(AuthService().getCurrentUserID())
+  //       .collection('clothes')
+  //       .snapshots();
+
+  //   return clothes;
+  // }
 
   static Stream<QuerySnapshot> readOutfits() {
     return db.collection('users').doc(userID).collection('outfits').snapshots();

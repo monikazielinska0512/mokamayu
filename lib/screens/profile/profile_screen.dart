@@ -20,11 +20,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late Future<List<Clothes>> clothesList;
+  Future<List<Clothes>>? clothesList;
+
   @override
   Widget build(BuildContext context) {
-    clothesList =
-        Provider.of<ClothesProvider>(context, listen: false).getClothesList;
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          clothesList = Provider.of<ClothesProvider>(context, listen: false)
+              .getClothesList;
+        }));
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
