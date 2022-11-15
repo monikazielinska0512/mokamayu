@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/widgets/basic_page.dart';
-import '../../../widgets/photo_picker.dart';
-import 'add_clothes_form.dart';
+import '../../widgets/photo_picker.dart';
+import 'clothes_form_screen.dart';
 
 class PhotoPickerScreen extends StatefulWidget {
   PhotoPickerScreen({Key? key}) : super(key: key);
   final PhotoPicker _picker = PhotoPicker(
+    //TODO size depends on MediaQuery
       width: 370, height: 500);
 
   @override

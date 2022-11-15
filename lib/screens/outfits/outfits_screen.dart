@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/widgets/buttons/floating_button.dart';
@@ -34,11 +36,11 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
       ]),
       FloatingButton(
           onPressed: () {
-            showDialog(
+            Future.delayed(Duration.zero, showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return CustomDialogBox.outfitsDialog(context, clothesList);
-                });
+                }) as FutureOr Function()?);
           },
           icon: const Icon(Icons.add),
           backgroundColor: CustomColors.primary,

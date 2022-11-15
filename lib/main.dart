@@ -27,7 +27,6 @@ void main() async {
       print(e);
     }
   }
-
   runApp(const MyApp());
 }
 

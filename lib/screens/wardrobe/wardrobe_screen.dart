@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/models/wardrobe/clothes.dart';
-import 'package:mokamayu/screens/wardrobe/form/add_photo_screen.dart';
+import 'package:mokamayu/screens/wardrobe/add_photo_screen.dart';
 import 'package:mokamayu/services/clothes_provider.dart';
 import 'package:provider/provider.dart';
 import '../../constants/colors.dart';

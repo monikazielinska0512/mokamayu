@@ -46,7 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
-        body: Container(
+        body: SizedBox(
             width: deviceWidth(context),
             height: deviceHeight(context),
             child: SingleChildScrollView(
@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding:
                         EdgeInsets.fromLTRB(0, deviceHeight(context) * 0, 0, 0),
                     child: Column(children: <Widget>[
-                      Container(
+                      SizedBox(
                         height: deviceWidth(context),
                         child: Stack(
                           children: <Widget>[
@@ -65,13 +65,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             Positioned(
+                              right: 20,
+                              bottom: 6,
                               child: Image.asset(
                                 "assets/images/woman.png",
                                 fit: BoxFit.fitWidth,
                                 height: 260,
                               ),
-                              right: 20,
-                              bottom: 6,
                             )
                           ],
                         ),
