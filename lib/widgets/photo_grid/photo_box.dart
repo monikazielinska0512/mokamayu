@@ -22,7 +22,8 @@ class PhotoCard extends StatelessWidget {
     return !scrollVertically
         ? GestureDetector(
             onTap: () async {
-              Provider.of<PhotoTapped>(context, listen: false).setId(photoUrl!);
+              Provider.of<PhotoTapped>(context, listen: false)
+                  .addToMap(photoUrl!);
             },
             child: Card(
               elevation: 4,

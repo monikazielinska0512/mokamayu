@@ -4,9 +4,11 @@ import 'package:mokamayu/screens/wardrobe/add_photo_screen.dart';
 import 'package:mokamayu/services/clothes_provider.dart';
 import 'package:provider/provider.dart';
 import '../../constants/colors.dart';
+import '../../constants/tags.dart';
 import '../../widgets/basic_page.dart';
 import '../../widgets/buttons/floating_button.dart';
 import '../../widgets/buttons/icon_button.dart';
+import '../../widgets/chips/choice_chips.dart';
 import '../../widgets/fields/search_bar.dart';
 import '../../widgets/page_title.dart';
 import '../../widgets/photo_grid/photo_grid.dart';
@@ -61,9 +63,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     ])),
                 const SizedBox(height: 15),
                 // ChoiceChips(
-                //     chipsList: Tags.types.sublist(
-                //   2,
-                // )),
+                //     chipsList: Tags.types.sublist(0, Tags.types.length - 1)),
               ]),
               const SizedBox(height: 15),
               Expanded(child: PhotoGrid(clothesList: clothesList))

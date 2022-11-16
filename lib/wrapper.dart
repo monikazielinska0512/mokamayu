@@ -19,7 +19,6 @@ class Wrapper extends StatelessWidget {
         create: (_) => ClothesProvider(),
         child: const MyHomePage(title: 'Mokamayu'),
       );
-      // const MyHomePage(title: 'Mokamayu');
     }
   }
 }
