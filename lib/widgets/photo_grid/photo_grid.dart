@@ -26,7 +26,7 @@ class PhotoGrid extends StatelessWidget {
           return Center(
               child: GridView.builder(
             scrollDirection: getScrollDirection(),
-            shrinkWrap: true,
+            shrinkWrap: false,
             itemCount: snapshot.data!.length,
             itemBuilder: (BuildContext context, int index) {
               var clothesInfo = snapshot.data![index];

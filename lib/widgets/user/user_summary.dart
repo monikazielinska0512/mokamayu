@@ -24,7 +24,7 @@ Widget userSummary(BuildContext context, User? user,
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(user?.displayName ?? user?.email ?? 'Username',
+                Text(user?.email ?? 'Username',
                     style: TextStyle(
                         fontSize: fontSize, overflow: TextOverflow.clip)),
                 if (AuthService().getCurrentUserID() != user?.uid) ...[

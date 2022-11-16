@@ -18,14 +18,15 @@ class BasicPage extends StatelessWidget {
     return Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: backgroundColor,
-        body: Center(child: SafeArea(
-            child: Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.05,
-                  left: MediaQuery.of(context).size.width * 0.0533,
-                  right: MediaQuery.of(context).size.width * 0.0533,
-                  bottom: MediaQuery.of(context).size.width * 0.05,
-                ),
-                child: child))));
+        body: Center(
+            child: SafeArea(
+                child: Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.05,
+                      left: MediaQuery.of(context).size.width * 0.0533,
+                      right: MediaQuery.of(context).size.width * 0.0533,
+                      bottom: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    child: child))));
   }
 }
