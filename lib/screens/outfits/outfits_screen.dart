@@ -1,14 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:mokamayu/constants/colors.dart';
-import 'package:mokamayu/widgets/buttons/floating_button.dart';
-import 'package:provider/provider.dart';
-
-import '../../models/wardrobe/clothes.dart';
-import '../../services/clothes_provider.dart';
-import '../../widgets/photo_grid/photo_grid.dart';
+import 'package:mokamayu/ui/ui.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 import 'create_outfit_dialog.dart';
+import 'package:provider/provider.dart';
 
 class OutfitsScreen extends StatefulWidget {
   const OutfitsScreen({Key? key}) : super(key: key);
@@ -43,7 +39,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
                 });
           },
           icon: const Icon(Icons.add),
-          backgroundColor: CustomColors.primary,
+          backgroundColor: ColorManager.primary,
           padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
           alignment: Alignment.bottomRight)
     ]));

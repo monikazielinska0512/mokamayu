@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/screens/home/home_screen.dart';
-import 'package:mokamayu/services/clothes_provider.dart';
+import 'package:mokamayu/screens/screens.dart';
+import 'package:mokamayu/ui/widgets/widgets.dart';
+import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/models/models.dart';
+
 import 'package:mokamayu/utils/validator.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/user/login_user.dart';
-import '../../services/authentication/auth.dart';
-import '../../services/authentication/auth_exception_handler.dart';
-import '../../widgets/buttons/reusable_button.dart';
-import '../../widgets/fields/reusable_text_field.dart';
-import '../../widgets/reusable_snackbar.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -129,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                reusableButton(context, S.of(context).sign_up,
+                                Button(context, S.of(context).sign_up,
                                     () async {
                                   if (_form.currentState!.validate()) {
                                     final status = await _auth.register(

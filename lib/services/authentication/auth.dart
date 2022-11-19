@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../models/user/firebase_user.dart';
-import '../../models/user/login_user.dart';
 import 'auth_exception_handler.dart';
 
-
+import 'package:mokamayu/models/models.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;

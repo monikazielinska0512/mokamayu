@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:mokamayu/widgets/drag_target_container.dart';
+
+import '../ui/widgets/drag_target_container.dart';
 
 class PhotoTapped extends ChangeNotifier {
   Map<String, ContainerList> map = {};
