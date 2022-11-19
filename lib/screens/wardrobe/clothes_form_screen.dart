@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/screens/wardrobe/form/form.dart';
+
+import 'package:mokamayu/ui/widgets/widgets.dart';
 
 class AddClothesForm extends StatefulWidget {
   final File? photo;

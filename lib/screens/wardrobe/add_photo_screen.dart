@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/widgets/basic_page.dart';
-import '../../widgets/photo_picker.dart';
+import 'package:mokamayu/ui/widgets/basic_page.dart';
+import '../../ui/widgets/photo_picker.dart';
 import 'clothes_form_screen.dart';
 
 class PhotoPickerScreen extends StatefulWidget {

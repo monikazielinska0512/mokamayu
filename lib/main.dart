@@ -1,14 +1,12 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/services/authentication/auth.dart';
+import 'package:mokamayu/ui/constants/colors.dart';
 import 'package:mokamayu/wrapper.dart';
-import 'models/user/firebase_user.dart';
+import 'models/firebase_user.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 import 'package:provider/provider.dart';
@@ -20,8 +18,8 @@ void main() async {
   if (kDebugMode) {
     try {
       //do testowania na emulatorach lokalnie - tu akurat moje ip, wiec jak cos to u siebie zmiencie
-      FirebaseFirestore.instance.useFirestoreEmulator('192.168.1.37', 8080);
-      await FirebaseAuth.instance.useAuthEmulator('192.168.1.37', 9099);
+      FirebaseFirestore.instance.useFirestoreEmulator(' 127.0.0.1', 8080);
+      await FirebaseAuth.instance.useAuthEmulator('127.0.0.1', 9099);
     } catch (e) {
       // ignore: avoids_print
       print(e);
@@ -49,7 +47,7 @@ class MyApp extends StatelessWidget {
         title: 'Mokamayu',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch()
-              .copyWith(secondary: CustomColors.primary),
+              .copyWith(secondary: ColorManager.primary),
         ),
         home: const Wrapper(),
       ),

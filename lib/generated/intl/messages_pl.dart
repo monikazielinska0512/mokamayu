@@ -26,7 +26,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Email został wprowadzony w złym formacie"),
         "bad_password": MessageLookupByLibrary.simpleMessage(
             "Hasło musi mieć długość przynajmniej 6 znaków"),
-        "closet": MessageLookupByLibrary.simpleMessage("Szafa"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Potwierdź hasło"),
         "dismiss": MessageLookupByLibrary.simpleMessage("ZAMKNIJ"),
@@ -57,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "social": MessageLookupByLibrary.simpleMessage("Społeczność"),
         "user_not_exist": MessageLookupByLibrary.simpleMessage(
             "Podany użytkownik nie istnieje"),
+        "wardrobe": MessageLookupByLibrary.simpleMessage("Szafa"),
         "wrong_password":
             MessageLookupByLibrary.simpleMessage("Hasło lub email jest błędne")
       };
