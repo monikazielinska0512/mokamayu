@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/screens/outfits/outfits_add_screen.dart';
+import 'package:mokamayu/screens/screens.dart';
+import 'package:mokamayu/models/models.dart';
+
 import 'package:mokamayu/services/photo_tapped.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/wardrobe/clothes.dart';
 
 class CustomDialogBox {
   static outfitsDialog(

@@ -10,8 +10,8 @@ class SocialScreen extends StatefulWidget {
 class _SocialScreenState extends State<SocialScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Text("Social"),
+    return const Scaffold(
+      body: Text("Social"),
     );
   }
 }
