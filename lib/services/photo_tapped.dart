@@ -1,19 +1,24 @@
 import 'package:flutter/foundation.dart';
 
+import '../ui/widgets/drag_target_container.dart';
+
 class PhotoTapped extends ChangeNotifier {
-  List<String> id_list = [];
-  List<String> get getList => id_list;
-  String setid = "";
+  Map<String, ContainerList> map = {};
+  Map<String, ContainerList> get getMap => map;
 
-  String get getId => setid;
-
-  void setId(String id) {
-    setid = id;
-    notifyListeners();
-  }
-
-  void add(String id) {
-    !id_list.contains(id) ? id_list.add(id) : null;
+  void addToMap(String id) {
+    !map.containsKey(id)
+        ? map.addAll({
+            id: ContainerList(
+              height: 200.0,
+              width: 200.0,
+              rotation: 0.0,
+              scale: 1.0,
+              xPosition: 0.1,
+              yPosition: 0.1,
+            )
+          })
+        : null;
     notifyListeners();
   }
 }

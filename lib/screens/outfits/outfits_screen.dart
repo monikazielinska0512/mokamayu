@@ -32,11 +32,11 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
       ]),
       FloatingButton(
           onPressed: () {
-            Future.delayed(Duration.zero, showDialog(
+            showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return CustomDialogBox.outfitsDialog(context, clothesList);
-                }) as FutureOr Function()?);
+                });
           },
           icon: const Icon(Icons.add),
           backgroundColor: ColorManager.primary,

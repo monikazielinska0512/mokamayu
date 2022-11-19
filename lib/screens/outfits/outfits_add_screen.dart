@@ -16,7 +16,7 @@ class CreateOutfitPage extends StatelessWidget {
       appBar: customAppBar(context, "Create a look"),
       body: Column(
         children: <Widget>[
-          const DragTargetContainer(),
+          DragTargetContainer(),
           //categories for wardrobe
           //TODO
           //photos from wardrobe (button add if no photos) - scroll horizontally

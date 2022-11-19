@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/services/photo_tapped.dart';
-import 'package:provider/provider.dart';
+
+import 'package:mokamayu/ui/constants/constants.dart';
 
 class ContainerList {
   double height;
@@ -21,7 +21,8 @@ class ContainerList {
 }
 
 class DragTargetContainer extends StatefulWidget {
-  const DragTargetContainer({Key? key}) : super(key: key);
+  DragTargetContainer({Key? key, this.map}) : super(key: key);
+  Map<String, ContainerList>? map = {};
 
   @override
   _DragTargetState createState() => _DragTargetState();
@@ -34,97 +35,87 @@ class _DragTargetState extends State<DragTargetContainer> {
   late double _currentScale;
   late double _currentRotation;
   late Size screen;
-  String photoUrl = "";
 
   @override
   void initState() {
     screen = Size(400, 500);
-
-    list.add(ContainerList(
-      height: 200.0,
-      width: 200.0,
-      rotation: 0.0,
-      scale: 1.0,
-      xPosition: 0.1,
-      yPosition: 0.1,
-    ));
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    photoUrl = Provider.of<PhotoTapped>(context).getId;
-
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       width: MediaQuery.of(context).size.width,
       height: 450.0,
-      color: Color.fromARGB(255, 244, 232, 217),
+      color: ColorManager.soft,
       child: Stack(
-        children: list.map((value) {
-          // print(i);
+        children: widget.map!.entries.map((entry) {
           return GestureDetector(
+            onTap: () {
+              widget.map!.removeWhere((key, value) => key == entry.key);
+              setState(() {});
+            },
             onScaleStart: (details) {
-              if (value == null) return;
+              if (entry.value == null) return;
               _initPos = details.focalPoint;
-              _currentPos = Offset(value.xPosition, value.yPosition);
-              _currentScale = value.scale;
-              _currentRotation = value.rotation;
+              _currentPos =
+                  Offset(entry.value.xPosition, entry.value.yPosition);
+              _currentScale = entry.value.scale;
+              _currentRotation = entry.value.rotation;
             },
             onScaleUpdate: (details) {
-              if (value == null) return;
+              if (entry.value == null) return;
               final delta = details.focalPoint - _initPos;
-              final left = (delta.dx / screen.width) + _currentPos.dx;
-              final top = (delta.dy / screen.height) + _currentPos.dy;
+              var left = (delta.dx / screen.width) + _currentPos.dx;
+              var top = (delta.dy / screen.height) + _currentPos.dy;
+              // print(left);
+              // print(top);
+
+              if (left < 0) left = 0;
+              if (left > 0.54) left = 0.54;
+              if (top < 0) top = 0;
+              if (top > 0.5) top = 0.5;
+              // print(_currentScale);
 
               setState(() {
-                value.xPosition = Offset(left, top).dx;
-                value.yPosition = Offset(left, top).dy;
-                value.rotation = details.rotation + _currentRotation;
-                value.scale = details.scale * _currentScale;
+                entry.value.xPosition = Offset(left, top).dx;
+                entry.value.yPosition = Offset(left, top).dy;
+                entry.value.rotation = details.rotation + _currentRotation;
+                entry.value.scale = details.scale * _currentScale;
+                if (entry.value.scale > 1) entry.value.scale = 1;
+                // print(entry.value.scale);
               });
             },
             child: Stack(
               children: [
                 Positioned(
-                  left: value.xPosition * screen.width,
-                  top: value.yPosition * screen.height,
+                  left: entry.value.xPosition * screen.width,
+                  top: entry.value.yPosition * screen.height,
                   child: Transform.scale(
-                    scale: value.scale,
+                    scale: entry.value.scale,
                     child: Transform.rotate(
-                      angle: value.rotation,
-                      child: Container(
-                        height: value.height,
-                        width: value.width,
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: Listener(
-                            onPointerDown: (details) {
-                              // if (_inAction) return;
-                              // _inAction = true;
-                              // _activeItem = val;
-                              _initPos = details.position;
-                              _currentPos =
-                                  Offset(value.xPosition, value.yPosition);
-                              _currentScale = value.scale;
-                              _currentRotation = value.rotation;
-                            },
-                            onPointerUp: (details) {
-                              // _inAction = false;
-                            },
-                            // child: Container(
-                            //   height: value.height,
-                            //   width: value.width,
-                            //   color: Colors.red,
-                            // ),
-                            child: Image.network(photoUrl, fit: BoxFit.fill),
+                        angle: entry.value.rotation,
+                        child: Container(
+                          height: entry.value.height,
+                          width: entry.value.width,
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Listener(
+                              onPointerDown: (details) {
+                                _initPos = details.position;
+                                _currentPos = Offset(entry.value.xPosition,
+                                    entry.value.yPosition);
+                                _currentScale = entry.value.scale;
+                                _currentRotation = entry.value.rotation;
+                              },
+                              onPointerUp: (details) {},
+                              child: Image.network(entry.key, fit: BoxFit.fill),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
+                        )),
                   ),
-                )
+                ),
               ],
             ),
           );
