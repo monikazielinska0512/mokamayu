@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "The email address is badly formatted"),
         "bad_password": MessageLookupByLibrary.simpleMessage(
             "Password should be at least 6 characters long"),
+        "closet": MessageLookupByLibrary.simpleMessage("Closet"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "dismiss": MessageLookupByLibrary.simpleMessage("DISMISS"),
@@ -56,7 +57,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "social": MessageLookupByLibrary.simpleMessage("Social"),
         "user_not_exist":
             MessageLookupByLibrary.simpleMessage("User does not exist"),
-        "wardrobe": MessageLookupByLibrary.simpleMessage("Wardrobe"),
         "wrong_password": MessageLookupByLibrary.simpleMessage(
             "Your email or password is wrong")
       };
