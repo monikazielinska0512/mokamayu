@@ -6,15 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/services/authentication/auth.dart';
-import 'package:mokamayu/wrapper.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
 
 import 'generated/l10n.dart';
 import 'models/user/firebase_user.dart';
+import 'navigation/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  final appStateManager = AppStateManager();
+  await appStateManager.initializeApp();
 
   if (kDebugMode) {
     try {
@@ -26,18 +29,44 @@ void main() async {
       print(e);
     }
   }
-  runApp(const MyApp());
+  runApp(MyApp(appStateManager: appStateManager));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  final AppStateManager appStateManager;
+
+  MyApp({
+    Key? key,
+    required this.appStateManager,
+  }) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late final _profileManager = ProfileManager();
+  late final _clothesManager = ClothesManager();
+
+  late final _appRouter =
+      AppRouter(widget.appStateManager, _profileManager, _clothesManager);
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<FirebaseUser?>.value(
-      value: AuthService().user,
-      initialData: null,
-      child: MaterialApp(
+    final router = _appRouter.router;
+
+    return MultiProvider(
+      providers: [
+        StreamProvider<FirebaseUser?>.value(
+            value: AuthService().user, initialData: null),
+        ChangeNotifierProvider(create: (context) => _profileManager),
+        ChangeNotifierProvider(create: (context) => widget.appStateManager),
+        ChangeNotifierProvider(create: (_) => ClothesManager()),
+      ],
+      child: MaterialApp.router(
+        routerDelegate: router.routerDelegate,
+        routeInformationParser: router.routeInformationParser,
+        routeInformationProvider: router.routeInformationProvider,
         localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -50,7 +79,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch()
               .copyWith(secondary: CustomColors.primary),
         ),
-        home: const Wrapper(),
       ),
     );
   }

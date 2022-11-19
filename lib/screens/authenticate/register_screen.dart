@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/screens/home/home_screen.dart';
-import 'package:mokamayu/services/clothes_provider.dart';
 import 'package:mokamayu/utils/validator.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/user/login_user.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/authentication/auth_exception_handler.dart';
+import '../../services/managers/managers.dart';
 import '../../widgets/buttons/reusable_button.dart';
 import '../../widgets/fields/reusable_text_field.dart';
 import '../../widgets/reusable_snackbar.dart';
@@ -138,16 +137,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             password:
                                                 _passwordTextController.text));
                                     if (status == AuthStatus.successful) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ChangeNotifierProvider(
-                                                    create: (_) =>
-                                                        ClothesProvider(),
-                                                    child: const MyHomePage(
-                                                        title: 'Mokamayu'),
-                                                  )));
+                                      Provider.of<AppStateManager>(context,
+                                              listen: false)
+                                          .login();
                                     } else {
                                       final error = AuthExceptionHandler
                                           .generateErrorMessage(

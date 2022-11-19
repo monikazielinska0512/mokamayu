@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/models/wardrobe/clothes.dart';
 import 'package:mokamayu/screens/wardrobe/add_photo_screen.dart';
-import 'package:mokamayu/services/clothes_provider.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
+
 import '../../constants/colors.dart';
-import '../../constants/tags.dart';
 import '../../widgets/basic_page.dart';
 import '../../widgets/buttons/floating_button.dart';
 import '../../widgets/buttons/icon_button.dart';
-import '../../widgets/chips/choice_chips.dart';
 import '../../widgets/fields/search_bar.dart';
 import '../../widgets/page_title.dart';
 import '../../widgets/photo_grid/photo_grid.dart';
@@ -26,9 +25,9 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   @override
   void initState() {
     clothesList =
-        Provider.of<ClothesProvider>(context, listen: false).readClothesOnce();
+        Provider.of<ClothesManager>(context, listen: false).readClothesOnce();
     Future.delayed(Duration.zero).then((value) {
-      Provider.of<ClothesProvider>(context, listen: false)
+      Provider.of<ClothesManager>(context, listen: false)
           .setClothes(clothesList!);
     });
 
@@ -75,7 +74,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ChangeNotifierProvider(
-                              create: (_) => ClothesProvider(),
+                              create: (_) => ClothesManager(),
                               child: PhotoPickerScreen(),
                             )));
               },

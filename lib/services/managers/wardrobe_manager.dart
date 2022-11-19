@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mokamayu/models/wardrobe/clothes.dart';
-import 'authentication/auth.dart';
-import 'database/database_service.dart';
 
-class ClothesProvider extends ChangeNotifier {
+import '../authentication/auth.dart';
+import '../database/database_service.dart';
+
+class ClothesManager extends ChangeNotifier {
   List<Clothes> clothesList = [];
   Future<List<Clothes>>? futureClothesList;
+
   Future<List<Clothes>>? get getClothesList => futureClothesList;
 
   void setClothes(Future<List<Clothes>> clothesList) {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/widgets/basic_page.dart';
 import 'package:provider/provider.dart';
-import '../../services/clothes_provider.dart';
+
+import '../../services/managers/wardrobe_manager.dart';
 import '../../widgets/photo_picker.dart';
 import 'clothes_form_screen.dart';
 
@@ -36,7 +37,7 @@ class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         ChangeNotifierProvider(
-                                          create: (_) => ClothesProvider(),
+                                          create: (_) => ClothesManager(),
                                           child: AddClothesForm(
                                               photo: widget._picker.photo),
                                         )))

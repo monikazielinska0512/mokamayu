@@ -1,28 +1,35 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/screens/outfits/create_outfit_dialog.dart';
-import 'package:mokamayu/screens/profile/profile_screen.dart';
-import 'package:mokamayu/screens/social/social_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
+import '../../models/user/firebase_user.dart';
 import '../../services/authentication/auth.dart';
+import '../../services/managers/managers.dart';
 import '../../widgets/appbar.dart';
 import '../../widgets/drawer.dart';
 import '../../widgets/navbar.dart';
 import '../outfits/outfits_screen.dart';
+import '../profile/profile_screen.dart';
+import '../social/social_screen.dart';
 import '../wardrobe/wardrobe_screen.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
+    super.key,
+    this.currentTab = 0,
+  });
+
+  final int currentTab;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   static final User user = AuthService().currentUser!;
-  int _selectedIndex = 0;
+
   static List<Widget> pages = <Widget>[
     const WardrobeScreen(),
     const OutfitsScreen(),
@@ -32,6 +39,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final firebase_user = Provider.of<FirebaseUser?>(context);
+    // TODO(karina)
+    print("ffirebase_user: ${firebase_user?.uid}  user: ${user.uid}");
+
     List<String> pageLabels = [
       S.of(context).closet,
       S.of(context).outfits,
@@ -40,15 +51,20 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
 
     return Scaffold(
-        appBar: customAppBar(context, pageLabels[_selectedIndex]),
+        appBar: customAppBar(context, pageLabels[widget.currentTab]),
         drawer: drawer(context),
-        body: IndexedStack(index: _selectedIndex, children: pages),
+        body: IndexedStack(index: widget.currentTab, children: pages),
         bottomNavigationBar: NavBar(
-            selectedIndex: _selectedIndex,
+            selectedIndex: widget.currentTab,
             onTabChange: (int index) {
-              setState(() {
-                _selectedIndex = index;
-              });
+              Provider.of<AppStateManager>(context, listen: false)
+                  .goToTab(index);
+              context.goNamed(
+                'home',
+                params: {
+                  'tab': '$index',
+                },
+              );
             }));
   }
 }
