@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/screens/screens.dart';
-import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/ui/widgets/widgets.dart';
-import 'package:mokamayu/services/services.dart';
-
-
-
+import 'package:mokamayu/screens/home/home_screen.dart';
+import 'package:mokamayu/screens/authenticate/register_screen.dart';
+import 'package:mokamayu/screens/authenticate/reset_password_screen.dart';
+import 'package:mokamayu/services/authentication/auth_exception_handler.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/user/login_user.dart';
+import '../../services/authentication/auth.dart';
+import '../../services/clothes_provider.dart';
+import '../../widgets/buttons/reusable_button.dart';
+import '../../widgets/fields/reusable_text_field.dart';
+import '../../widgets/reusable_snackbar.dart';
 import '../../utils/validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -89,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   (value) => Validator.validatePassword(
                                       _passwordTextController.text, context)),
                               forgottenPassword(context),
-                              Button(context, S.of(context).sign_in,
+                              reusableButton(context, S.of(context).sign_in,
                                   () async {
                                 if (_form.currentState!.validate()) {
                                   final status =

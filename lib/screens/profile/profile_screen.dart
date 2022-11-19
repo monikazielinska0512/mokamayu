@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/ui/widgets/widgets.dart';
-import 'package:mokamayu/services/services.dart';
 import '../../generated/l10n.dart';
+import '../../models/wardrobe/clothes.dart';
+import '../../services/authentication/auth.dart';
+import '../../services/clothes_provider.dart';
+import '../../widgets/buttons/reusable_button.dart';
+import '../../widgets/photo_grid/photo_grid.dart';
+import '../../widgets/user/user_summary.dart';
+import '../../services/database/database_service.dart';
 
 class ProfileScreen extends StatefulWidget {
   final User user;
@@ -30,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           userSummary(context, widget.user, imageRadius: 60),
           if (AuthService().getCurrentUserID() != widget.user.uid) ...[
-            Button(
+            reusableButton(
                 context,
                 'Create outfit for ${widget.user.displayName ?? widget.user.email}',
                 () => {
@@ -45,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget profileContent(BuildContext context) {
     List<Tab> tabs = <Tab>[
-      Tab(text: S.of(context).wardrobe),
+      Tab(text: S.of(context).closet),
       Tab(text: S.of(context).outfits),
     ];
     return Expanded(
