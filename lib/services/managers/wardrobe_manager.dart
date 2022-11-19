@@ -20,11 +20,11 @@ class ClothesProvider extends ChangeNotifier {
         .doc(AuthService().getCurrentUserID())
         .collection('clothes')
         .get();
-    List<Clothes> _clothes = snapshot.docs
+    List<Clothes> clothes = snapshot.docs
         .map((d) => Clothes.fromFirestore(d.data() as Map<String, dynamic>))
-        .toList() as List<Clothes>;
+        .toList();
 
-    clothesList = _clothes;
+    clothesList = clothes;
     return clothesList;
   }
 

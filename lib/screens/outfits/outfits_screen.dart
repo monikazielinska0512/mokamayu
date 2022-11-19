@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-
 import 'package:mokamayu/ui/ui.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/managers.dart';
-
-
 import 'create_outfit_dialog.dart';
 import 'package:provider/provider.dart';
 

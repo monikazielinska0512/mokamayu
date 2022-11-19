@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/ui/constants/constants.dart';
 import 'package:mokamayu/services/photo_tapped.dart';
 import 'package:provider/provider.dart';
+import 'package:mokamayu/models/models.dart';
 
-import '../../../models/clothes.dart';
 
 class PhotoCard extends StatelessWidget {
   final Clothes object;
