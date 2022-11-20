@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/models/wardrobe/clothes.dart';
-import 'package:mokamayu/screens/wardrobe/add_photo_screen.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/screens/screens.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
+import 'package:mokamayu/constants/constants.dart';
 
-import '../../constants/colors.dart';
-import '../../widgets/basic_page.dart';
-import '../../widgets/buttons/floating_button.dart';
-import '../../widgets/buttons/icon_button.dart';
-import '../../widgets/fields/search_bar.dart';
-import '../../widgets/page_title.dart';
-import '../../widgets/photo_grid/photo_grid.dart';
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
@@ -36,7 +31,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BasicPage(
+    return BasicScreen(
         context: context,
         child: Stack(children: [
           Column(
@@ -75,11 +70,11 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     MaterialPageRoute(
                         builder: (context) => ChangeNotifierProvider(
                               create: (_) => ClothesManager(),
-                              child: PhotoPickerScreen(),
+                              child: AddPhotoScreen(),
                             )));
               },
               icon: const Icon(Icons.add),
-              backgroundColor: CustomColors.primary,
+              backgroundColor: ColorsConstants.primary,
               padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
               alignment: Alignment.bottomRight)
         ]));

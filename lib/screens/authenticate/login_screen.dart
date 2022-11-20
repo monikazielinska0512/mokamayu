@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/services/authentication/auth_exception_handler.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/user/login_user.dart';
-import '../../services/authentication/auth.dart';
-import '../../services/managers/managers.dart';
 import '../../utils/validator.dart';
-import '../../widgets/buttons/reusable_button.dart';
-import '../../widgets/fields/reusable_text_field.dart';
-import '../../widgets/reusable_snackbar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -22,7 +18,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final AuthService _auth = AuthService();
   final TextEditingController _passwordTextController = TextEditingController();
-  final TextEditingController _emailtextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
 
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
@@ -73,17 +69,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               const SizedBox(
                                 height: 5,
                               ),
-                              reusableTextField(
+                              CustomTextField(
                                   S.of(context).enter_email,
                                   Icons.person_outline,
                                   false,
-                                  _emailtextController,
+                                  _emailTextController,
                                   (value) => Validator.validateEmail(
-                                      _emailtextController.text, context)),
+                                      _emailTextController.text, context)),
                               const SizedBox(
                                 height: 20,
                               ),
-                              reusableTextField(
+                              CustomTextField(
                                   S.of(context).enter_password,
                                   Icons.lock_outline,
                                   true,
@@ -91,12 +87,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   (value) => Validator.validatePassword(
                                       _passwordTextController.text, context)),
                               forgottenPassword(context),
-                              reusableButton(context, S.of(context).sign_in,
-                                  () async {
+                              Button(context, S.of(context).sign_in, () async {
                                 if (_form.currentState!.validate()) {
                                   final status =
                                       await _auth.signInEmailPassword(LoginUser(
-                                          email: _emailtextController.text,
+                                          email: _emailTextController.text,
                                           password:
                                               _passwordTextController.text));
                                   if (mounted &&

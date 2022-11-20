@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/screens/screens.dart';
+import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
-import '../../services/managers/managers.dart';
-import '../../widgets/appbar.dart';
-import '../../widgets/drawer.dart';
-import '../../widgets/navbar.dart';
-import '../outfits/outfits_screen.dart';
-import '../profile/profile_screen.dart';
-import '../social/social_screen.dart';
-import '../wardrobe/wardrobe_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final int currentTab;

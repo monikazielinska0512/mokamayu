@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../widgets/chips/multichoice_chips.dart';
+import 'package:mokamayu/widgets/chips/chips.dart';
 
 class FilterChipsFormField extends FormField<List<String>> {
   final List<String> chipsList;

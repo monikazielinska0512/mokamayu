@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/models/wardrobe/clothes.dart';
-import 'package:mokamayu/services/photo_tapped.dart';
-import 'package:mokamayu/widgets/drag_target_container.dart';
+import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:provider/provider.dart';
-
-import '../../widgets/appbar.dart';
-import '../../widgets/photo_grid/photo_grid.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 
 class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.clothesList}) : super(key: key);

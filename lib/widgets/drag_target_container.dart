@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/services/photo_tapped.dart';
-import 'package:provider/provider.dart';
-
-import '../constants/colors.dart';
+import 'package:mokamayu/constants/constants.dart';
 
 class ContainerList {
   double height;
@@ -33,7 +30,7 @@ class DragTargetContainer extends StatefulWidget {
 class _DragTargetState extends State<DragTargetContainer> {
   List<ContainerList> list = [];
   late Offset _initPos;
-  late Offset _currentPos = Offset(0, 0);
+  late Offset _currentPos = const Offset(0, 0);
   late double _currentScale;
   late double _currentRotation;
   late Size screen;
@@ -50,7 +47,7 @@ class _DragTargetState extends State<DragTargetContainer> {
       // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       width: MediaQuery.of(context).size.width,
       height: 450.0,
-      color: CustomColors.soft,
+      color: ColorsConstants.soft,
       child: Stack(
         children: widget.map!.entries.map((entry) {
           return GestureDetector(

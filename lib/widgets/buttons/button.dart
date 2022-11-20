@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Container reusableButton(BuildContext context, String title, Function onTap,
+Container Button(BuildContext context, String title, Function onTap,
     {bool shouldExpand = true}) {
   return Container(
     width: shouldExpand ? MediaQuery.of(context).size.width : null,

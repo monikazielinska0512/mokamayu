@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mokamayu/models/wardrobe/clothes.dart';
-
+import 'package:mokamayu/models/models.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
 
@@ -22,11 +21,11 @@ class ClothesManager extends ChangeNotifier {
         .doc(AuthService().getCurrentUserID())
         .collection('clothes')
         .get();
-    List<Clothes> _clothes = snapshot.docs
-        .map((d) => Clothes.fromFirestore(d.data() as Map<String, dynamic>))
-        .toList() as List<Clothes>;
+    List<Clothes> clothes = snapshot.docs
+        .map((d) => Clothes.fromJson(d.data() as Map<String, dynamic>))
+        .toList();
 
-    clothesList = _clothes;
+    clothesList = clothes;
     return clothesList;
   }
 
@@ -35,7 +34,7 @@ class ClothesManager extends ChangeNotifier {
         .collection('users')
         .doc(AuthService().getCurrentUserID())
         .collection('clothes')
-        .add(clothes.toFirestore());
+        .add(clothes.toJson());
 
     notifyListeners();
   }

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/screens/authenticate/reset_password_screen.dart';
-
-import '../screens/authenticate/login_screen.dart';
-import '../screens/authenticate/register_screen.dart';
-import '../screens/home/home_screen.dart';
-import '../services/managers/managers.dart';
+import 'package:mokamayu/screens/screens.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 
 class AppRouter {
   final AppStateManager appStateManager;
