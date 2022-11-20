@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/services/photo_tapped.dart';
+import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/widgets/widgets.dart';

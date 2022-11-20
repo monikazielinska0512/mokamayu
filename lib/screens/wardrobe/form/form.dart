@@ -16,7 +16,7 @@ class _ClothesFormState extends State<ClothesForm> {
   String? _type = "";
   String? _size = "";
   String? _name = "";
-  List<String>? _TagManager = [];
+  List<String>? _Tags = [];
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _ClothesFormState extends State<ClothesForm> {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         labelText: 'Enter your clothes name',
-                        labelStyle: TextStylesManager.h4(),
+                        labelStyle: TextStyles.h4(),
                         focusedBorder: InputBorder.none,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         enabledBorder: InputBorder.none,
@@ -68,10 +68,10 @@ class _ClothesFormState extends State<ClothesForm> {
                       child: Padding(
                           padding: EdgeInsets.only(bottom: 10, top: 10),
                           child: Text("Type",
-                              style: TextStylesManager
+                              style: TextStyles
                                   .paragraphRegularSemiBold18()))),
                   DropdownMenuFormField(
-                      list: TagManager.types,
+                      list: Tags.types,
                       onSaved: (value) => _type = value!,
                       validator: (value) {
                         if (value == "Type") {
@@ -79,13 +79,13 @@ class _ClothesFormState extends State<ClothesForm> {
                         }
                         return null;
                       },
-                      initialValue: TagManager.types[0]),
+                      initialValue: Tags.types[0]),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
                           padding: EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Size",
-                              style: TextStylesManager
+                              style: TextStyles
                                   .paragraphRegularSemiBold18()))),
                   Align(
                       alignment: Alignment.centerLeft,
@@ -105,11 +105,11 @@ class _ClothesFormState extends State<ClothesForm> {
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Style",
-                              style: TextStylesManager
+                              style: TextStyles
                                   .paragraphRegularSemiBold18()))),
                   FilterChipsFormField(
                       chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
-                      onSaved: (value) => _TagManager = value,
+                      onSaved: (value) => _Tags = value,
                       validator: (value) {
                         if (value!.isEmpty) {
                           print("styles = []");
@@ -121,13 +121,13 @@ class _ClothesFormState extends State<ClothesForm> {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
 
-                        print("Valid$_type$_size$_name$_TagManager");
+                        print("Valid$_type$_size$_name$_Tags");
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Valid')),
                         );
                       } else {
                         _formKey.currentState!.save();
-                        print("NotValid$_type$_size$_name$_TagManager");
+                        print("NotValid$_type$_size$_name$_Tags");
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Not Valid')));
                       }

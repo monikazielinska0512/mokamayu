@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/widgets/navbar.dart';
 
 class BasicScreen extends StatelessWidget {
   BuildContext context;

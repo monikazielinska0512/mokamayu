@@ -31,23 +31,23 @@ class _SearchBarState extends State<SearchBar> {
       cursorColor: Colors.black,
       decoration: InputDecoration(
           filled: true,
-          fillColor: ColorManager.soft,
+          fillColor: ColorsConstants.soft,
           labelText: focusNode.hasFocus == false ? widget.title : "",
-          labelStyle: TextStylesManager.paragraphRegular18(ColorManager.grey),
+          labelStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
           hintText: widget.hintTitle,
-          hintStyle: TextStylesManager.paragraphRegular18(ColorManager.grey),
+          hintStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
           enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager.soft, width: 0.0),
+            borderSide: BorderSide(color: ColorsConstants.soft, width: 0.0),
           ),
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager.soft, width: 0.0),
+            borderSide: BorderSide(color: ColorsConstants.soft, width: 0.0),
           ),
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(14.0))),
           prefixIcon: const Icon(Icons.search),
           prefixIconColor: focusNode.hasFocus == false
-              ? ColorManager.grey
-              : ColorManager.primary),
+              ? ColorsConstants.grey
+              : ColorsConstants.primary),
     );
   }
 }

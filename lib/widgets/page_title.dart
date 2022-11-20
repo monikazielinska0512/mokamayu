@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../constants/colors.dart';
-import '../constants/text_styles.dart';
+import 'package:mokamayu/constants/constants.dart';
 
 class PageTitle extends StatelessWidget {
   final String title;
@@ -21,10 +20,10 @@ class PageTitle extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStylesManager.appTitle()),
+                Text(title, style: TextStyles.appTitle()),
                 const SizedBox(height: 5),
                 Text(description ?? "",
-                    style: TextStylesManager.paragraphRegular14(ColorManager.grey)),
+                    style: TextStyles.paragraphRegular14(ColorsConstants.grey)),
               ])
         ]));
   }

@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/screens/home/home_screen.dart';
-import 'package:mokamayu/services/managers/clothes_provider.dart';
-import 'package:mokamayu/utils/validator.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/login_user.dart';
-import '../../services/authentication/auth.dart';
-import '../../services/authentication/auth_exception_handler.dart';
-import '../../widgets/buttons/reusable_button.dart';
-import '../../widgets/fields/reusable_text_field.dart';
-import '../../widgets/reusable_snackbar.dart';
+import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/widgets.dart';
+import 'package:mokamayu/models/models.dart';
+
+import 'package:mokamayu/utils/validator.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -86,7 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                reusableTextField(
+                                CustomTextField(
                                     S.of(context).enter_username,
                                     Icons.person_outline,
                                     false,
@@ -96,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                reusableTextField(
+                                CustomTextField(
                                     S.of(context).enter_email,
                                     Icons.mail,
                                     false,
@@ -106,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                reusableTextField(
+                                CustomTextField(
                                     S.of(context).enter_password,
                                     Icons.lock_outline,
                                     true,
@@ -116,7 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                reusableTextField(
+                                CustomTextField(
                                     S.of(context).confirm_password,
                                     Icons.lock_outline,
                                     true,
@@ -129,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                reusableButton(context, S.of(context).sign_up,
+                                Button(context, S.of(context).sign_up,
                                     () async {
                                   if (_form.currentState!.validate()) {
                                     final status = await _auth.register(
@@ -138,16 +134,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             password:
                                                 _passwordTextController.text));
                                     if (status == AuthStatus.successful) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ChangeNotifierProvider(
-                                                    create: (_) =>
-                                                        WardrobeManager(),
-                                                    child: const MyHomePage(
-                                                        title: 'Mokamayu'),
-                                                  )));
+                                      Navigator.pop(context);
+                                      Provider.of<AppStateManager>(context,
+                                              listen: false)
+                                          .login();
                                     } else {
                                       final error = AuthExceptionHandler
                                           .generateErrorMessage(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/widgets/user/user_summary.dart';
-
-import '../screens/authenticate/login_screen.dart';
-import '../services/authentication/auth.dart';
+import 'package:provider/provider.dart';
+import 'package:mokamayu/services/services.dart';
 
 Drawer drawer(BuildContext context) {
   AuthService _auth = AuthService();
+  // TODO(karina): change to provider
 
   return Drawer(
       child: ListView(
@@ -41,9 +41,7 @@ Drawer drawer(BuildContext context) {
         title: const Text('Sign out'),
         onTap: () {
           Navigator.pop(context);
-          _auth.signOut();
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()));
+          Provider.of<AppStateManager>(context, listen: false).logout();
         },
       ),
     ],

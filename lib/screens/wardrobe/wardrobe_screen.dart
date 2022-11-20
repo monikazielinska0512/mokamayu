@@ -20,9 +20,9 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   @override
   void initState() {
     clothesList =
-        Provider.of<WardrobeManager>(context, listen: false).readClothesOnce();
+        Provider.of<ClothesManager>(context, listen: false).readClothesOnce();
     Future.delayed(Duration.zero).then((value) {
-      Provider.of<WardrobeManager>(context, listen: false)
+      Provider.of<ClothesManager>(context, listen: false)
           .setClothes(clothesList!);
     });
 
@@ -69,12 +69,12 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ChangeNotifierProvider(
-                              create: (_) => WardrobeManager(),
+                              create: (_) => ClothesManager(),
                               child: AddPhotoScreen(),
                             )));
               },
               icon: const Icon(Icons.add),
-              backgroundColor: ColorManager.primary,
+              backgroundColor: ColorsConstants.primary,
               padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
               alignment: Alignment.bottomRight)
         ]));

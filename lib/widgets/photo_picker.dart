@@ -34,7 +34,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
             )
           : Container(
               decoration: BoxDecoration(
-                  color: ColorManager.soft,
+                  color: ColorsConstants.soft,
                   borderRadius: BorderRadius.circular(20)),
               width: double.maxFinite,
               height: widget.height,

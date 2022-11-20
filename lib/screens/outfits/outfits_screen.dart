@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../constants/colors.dart';
-import '../../widgets/buttons/floating_button.dart';
-import '../../widgets/photo_grid/photo_grid.dart';
-import 'create_outfit_dialog.dart';
 import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/constants/constants.dart';
+import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
   const OutfitsScreen({Key? key}) : super(key: key);
@@ -21,9 +20,9 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-      clothesList = Provider.of<WardrobeManager>(context, listen: false)
-          .getClothesList;
-    }));
+          clothesList = Provider.of<ClothesManager>(context, listen: false)
+              .getClothesList;
+        }));
     return Scaffold(
         body: Stack(children: [
       Column(children: [
@@ -41,7 +40,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
                 });
           },
           icon: const Icon(Icons.add),
-          backgroundColor: ColorManager.primary,
+          backgroundColor: ColorsConstants.primary,
           padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
           alignment: Alignment.bottomRight)
     ]));

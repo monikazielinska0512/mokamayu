@@ -1,8 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/constants/colors.dart';
-
-import '../constants/text_styles.dart';
+import 'package:mokamayu/constants/constants.dart';
 
 class DropdownMenuFormField extends FormField<String> {
   List<String> list;
@@ -23,7 +21,7 @@ class DropdownMenuFormField extends FormField<String> {
           builder: (FormFieldState<String> state) {
             return DropdownButtonFormField2(
               decoration: InputDecoration(
-                fillColor: ColorManager.primary,
+                fillColor: ColorsConstants.primary,
                 isDense: true,
                 contentPadding: EdgeInsets.zero,
                 border: OutlineInputBorder(
@@ -33,7 +31,7 @@ class DropdownMenuFormField extends FormField<String> {
               isExpanded: true,
               hint: Text(
                 'Select clothes type',
-                style: TextStylesManager.paragraphRegular18(),
+                style: TextStyles.paragraphRegular18(),
               ),
               icon: const Icon(
                 Icons.arrow_drop_down,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
+TextFormField CustomTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller, String? Function(String?)? onValidate) {
   return TextFormField(
     validator: onValidate,

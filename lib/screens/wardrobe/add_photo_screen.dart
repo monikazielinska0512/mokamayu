@@ -32,7 +32,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         ChangeNotifierProvider(
-                                          create: (_) => WardrobeManager(),
+                                          create: (_) => ClothesManager(),
                                           child: AddClothesForm(
                                               photo: widget._picker.photo),
                                         )))

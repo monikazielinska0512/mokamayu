@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/outfits/outfits_add_screen.dart';
-import 'package:mokamayu/services/photo_tapped.dart';
+import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +39,7 @@ class CustomDialogBox {
           child: const Text('With applied filters'),
         ),
         CupertinoDialogAction(
-          child: Text("Cancel"),
+          child: const Text("Cancel"),
           isDestructiveAction: true,
           onPressed: () {
             Navigator.of(context).pop();

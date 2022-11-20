@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
-import 'package:provider/provider.dart';
+
 import '../../utils/validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -68,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               const SizedBox(
                                 height: 5,
                               ),
-                              reusableTextField(
+                              CustomTextField(
                                   S.of(context).enter_email,
                                   Icons.person_outline,
                                   false,
@@ -78,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              reusableTextField(
+                              CustomTextField(
                                   S.of(context).enter_password,
                                   Icons.lock_outline,
                                   true,
@@ -86,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   (value) => Validator.validatePassword(
                                       _passwordTextController.text, context)),
                               forgottenPassword(context),
-                              reusableButton(context, S.of(context).sign_in,
+                              Button(context, S.of(context).sign_in,
                                   () async {
                                 if (_form.currentState!.validate()) {
                                   final status =
@@ -95,16 +97,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                           password:
                                               _passwordTextController.text));
                                   if (status == AuthStatus.successful) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ChangeNotifierProvider(
-                                                  create: (_) =>
-                                                      WardrobeManager(),
-                                                  child: const MyHomePage(
-                                                      title: 'Mokamayu'),
-                                                )));
+                                    Provider.of<AppStateManager>(context,
+                                            listen: false)
+                                        .login();
                                   } else {
                                     final error = AuthExceptionHandler
                                         .generateErrorMessage(status, context);
@@ -115,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                 }
                               }),
-                              signUpOption(),
+                              signUpOption(context),
                             ],
                           ),
                         ),
@@ -123,21 +118,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     ])))));
   }
 
-  Row signUpOption() {
+  Row signUpOption(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(S.of(context).no_account, style: const TextStyle(color: Colors.black)),
+        Text(S.of(context).no_account,
+            style: const TextStyle(color: Colors.black)),
         GestureDetector(
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const RegisterScreen()));
+            GoRouter.of(context).push('/register');
           },
           child: Text(
             S.of(context).sign_up,
-            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold),
           ),
         )
       ],
@@ -151,13 +145,11 @@ Widget forgottenPassword(BuildContext context) {
     height: 35,
     alignment: Alignment.bottomRight,
     child: TextButton(
-      child: Text(
-        S.of(context).forgot_password,
-        style: const TextStyle(color: Colors.black),
-        textAlign: TextAlign.right,
-      ),
-      onPressed: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const ResetPassword())),
-    ),
+        child: Text(
+          S.of(context).forgot_password,
+          style: const TextStyle(color: Colors.black),
+          textAlign: TextAlign.right,
+        ),
+        onPressed: () => GoRouter.of(context).push('/reset-password')),
   );
 }

@@ -1,5 +1,3 @@
-// user profile
-
-class AssetManager {
+class Assets {
   static const avatarPlaceholder = "assets/images/girl.png";
 }

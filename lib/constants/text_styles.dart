@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TextStylesManager {
+class TextStyles {
   static TextStyle appTitle([Color? color]) {
     return TextStyle(
         fontSize: 26,
