@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/assets.dart';
-import 'package:mokamayu/widgets/buttons/buttons.dart';
 import 'package:mokamayu/services/authentication/authentication.dart';
+import 'package:mokamayu/widgets/buttons/buttons.dart';
 
 Widget userSummary(BuildContext context, User? user,
     {double? imageRadius, double fontSize = 25}) {
@@ -15,7 +15,8 @@ Widget userSummary(BuildContext context, User? user,
             radius: imageRadius,
             child: SizedBox(
                 child: ClipOval(
-                    child: Image.asset(user?.photoURL ?? Assets.avatarPlaceholder)))),
+                    child: Image.asset(
+                        user?.photoURL ?? Assets.avatarPlaceholder)))),
         const SizedBox(width: 10),
         Expanded(
           child: Container(

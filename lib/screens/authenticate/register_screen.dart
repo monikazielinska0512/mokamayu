@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:provider/provider.dart';
-
-import 'package:mokamayu/services/services.dart';
-import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/models/models.dart';
-
+import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/utils/validator.dart';
+import 'package:mokamayu/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
