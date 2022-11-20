@@ -31,14 +31,14 @@ class ChoiceChipsFormField extends FormField<String> {
                           shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          backgroundColor: CustomColors.soft,
+                          backgroundColor: ColorManager.soft,
                           selectedColor:
-                              CustomColors.colorList[index].withOpacity(0.2),
+                              ColorManager.colorList[index].withOpacity(0.2),
                           labelStyle: state.value == chipsList[index]
-                              ? TextStyles.paragraphRegularSemiBold18(
-                                  CustomColors.colorList[index])
-                              : TextStyles.paragraphRegular18(
-                                  CustomColors.grey),
+                              ? TextStylesManager.paragraphRegularSemiBold18(
+                                  ColorManager.colorList[index])
+                              : TextStylesManager.paragraphRegular18(
+                                  ColorManager.grey),
                           onSelected: (bool selected) {
                             state.didChange(selected ? chipsList[index] : "");
                           });

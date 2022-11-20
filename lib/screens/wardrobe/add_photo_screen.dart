@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
-import 'package:mokamayu/ui/widgets/widgets.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import 'clothes_form_screen.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 
 class AddPhotoScreen extends StatefulWidget {
   AddPhotoScreen({Key? key}) : super(key: key);

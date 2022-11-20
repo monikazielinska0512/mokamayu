@@ -1,2 +1,4 @@
-// user profile
-const avatarPlaceholder = "assets/images/girl.png";
+export 'asset_manager.dart';
+export 'colors.dart';
+export 'tags.dart';
+export 'text_styles.dart';

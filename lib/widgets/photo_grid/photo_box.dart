@@ -6,7 +6,7 @@ import 'package:mokamayu/services/photo_tapped.dart';
 import 'package:mokamayu/widgets/drag_target_container.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/wardrobe/clothes.dart';
+import '../../models/clothes.dart';
 
 class PhotoCard extends StatelessWidget {
   final Clothes object;
@@ -27,7 +27,7 @@ class PhotoCard extends StatelessWidget {
             },
             child: Card(
               elevation: 4,
-              color: CustomColors.soft,
+              color: ColorManager.soft,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
               ),
@@ -49,7 +49,7 @@ class PhotoCard extends StatelessWidget {
           )
         : Card(
             elevation: 4,
-            color: CustomColors.soft,
+            color: ColorManager.soft,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
@@ -66,7 +66,7 @@ class PhotoCard extends StatelessWidget {
                       child: Image.network(photoUrl!, fit: BoxFit.fill),
                     ),
                   )),
-              Text(name!, style: TextStyles.paragraphRegularSemiBold14()),
+              Text(name!, style: TextStylesManager.paragraphRegularSemiBold14()),
             ]),
           );
   }

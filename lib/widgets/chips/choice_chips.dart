@@ -29,11 +29,11 @@ class _ChoiceChipsState extends State<ChoiceChips> {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               backgroundColor: Colors.transparent,
-              selectedColor: CustomColors.colorList[index].withOpacity(0.2),
+              selectedColor: ColorManager.colorList[index].withOpacity(0.2),
               labelStyle: widget._chipsChoice == widget.chipsList[index]
-                  ? TextStyles.paragraphRegularSemiBold18(
-                      CustomColors.colorList[index])
-                  : TextStyles.paragraphRegular18(CustomColors.grey),
+                  ? TextStylesManager.paragraphRegularSemiBold18(
+                  ColorManager.colorList[index])
+                  : TextStylesManager.paragraphRegular18(ColorManager.grey),
               onSelected: (bool selected) {
                 setState(() {
                   widget._chipsChoice =

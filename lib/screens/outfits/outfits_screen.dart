@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../constants/colors.dart';
+import '../../widgets/buttons/floating_button.dart';
+import '../../widgets/photo_grid/photo_grid.dart';
 import 'create_outfit_dialog.dart';
-import 'package:mokamayu/ui/ui.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
 

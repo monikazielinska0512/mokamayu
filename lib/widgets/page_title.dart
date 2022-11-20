@@ -21,10 +21,10 @@ class PageTitle extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyles.appTitle()),
+                Text(title, style: TextStylesManager.appTitle()),
                 const SizedBox(height: 5),
                 Text(description ?? "",
-                    style: TextStyles.paragraphRegular14(CustomColors.grey)),
+                    style: TextStylesManager.paragraphRegular14(ColorManager.grey)),
               ])
         ]));
   }

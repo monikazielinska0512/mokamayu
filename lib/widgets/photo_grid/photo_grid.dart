@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/models/wardrobe/clothes.dart';
+import 'package:mokamayu/models/clothes.dart';
 import 'package:mokamayu/widgets/photo_grid/photo_box.dart';
 import '../../constants/colors.dart';
 import '../reusable_snackbar.dart';
@@ -53,7 +53,7 @@ class PhotoGrid extends StatelessWidget {
         return const Center(
             child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(
-            CustomColors.primary,
+            ColorManager.primary,
           ),
         ));
       },

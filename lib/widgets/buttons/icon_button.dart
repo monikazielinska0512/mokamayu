@@ -20,7 +20,7 @@ class CustomIconButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: backgroundColor ?? CustomColors.primary,
+            backgroundColor: backgroundColor ?? ColorManager.primary,
             elevation: 0,
           ),
           child: Icon(icon),

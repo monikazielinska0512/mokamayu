@@ -10,7 +10,7 @@ import 'package:mokamayu/wrapper.dart';
 import 'package:provider/provider.dart';
 
 import 'generated/l10n.dart';
-import 'models/user/firebase_user.dart';
+import 'models/firebase_user.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         title: 'Mokamayu',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch()
-              .copyWith(secondary: CustomColors.primary),
+              .copyWith(secondary: ColorManager.primary),
         ),
         home: const Wrapper(),
       ),

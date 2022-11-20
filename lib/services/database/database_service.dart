@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../models/wardrobe/clothes.dart';
+import '../../models/clothes.dart';
 import '../authentication/auth.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;

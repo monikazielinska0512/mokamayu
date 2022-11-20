@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/ui/widgets/widgets.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:provider/provider.dart';
 import '../../utils/validator.dart';
@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   (value) => Validator.validatePassword(
                                       _passwordTextController.text, context)),
                               forgottenPassword(context),
-                              Button(context, S.of(context).sign_in,
+                              reusableButton(context, S.of(context).sign_in,
                                   () async {
                                 if (_form.currentState!.validate()) {
                                   final status =

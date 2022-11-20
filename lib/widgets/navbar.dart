@@ -30,10 +30,10 @@ class _NavBarState extends State<NavBar> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
           child: GNav(
-            rippleColor: CustomColors.soft,
-            hoverColor: CustomColors.soft,
+            rippleColor: ColorManager.soft,
+            hoverColor: ColorManager.soft,
             gap: 8,
-            activeColor: CustomColors.primary,
+            activeColor: ColorManager.primary,
             iconSize: 28,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             duration: const Duration(milliseconds: 400),

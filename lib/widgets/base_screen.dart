@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'navigation/navbar.dart';
 
 abstract class BasePageScreen extends StatefulWidget {
   const BasePageScreen({Key? key}) : super(key: key);

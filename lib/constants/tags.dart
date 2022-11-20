@@ -1,4 +1,4 @@
-class Tags {
+class TagManager {
   static const List<String> sizes = [
     'XS',
     'S',

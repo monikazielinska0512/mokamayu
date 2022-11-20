@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mokamayu/models/wardrobe/clothes.dart';
-import 'authentication/auth.dart';
-import 'database/database_service.dart';
+import 'package:mokamayu/models/clothes.dart';
+import '../authentication/auth.dart';
+import '../database/database_service.dart';
 
 class WardrobeManager extends ChangeNotifier {
   List<Clothes> clothesList = [];

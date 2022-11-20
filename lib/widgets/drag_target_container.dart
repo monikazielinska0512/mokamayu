@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/services/photo_tapped.dart';
-import 'package:provider/provider.dart';
-
 import '../constants/colors.dart';
 
 class ContainerList {
@@ -50,7 +47,7 @@ class _DragTargetState extends State<DragTargetContainer> {
       // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       width: MediaQuery.of(context).size.width,
       height: 450.0,
-      color: CustomColors.soft,
+      color: ColorManager.soft,
       child: Stack(
         children: widget.map!.entries.map((entry) {
           return GestureDetector(

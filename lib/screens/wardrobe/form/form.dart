@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/ui/ui.dart';
+import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 
 class ClothesForm extends StatefulWidget {
   final File? photo;

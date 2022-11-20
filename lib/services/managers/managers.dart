@@ -1,0 +1,1 @@
+export 'clothes_provider.dart';

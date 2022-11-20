@@ -23,7 +23,7 @@ class DropdownMenuFormField extends FormField<String> {
           builder: (FormFieldState<String> state) {
             return DropdownButtonFormField2(
               decoration: InputDecoration(
-                fillColor: CustomColors.primary,
+                fillColor: ColorManager.primary,
                 isDense: true,
                 contentPadding: EdgeInsets.zero,
                 border: OutlineInputBorder(
@@ -33,7 +33,7 @@ class DropdownMenuFormField extends FormField<String> {
               isExpanded: true,
               hint: Text(
                 'Select clothes type',
-                style: TextStyles.paragraphRegular18(),
+                style: TextStylesManager.paragraphRegular18(),
               ),
               icon: const Icon(
                 Icons.arrow_drop_down,
