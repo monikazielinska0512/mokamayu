@@ -3,6 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/services/authentication/auth.dart';
 
 class ProfileManager extends ChangeNotifier {
-  // TODO: change!
+  // TODO(karina): change and implement!
   User get getUser => AuthService().currentUser!;
 }

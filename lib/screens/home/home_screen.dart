@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
-import '../../models/user/firebase_user.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/managers.dart';
 import '../../widgets/appbar.dart';
@@ -16,32 +15,32 @@ import '../social/social_screen.dart';
 import '../wardrobe/wardrobe_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  final int currentTab;
+
   const HomeScreen({
     super.key,
     this.currentTab = 0,
   });
-
-  final int currentTab;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // TODO(karina): replace with provider (as below)
   static final User user = AuthService().currentUser!;
-
-  static List<Widget> pages = <Widget>[
-    const WardrobeScreen(),
-    const OutfitsScreen(),
-    const SocialScreen(),
-    ProfileScreen(user: user),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    final firebase_user = Provider.of<FirebaseUser?>(context);
-    // TODO(karina)
-    print("ffirebase_user: ${firebase_user?.uid}  user: ${user.uid}");
+    // TODO(karina): Maybe use regular User instead of FirebaseUser
+    // final user = Provider.of<FirebaseUser?>(context);
+
+    List<Widget> pages = <Widget>[
+      const WardrobeScreen(),
+      const OutfitsScreen(),
+      const SocialScreen(),
+      ProfileScreen(user: user),
+    ];
 
     List<String> pageLabels = [
       S.of(context).closet,

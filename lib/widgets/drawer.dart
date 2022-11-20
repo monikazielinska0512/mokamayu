@@ -43,10 +43,7 @@ Drawer drawer(BuildContext context) {
         title: const Text('Sign out'),
         onTap: () {
           Navigator.pop(context);
-          // _auth.signOut();
           Provider.of<AppStateManager>(context, listen: false).logout();
-          // Navigator.pushReplacement(context,
-          //     MaterialPageRoute(builder: (context) => const LoginScreen()));
         },
       ),
     ],

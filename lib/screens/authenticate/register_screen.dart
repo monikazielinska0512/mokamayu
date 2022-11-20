@@ -137,6 +137,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             password:
                                                 _passwordTextController.text));
                                     if (status == AuthStatus.successful) {
+                                      Navigator.pop(context);
                                       Provider.of<AppStateManager>(context,
                                               listen: false)
                                           .login();

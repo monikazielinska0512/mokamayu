@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/screens/authenticate/register_screen.dart';
-import 'package:mokamayu/screens/authenticate/reset_password_screen.dart';
 import 'package:mokamayu/services/authentication/auth_exception_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -114,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                 }
                               }),
-                              signUpOption(),
+                              signUpOption(context),
                             ],
                           ),
                         ),
@@ -122,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ])))));
   }
 
-  Row signUpOption() {
+  Row signUpOption(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -130,11 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
             style: const TextStyle(color: Colors.black)),
         GestureDetector(
           onTap: () {
-            // TODO(karina): change to routing
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const RegisterScreen()));
+            GoRouter.of(context).push('/register');
           },
           child: Text(
             S.of(context).sign_up,
@@ -153,14 +148,11 @@ Widget forgottenPassword(BuildContext context) {
     height: 35,
     alignment: Alignment.bottomRight,
     child: TextButton(
-      child: Text(
-        S.of(context).forgot_password,
-        style: const TextStyle(color: Colors.black),
-        textAlign: TextAlign.right,
-      ),
-      // TODO(karina)
-      onPressed: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const ResetPassword())),
-    ),
+        child: Text(
+          S.of(context).forgot_password,
+          style: const TextStyle(color: Colors.black),
+          textAlign: TextAlign.right,
+        ),
+        onPressed: () => GoRouter.of(context).push('/reset-password')),
   );
 }
