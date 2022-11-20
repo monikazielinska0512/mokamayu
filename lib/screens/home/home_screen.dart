@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
-import '../../services/authentication/auth.dart';
 import '../../services/managers/managers.dart';
 import '../../widgets/appbar.dart';
 import '../../widgets/drawer.dart';
@@ -27,15 +25,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // TODO(karina): replace with provider (as below)
-  static final User user = AuthService().currentUser!;
-
   @override
   Widget build(BuildContext context) {
-    // TODO(karina): Maybe use regular User instead of FirebaseUser
-    // final user = Provider.of<FirebaseUser?>(context);
+    final user = Provider.of<ProfileManager>(context).getUser;
 
-    List<Widget> pages = <Widget>[
+    List<Widget> pages = [
       const WardrobeScreen(),
       const OutfitsScreen(),
       const SocialScreen(),

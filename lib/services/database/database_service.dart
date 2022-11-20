@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../models/wardrobe/clothes.dart';
 import '../authentication/auth.dart';
 
@@ -10,12 +11,9 @@ class DatabaseService {
   static String? userID = AuthService().getCurrentUserID();
 
   final CollectionReference userClothesCollection =
-  db.collection('users').doc(userID).collection('clothes');
+      db.collection('users').doc(userID).collection('clothes');
   final CollectionReference userOutfitCollection =
-  db.collection('users').doc(userID).collection('outfits');
-
-  final DocumentReference userFriendsCollection =
-  db.collection('friends').doc(userID);
+      db.collection('users').doc(userID).collection('outfits');
 
   static Stream<QuerySnapshot> readOutfits() {
     return db.collection('users').doc(userID).collection('outfits').snapshots();
@@ -23,13 +21,6 @@ class DatabaseService {
 
   static Stream<QuerySnapshot>? getClothesFromWardrobe() {
     return clothes;
-  }
-
-  Stream<DocumentSnapshot<Object?>> getFriendsList() =>
-      userFriendsCollection.snapshots();
-
-  Future<void> updateFriendsList(List<String> friendsList) async {
-    await db.collection('friends').doc(userID).set({'friends': friendsList});
   }
 
   static Future<void> removeClothes(String id) async {
@@ -41,8 +32,8 @@ class DatabaseService {
         .delete()
         .then(
           (doc) => print("Document deleted"),
-      onError: (e) => print("Error updating document $e"),
-    );
+          onError: (e) => print("Error updating document $e"),
+        );
   }
 
   static Future<void> updateClothes(String id, Clothes clothes) async {
@@ -59,6 +50,6 @@ class DatabaseService {
       "created": clothes.created,
       "styles": clothes.styles,
     }).then((value) => print("DocumentSnapshot successfully updated!"),
-        onError: (e) => print("Error updating document $e"));
+            onError: (e) => print("Error updating document $e"));
   }
 }
