@@ -5,6 +5,7 @@ import 'package:mokamayu/ui/ui.dart';
 import 'package:mokamayu/services/managers/wardrobe_manager.dart';
 import 'package:provider/provider.dart';
 
+
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
 
@@ -55,9 +56,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     ])),
                 const SizedBox(height: 15),
                 // ChoiceChips(
-                //     chipsList: Tags.types.sublist(
-                //   2,
-                // )),
+                //     chipsList: Tags.types.sublist(0, Tags.types.length - 1)),
               ]),
               const SizedBox(height: 15),
               Expanded(child: PhotoGrid(clothesList: clothesList))

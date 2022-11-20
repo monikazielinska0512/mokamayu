@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'create_outfit_dialog.dart';
@@ -25,24 +24,24 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
     }));
     return Scaffold(
         body: Stack(children: [
-          Column(children: [
-            Expanded(
-                child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-                    child: PhotoGrid(clothesList: clothesList)))
-          ]),
-          FloatingButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CustomDialogBox.outfitsDialog(context, clothesList);
-                    });
-              },
-              icon: const Icon(Icons.add),
-              backgroundColor: ColorManager.primary,
-              padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
-              alignment: Alignment.bottomRight)
-        ]));
+      Column(children: [
+        Expanded(
+            child: Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
+                child: PhotoGrid(clothesList: clothesList)))
+      ]),
+      FloatingButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomDialogBox.outfitsDialog(context, clothesList);
+                });
+          },
+          icon: const Icon(Icons.add),
+          backgroundColor: ColorManager.primary,
+          padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
+          alignment: Alignment.bottomRight)
+    ]));
   }
 }

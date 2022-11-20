@@ -5,7 +5,6 @@ import 'package:mokamayu/services/photo_tapped.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 
-
 class CustomDialogBox {
   static outfitsDialog(
       BuildContext context, Future<List<Clothes>>? clothesList) {
@@ -27,9 +26,9 @@ class CustomDialogBox {
                 context,
                 MaterialPageRoute(
                     builder: (context) => ChangeNotifierProvider(
-                      create: (_) => PhotoTapped(),
-                      child: CreateOutfitPage(clothesList: clothesList),
-                    )));
+                          create: (_) => PhotoTapped(),
+                          child: CreateOutfitPage(clothesList: clothesList),
+                        )));
           },
           child: const Text('By yourself'),
         ),
