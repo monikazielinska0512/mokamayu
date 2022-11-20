@@ -7,25 +7,4 @@ class UserService {
 
   String get username =>
       currentUser?.displayName ?? currentUser?.email ?? 'Username';
-
-// TODO(karina): implement the following methods:
-
-// Future<List<String>> get friendsList => DatabaseService()
-//     .getFriendsList()
-//     .first
-//     .then((value) => value.get('friends'));
-
-// bool get isFriendsWith {}
-
-// sendFriendInvite()
-
-// cancelFriendInvite()
-
-// acceptFriendInvite()
-
-// rejectFriendInvite()
-
-// updateProfilePicture()
-
-//
 }
