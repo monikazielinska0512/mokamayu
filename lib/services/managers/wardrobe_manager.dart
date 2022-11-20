@@ -4,9 +4,10 @@ import 'package:mokamayu/models/clothes.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
 
-class ClothesProvider extends ChangeNotifier {
+class WardrobeManager extends ChangeNotifier {
   List<Clothes> clothesList = [];
   Future<List<Clothes>>? futureClothesList;
+
   Future<List<Clothes>>? get getClothesList => futureClothesList;
 
   void setClothes(Future<List<Clothes>> clothesList) {
@@ -21,7 +22,7 @@ class ClothesProvider extends ChangeNotifier {
         .collection('clothes')
         .get();
     List<Clothes> clothes = snapshot.docs
-        .map((d) => Clothes.fromFirestore(d.data() as Map<String, dynamic>))
+        .map((d) => Clothes.fromJson(d.data() as Map<String, dynamic>))
         .toList();
 
     clothesList = clothes;
@@ -33,7 +34,7 @@ class ClothesProvider extends ChangeNotifier {
         .collection('users')
         .doc(AuthService().getCurrentUserID())
         .collection('clothes')
-        .add(clothes.toFirestore());
+        .add(clothes.toJson());
 
     notifyListeners();
   }

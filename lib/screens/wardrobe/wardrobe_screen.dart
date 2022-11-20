@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/ui/ui.dart';
-
-
 import 'package:mokamayu/services/managers/wardrobe_manager.dart';
 import 'package:provider/provider.dart';
-
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
@@ -21,9 +18,9 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   @override
   void initState() {
     clothesList =
-        Provider.of<ClothesProvider>(context, listen: false).readClothesOnce();
+        Provider.of<WardrobeManager>(context, listen: false).readClothesOnce();
     Future.delayed(Duration.zero).then((value) {
-      Provider.of<ClothesProvider>(context, listen: false)
+      Provider.of<WardrobeManager>(context, listen: false)
           .setClothes(clothesList!);
     });
 
@@ -32,7 +29,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BasicPage(
+    return BasicScreen(
         context: context,
         child: Stack(children: [
           Column(
@@ -72,8 +69,8 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ChangeNotifierProvider(
-                              create: (_) => ClothesProvider(),
-                              child: PhotoPickerScreen(),
+                              create: (_) => WardrobeManager(),
+                              child: AddPhotoScreen(),
                             )));
               },
               icon: const Icon(Icons.add),

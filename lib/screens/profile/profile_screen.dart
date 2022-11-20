@@ -21,7 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          clothesList = Provider.of<ClothesProvider>(context, listen: false)
+          clothesList = Provider.of<WardrobeManager>(context, listen: false)
               .getClothesList;
         }));
     return Container(

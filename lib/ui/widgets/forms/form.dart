@@ -1,12 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/models/clothes.dart';
-import 'package:mokamayu/ui/constants/constants.dart';
-import '../../../services/database/database_service.dart';
-import '../../../services/storage/storage.dart';
-import '../../../ui/widgets/dropdown_menu.dart';
-import '../form_fields/choice_form_field.dart';
-import '../form_fields/filter_form_field.dart';
+import 'package:mokamayu/ui/ui.dart';
 
 class ClothesForm extends StatefulWidget {
   final File? photo;
@@ -21,7 +15,7 @@ class _ClothesFormState extends State<ClothesForm> {
   String? _type = "";
   String? _size = "";
   String? _name = "";
-  List<String>? _TagsManager = [];
+  List<String>? _TagManager = [];
 
   @override
   void initState() {
@@ -73,7 +67,8 @@ class _ClothesFormState extends State<ClothesForm> {
                       child: Padding(
                           padding: EdgeInsets.only(bottom: 10, top: 10),
                           child: Text("Type",
-                              style: TextStylesManager.paragraphRegularSemiBold18()))),
+                              style: TextStylesManager
+                                  .paragraphRegularSemiBold18()))),
                   DropdownMenuFormField(
                       list: TagManager.types,
                       onSaved: (value) => _type = value!,
@@ -89,7 +84,8 @@ class _ClothesFormState extends State<ClothesForm> {
                       child: Padding(
                           padding: EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Size",
-                              style: TextStylesManager.paragraphRegularSemiBold18()))),
+                              style: TextStylesManager
+                                  .paragraphRegularSemiBold18()))),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: ChoiceChipsFormField(
@@ -108,33 +104,29 @@ class _ClothesFormState extends State<ClothesForm> {
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Style",
-                              style: TextStylesManager.paragraphRegularSemiBold18()))),
+                              style: TextStylesManager
+                                  .paragraphRegularSemiBold18()))),
                   FilterChipsFormField(
                       chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
-                      onSaved: (value) => _TagsManager = value,
+                      onSaved: (value) => _TagManager = value,
                       validator: (value) {
                         if (value!.isEmpty) {
+                          print("styles = []");
                           return "null";
                         }
                       }),
                   ElevatedButton(
-                    onPressed: ()  async {
-                      _formKey.currentState!.save();
-                      String url = await StorageService().uploadPhoto(widget.photo);
-                      print(url);
+                    onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Clothes clothes = Clothes(
-                          name: _name,
-                          type: _type,
-                          size: _size,
-                          styles: _TagsManager,
-                          photoURL: url,
-                        );
-                        DatabaseService.addClothes(clothes);
+                        _formKey.currentState!.save();
+
+                        print("Valid$_type$_size$_name$_TagManager");
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Valid')),
                         );
                       } else {
+                        _formKey.currentState!.save();
+                        print("NotValid$_type$_size$_name$_TagManager");
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Not Valid')));
                       }

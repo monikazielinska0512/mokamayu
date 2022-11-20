@@ -140,7 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               builder: (context) =>
                                                   ChangeNotifierProvider(
                                                     create: (_) =>
-                                                        ClothesProvider(),
+                                                        WardrobeManager(),
                                                     child: const MyHomePage(
                                                         title: 'Mokamayu'),
                                                   )));

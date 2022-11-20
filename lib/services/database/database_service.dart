@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mokamayu/models/models.dart';
 import '../authentication/auth.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
@@ -21,20 +20,6 @@ class DatabaseService {
     return db.collection('users').doc(userID).collection('outfits').snapshots();
   }
 
-  static Stream<QuerySnapshot>? getClothesFromWardrobe() {
-    return clothes;
-  }
-
-  static Future<void> addClothes(Clothes clothes) async {
-    db
-        .collection('users')
-        .doc(userID)
-        .collection('clothes')
-        .add(clothes.toFirestore())
-        .then((documentSnapshot) =>
-            print("Added Data with ID: ${documentSnapshot.id}"));
-  }
-
   Stream<DocumentSnapshot<Object?>> getFriendsList() =>
       userFriendsCollection.snapshots();
 
@@ -42,33 +27,7 @@ class DatabaseService {
     await db.collection('friends').doc(userID).set({'friends': friendsList});
   }
 
-  static Future<void> removeClothes(String id) async {
-    await db
-        .collection("users")
-        .doc(AuthService().getCurrentUserID())
-        .collection("clothes")
-        .doc(id)
-        .delete()
-        .then(
-          (doc) => print("Document deleted"),
-          onError: (e) => print("Error updating document $e"),
-        );
-  }
 
-  static Future<void> updateClothes(String id, Clothes clothes) async {
-    await db
-        .collection("users")
-        .doc(AuthService().getCurrentUserID())
-        .collection("clothes")
-        .doc(id)
-        .update({
-      "name": clothes.name,
-      "type": clothes.type,
-      "size": clothes.size,
-      "photoURL": clothes.photoURL,
-      "created": clothes.created,
-      "styles": clothes.styles,
-    }).then((value) => print("DocumentSnapshot successfully updated!"),
-            onError: (e) => print("Error updating document $e"));
-  }
+
+
 }

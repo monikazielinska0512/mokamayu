@@ -16,7 +16,7 @@ class Wrapper extends StatelessWidget {
       return const LoginScreen();
     } else {
       return ChangeNotifierProvider(
-        create: (_) => ClothesProvider(),
+        create: (_) => WardrobeManager(),
         child: const MyHomePage(title: 'Mokamayu'),
       );
     }

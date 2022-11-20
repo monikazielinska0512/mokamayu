@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class BasicPage extends StatelessWidget {
+class BasicScreen extends StatelessWidget {
   BuildContext context;
   Widget child;
   Color? backgroundColor;
 
-  BasicPage({
+  BasicScreen({
     Key? key,
     required this.context,
     required this.child,
