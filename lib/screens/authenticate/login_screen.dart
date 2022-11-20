@@ -99,7 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                           email: _emailtextController.text,
                                           password:
                                               _passwordTextController.text));
-                                  if (status == AuthStatus.successful) {
+                                  if (mounted &&
+                                      status == AuthStatus.successful) {
                                     Provider.of<AppStateManager>(context,
                                             listen: false)
                                         .login();

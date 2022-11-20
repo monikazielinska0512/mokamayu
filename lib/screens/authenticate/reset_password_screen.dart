@@ -67,7 +67,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                                   if (_form.currentState!.validate()) {
                                     dynamic result = await _auth.resetPassword(
                                         _emailTextController.text);
-                                    if (result != AuthStatus.successful) {
+                                    if (mounted &&
+                                        result != AuthStatus.successful) {
                                       final error = AuthExceptionHandler
                                           .generateErrorMessage(
                                               result, context);

@@ -136,7 +136,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             email: _emailTextController.text,
                                             password:
                                                 _passwordTextController.text));
-                                    if (status == AuthStatus.successful) {
+                                    if (mounted &&
+                                        status == AuthStatus.successful) {
                                       Navigator.pop(context);
                                       Provider.of<AppStateManager>(context,
                                               listen: false)
