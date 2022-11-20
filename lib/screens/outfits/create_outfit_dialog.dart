@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/outfits/outfits_add_screen.dart';
 import 'package:mokamayu/services/photo_tapped.dart';
@@ -8,14 +9,19 @@ import '../../models/wardrobe/clothes.dart';
 class CustomDialogBox {
   static outfitsDialog(
       BuildContext context, Future<List<Clothes>>? clothesList) {
-    return SimpleDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+    return CupertinoAlertDialog(
+      title: Column(
+        children: <Widget>[
+          Text("Create a look"),
+          Image.asset(
+            "assets/images/girl.png",
+            fit: BoxFit.fitWidth,
+            height: 100,
+          ),
+        ],
       ),
-      backgroundColor: const Color.fromARGB(255, 244, 232, 217),
-      title: const Text('Create a look'),
-      children: <Widget>[
-        SimpleDialogOption(
+      actions: <Widget>[
+        CupertinoDialogAction(
           onPressed: () {
             Navigator.push(
                 context,
@@ -27,14 +33,18 @@ class CustomDialogBox {
           },
           child: const Text('By yourself'),
         ),
-        SimpleDialogOption(
+        CupertinoDialogAction(
           onPressed: () {
             //TODO in the future
           },
           child: const Text('With applied filters'),
         ),
-        const SizedBox(
-          height: 10,
+        CupertinoDialogAction(
+          child: Text("Cancel"),
+          isDestructiveAction: true,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
       ],
     );
