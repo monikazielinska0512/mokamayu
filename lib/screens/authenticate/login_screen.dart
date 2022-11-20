@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/generated/l10n.dart';
-import 'package:mokamayu/screens/home/home_screen.dart';
-import 'package:mokamayu/screens/authenticate/register_screen.dart';
-import 'package:mokamayu/screens/authenticate/reset_password_screen.dart';
 import 'package:mokamayu/services/authentication/auth_exception_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/user/login_user.dart';
 import '../../services/authentication/auth.dart';
-import '../../services/clothes_provider.dart';
+import '../../services/managers/managers.dart';
+import '../../utils/validator.dart';
 import '../../widgets/buttons/reusable_button.dart';
 import '../../widgets/fields/reusable_text_field.dart';
 import '../../widgets/reusable_snackbar.dart';
-import '../../utils/validator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -102,16 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                           password:
                                               _passwordTextController.text));
                                   if (status == AuthStatus.successful) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ChangeNotifierProvider(
-                                                  create: (_) =>
-                                                      ClothesProvider(),
-                                                  child: const MyHomePage(
-                                                      title: 'Mokamayu'),
-                                                )));
+                                    Provider.of<AppStateManager>(context,
+                                            listen: false)
+                                        .login();
                                   } else {
                                     final error = AuthExceptionHandler
                                         .generateErrorMessage(status, context);
@@ -122,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                 }
                               }),
-                              signUpOption(),
+                              signUpOption(context),
                             ],
                           ),
                         ),
@@ -130,21 +121,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     ])))));
   }
 
-  Row signUpOption() {
+  Row signUpOption(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(S.of(context).no_account, style: const TextStyle(color: Colors.black)),
+        Text(S.of(context).no_account,
+            style: const TextStyle(color: Colors.black)),
         GestureDetector(
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const RegisterScreen()));
+            GoRouter.of(context).push('/register');
           },
           child: Text(
             S.of(context).sign_up,
-            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold),
           ),
         )
       ],
@@ -158,13 +148,11 @@ Widget forgottenPassword(BuildContext context) {
     height: 35,
     alignment: Alignment.bottomRight,
     child: TextButton(
-      child: Text(
-        S.of(context).forgot_password,
-        style: const TextStyle(color: Colors.black),
-        textAlign: TextAlign.right,
-      ),
-      onPressed: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const ResetPassword())),
-    ),
+        child: Text(
+          S.of(context).forgot_password,
+          style: const TextStyle(color: Colors.black),
+          textAlign: TextAlign.right,
+        ),
+        onPressed: () => GoRouter.of(context).push('/reset-password')),
   );
 }

@@ -6,7 +6,7 @@ import 'package:mokamayu/widgets/buttons/floating_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/wardrobe/clothes.dart';
-import '../../services/clothes_provider.dart';
+import '../../services/managers/wardrobe_manager.dart';
 import '../../widgets/photo_grid/photo_grid.dart';
 import 'create_outfit_dialog.dart';
 
@@ -23,7 +23,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          clothesList = Provider.of<ClothesProvider>(context, listen: false)
+          clothesList = Provider.of<ClothesManager>(context, listen: false)
               .getClothesList;
         }));
     return Scaffold(
