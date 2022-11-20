@@ -1,8 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/constants/colors.dart';
-
-import '../constants/text_styles.dart';
+import 'package:mokamayu/constants/constants.dart';
 
 class DropdownMenuFormField extends FormField<String> {
   List<String> list;
@@ -23,7 +21,7 @@ class DropdownMenuFormField extends FormField<String> {
           builder: (FormFieldState<String> state) {
             return DropdownButtonFormField2(
               decoration: InputDecoration(
-                fillColor: CustomColors.primary,
+                fillColor: ColorsConstants.primary,
                 isDense: true,
                 contentPadding: EdgeInsets.zero,
                 border: OutlineInputBorder(

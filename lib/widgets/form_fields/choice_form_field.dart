@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../constants/colors.dart';
-import '../../../../constants/text_styles.dart';
+import 'package:mokamayu/constants/constants.dart';
 
 class ChoiceChipsFormField extends FormField<String> {
   final List chipsList;
@@ -31,14 +29,14 @@ class ChoiceChipsFormField extends FormField<String> {
                           shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          backgroundColor: CustomColors.soft,
+                          backgroundColor: ColorsConstants.soft,
                           selectedColor:
-                              CustomColors.colorList[index].withOpacity(0.2),
+                              ColorsConstants.colorList[index].withOpacity(0.2),
                           labelStyle: state.value == chipsList[index]
                               ? TextStyles.paragraphRegularSemiBold18(
-                                  CustomColors.colorList[index])
+                                  ColorsConstants.colorList[index])
                               : TextStyles.paragraphRegular18(
-                                  CustomColors.grey),
+                                  ColorsConstants.grey),
                           onSelected: (bool selected) {
                             state.didChange(selected ? chipsList[index] : "");
                           });

@@ -6,11 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/services/authentication/auth.dart';
-import 'package:mokamayu/services/managers/managers.dart';
+import 'package:mokamayu/services/managers/app_state_manager.dart';
+import 'package:mokamayu/services/managers/profile_manager.dart';
+import 'package:mokamayu/services/managers/wardrobe_manager.dart';
 import 'package:provider/provider.dart';
-
 import 'generated/l10n.dart';
-import 'models/user/firebase_user.dart';
+import 'models/firebase_user.dart';
 import 'navigation/app_router.dart';
 
 void main() async {
@@ -77,7 +78,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Mokamayu',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch()
-              .copyWith(secondary: CustomColors.primary),
+              .copyWith(secondary: ColorsConstants.primary),
         ),
       ),
     );

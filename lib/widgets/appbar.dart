@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../services/managers/managers.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 
 AppBar customAppBar(BuildContext context, String title) {
   // final AuthService _auth = AuthService();

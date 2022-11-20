@@ -1,10 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import '../../../constants/tags.dart';
-import '../../../constants/text_styles.dart';
-import '../../../widgets/dropdown_menu.dart';
-import 'form_fields/choice_form_field.dart';
-import 'form_fields/filter_form_field.dart';
+import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 
 class ClothesForm extends StatefulWidget {
   final File? photo;
@@ -19,7 +16,7 @@ class _ClothesFormState extends State<ClothesForm> {
   String? _type = "";
   String? _size = "";
   String? _name = "";
-  List<String>? _tags = [];
+  List<String>? _Tags = [];
 
   @override
   void initState() {
@@ -71,7 +68,8 @@ class _ClothesFormState extends State<ClothesForm> {
                       child: Padding(
                           padding: EdgeInsets.only(bottom: 10, top: 10),
                           child: Text("Type",
-                              style: TextStyles.paragraphRegularSemiBold18()))),
+                              style: TextStyles
+                                  .paragraphRegularSemiBold18()))),
                   DropdownMenuFormField(
                       list: Tags.types,
                       onSaved: (value) => _type = value!,
@@ -87,7 +85,8 @@ class _ClothesFormState extends State<ClothesForm> {
                       child: Padding(
                           padding: EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Size",
-                              style: TextStyles.paragraphRegularSemiBold18()))),
+                              style: TextStyles
+                                  .paragraphRegularSemiBold18()))),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: ChoiceChipsFormField(
@@ -106,10 +105,11 @@ class _ClothesFormState extends State<ClothesForm> {
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Style",
-                              style: TextStyles.paragraphRegularSemiBold18()))),
+                              style: TextStyles
+                                  .paragraphRegularSemiBold18()))),
                   FilterChipsFormField(
                       chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
-                      onSaved: (value) => _tags = value,
+                      onSaved: (value) => _Tags = value,
                       validator: (value) {
                         if (value!.isEmpty) {
                           print("styles = []");
@@ -121,13 +121,13 @@ class _ClothesFormState extends State<ClothesForm> {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
 
-                        print("Valid$_type$_size$_name$_tags");
+                        print("Valid$_type$_size$_name$_Tags");
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Valid')),
                         );
                       } else {
                         _formKey.currentState!.save();
-                        print("NotValid$_type$_size$_name$_tags");
+                        print("NotValid$_type$_size$_name$_Tags");
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Not Valid')));
                       }

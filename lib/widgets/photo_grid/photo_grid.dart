@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/models/wardrobe/clothes.dart';
+import 'package:mokamayu/models/clothes.dart';
 import 'package:mokamayu/widgets/photo_grid/photo_box.dart';
-import '../../constants/colors.dart';
-import '../reusable_snackbar.dart';
+import 'package:mokamayu/constants/colors.dart';
 
 class PhotoGrid extends StatelessWidget {
   final bool scrollVertically;
@@ -53,7 +52,7 @@ class PhotoGrid extends StatelessWidget {
         return const Center(
             child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(
-            CustomColors.primary,
+            ColorsConstants.primary,
           ),
         ));
       },

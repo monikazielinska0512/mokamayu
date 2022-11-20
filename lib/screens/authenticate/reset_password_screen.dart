@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/generated/l10n.dart';
+import 'package:mokamayu/widgets/widgets.dart';
+import 'package:mokamayu/services/services.dart';
 
-import '../../services/authentication/auth.dart';
-import '../../services/authentication/auth_exception_handler.dart';
 import '../../utils/validator.dart';
-import '../../widgets/buttons/reusable_button.dart';
-import '../../widgets/fields/reusable_text_field.dart';
-import '../../widgets/reusable_snackbar.dart';
+
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -51,7 +49,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               padding: EdgeInsets.fromLTRB(
                                   20, deviceHeight(context) * 0.05, 20, 0),
                               child: Column(children: <Widget>[
-                                reusableTextField(
+                                CustomTextField(
                                     S.of(context).enter_email,
                                     Icons.mail,
                                     false,
@@ -61,7 +59,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                reusableButton(
+                                Button(
                                     context, S.of(context).reset_password,
                                     () async {
                                   if (_form.currentState!.validate()) {

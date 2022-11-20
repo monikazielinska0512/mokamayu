@@ -1,14 +1,11 @@
+import '../../generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:mokamayu/widgets/widgets.dart';
+import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/models/models.dart';
 
-import '../../generated/l10n.dart';
-import '../../models/wardrobe/clothes.dart';
-import '../../services/authentication/auth.dart';
-import '../../services/managers/wardrobe_manager.dart';
-import '../../widgets/buttons/reusable_button.dart';
-import '../../widgets/photo_grid/photo_grid.dart';
-import '../../widgets/user/user_summary.dart';
 
 class ProfileScreen extends StatefulWidget {
   final User user;
@@ -34,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           userSummary(context, widget.user, imageRadius: 60),
           if (AuthService().getCurrentUserID() != widget.user.uid) ...[
-            reusableButton(
+            Button(
                 context,
                 'Create outfit for ${widget.user.displayName ?? widget.user.email}',
                 () => {
