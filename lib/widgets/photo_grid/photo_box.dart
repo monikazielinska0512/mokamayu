@@ -4,7 +4,6 @@ import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:provider/provider.dart';
 
-
 class PhotoCard extends StatelessWidget {
   final Clothes object;
   final bool scrollVertically;
@@ -23,6 +22,8 @@ class PhotoCard extends StatelessWidget {
                   .addToMap(photoUrl!);
             },
             child: Card(
+              // semanticContainer: true,
+              // clipBehavior: Clip.antiAliasWithSaveLayer,
               elevation: 4,
               color: ColorsConstants.soft,
               shape: RoundedRectangleBorder(
@@ -30,14 +31,11 @@ class PhotoCard extends StatelessWidget {
               ),
               child: Column(children: [
                 Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(5),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15), // Image border
                       child: SizedBox.fromSize(
-                        size: scrollVertically
-                            ? const Size.fromRadius(100)
-                            : const Size.fromRadius(60), // Image radius
-
+                        size: const Size.fromRadius(40), // Image radius
                         child: Image.network(photoUrl!, fit: BoxFit.fill),
                       ),
                     )),
@@ -45,6 +43,8 @@ class PhotoCard extends StatelessWidget {
             ),
           )
         : Card(
+            semanticContainer: true,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
             elevation: 4,
             color: ColorsConstants.soft,
             shape: RoundedRectangleBorder(
@@ -56,10 +56,7 @@ class PhotoCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15), // Image border
                     child: SizedBox.fromSize(
-                      size: scrollVertically
-                          ? const Size.fromRadius(100)
-                          : const Size.fromRadius(60), // Image radius
-
+                      size: const Size.fromRadius(100),
                       child: Image.network(photoUrl!, fit: BoxFit.fill),
                     ),
                   )),

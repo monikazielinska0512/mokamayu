@@ -44,10 +44,18 @@ class _DragTargetState extends State<DragTargetContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      decoration: BoxDecoration(
+        color: ColorsConstants.soft,
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(40.0),
+            bottomRight: Radius.circular(40.0),
+            topLeft: Radius.circular(40.0),
+            bottomLeft: Radius.circular(40.0)),
+      ),
+      //padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       width: MediaQuery.of(context).size.width,
-      height: 450.0,
-      color: ColorsConstants.soft,
+      height: MediaQuery.of(context).size.height - 520,
+      //color: ColorsConstants.soft,
       child: Stack(
         children: widget.map!.entries.map((entry) {
           return GestureDetector(
@@ -68,13 +76,13 @@ class _DragTargetState extends State<DragTargetContainer> {
               final delta = details.focalPoint - _initPos;
               var left = (delta.dx / screen.width) + _currentPos.dx;
               var top = (delta.dy / screen.height) + _currentPos.dy;
-              // print(left);
-              // print(top);
+              print(left);
+              print(top);
 
               if (left < 0) left = 0;
-              if (left > 0.54) left = 0.54;
+              if (left > 0.72) left = 0.72;
               if (top < 0) top = 0;
-              if (top > 0.5) top = 0.5;
+              if (top > 0.44) top = 0.44;
               // print(_currentScale);
 
               setState(() {

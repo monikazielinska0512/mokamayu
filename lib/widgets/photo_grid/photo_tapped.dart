@@ -9,8 +9,8 @@ class PhotoTapped extends ChangeNotifier {
     !map.containsKey(id)
         ? map.addAll({
             id: ContainerList(
-              height: 200.0,
-              width: 200.0,
+              height: 100.0,
+              width: 100.0,
               rotation: 0.0,
               scale: 1.0,
               xPosition: 0.1,
