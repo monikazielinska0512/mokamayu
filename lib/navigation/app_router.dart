@@ -38,6 +38,11 @@ class AppRouter {
           return HomeScreen(key: state.pageKey, currentTab: tab);
         },
       ),
+      GoRoute(
+        name: 'notifications',
+        path: '/notifications',
+        builder: (context, state) => const NotificationsScreen(),
+      ),
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;
