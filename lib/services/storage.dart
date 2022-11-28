@@ -14,7 +14,7 @@ class StorageService {
     final fileName = basename(file!.path);
     final metadata = SettableMetadata(contentType: "image/jpeg");
     final uploadTask =
-        storage.ref().child('$uid/clothes/$fileName').putFile(file, metadata);
+        storage.ref().child('$uid/item/$fileName').putFile(file, metadata);
 
     uploadTask.snapshotEvents.listen((TaskSnapshot taskSnapshot) async {
       String url = await taskSnapshot.ref.getDownloadURL();

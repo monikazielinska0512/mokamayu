@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/outfits/outfit_summary_screen.dart';
-import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:provider/provider.dart';
-import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
-import '../../constants/constants.dart';
+import '../../models/wardrobe_item.dart';
 
 class CreateOutfitPage extends StatelessWidget {
-  CreateOutfitPage({Key? key, this.clothesList}) : super(key: key);
-  Future<List<Clothes>>? clothesList;
+  CreateOutfitPage({Key? key, this.itemList}) : super(key: key);
+  Future<List<WardrobeItem>>? itemList;
   Map<List<dynamic>, ContainerList> map = {};
 
   @override
@@ -73,7 +71,7 @@ class CreateOutfitPage extends StatelessWidget {
             width: double.infinity,
             height: 200,
             child: PhotoGrid(
-              clothesList: clothesList,
+              itemList: itemList,
               scrollVertically: false,
             ),
           )

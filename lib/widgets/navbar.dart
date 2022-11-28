@@ -42,7 +42,7 @@ class _NavBarState extends State<NavBar> {
             tabs: const [
               GButton(
                 icon: Icons.home,
-                text: 'Closet',
+                text: 'Wardorbe',
               ),
               GButton(
                 icon: Icons.save,

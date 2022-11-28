@@ -4,45 +4,45 @@ import 'package:mokamayu/models/models.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
 
-class ClothesManager extends ChangeNotifier {
-  List<Clothes> finalClothesList = [];
-  Future<List<Clothes>>? futureClothesList;
+class WardrobeManager extends ChangeNotifier {
+  List<WardrobeItem> finalWardrobeItemList = [];
+  Future<List<WardrobeItem>>? futureWardrobeItemList;
 
-  Future<List<Clothes>>? get getClothesList => futureClothesList;
+  Future<List<WardrobeItem>>? get getWardrobeItemList => futureWardrobeItemList;
 
-  void setClothes(Future<List<Clothes>> clothesList) {
-    futureClothesList = clothesList;
+  void setWardrobeItem(Future<List<WardrobeItem>> itemList) {
+    futureWardrobeItemList = itemList;
     notifyListeners();
   }
 
-  Future<List<Clothes>> readClothesOnce() async {
+  Future<List<WardrobeItem>> readWardrobeItemOnce() async {
     QuerySnapshot snapshot = await db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
-        .collection('clothes')
+        .collection('item')
         .get();
 
-    List<Clothes> clothesList = [];
+    List<WardrobeItem> itemList = [];
     snapshot.docs.forEach((element) {
-      Clothes clothes = Clothes.fromSnapshot(element);
-      clothesList.add(clothes);
+      WardrobeItem item = WardrobeItem.fromSnapshot(element);
+      itemList.add(item);
     });
-    print(clothesList);
+    print(itemList);
 
-    // List<Clothes> clothes = snapshot.docs
-    //     .map((d) => Clothes.fromJson(d.data() as Map<String, dynamic>))
+    // List<WardrobeItem> item = snapshot.docs
+    //     .map((d) => WardrobeItem.fromJson(d.data() as Map<String, dynamic>))
     //     .toList();
 
-    finalClothesList = clothesList;
-    return finalClothesList;
+    finalWardrobeItemList = itemList;
+    return finalWardrobeItemList;
   }
 
-  Future<void> addClothes(Clothes clothes) async {
+  Future<void> addWardrobeItem(WardrobeItem item) async {
     await db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
-        .collection('clothes')
-        .add(clothes.toJson());
+        .collection('item')
+        .add(item.toJson());
 
     notifyListeners();
   }

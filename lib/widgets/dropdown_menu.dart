@@ -30,7 +30,7 @@ class DropdownMenuFormField extends FormField<String> {
               ),
               isExpanded: true,
               hint: Text(
-                'Select clothes type',
+                'Select item type',
                 style: TextStyles.paragraphRegular18(),
               ),
               icon: const Icon(

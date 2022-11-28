@@ -17,13 +17,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Future<List<Clothes>>? clothesList;
+  Future<List<WardrobeItem>>? itemList;
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          clothesList = Provider.of<ClothesManager>(context, listen: false)
-              .getClothesList;
+          itemList = Provider.of<WardrobeManager>(context, listen: false)
+              .getWardrobeItemList;
         }));
     return Container(
       padding: const EdgeInsets.all(16),
@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget profileContent(BuildContext context) {
     List<Tab> tabs = <Tab>[
-      Tab(text: S.of(context).closet),
+      Tab(text: S.of(context).wardorbe),
       Tab(text: S.of(context).outfits),
     ];
     return Expanded(
@@ -62,9 +62,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Expanded(
                 child: TabBarView(children: [
-                  PhotoGrid(clothesList: clothesList),
+                  PhotoGrid(itemList: itemList),
                   PhotoGrid(
-                      clothesList: clothesList), //potem podmienie na outfity
+                      itemList: itemList), //potem podmienie na outfity
                 ]),
               ),
             ],

@@ -6,14 +6,14 @@ import 'package:mokamayu/services/managers/managers.dart';
 class AppRouter {
   final AppStateManager appStateManager;
   final ProfileManager profileManager;
-  final ClothesManager clothesManager;
+  final WardrobeManager wardrobeManager;
 
-  AppRouter(this.appStateManager, this.profileManager, this.clothesManager);
+  AppRouter(this.appStateManager, this.profileManager, this.wardrobeManager);
 
   late final router = GoRouter(
     debugLogDiagnostics: true,
     refreshListenable: appStateManager,
-    initialLocation: '/home/${NavigationBarTab.closet}',
+    initialLocation: '/home/${NavigationBarTab.wardorbe}',
     routes: [
       GoRoute(
         name: 'login',
@@ -50,7 +50,7 @@ class AppRouter {
         }
         return '/login';
       }
-      if (loggingIn) return '/home/${NavigationBarTab.closet}';
+      if (loggingIn) return '/home/${NavigationBarTab.wardorbe}';
       return null;
     },
     errorPageBuilder: (context, state) {

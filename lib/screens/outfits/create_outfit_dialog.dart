@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class CustomDialogBox {
   static outfitsDialog(
-      BuildContext context, Future<List<Clothes>>? clothesList) {
+      BuildContext context, Future<List<WardrobeItem>>? itemList) {
     return CupertinoAlertDialog(
       title: Column(
         children: <Widget>[
@@ -27,7 +27,7 @@ class CustomDialogBox {
                 MaterialPageRoute(
                     builder: (context) => ChangeNotifierProvider(
                           create: (_) => PhotoTapped(),
-                          child: CreateOutfitPage(clothesList: clothesList),
+                          child: CreateOutfitPage(itemList: itemList),
                         )));
           },
           child: const Text('By yourself'),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
-import 'clothes_form_screen.dart';
+import 'wardrobe_item_form_screen.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 
 class AddPhotoScreen extends StatefulWidget {
@@ -32,8 +32,8 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         ChangeNotifierProvider(
-                                          create: (_) => ClothesManager(),
-                                          child: AddClothesForm(
+                                          create: (_) => WardrobeManager(),
+                                          child: AddWardorbeItemForm(
                                               photo: widget._picker.photo),
                                         )))
                             : null;
@@ -81,7 +81,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
 //                             MaterialPageRoute(
 //                                 builder: (context) => ChangeNotifierProvider(
 //                                       create: (_) => WardrobeManager(),
-//                                       child: AddClothesForm(
+//                                       child: AddWardorbeItemForm(
 //                                           photo: widget._picker.photo),
 //                                     )))
 //                         : null;

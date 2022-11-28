@@ -2,18 +2,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
 
-class AddClothesForm extends StatefulWidget {
+class AddWardorbeItemForm extends StatefulWidget {
   final File? photo;
   final String? id;
 
-  const AddClothesForm({Key? key, required this.photo, this.id})
+  const AddWardorbeItemForm({Key? key, required this.photo, this.id})
       : super(key: key);
 
   @override
-  _AddClothesFormState createState() => _AddClothesFormState();
+  _AddWardorbeItemFormState createState() => _AddWardorbeItemFormState();
 }
 
-class _AddClothesFormState extends State<AddClothesForm> {
+class _AddWardorbeItemFormState extends State<AddWardorbeItemForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +43,7 @@ class _AddClothesFormState extends State<AddClothesForm> {
                           topRight: Radius.circular(40),
                           topLeft: Radius.circular(40)),
                     ),
-                    child: ClothesForm(photo: widget.photo!))))
+                    child: WardorbeItemForm(photo: widget.photo!))))
       ],
     ));
   }
