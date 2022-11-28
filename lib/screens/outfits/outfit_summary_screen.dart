@@ -17,12 +17,13 @@ class OutfitSummaryScreen extends StatelessWidget {
               style:
                   const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         ),
-        body: Container(
-          child: Column(
-            children: map!.entries.map((entry) {
-              return Container();
-            }).toList(),
-          ),
+        body: ListView(
+          padding: const EdgeInsets.all(8),
+          children: map!.entries.map((entry) {
+            return Container(
+              child: Text(entry.key[1]),
+            );
+          }).toList(),
         ));
   }
 }

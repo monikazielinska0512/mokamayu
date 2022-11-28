@@ -13,7 +13,7 @@ class AppRouter {
   late final router = GoRouter(
     debugLogDiagnostics: true,
     refreshListenable: appStateManager,
-    initialLocation: '/home/${NavigationBarTab.wardorbe}',
+    initialLocation: '/home/${NavigationBarTab.wardrobe}',
     routes: [
       GoRoute(
         name: 'login',
@@ -50,7 +50,7 @@ class AppRouter {
         }
         return '/login';
       }
-      if (loggingIn) return '/home/${NavigationBarTab.wardorbe}';
+      if (loggingIn) return '/home/${NavigationBarTab.wardrobe}';
       return null;
     },
     errorPageBuilder: (context, state) {
