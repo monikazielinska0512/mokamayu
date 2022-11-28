@@ -10,7 +10,7 @@ import '../../constants/constants.dart';
 class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.clothesList}) : super(key: key);
   Future<List<Clothes>>? clothesList;
-  Map<String, ContainerList> map = {};
+  Map<List<dynamic>, ContainerList> map = {};
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,6 @@ class CreateOutfitPage extends StatelessWidget {
     double deviceWidth(BuildContext context) =>
         MediaQuery.of(context).size.width;
     return Scaffold(
-      //appBar: customAppBar(context, "Create a look"),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,

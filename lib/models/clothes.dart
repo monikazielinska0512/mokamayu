@@ -66,7 +66,6 @@
 //
 // }
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Clothes {
@@ -76,7 +75,7 @@ class Clothes {
   final String? photoURL;
   final List<String>? styles;
   final DateTime? created;
-  DocumentReference? reference;
+  String? reference;
 
   Clothes({
     required this.name,
@@ -110,7 +109,7 @@ class Clothes {
 
   factory Clothes.fromSnapshot(DocumentSnapshot snapshot) {
     final clothes = Clothes.fromJson(snapshot.data() as Map<String, dynamic>);
-    clothes.reference = snapshot.reference;
+    clothes.reference = snapshot.reference.id;
     return clothes;
   }
 }

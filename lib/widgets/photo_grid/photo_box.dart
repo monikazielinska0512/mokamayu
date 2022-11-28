@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
@@ -15,11 +16,12 @@ class PhotoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String? photoUrl = object.photoURL;
     String? name = object.name;
+    String? id = object.reference;
     return !scrollVertically
         ? GestureDetector(
             onTap: () async {
               Provider.of<PhotoTapped>(context, listen: false)
-                  .addToMap(photoUrl!);
+                  .addToMap(photoUrl!, id!);
             },
             child: Card(
               // semanticContainer: true,

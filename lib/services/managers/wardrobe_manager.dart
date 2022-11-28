@@ -5,7 +5,7 @@ import '../authentication/auth.dart';
 import '../database/database_service.dart';
 
 class ClothesManager extends ChangeNotifier {
-  List<Clothes> clothesList = [];
+  List<Clothes> finalClothesList = [];
   Future<List<Clothes>>? futureClothesList;
 
   Future<List<Clothes>>? get getClothesList => futureClothesList;
@@ -21,12 +21,20 @@ class ClothesManager extends ChangeNotifier {
         .doc(AuthService().getCurrentUserID())
         .collection('clothes')
         .get();
-    List<Clothes> clothes = snapshot.docs
-        .map((d) => Clothes.fromJson(d.data() as Map<String, dynamic>))
-        .toList();
 
-    clothesList = clothes;
-    return clothesList;
+    List<Clothes> clothesList = [];
+    snapshot.docs.forEach((element) {
+      Clothes clothes = Clothes.fromSnapshot(element);
+      clothesList.add(clothes);
+    });
+    print(clothesList);
+
+    // List<Clothes> clothes = snapshot.docs
+    //     .map((d) => Clothes.fromJson(d.data() as Map<String, dynamic>))
+    //     .toList();
+
+    finalClothesList = clothesList;
+    return finalClothesList;
   }
 
   Future<void> addClothes(Clothes clothes) async {
