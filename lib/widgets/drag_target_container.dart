@@ -52,9 +52,9 @@ class _DragTargetState extends State<DragTargetContainer> {
             topLeft: Radius.circular(40.0),
             bottomLeft: Radius.circular(40.0)),
       ),
-      //padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height - 520,
+      height: MediaQuery.of(context).size.height - 500,
       //color: ColorsConstants.soft,
       child: Stack(
         children: widget.map!.entries.map((entry) {
@@ -82,7 +82,7 @@ class _DragTargetState extends State<DragTargetContainer> {
               if (left < 0) left = 0;
               if (left > 0.72) left = 0.72;
               if (top < 0) top = 0;
-              if (top > 0.44) top = 0.44;
+              if (top > 0.5) top = 0.5;
               // print(_currentScale);
 
               setState(() {

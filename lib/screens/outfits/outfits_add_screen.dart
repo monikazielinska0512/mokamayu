@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mokamayu/screens/outfits/outfit_summary_screen.dart';
 import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/models/models.dart';
@@ -33,7 +34,13 @@ class CreateOutfitPage extends StatelessWidget {
               Icons.add,
               size: 35,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OutfitSummaryScreen(map: map),
+                  ));
+            },
           )
         ],
       ),
@@ -45,6 +52,7 @@ class CreateOutfitPage extends StatelessWidget {
               opacity: 0.5,
               child: Image.asset(
                 "assets/images/backgroundWaves.png",
+                fit: BoxFit.fitWidth,
               ),
             )),
             Positioned(
