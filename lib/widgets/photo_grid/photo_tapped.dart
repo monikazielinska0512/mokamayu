@@ -25,17 +25,6 @@ class PhotoTapped extends ChangeNotifier {
       });
       listOfIds.add(id);
     }
-    // ? map.addAll({
-    //     [photoURL, id]: ContainerList(
-    //       height: 100.0,
-    //       width: 100.0,
-    //       rotation: 0.0,
-    //       scale: 1.0,
-    //       xPosition: 0.1,
-    //       yPosition: 0.1,
-    //     )
-    //   })
-    // : null;
     notifyListeners();
   }
 }
