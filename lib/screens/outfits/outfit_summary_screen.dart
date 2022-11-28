@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/widgets/drag_target_container.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/wardrobe_item.dart';
+import '../../services/managers/managers.dart';
+import '../../widgets/photo_grid/photo_box.dart';
 
 class OutfitSummaryScreen extends StatelessWidget {
   OutfitSummaryScreen({super.key, this.map});
   Map<List<dynamic>, ContainerList>? map = {};
+  late List<WardrobeItem> itemList;
 
   @override
   Widget build(BuildContext context) {
-    print(map!.entries);
+    itemList = Provider.of<WardrobeManager>(context, listen: false)
+        .getfinalWardrobeItemList;
+    print(itemList);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -21,8 +29,10 @@ class OutfitSummaryScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           children: map!.entries.map((entry) {
             return Container(
-              child: Text(entry.key[1]),
-            );
+                child: PhotoCard(
+                    object: itemList
+                        .firstWhere((item) => item.reference == entry.key[1]),
+                    scrollVertically: true));
           }).toList(),
         ));
   }

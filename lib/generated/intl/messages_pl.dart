@@ -56,7 +56,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "social": MessageLookupByLibrary.simpleMessage("Społeczność"),
         "user_not_exist": MessageLookupByLibrary.simpleMessage(
             "Podany użytkownik nie istnieje"),
-        "wardorbe": MessageLookupByLibrary.simpleMessage("Szafa"),
         "wrong_password":
             MessageLookupByLibrary.simpleMessage("Hasło lub email jest błędne")
       };
