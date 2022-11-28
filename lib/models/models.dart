@@ -1,3 +1,3 @@
 export 'firebase_user.dart';
-export 'clothes.dart';
+export 'wardrobe_item.dart';
 export 'login_user.dart';

@@ -47,10 +47,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late final _profileManager = ProfileManager();
-  late final _clothesManager = ClothesManager();
+  late final _wardrobeManager = WardrobeManager();
 
   late final _appRouter =
-      AppRouter(widget.appStateManager, _profileManager, _clothesManager);
+      AppRouter(widget.appStateManager, _profileManager, _wardrobeManager);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
             value: AuthService().user, initialData: null),
         ChangeNotifierProvider(create: (context) => _profileManager),
         ChangeNotifierProvider(create: (context) => widget.appStateManager),
-        ChangeNotifierProvider(create: (_) => ClothesManager()),
+        ChangeNotifierProvider(create: (_) => WardrobeManager()),
       ],
       child: MaterialApp.router(
         routerDelegate: router.routerDelegate,

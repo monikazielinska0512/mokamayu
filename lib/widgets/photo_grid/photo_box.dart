@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
@@ -6,7 +5,7 @@ import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:provider/provider.dart';
 
 class PhotoCard extends StatelessWidget {
-  final Clothes object;
+  final WardrobeItem object;
   final bool scrollVertically;
 
   PhotoCard({Key? key, required this.object, required this.scrollVertically})

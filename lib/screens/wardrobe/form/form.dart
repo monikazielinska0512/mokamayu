@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
-class ClothesForm extends StatefulWidget {
+class WardorbeItemForm extends StatefulWidget {
   final File? photo;
 
-  const ClothesForm({Key? key, required this.photo}) : super(key: key);
+  const WardorbeItemForm({Key? key, required this.photo}) : super(key: key);
 
   @override
-  _ClothesFormState createState() => _ClothesFormState();
+  _WardorbeItemFormState createState() => _WardorbeItemFormState();
 }
 
-class _ClothesFormState extends State<ClothesForm> {
+class _WardorbeItemFormState extends State<WardorbeItemForm> {
   String? _type = "";
   String? _size = "";
   String? _name = "";
@@ -52,7 +52,7 @@ class _ClothesFormState extends State<ClothesForm> {
                           fontWeight: FontWeight.w600),
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        labelText: 'Enter your clothes name',
+                        labelText: 'Enter your item name',
                         labelStyle: TextStyles.h4(),
                         focusedBorder: InputBorder.none,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -132,7 +132,7 @@ class _ClothesFormState extends State<ClothesForm> {
                             const SnackBar(content: Text('Not Valid')));
                       }
                     },
-                    child: const Text('Add clothes'),
+                    child: const Text('Add item'),
                   ),
                 ]))));
   }

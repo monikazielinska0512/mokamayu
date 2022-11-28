@@ -15,15 +15,15 @@ class WardrobeScreen extends StatefulWidget {
 }
 
 class _WardrobeScreenState extends State<WardrobeScreen> {
-  Future<List<Clothes>>? clothesList;
+  Future<List<WardrobeItem>>? itemList;
 
   @override
   void initState() {
-    clothesList =
-        Provider.of<ClothesManager>(context, listen: false).readClothesOnce();
+    itemList =
+        Provider.of<WardrobeManager>(context, listen: false).readWardrobeItemOnce();
     Future.delayed(Duration.zero).then((value) {
-      Provider.of<ClothesManager>(context, listen: false)
-          .setClothes(clothesList!);
+      Provider.of<WardrobeManager>(context, listen: false)
+          .setWardrobeItem(itemList!);
     });
 
     super.initState();
@@ -39,7 +39,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
               Column(children: [
                 PageTitle(
                     title: "Your Wardrobe",
-                    description: "Explore your clothes"),
+                    description: "Explore your item"),
                 const SizedBox(height: 20),
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.9,
@@ -47,7 +47,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     child: Row(children: [
                       Expanded(
                           child: SearchBar(
-                              title: "Search", hintTitle: "Name of clothes")),
+                              title: "Search", hintTitle: "Name of item")),
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.045),
                       CustomIconButton(
@@ -60,7 +60,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                 //     chipsList: Tags.types.sublist(0, Tags.types.length - 1)),
               ]),
               const SizedBox(height: 15),
-              Expanded(child: PhotoGrid(clothesList: clothesList))
+              Expanded(child: PhotoGrid(itemList: itemList))
             ],
           ),
           FloatingButton(
@@ -69,7 +69,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ChangeNotifierProvider(
-                              create: (_) => ClothesManager(),
+                              create: (_) => WardrobeManager(),
                               child: AddPhotoScreen(),
                             )));
               },

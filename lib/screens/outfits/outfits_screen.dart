@@ -15,13 +15,13 @@ class OutfitsScreen extends StatefulWidget {
 }
 
 class _OutfitsScreenState extends State<OutfitsScreen> {
-  Future<List<Clothes>>? clothesList;
+  Future<List<WardrobeItem>>? itemList;
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          clothesList = Provider.of<ClothesManager>(context, listen: false)
-              .getClothesList;
+          itemList = Provider.of<WardrobeManager>(context, listen: false)
+              .getWardrobeItemList;
         }));
     return Scaffold(
         body: Stack(children: [
@@ -29,14 +29,14 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
         Expanded(
             child: Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-                child: PhotoGrid(clothesList: clothesList)))
+                child: PhotoGrid(itemList: itemList)))
       ]),
       FloatingButton(
           onPressed: () {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return CustomDialogBox.outfitsDialog(context, clothesList);
+                  return CustomDialogBox.outfitsDialog(context, itemList);
                 });
           },
           icon: const Icon(Icons.add),
