@@ -13,6 +13,7 @@ class CreateOutfitPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     map = Provider.of<PhotoTapped>(context, listen: true).getMap;
+
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
     double deviceWidth(BuildContext context) =>
@@ -35,7 +36,7 @@ class CreateOutfitPage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OutfitSummaryScreen(map: map),
+                    builder: (context) => OutfitSummaryScreen(),
                   ));
             },
           )

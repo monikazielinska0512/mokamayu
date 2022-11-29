@@ -23,8 +23,6 @@ class PhotoCard extends StatelessWidget {
                   .addToMap(photoUrl!, id!);
             },
             child: Card(
-              // semanticContainer: true,
-              // clipBehavior: Clip.antiAliasWithSaveLayer,
               elevation: 4,
               color: ColorsConstants.soft,
               shape: RoundedRectangleBorder(

@@ -4,11 +4,11 @@ import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:provider/provider.dart';
 
+import '../drag_target_container.dart';
+
 class WardrobeItemCard extends StatelessWidget {
-  final WardrobeItem object;
-
   WardrobeItemCard({Key? key, required this.object}) : super(key: key);
-
+  final WardrobeItem object;
   @override
   Widget build(BuildContext context) {
     String? photoUrl = object.photoURL;
@@ -33,7 +33,7 @@ class WardrobeItemCard extends StatelessWidget {
                 child: Image.network(photoUrl!, fit: BoxFit.fill),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 30,
             ),
             Column(
@@ -60,16 +60,19 @@ class WardrobeItemCard extends StatelessWidget {
                         }),
               ],
             ),
-            SizedBox(
-              width: 50,
-            ),
-            GestureDetector(
-                onTap: () {},
-                child: Image.asset(
-                  "assets/images/trash.png",
-                  fit: BoxFit.fitWidth,
-                  height: 40,
-                )),
+            //in case we'll do removing here
+            // const SizedBox(
+            //   width: 50,
+            // ),
+            // GestureDetector(
+            //     onTap: () {
+            //      //wardrobe item removed
+            //     },
+            //     child: Image.asset(
+            //       "assets/images/trash.png",
+            //       fit: BoxFit.fitWidth,
+            //       height: 40,
+            //     )),
           ],
         ),
       ),

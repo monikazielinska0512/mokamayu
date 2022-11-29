@@ -28,11 +28,6 @@ class WardrobeManager extends ChangeNotifier {
       WardrobeItem item = WardrobeItem.fromSnapshot(element);
       itemList.add(item);
     });
-    print(itemList);
-
-    // List<WardrobeItem> item = snapshot.docs
-    //     .map((d) => WardrobeItem.fromJson(d.data() as Map<String, dynamic>))
-    //     .toList();
 
     finalWardrobeItemList = itemList;
     return finalWardrobeItemList;
