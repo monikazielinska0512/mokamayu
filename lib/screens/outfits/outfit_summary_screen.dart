@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/managers.dart';
-import '../../widgets/photo_grid/photo_box.dart';
+import '../../widgets/photo_grid/photo.dart';
 
 class OutfitSummaryScreen extends StatelessWidget {
   OutfitSummaryScreen({super.key, this.map});
@@ -29,10 +29,9 @@ class OutfitSummaryScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           children: map!.entries.map((entry) {
             return Container(
-                child: PhotoCard(
+                child: OutfitCard(
                     object: itemList
-                        .firstWhere((item) => item.reference == entry.key[1]),
-                    scrollVertically: true));
+                        .firstWhere((item) => item.reference == entry.key[1])));
           }).toList(),
         ));
   }
