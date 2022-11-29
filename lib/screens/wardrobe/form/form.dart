@@ -1,12 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
 class WardorbeItemForm extends StatefulWidget {
-  final File? photo;
-
-  const WardorbeItemForm({Key? key, required this.photo}) : super(key: key);
+  const WardorbeItemForm({Key? key}) : super(key: key);
 
   @override
   _WardorbeItemFormState createState() => _WardorbeItemFormState();
@@ -68,8 +65,7 @@ class _WardorbeItemFormState extends State<WardorbeItemForm> {
                       child: Padding(
                           padding: EdgeInsets.only(bottom: 10, top: 10),
                           child: Text("Type",
-                              style: TextStyles
-                                  .paragraphRegularSemiBold18()))),
+                              style: TextStyles.paragraphRegularSemiBold18()))),
                   DropdownMenuFormField(
                       list: Tags.types,
                       onSaved: (value) => _type = value!,
@@ -85,8 +81,7 @@ class _WardorbeItemFormState extends State<WardorbeItemForm> {
                       child: Padding(
                           padding: EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Size",
-                              style: TextStyles
-                                  .paragraphRegularSemiBold18()))),
+                              style: TextStyles.paragraphRegularSemiBold18()))),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: ChoiceChipsFormField(
@@ -105,8 +100,7 @@ class _WardorbeItemFormState extends State<WardorbeItemForm> {
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Style",
-                              style: TextStyles
-                                  .paragraphRegularSemiBold18()))),
+                              style: TextStyles.paragraphRegularSemiBold18()))),
                   FilterChipsFormField(
                       chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
                       onSaved: (value) => _Tags = value,
