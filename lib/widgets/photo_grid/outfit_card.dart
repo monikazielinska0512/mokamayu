@@ -40,14 +40,15 @@ class OutfitCard extends StatelessWidget {
               children: [
                 Text(
                   name!,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.right,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 TextButton(
-                    child: Text(
+                    child: const Text(
                       "See details",
                       style: TextStyle(
                           color: ColorsConstants.primary,
@@ -58,7 +59,15 @@ class OutfitCard extends StatelessWidget {
                           //TODO
                         }),
               ],
-            )
+            ),
+            SizedBox(
+              width: 50,
+            ),
+            Image.asset(
+              "assets/images/trash.png",
+              fit: BoxFit.fitWidth,
+              height: 40,
+            ),
           ],
         ),
       ),
