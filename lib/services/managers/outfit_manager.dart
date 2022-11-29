@@ -21,7 +21,7 @@ class OutfitManager extends ChangeNotifier {
     QuerySnapshot snapshot = await db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
-        .collection('outfit')
+        .collection('outfits')
         .get();
 
     List<Outfit> outfitList = [];
@@ -38,7 +38,7 @@ class OutfitManager extends ChangeNotifier {
     await db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
-        .collection('outfit')
+        .collection('outfits')
         .add(item.toJson());
 
     notifyListeners();
