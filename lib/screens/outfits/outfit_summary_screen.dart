@@ -35,7 +35,9 @@ class OutfitSummaryScreen extends StatelessWidget {
                       .firstWhere((item) => item.reference == entry.key[1]));
             }).toList(),
           )),
-          ButtonDarker(context, "Save", () {})
+          ButtonDarker(context, "Save", () {
+            //TODO save outfit
+          })
         ]));
   }
 }
