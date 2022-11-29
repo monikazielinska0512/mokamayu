@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/widgets/drag_target_container.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/outfit.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/managers.dart';
 import '../../widgets/buttons/button.dart';
@@ -37,6 +39,13 @@ class OutfitSummaryScreen extends StatelessWidget {
           )),
           ButtonDarker(context, "Save", () {
             //TODO save outfit
+            List<String> elements = [];
+            itemList.forEach((element) {
+              elements.add(element.reference!);
+            });
+            Outfit data = Outfit(elements: elements);
+            Provider.of<OutfitManager>(context, listen: false)
+                .addOutfitToFirebase(data);
           })
         ]));
   }
