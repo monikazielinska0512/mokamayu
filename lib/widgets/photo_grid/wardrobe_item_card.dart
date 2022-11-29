@@ -4,10 +4,10 @@ import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:provider/provider.dart';
 
-class OutfitCard extends StatelessWidget {
+class WardrobeItemCard extends StatelessWidget {
   final WardrobeItem object;
 
-  OutfitCard({Key? key, required this.object}) : super(key: key);
+  WardrobeItemCard({Key? key, required this.object}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,18 +56,20 @@ class OutfitCard extends StatelessWidget {
                       textAlign: TextAlign.right,
                     ),
                     onPressed: () => {
-                          //TODO
+                          //TODO see details
                         }),
               ],
             ),
             SizedBox(
               width: 50,
             ),
-            Image.asset(
-              "assets/images/trash.png",
-              fit: BoxFit.fitWidth,
-              height: 40,
-            ),
+            GestureDetector(
+                onTap: () {},
+                child: Image.asset(
+                  "assets/images/trash.png",
+                  fit: BoxFit.fitWidth,
+                  height: 40,
+                )),
           ],
         ),
       ),

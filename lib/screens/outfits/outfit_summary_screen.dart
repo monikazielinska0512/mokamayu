@@ -15,20 +15,18 @@ class OutfitSummaryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .getfinalWardrobeItemList;
-    print(itemList);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.black,
           elevation: 0,
-          title: Text("Outfit Summary",
-              style:
-                  const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          title: const Text("Outfit Summary",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         ),
         body: ListView(
           padding: const EdgeInsets.all(8),
           children: map!.entries.map((entry) {
-            return OutfitCard(
+            return WardrobeItemCard(
                 object: itemList
                     .firstWhere((item) => item.reference == entry.key[1]));
           }).toList(),
