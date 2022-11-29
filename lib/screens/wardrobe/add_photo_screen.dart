@@ -26,11 +26,12 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                       onPressed: () {
                         widget._picker.photo != null
                             ? context.goNamed(
-                          'add-wardrobe-item',
-                          params: {
-                            'file': widget._picker.photoPath as String,
-                          },
-                        ) : null;
+                                'add-wardrobe-item',
+                                params: {
+                                  'file': widget._picker.photoPath as String,
+                                },
+                              )
+                            : null;
                       },
                       child: const Text("Przejedź dalej"))
                 ]))));

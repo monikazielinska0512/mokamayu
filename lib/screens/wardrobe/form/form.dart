@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../utils/validator.dart';
 
 class WardrobeItemForm extends StatefulWidget {
-  String? photoPath;
+  final String? photoPath;
 
   WardrobeItemForm({Key? key, this.photoPath}) : super(key: key);
 
@@ -14,10 +19,10 @@ class WardrobeItemForm extends StatefulWidget {
 }
 
 class _WardrobeItemFormState extends State<WardrobeItemForm> {
-  String? _type = "";
-  String? _size = "";
-  String? _name = "";
-  List<String>? _styles = [];
+  String _type = "";
+  String _size = "";
+  String _name = "";
+  List<String> _styles = [];
 
   @override
   void initState() {
@@ -104,7 +109,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                               style: TextStyles.paragraphRegularSemiBold18()))),
                   MultiSelectChipsFormField(
                       chipsList: const ["School", "Wedding", "Classic", "Boho"],
-                      onSaved: (value) => _styles = value,
+                      onSaved: (value) => _styles = value!,
                       validator: (value) =>
                           Validator.checkIfMultipleValueSelected(
                               value!, context)),
@@ -113,14 +118,33 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                       _formKey.currentState!.save();
 
                       if (_formKey.currentState!.validate()) {
-                        print(
-                            "Wybrane: \n Name: $_name \n Type:$_type \n Size: $_size  \n Styles: $_styles");
+                        final item = WardrobeItem(
+                            id: Uuid().v4(),
+                            name: _name,
+                            type: _type,
+                            size: _size,
+                            photoURL: "",
+                            styles: _styles,
+                            created: DateTime.now());
+
+                        Provider.of<WardrobeManager>(context, listen: false)
+                            .addWardrobeItem(item);
+
+                        _type = "";
+                        _size = "";
+                        _name = "";
+                        _styles = [];
+                        setState(() {});
+                        context.go("/home/0");
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Valid')),
+                          const SnackBar(
+                              content: Text('Dodano do bazy danych')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Not Valid')));
+                            const SnackBar(
+                                content: Text('Formularz nie jest poprawny')));
                       }
                     },
                     child: const Text('Add item'),

@@ -23,27 +23,22 @@ class WardrobeManager extends ChangeNotifier {
         .get();
 
     List<WardrobeItem> itemList = [];
-    snapshot.docs.forEach((element) {
+    for (var element in snapshot.docs) {
       WardrobeItem item = WardrobeItem.fromSnapshot(element);
       itemList.add(item);
-    });
-    print(itemList);
-
-    // List<WardrobeItem> item = snapshot.docs
-    //     .map((d) => WardrobeItem.fromJson(d.data() as Map<String, dynamic>))
-    //     .toList();
-
+    }
     finalWardrobeItemList = itemList;
     return finalWardrobeItemList;
   }
 
-  Future<void> addWardrobeItem(WardrobeItem item) async {
-    await db
+  void addWardrobeItem(WardrobeItem item) {
+    print(AuthService().getCurrentUserID().toString());
+    db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
-        .collection('item')
-        .add(item.toJson());
-
+        .collection('wardrobe')
+        .doc(item.id)
+        .set(item.toFirestore());
     notifyListeners();
   }
 }
