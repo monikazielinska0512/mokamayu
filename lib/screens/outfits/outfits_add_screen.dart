@@ -36,7 +36,7 @@ class CreateOutfitPage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OutfitSummaryScreen(),
+                    builder: (context) => OutfitSummaryScreen(map: map),
                   ));
             },
           )
