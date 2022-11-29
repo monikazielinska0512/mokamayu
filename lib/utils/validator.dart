@@ -24,4 +24,16 @@ class Validator {
     if (value.isEmpty) return S.of(context).please_enter_test;
     return null;
   }
+
+  static String? checkIfSingleValueSelected(
+      String value, BuildContext context) {
+    if (value == "") return "Error message";
+    return null;
+  }
+
+  static String? checkIfMultipleValueSelected(
+      List<String>? value, BuildContext context) {
+    if (value!.isEmpty) return "null";
+    return null;
+  }
 }

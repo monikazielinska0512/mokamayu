@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
-class WardorbeItemForm extends StatefulWidget {
-  const WardorbeItemForm({Key? key}) : super(key: key);
+import '../../../utils/validator.dart';
+
+class WardrobeItemForm extends StatefulWidget {
+  String? photoPath;
+
+  WardrobeItemForm({Key? key, this.photoPath}) : super(key: key);
 
   @override
-  _WardorbeItemFormState createState() => _WardorbeItemFormState();
+  State<WardrobeItemForm> createState() => _WardrobeItemFormState();
 }
 
-class _WardorbeItemFormState extends State<WardorbeItemForm> {
+class _WardrobeItemFormState extends State<WardrobeItemForm> {
   String? _type = "";
   String? _size = "";
   String? _name = "";
-  List<String>? _Tags = [];
+  List<String>? _styles = [];
 
   @override
   void initState() {
@@ -63,35 +67,32 @@ class _WardorbeItemFormState extends State<WardorbeItemForm> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                          padding: EdgeInsets.only(bottom: 10, top: 10),
+                          padding: const EdgeInsets.only(bottom: 10, top: 10),
                           child: Text("Type",
                               style: TextStyles.paragraphRegularSemiBold18()))),
-                  DropdownMenuFormField(
-                      list: Tags.types,
-                      onSaved: (value) => _type = value!,
-                      validator: (value) {
-                        if (value == "Type") {
-                          return 'Przypau';
-                        }
-                        return null;
-                      },
-                      initialValue: Tags.types[0]),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: SingleSelectChipsFormField(
+                        autoValidate: true,
+                        validator: (value) =>
+                            Validator.checkIfSingleValueSelected(
+                                value!, context),
+                        onSaved: (value) => _type = value!,
+                        chipsList: const ["T-Shirt", "Dress", "Skirt", "Shoes"],
+                      )),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                          padding: EdgeInsets.only(bottom: 5, top: 10),
+                          padding: const EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Size",
                               style: TextStyles.paragraphRegularSemiBold18()))),
                   Align(
                       alignment: Alignment.centerLeft,
-                      child: ChoiceChipsFormField(
+                      child: SingleSelectChipsFormField(
                         autoValidate: true,
-                        validator: (value) {
-                          if (value == "") {
-                            return 'Wybrano M';
-                          }
-                          return null;
-                        },
+                        validator: (value) =>
+                            Validator.checkIfSingleValueSelected(
+                                value!, context),
                         onSaved: (value) => _size = value!,
                         chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
                       )),
@@ -101,27 +102,23 @@ class _WardorbeItemFormState extends State<WardorbeItemForm> {
                           padding: const EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Style",
                               style: TextStyles.paragraphRegularSemiBold18()))),
-                  FilterChipsFormField(
-                      chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
-                      onSaved: (value) => _Tags = value,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          print("styles = []");
-                          return "null";
-                        }
-                      }),
+                  MultiSelectChipsFormField(
+                      chipsList: const ["School", "Wedding", "Classic", "Boho"],
+                      onSaved: (value) => _styles = value,
+                      validator: (value) =>
+                          Validator.checkIfMultipleValueSelected(
+                              value!, context)),
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
+                      _formKey.currentState!.save();
 
-                        print("Valid$_type$_size$_name$_Tags");
+                      if (_formKey.currentState!.validate()) {
+                        print(
+                            "Wybrane: \n Name: $_name \n Type:$_type \n Size: $_size  \n Styles: $_styles");
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Valid')),
                         );
                       } else {
-                        _formKey.currentState!.save();
-                        print("NotValid$_type$_size$_name$_Tags");
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Not Valid')));
                       }

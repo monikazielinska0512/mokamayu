@@ -24,7 +24,6 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
       Provider.of<WardrobeManager>(context, listen: false)
           .setWardrobeItem(itemList!);
     });
-
     super.initState();
   }
 

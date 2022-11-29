@@ -43,7 +43,7 @@ class _AddWardorbeItemFormState extends State<AddWardorbeItemForm> {
                           topRight: Radius.circular(40),
                           topLeft: Radius.circular(40)),
                     ),
-                    child: WardorbeItemForm())))
+                    child: WardrobeItemForm())))
       ],
     ));
   }

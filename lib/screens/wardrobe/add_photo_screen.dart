@@ -32,7 +32,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                           },
                         ) : null;
                       },
-                      child: const Text("Przjedź dalej"))
+                      child: const Text("Przejedź dalej"))
                 ]))));
   }
 }
