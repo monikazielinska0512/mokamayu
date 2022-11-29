@@ -28,10 +28,9 @@ class OutfitSummaryScreen extends StatelessWidget {
         body: ListView(
           padding: const EdgeInsets.all(8),
           children: map!.entries.map((entry) {
-            return Container(
-                child: OutfitCard(
-                    object: itemList
-                        .firstWhere((item) => item.reference == entry.key[1])));
+            return OutfitCard(
+                object: itemList
+                    .firstWhere((item) => item.reference == entry.key[1]));
           }).toList(),
         ));
   }

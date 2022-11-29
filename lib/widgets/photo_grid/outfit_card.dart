@@ -17,23 +17,51 @@ class OutfitCard extends StatelessWidget {
     return Card(
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 4,
+      elevation: 0,
       color: ColorsConstants.soft,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      child: Column(children: [
-        Padding(
-            padding: const EdgeInsets.all(10),
-            child: ClipRRect(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            ClipRRect(
               borderRadius: BorderRadius.circular(15), // Image border
               child: SizedBox.fromSize(
-                size: const Size.fromRadius(100),
+                size: const Size.fromRadius(50),
                 child: Image.network(photoUrl!, fit: BoxFit.fill),
               ),
-            )),
-        Text(name!, style: TextStyles.paragraphRegularSemiBold14()),
-      ]),
+            ),
+            SizedBox(
+              width: 30,
+            ),
+            Column(
+              children: [
+                Text(
+                  name!,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.right,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                TextButton(
+                    child: Text(
+                      "See details",
+                      style: TextStyle(
+                          color: ColorsConstants.primary,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.right,
+                    ),
+                    onPressed: () => {
+                          //TODO
+                        }),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
