@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/managers.dart';
+import '../../widgets/buttons/button.dart';
+import '../../widgets/buttons/buttons.dart';
 import '../../widgets/photo_grid/photo.dart';
 
 class OutfitSummaryScreen extends StatelessWidget {
@@ -23,13 +25,17 @@ class OutfitSummaryScreen extends StatelessWidget {
           title: const Text("Outfit Summary",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         ),
-        body: ListView(
-          padding: const EdgeInsets.all(8),
-          children: map!.entries.map((entry) {
-            return WardrobeItemCard(
-                object: itemList
-                    .firstWhere((item) => item.reference == entry.key[1]));
-          }).toList(),
-        ));
+        body: Column(children: [
+          Expanded(
+              child: ListView(
+            padding: const EdgeInsets.all(8),
+            children: map!.entries.map((entry) {
+              return WardrobeItemCard(
+                  object: itemList
+                      .firstWhere((item) => item.reference == entry.key[1]));
+            }).toList(),
+          )),
+          ButtonDarker(context, "Save", () {})
+        ]));
   }
 }
