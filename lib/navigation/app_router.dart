@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/managers/managers.dart';
+import 'package:mokamayu/services/managers/outfit_manager.dart';
 
 class AppRouter {
   final AppStateManager appStateManager;
   final ProfileManager profileManager;
   final WardrobeManager wardrobeManager;
+  final OutfitManager outfitManager;
 
-  AppRouter(this.appStateManager, this.profileManager, this.wardrobeManager);
+  AppRouter(this.appStateManager, this.profileManager, this.wardrobeManager,
+      this.outfitManager);
 
   late final router = GoRouter(
     debugLogDiagnostics: true,
