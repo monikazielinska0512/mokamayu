@@ -6,7 +6,6 @@ class Outfit {
   final String? season;
   final String? cover;
   final List<String>? elements;
-  final DateTime? created;
   String? reference;
 
   Outfit({
@@ -15,7 +14,6 @@ class Outfit {
     this.season,
     this.cover,
     this.elements,
-    this.created,
     this.reference,
   });
 
@@ -24,7 +22,6 @@ class Outfit {
         style: json['style'] as String,
         season: json['season'] as String,
         cover: json['cover'] as String,
-        created: json['created'] as DateTime?,
         elements: json['elements'] is Iterable
             ? List.from(json['elements']) as List<String>?
             : null,
@@ -35,7 +32,6 @@ class Outfit {
         "style": style,
         "season": season,
         "cover": cover,
-        "created": created.toString(),
         "elements": elements,
       };
 

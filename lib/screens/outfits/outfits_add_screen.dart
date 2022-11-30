@@ -1,7 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/outfits/outfit_summary_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
+import 'package:screenshot/screenshot.dart';
 
 import '../../models/wardrobe_item.dart';
 
@@ -9,6 +12,9 @@ class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.itemList}) : super(key: key);
   Future<List<WardrobeItem>>? itemList;
   Map<List<dynamic>, ContainerList> map = {};
+
+  ScreenshotController screenshotController = ScreenshotController();
+  Uint8List? capturedOutfit;
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +39,17 @@ class CreateOutfitPage extends StatelessWidget {
               size: 35,
             ),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OutfitSummaryScreen(map: map),
-                  ));
+              screenshotController.capture().then((capturedImage) async {
+                capturedOutfit = capturedImage;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OutfitSummaryScreen(
+                          map: map, capturedOutfit: capturedOutfit),
+                    ));
+              }).catchError((onError) {
+                print(onError);
+              });
             },
           )
         ],
@@ -54,14 +66,15 @@ class CreateOutfitPage extends StatelessWidget {
               ),
             )),
             Positioned(
+                child: Screenshot(
+              controller: screenshotController,
               child: Padding(
                 padding:
                     EdgeInsets.fromLTRB(0, deviceHeight(context) * 0.14, 0, 0),
                 child: DragTargetContainer(map: map),
               ),
-            )
+            ))
           ]),
-
           //categories for wardrobe
           //TODO
           //photos from wardrobe (button add if no photos) - scroll horizontally
