@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/models/outfit.dart';
+import 'package:mokamayu/screens/screens.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
 
@@ -12,12 +13,12 @@ class OutfitManager extends ChangeNotifier {
   Future<List<Outfit>>? get getWardrobeItemList => futureOutfitList;
   List<Outfit> get getfinalWardrobeItemList => finalOutfitList;
 
-  void setWardrobeItem(Future<List<Outfit>> itemList) {
-    futureOutfitList = itemList;
+  void setOutfits(Future<List<Outfit>> outfitsList) {
+    futureOutfitList = outfitsList;
     notifyListeners();
   }
 
-  Future<List<Outfit>> readWardrobeItemOnce() async {
+  Future<List<Outfit>> readOutfitsOnce() async {
     QuerySnapshot snapshot = await db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
@@ -34,7 +35,7 @@ class OutfitManager extends ChangeNotifier {
     return finalOutfitList;
   }
 
-  Future<void> addOutfitToFirebase(Outfit item) async {
+  Future<void> addOutfitToFirestore(Outfit item) async {
     await db
         .collection('users')
         .doc(AuthService().getCurrentUserID())

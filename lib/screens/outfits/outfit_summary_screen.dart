@@ -45,7 +45,9 @@ class OutfitSummaryScreen extends StatelessWidget {
             });
             Outfit data = Outfit(elements: elements);
             Provider.of<OutfitManager>(context, listen: false)
-                .addOutfitToFirebase(data);
+                .addOutfitToFirestore(data);
+
+            //add routing to outfits page
           })
         ]));
   }
