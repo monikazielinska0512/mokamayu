@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/widgets/chips/chips.dart';
 
-class FilterChipsFormField extends FormField<List<String>> {
+class MultiSelectChipsFormField extends FormField<List<String>> {
   final List<String> chipsList;
 
-  FilterChipsFormField(
+  MultiSelectChipsFormField(
       {Key? key,
       required this.chipsList,
       required FormFieldSetter<List<String>> onSaved,

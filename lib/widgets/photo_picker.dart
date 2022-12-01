@@ -5,6 +5,7 @@ import 'package:mokamayu/constants/colors.dart';
 
 class PhotoPicker extends StatefulWidget {
   File? photo;
+  String? photoPath;
   final ImagePicker picker = ImagePicker();
   final double width;
   final double height;
@@ -48,6 +49,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
         await widget.picker.pickImage(source: source, imageQuality: 50);
     setState(() {
       if (pickedFile != null) {
+        widget.photoPath = pickedFile.path;
         widget.photo = File(pickedFile.path);
       } else {
         //TODO SNACK BAR

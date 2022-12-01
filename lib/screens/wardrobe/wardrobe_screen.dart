@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +24,6 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
       Provider.of<WardrobeManager>(context, listen: false)
           .setWardrobeItem(itemList!);
     });
-
     super.initState();
   }
 
@@ -63,13 +62,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
           ),
           FloatingButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                              create: (_) => WardrobeManager(),
-                              child: AddPhotoScreen(),
-                            )));
+                context.goNamed('pick-photo');
               },
               icon: const Icon(Icons.add),
               backgroundColor: ColorsConstants.primary,

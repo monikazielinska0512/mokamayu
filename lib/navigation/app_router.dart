@@ -38,6 +38,18 @@ class AppRouter {
           return HomeScreen(key: state.pageKey, currentTab: tab);
         },
       ),
+      GoRoute(
+        name: 'pick-photo',
+        path: '/pick-photo',
+        builder: (context, state) => AddPhotoScreen(),
+      ),
+      GoRoute(
+          path: '/add-wardrobe-item/:file',
+          name: 'add-wardrobe-item',
+          builder: (context, state) {
+            String file = state.params['file']!;
+            return AddWardorbeItemForm(photo: file);
+          })
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;

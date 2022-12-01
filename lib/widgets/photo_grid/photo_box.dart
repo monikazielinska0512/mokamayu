@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
@@ -15,12 +16,12 @@ class PhotoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String? photoUrl = object.photoURL;
     String? name = object.name;
-    String? id = object.reference;
+    DocumentReference? id = object.reference;
     return !scrollVertically
         ? GestureDetector(
             onTap: () async {
               Provider.of<PhotoTapped>(context, listen: false)
-                  .addToMap(photoUrl!, id!);
+                  .addToMap(photoUrl, id!.toString());
             },
             child: Card(
               elevation: 4,
@@ -35,7 +36,7 @@ class PhotoCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15), // Image border
                       child: SizedBox.fromSize(
                         size: const Size.fromRadius(40), // Image radius
-                        child: Image.network(photoUrl!, fit: BoxFit.fill),
+                        child: Image.network(photoUrl, fit: BoxFit.fill),
                       ),
                     )),
               ]),
@@ -56,10 +57,10 @@ class PhotoCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15), // Image border
                     child: SizedBox.fromSize(
                       size: const Size.fromRadius(100),
-                      child: Image.network(photoUrl!, fit: BoxFit.fill),
+                      child: Image.network(photoUrl, fit: BoxFit.fill),
                     ),
                   )),
-              Text(name!, style: TextStyles.paragraphRegularSemiBold14()),
+              Text(name, style: TextStyles.paragraphRegularSemiBold14()),
             ]),
           );
   }
