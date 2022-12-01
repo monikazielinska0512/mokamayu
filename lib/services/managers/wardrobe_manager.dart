@@ -19,12 +19,13 @@ class WardrobeManager extends ChangeNotifier {
     QuerySnapshot snapshot = await db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
-        .collection('item')
+        .collection('wardrobe')
         .get();
 
     List<WardrobeItem> itemList = [];
     for (var element in snapshot.docs) {
       WardrobeItem item = WardrobeItem.fromSnapshot(element);
+      print(item);
       itemList.add(item);
     }
     finalWardrobeItemList = itemList;

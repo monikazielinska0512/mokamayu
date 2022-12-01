@@ -1,51 +1,3 @@
-// // import 'package:cloud_firestore/cloud_firestore.dart';
-// //
-// // class WardrobeItem {
-//   final String? name;
-//   final String? type;
-//   final String? size;
-//   final String? photoURL;
-//   final List<String>? styles;
-//   final DateTime? created;
-//   String? reference;
-// //
-// //   WardrobeItem({
-//     required this.name,
-//     required this.type,
-//     required this.size,
-//     required this.photoURL,
-//     this.styles,
-//     this.created,
-//     this.reference,
-//   });
-// //
-// //   factory WardrobeItem.fromJson(Map<dynamic, dynamic> item) => WardrobeItem(
-// //         name: item['name'] as String,
-// //         type: item['type'] as String,
-// //         size: item['size'] as String,
-// //         photoURL: item['photoURL'] as String,
-// //         created: item['created'] as DateTime?,
-// //         styles: item['styles'] is Iterable
-// //             ? List.from(item['styles']) as List<String>?
-// //             : null,
-// //       );
-// //
-// //   Map<String, dynamic> toJson() => <String, dynamic>{
-// //         "name": name,
-// //         "type": type,
-// //         "size": size,
-// //         "photoURL": photoURL,
-// //         "created": created.toString(),
-// //         "styles": styles,
-// //       };
-// //
-// //   factory WardrobeItem.fromSnapshot(DocumentSnapshot snapshot) {
-// //     final item = WardrobeItem.fromJson(snapshot.data() as Map<String, dynamic>);
-// //     item.reference = snapshot.reference.id;
-// //     return item;
-// //   }
-// // }
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WardrobeItem {
@@ -76,7 +28,7 @@ class WardrobeItem {
           type: item['type'] as String,
           size: item['size'] as String,
           photoURL: item['photoURL'] as String,
-          styles: item['styles'] as List<String>,
+          styles: List.from(item['styles']),
           created: DateTime.parse(item['created'] as String));
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
@@ -85,7 +37,7 @@ class WardrobeItem {
         'type': type.toString(),
         'size': size.toString(),
         'photoURL': photoURL.toString(),
-        'styles': styles.toString(),
+        'styles': styles,
         'created': created.toString(),
       };
 
