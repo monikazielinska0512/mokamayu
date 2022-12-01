@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/managers.dart';
+import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -10,9 +11,9 @@ import 'package:uuid/uuid.dart';
 import '../../../utils/validator.dart';
 
 class WardrobeItemForm extends StatefulWidget {
-  final String? photoPath;
+  final String photoPath;
 
-  WardrobeItemForm({Key? key, this.photoPath}) : super(key: key);
+  WardrobeItemForm({Key? key, required this.photoPath}) : super(key: key);
 
   @override
   State<WardrobeItemForm> createState() => _WardrobeItemFormState();
@@ -114,16 +115,18 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                           Validator.checkIfMultipleValueSelected(
                               value!, context)),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       _formKey.currentState!.save();
+
+                      String url = await StorageService().uploadFile(context, widget.photoPath);
 
                       if (_formKey.currentState!.validate()) {
                         final item = WardrobeItem(
-                            id: Uuid().v4(),
+                            id: const Uuid().v4(),
                             name: _name,
                             type: _type,
                             size: _size,
-                            photoURL: "",
+                            photoURL: url,
                             styles: _styles,
                             created: DateTime.now());
 

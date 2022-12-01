@@ -33,7 +33,6 @@ class WardrobeManager extends ChangeNotifier {
   }
 
   void addWardrobeItem(WardrobeItem item) {
-    print(AuthService().getCurrentUserID().toString());
     db
         .collection('users')
         .doc(AuthService().getCurrentUserID())

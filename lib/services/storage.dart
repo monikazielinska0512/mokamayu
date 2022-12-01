@@ -1,44 +1,38 @@
 import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart';
+import 'package:flutter/material.dart';
 import 'authentication/auth.dart';
 
 class StorageService {
-  firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
+  FirebaseStorage storage = FirebaseStorage.instance;
   final String uid = AuthService().getCurrentUserID();
-  String photoURL = "";
 
-  Future<String> uploadPhoto(File? file) async {
-    final fileName = basename(file!.path);
-    final metadata = SettableMetadata(contentType: "image/jpeg");
-    final uploadTask =
-        storage.ref().child('$uid/item/$fileName').putFile(file, metadata);
+  Future<String> uploadFile(BuildContext context, String filePath) async {
+    String downloadUrl = "";
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref = storage.ref().child(uid).child(filePath);
 
-    uploadTask.snapshotEvents.listen((TaskSnapshot taskSnapshot) async {
-      String url = await taskSnapshot.ref.getDownloadURL();
-      photoURL = url;
-      switch (taskSnapshot.state) {
-        case TaskState.running:
-          final progress =
-              100.0 * (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes);
-          print("Upload is $progress% complete.");
-          break;
-        case TaskState.paused:
-          print("Upload is paused.");
-          break;
-        case TaskState.canceled:
-          print("Upload was canceled");
-          break;
-        case TaskState.error:
-          print("Something went wrong");
-          break;
-        case TaskState.success:
-          print("Photo was added");
-          break;
-      }
-    });
-    return photoURL;
+    TaskSnapshot uploadedFile = await ref.putFile(File(filePath));
+
+    switch (uploadedFile.state) {
+      case TaskState.running:
+        final progress =
+            100.0 * (uploadedFile.bytesTransferred / uploadedFile.totalBytes);
+        print("Upload is $progress% complete.");
+        break;
+      case TaskState.paused:
+        print("Upload is paused.");
+        break;
+      case TaskState.canceled:
+        print("Upload was canceled");
+        break;
+      case TaskState.error:
+        print("Error");
+        break;
+      case TaskState.success:
+        downloadUrl = await ref.getDownloadURL();
+        break;
+    }
+    return downloadUrl;
   }
 }
