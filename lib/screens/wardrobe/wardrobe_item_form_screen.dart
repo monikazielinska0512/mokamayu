@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
 
 class AddWardorbeItemForm extends StatefulWidget {
-  final String? photo;
+  final String photo;
   final String? id;
 
   const AddWardorbeItemForm({Key? key, required this.photo, this.id})
@@ -21,7 +21,7 @@ class _AddWardorbeItemFormState extends State<AddWardorbeItemForm> {
       children: [
         ClipRRect(
           child: Image.file(
-            File(widget.photo!),
+            File(widget.photo),
             height: MediaQuery.of(context).size.height * 0.7,
             width: MediaQuery.of(context).size.width,
             fit: BoxFit.fill,
@@ -43,7 +43,7 @@ class _AddWardorbeItemFormState extends State<AddWardorbeItemForm> {
                           topRight: Radius.circular(40),
                           topLeft: Radius.circular(40)),
                     ),
-                    child: WardrobeItemForm())))
+                    child: WardrobeItemForm(photoPath: widget.photo,))))
       ],
     ));
   }
