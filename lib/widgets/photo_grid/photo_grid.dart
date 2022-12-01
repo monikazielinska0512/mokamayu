@@ -22,13 +22,13 @@ class PhotoGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //print(outfitsList);
+    print(outfitsList);
     if (outfitsList != null) {
       return FutureBuilder<List<Outfit>>(
         future: outfitsList,
         builder: (context, snapshot) {
-          print(snapshot);
-          //print(snapshot.data);
+          //print(snapshot);
+          print(snapshot.data);
           if (snapshot.hasData || snapshot.data != null) {
             return Center(
                 child: GridView.builder(

@@ -25,11 +25,11 @@ class Outfit {
       elements: List.from(json['elements']));
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        "createdBy": createdBy,
-        "style": style,
-        "season": season,
-        "cover": cover,
-        "elements": elements,
+        "createdBy": createdBy.toString(),
+        "style": style.toString(),
+        "season": season.toString(),
+        "cover": cover.toString(),
+        "elements": elements.toString(),
       };
 
   factory Outfit.fromSnapshot(DocumentSnapshot snapshot) {

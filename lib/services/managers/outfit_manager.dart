@@ -26,11 +26,18 @@ class OutfitManager extends ChangeNotifier {
         .get();
 
     List<Outfit> outfitList = [];
-    snapshot.docs.forEach((element) {
-      //print(element);
+    for (var element in snapshot.docs) {
       Outfit item = Outfit.fromSnapshot(element);
+      print(item);
       outfitList.add(item);
-    });
+    }
+
+    // List<Outfit> outfitList = [];
+    // snapshot.docs.forEach((element) {
+    //   //print(element);
+    //   Outfit item = Outfit.fromSnapshot(element);
+    //   outfitList.add(item);
+    // });
     // List<Outfit> outfitList = snapshot.docs
     //     .map((d) => Outfit.fromJson(d.data() as Map<String, dynamic>))
     //     .toList();

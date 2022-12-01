@@ -29,15 +29,12 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
         .readWardrobeItemOnce();
     //print(itemList);
     Future.delayed(Duration.zero).then((value) {
-      if (itemList != null) {
-        Provider.of<WardrobeManager>(context, listen: false)
-            .setWardrobeItem(itemList!);
-      }
-      if (outfitsList != null) {
-        Provider.of<OutfitManager>(context, listen: false)
-            .setOutfits(outfitsList!);
-      }
+      Provider.of<WardrobeManager>(context, listen: false)
+          .setWardrobeItem(itemList!);
+      Provider.of<OutfitManager>(context, listen: false)
+          .setOutfits(outfitsList!);
     });
+    // setState(() {});
     super.initState();
   }
 
