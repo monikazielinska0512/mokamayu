@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     List<String> pageLabels = [
-      S.of(context).wardorbe,
+      S.of(context).wardrobe,
       S.of(context).outfits,
       S.of(context).social,
       S.of(context).profile,

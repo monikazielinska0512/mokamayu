@@ -9,6 +9,7 @@ class WardrobeManager extends ChangeNotifier {
   Future<List<WardrobeItem>>? futureWardrobeItemList;
 
   Future<List<WardrobeItem>>? get getWardrobeItemList => futureWardrobeItemList;
+  List<WardrobeItem> get getfinalWardrobeItemList => finalWardrobeItemList;
 
   void setWardrobeItem(Future<List<WardrobeItem>> itemList) {
     futureWardrobeItemList = itemList;

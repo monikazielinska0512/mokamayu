@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget profileContent(BuildContext context) {
     List<Tab> tabs = <Tab>[
-      Tab(text: S.of(context).wardorbe),
+      Tab(text: S.of(context).wardrobe),
       Tab(text: S.of(context).outfits),
     ];
     return Expanded(
@@ -63,8 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Expanded(
                 child: TabBarView(children: [
                   PhotoGrid(itemList: itemList),
-                  PhotoGrid(
-                      itemList: itemList), //potem podmienie na outfity
+                  PhotoGrid(itemList: itemList), //potem podmienie na outfity
                 ]),
               ),
             ],

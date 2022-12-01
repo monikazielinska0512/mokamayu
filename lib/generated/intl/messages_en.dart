@@ -56,7 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "social": MessageLookupByLibrary.simpleMessage("Social"),
         "user_not_exist":
             MessageLookupByLibrary.simpleMessage("User does not exist"),
-        "wardorbe": MessageLookupByLibrary.simpleMessage("Wardorbe"),
+        "wardrobe": MessageLookupByLibrary.simpleMessage("Wardrobe"),
         "wrong_password": MessageLookupByLibrary.simpleMessage(
             "Your email or password is wrong")
       };
