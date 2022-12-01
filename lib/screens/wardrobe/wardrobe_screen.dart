@@ -20,7 +20,6 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   void initState() {
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
-    itemList?.then((value) => print(value));
     Future.delayed(Duration.zero).then((value) {
       Provider.of<WardrobeManager>(context, listen: false)
           .setWardrobeItem(itemList!);
