@@ -6,7 +6,7 @@ Container ButtonDarker(BuildContext context, String title, Function onTap,
   return Container(
     width: shouldExpand ? MediaQuery.of(context).size.width - 40 : null,
     height: shouldExpand ? 50 : null,
-    margin: const EdgeInsets.fromLTRB(0, 10, 0, 30),
+    margin: const EdgeInsets.fromLTRB(0, 10, 0, 50),
     child: ElevatedButton(
       onPressed: () {
         onTap();
