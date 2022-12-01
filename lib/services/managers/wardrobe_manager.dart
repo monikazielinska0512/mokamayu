@@ -30,6 +30,8 @@ class WardrobeManager extends ChangeNotifier {
       itemList.add(item);
     }
     finalWardrobeItemList = itemList;
+    //notifyListeners();
+
     return finalWardrobeItemList;
   }
 

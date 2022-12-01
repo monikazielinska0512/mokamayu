@@ -18,12 +18,14 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   void initState() {
+    print('here');
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
     Future.delayed(Duration.zero).then((value) {
       Provider.of<WardrobeManager>(context, listen: false)
           .setWardrobeItem(itemList!);
     });
+    //setState(() {});
     super.initState();
   }
 

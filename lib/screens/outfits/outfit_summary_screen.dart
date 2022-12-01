@@ -51,7 +51,7 @@ class OutfitSummaryScreen extends StatelessWidget {
             //TODO save outfit
             List<String> elements = [];
             itemList.forEach((element) {
-              elements.add(element.reference!);
+              elements.add(element.id!);
             });
 
             Outfit data = Outfit(

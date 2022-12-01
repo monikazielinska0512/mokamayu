@@ -16,7 +16,7 @@ class PhotoCardOutfit extends StatelessWidget {
   Widget build(BuildContext context) {
     String? photoUrl = object.cover;
     String? id = object.reference;
-    print(id!);
+    //print(id!);
     final List<int> codeUnits = photoUrl!.codeUnits;
     final Uint8List unit8List = Uint8List.fromList(codeUnits);
     //print(unit8List);

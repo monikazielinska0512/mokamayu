@@ -129,6 +129,8 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
 
                         Provider.of<WardrobeManager>(context, listen: false)
                             .addWardrobeItem(item);
+                        // Provider.of<WardrobeManager>(context, listen: false)
+                        // .setWardrobeItem(item);
 
                         _type = "";
                         _size = "";

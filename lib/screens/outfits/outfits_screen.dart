@@ -24,7 +24,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
   void initState() {
     outfitsList =
         Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
-    print(outfitsList);
+    //print(outfitsList);
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
     //print(itemList);

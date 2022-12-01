@@ -13,7 +13,7 @@ class WardrobeItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String? photoUrl = object.photoURL;
     String? name = object.name;
-    String? id = object.reference;
+    String? id = object.id;
     return Card(
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
