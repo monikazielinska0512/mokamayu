@@ -18,14 +18,11 @@ class Outfit {
   });
 
   factory Outfit.fromJson(Map<dynamic, dynamic> json) => Outfit(
-        createdBy: json['createdBy'] as String,
-        style: json['style'] as String,
-        season: json['season'] as String,
-        cover: json['cover'] as String,
-        elements: json['elements'] is Iterable
-            ? List.from(json['elements']) as List<String>?
-            : null,
-      );
+      createdBy: json['createdBy'] as String,
+      style: json['style'] as String,
+      season: json['season'] as String,
+      cover: json['cover'] as String,
+      elements: List.from(json['elements']));
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         "createdBy": createdBy,

@@ -55,9 +55,10 @@ class OutfitSummaryScreen extends StatelessWidget {
             });
 
             Outfit data = Outfit(
-                elements: elements,
-                //cover: Image.memory(capturedOutfit!).toString(),
-                createdBy: AuthService().getCurrentUserID());
+              elements: elements,
+              //cover: Image.memory(capturedOutfit!).toString(),
+              //createdBy: AuthService().getCurrentUserID()
+            );
             Provider.of<OutfitManager>(context, listen: false)
                 .addOutfitToFirestore(data);
             // Navigator.push(
