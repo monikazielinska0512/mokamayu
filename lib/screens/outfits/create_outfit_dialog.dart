@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/outfits/outfits_add_screen.dart';
 import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:mokamayu/models/models.dart';
@@ -22,13 +23,16 @@ class CustomDialogBox {
       actions: <Widget>[
         CupertinoDialogAction(
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ChangeNotifierProvider(
-                          create: (_) => PhotoTapped(),
-                          child: CreateOutfitPage(itemList: itemList),
-                        )));
+            GoRouter.of(context)
+                .pushNamed("create-outfit-page", extra: itemList!);
+
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => ChangeNotifierProvider(
+            //               create: (_) => PhotoTapped(),
+            //               child: CreateOutfitPage(itemList: itemList),
+            //             )));
           },
           child: const Text('By yourself'),
         ),

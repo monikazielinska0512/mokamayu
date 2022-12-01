@@ -1,8 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
+
+import '../models/wardrobe_item.dart';
+import '../screens/outfits/outfit_summary_screen.dart';
+import '../widgets/drag_target_container.dart';
 
 class AppRouter {
   final AppStateManager appStateManager;
@@ -41,6 +47,22 @@ class AppRouter {
           return HomeScreen(key: state.pageKey, currentTab: tab);
         },
       ),
+      GoRoute(
+          name: 'create-outfit-page',
+          path: '/create-outfit-page',
+          builder: (context, state) {
+            return CreateOutfitPage(
+                itemList: state.extra as Future<List<WardrobeItem>>?);
+          }),
+      GoRoute(
+          name: 'outfit-summary-screen',
+          path: '/outfit-summary-screen',
+          builder: (context, state) {
+            state.extra;
+            return OutfitSummaryScreen(
+                map: state.extra as Map<List<dynamic>, ContainerList>?,
+                capturedOutfit: state.queryParams['capturedOutfit']);
+          }),
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;

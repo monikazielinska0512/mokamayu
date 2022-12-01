@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/outfits/outfit_summary_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
@@ -41,12 +42,17 @@ class CreateOutfitPage extends StatelessWidget {
             onPressed: () {
               screenshotController.capture().then((capturedImage) async {
                 capturedOutfit = capturedImage;
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OutfitSummaryScreen(
-                          map: map, capturedOutfit: capturedOutfit),
-                    ));
+                GoRouter.of(context).pushNamed("outfit-summary-screen",
+                    extra: map,
+                    queryParams: {
+                      "captureOutfit": Image.memory(capturedOutfit!).toString()
+                    });
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => OutfitSummaryScreen(
+                //           map: map, capturedOutfit: capturedOutfit),
+                //     ));
               }).catchError((onError) {
                 print(onError);
               });

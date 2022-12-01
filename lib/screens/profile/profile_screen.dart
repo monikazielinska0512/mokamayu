@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/models/outfit.dart';
+import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -18,12 +20,15 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   Future<List<WardrobeItem>>? itemList;
+  Future<List<Outfit>>? outfitsList;
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
           itemList = Provider.of<WardrobeManager>(context, listen: false)
               .getWardrobeItemList;
+          outfitsList =
+              Provider.of<OutfitManager>(context, listen: false).getOutfitList;
         }));
     return Container(
       padding: const EdgeInsets.all(16),
@@ -63,7 +68,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Expanded(
                 child: TabBarView(children: [
                   PhotoGrid(itemList: itemList),
-                  PhotoGrid(itemList: itemList), //potem podmienie na outfity
+                  PhotoGrid(
+                      outfitsList: outfitsList), //potem podmienie na outfity
                 ]),
               ),
             ],

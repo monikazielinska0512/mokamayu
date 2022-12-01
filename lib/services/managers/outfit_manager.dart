@@ -10,8 +10,8 @@ class OutfitManager extends ChangeNotifier {
   List<Outfit> finalOutfitList = [];
   Future<List<Outfit>>? futureOutfitList;
 
-  Future<List<Outfit>>? get getWardrobeItemList => futureOutfitList;
-  List<Outfit> get getfinalWardrobeItemList => finalOutfitList;
+  Future<List<Outfit>>? get getOutfitList => futureOutfitList;
+  List<Outfit> get getfinalOutfitList => finalOutfitList;
 
   void setOutfits(Future<List<Outfit>> outfitsList) {
     futureOutfitList = outfitsList;
@@ -25,11 +25,17 @@ class OutfitManager extends ChangeNotifier {
         .collection('outfits')
         .get();
 
-    List<Outfit> outfitList = [];
-    snapshot.docs.forEach((element) {
-      Outfit item = Outfit.fromSnapshot(element);
-      outfitList.add(item);
-    });
+    // List<Outfit> outfitList = [];
+    // snapshot.docs.forEach((element) {
+    //   //print(element);
+    //   Outfit item = Outfit.fromSnapshot(element);
+    //   outfitList.add(item);
+    // });
+    List<Outfit> outfitList = snapshot.docs
+        .map((d) => Outfit.fromJson(d.data() as Map<String, dynamic>))
+        .toList();
+
+    print(outfitList);
 
     finalOutfitList = outfitList;
     return finalOutfitList;
