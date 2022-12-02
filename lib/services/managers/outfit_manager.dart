@@ -26,24 +26,10 @@ class OutfitManager extends ChangeNotifier {
         .get();
 
     List<Outfit> outfitList = [];
-    for (var element in snapshot.docs) {
+    snapshot.docs.forEach((element) {
       Outfit item = Outfit.fromSnapshot(element);
-      print(item);
       outfitList.add(item);
-    }
-
-    // List<Outfit> outfitList = [];
-    // snapshot.docs.forEach((element) {
-    //   //print(element);
-    //   Outfit item = Outfit.fromSnapshot(element);
-    //   outfitList.add(item);
-    // });
-    // List<Outfit> outfitList = snapshot.docs
-    //     .map((d) => Outfit.fromJson(d.data() as Map<String, dynamic>))
-    //     .toList();
-
-    print(outfitList);
-
+    });
     finalOutfitList = outfitList;
     return finalOutfitList;
   }
@@ -53,7 +39,7 @@ class OutfitManager extends ChangeNotifier {
         .collection('users')
         .doc(AuthService().getCurrentUserID())
         .collection('outfits')
-        .add(item.toJson());
+        .add(item.toFirestore());
 
     notifyListeners();
   }

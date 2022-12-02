@@ -21,18 +21,14 @@ class OutfitSummaryScreen extends StatelessWidget {
   //String? capturedOutfit; //ZAMIENIC NA UINT8LIST
   late Uint8List capturedOutfit;
   late List<WardrobeItem> itemList;
+  List<String> elements = [];
 
   @override
   Widget build(BuildContext context) {
-    itemList = Provider.of<WardrobeManager>(context, listen: true)
+    itemList = Provider.of<WardrobeManager>(context, listen: false)
         .getfinalWardrobeItemList;
-
     capturedOutfit =
         Provider.of<PhotoTapped>(context, listen: false).getScreenshot;
-    print(capturedOutfit);
-
-    // final List<int> codeUnits = capturedOutfit!.codeUnits;
-    // final Uint8List unit8List = Uint8List.fromList(codeUnits);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -46,20 +42,13 @@ class OutfitSummaryScreen extends StatelessWidget {
               child: ListView(
             padding: const EdgeInsets.all(8),
             children: map!.entries.map((entry) {
+              elements.add(entry.key[1]);
               return WardrobeItemCard(
                   object: itemList
                       .firstWhere((item) => item.reference == entry.key[1]));
             }).toList(),
           )),
-          Image.memory(capturedOutfit),
           ButtonDarker(context, "Save", () async {
-            //TODO save outfit
-            List<String> elements = [];
-            itemList.forEach((element) {
-              elements.add(element.reference!);
-            });
-            print(itemList);
-
             Outfit data = Outfit(
                 elements: elements,
                 cover: capturedOutfit,
@@ -67,12 +56,6 @@ class OutfitSummaryScreen extends StatelessWidget {
             Provider.of<OutfitManager>(context, listen: false)
                 .addOutfitToFirestore(data);
             Provider.of<PhotoTapped>(context, listen: false).nullMap(elements);
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => HomeScreen(currentTab: 1)));
-
-            //add routing to outfits page
             GoRouter.of(context).go('/home/1');
           })
         ]));
