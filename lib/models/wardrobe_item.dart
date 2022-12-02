@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WardrobeItem {
-  //final String id;
   final String name;
   final String type;
   final String size;
@@ -11,7 +10,6 @@ class WardrobeItem {
   String? reference;
 
   WardrobeItem({
-    //required this.id,
     required this.name,
     required this.type,
     required this.size,
@@ -23,7 +21,6 @@ class WardrobeItem {
 
   factory WardrobeItem.fromFirestore(Map<dynamic, dynamic> item) =>
       WardrobeItem(
-          //id: item['id'] as String,
           name: item['name'] as String,
           type: item['type'] as String,
           size: item['size'] as String,
@@ -32,7 +29,6 @@ class WardrobeItem {
           created: DateTime.parse(item['created'] as String));
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
-        //'id': id.toString(),
         'name': name.toString(),
         'type': type.toString(),
         'size': size.toString(),

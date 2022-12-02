@@ -30,7 +30,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           outfitsList =
               Provider.of<OutfitManager>(context, listen: false).getOutfitList;
         }));
-    //print(itemList);
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -69,8 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Expanded(
                 child: TabBarView(children: [
                   PhotoGrid(itemList: itemList),
-                  PhotoGrid(
-                      outfitsList: outfitsList), //potem podmienie na outfity
+                  PhotoGrid(outfitsList: outfitsList),
                 ]),
               ),
             ],
