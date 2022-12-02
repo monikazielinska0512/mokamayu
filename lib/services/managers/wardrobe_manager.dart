@@ -13,7 +13,7 @@ class WardrobeManager extends ChangeNotifier {
 
   void setWardrobeItem(Future<List<WardrobeItem>> itemList) {
     futureWardrobeItemList = itemList;
-    notifyListeners();
+    //notifyListeners();
   }
 
   Future<List<WardrobeItem>> readWardrobeItemOnce() async {

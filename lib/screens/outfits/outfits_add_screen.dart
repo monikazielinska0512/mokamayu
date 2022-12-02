@@ -53,8 +53,6 @@ class CreateOutfitPage extends StatelessWidget {
                 String url =
                     await StorageService().uploadFile(context, imagePath.path);
 
-                //await Share.shareFiles([imagePath.path]);
-
                 Provider.of<PhotoTapped>(context, listen: false)
                     .setScreenshot(url);
                 GoRouter.of(context)
@@ -78,14 +76,14 @@ class CreateOutfitPage extends StatelessWidget {
               ),
             )),
             Positioned(
-                child: Screenshot(
-              controller: screenshotController,
               child: Padding(
                 padding:
                     EdgeInsets.fromLTRB(0, deviceHeight(context) * 0.14, 0, 0),
-                child: DragTargetContainer(map: map),
+                child: Screenshot(
+                    controller: screenshotController,
+                    child: DragTargetContainer(map: map)),
               ),
-            ))
+            )
           ]),
           //TODO categories for wardrobe
           SizedBox(

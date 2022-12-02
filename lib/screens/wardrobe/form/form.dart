@@ -123,7 +123,6 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
 
                       if (_formKey.currentState!.validate()) {
                         final item = WardrobeItem(
-                            //id: const Uuid().v4(),
                             name: _name,
                             type: _type,
                             size: _size,

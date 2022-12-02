@@ -19,7 +19,7 @@ class OutfitSummaryScreen extends StatelessWidget {
   Map<List<dynamic>, ContainerList>? map = {};
   late String capturedOutfit;
   late List<WardrobeItem> itemList;
-  List<String> elements = [];
+  List<String> _elements = [];
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class OutfitSummaryScreen extends StatelessWidget {
               child: ListView(
             padding: const EdgeInsets.all(8),
             children: map!.entries.map((entry) {
-              elements.add(entry.key[1]);
+              _elements.add(entry.key[1]);
               return WardrobeItemCard(
                   object: itemList
                       .firstWhere((item) => item.reference == entry.key[1]));
@@ -48,12 +48,13 @@ class OutfitSummaryScreen extends StatelessWidget {
           )),
           ButtonDarker(context, "Save", () async {
             Outfit data = Outfit(
-                // elements: elements,
+                elements: _elements,
                 cover: capturedOutfit,
                 createdBy: AuthService().getCurrentUserID());
             Provider.of<OutfitManager>(context, listen: false)
                 .addOutfitToFirestore(data);
-            Provider.of<PhotoTapped>(context, listen: false).nullMap(elements);
+            Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
+            _elements = [];
             // setState(() {});
             context.go("/home/1");
             // context.go("/home");
