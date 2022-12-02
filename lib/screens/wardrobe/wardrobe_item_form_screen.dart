@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
 
 class AddWardorbeItemForm extends StatefulWidget {
@@ -19,15 +20,15 @@ class _AddWardorbeItemFormState extends State<AddWardorbeItemForm> {
     return Scaffold(
         body: Stack(
       children: [
-        ClipRRect(
+        Positioned(
+            child: ClipRRect(
           child: Image.file(
             File(widget.photo),
-            height: MediaQuery.of(context).size.height * 0.7,
+            height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             fit: BoxFit.fill,
           ),
-        ),
-        const BackButton(),
+        )),
         Align(
             alignment: Alignment.bottomLeft,
             child: SizedBox(
@@ -43,7 +44,20 @@ class _AddWardorbeItemFormState extends State<AddWardorbeItemForm> {
                           topRight: Radius.circular(40),
                           topLeft: Radius.circular(40)),
                     ),
-                    child: WardrobeItemForm(photoPath: widget.photo,))))
+                    child: WardrobeItemForm(
+                      photoPath: widget.photo,
+                    )))),
+        Positioned(
+            height: MediaQuery.of(context).size.height - 700,
+            width: MediaQuery.of(context).size.width - 310,
+            child: IconButton(
+              iconSize: 30,
+              color: Colors.white,
+              onPressed: () {
+                context.goNamed('pick-photo');
+              },
+              icon: Icon(Icons.arrow_back_ios),
+            )),
       ],
     ));
   }

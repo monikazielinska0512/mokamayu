@@ -18,7 +18,7 @@ class OutfitSummaryScreen extends StatelessWidget {
   OutfitSummaryScreen({super.key, this.map});
   Map<List<dynamic>, ContainerList>? map = {};
   late String capturedOutfit;
-  late List<WardrobeItem> itemList;
+  List<WardrobeItem>? itemList;
   List<String> _elements = [];
 
   @override
@@ -32,6 +32,14 @@ class OutfitSummaryScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.black,
           elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              context.goNamed("create-outfit-page",
+                  extra: Provider.of<WardrobeManager>(context, listen: false)
+                      .getWardrobeItemList);
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
           title: const Text("Outfit Summary",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         ),
@@ -42,7 +50,7 @@ class OutfitSummaryScreen extends StatelessWidget {
             children: map!.entries.map((entry) {
               _elements.add(entry.key[1]);
               return WardrobeItemCard(
-                  object: itemList
+                  object: itemList!
                       .firstWhere((item) => item.reference == entry.key[1]));
             }).toList(),
           )),

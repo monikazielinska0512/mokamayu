@@ -37,6 +37,12 @@ class CreateOutfitPage extends StatelessWidget {
         elevation: 0,
         title: Text("Create outfit",
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        leading: IconButton(
+          onPressed: () {
+            context.go("/home/1");
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(

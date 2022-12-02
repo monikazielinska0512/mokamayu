@@ -18,20 +18,19 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   void initState() {
-    print('again here0');
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
     Future.delayed(Duration.zero).then((value) {
       Provider.of<WardrobeManager>(context, listen: false)
           .setWardrobeItem(itemList!);
     });
-    //setState(() {});
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
+        type: "wardrobe_home",
         context: context,
         child: Stack(children: [
           Column(

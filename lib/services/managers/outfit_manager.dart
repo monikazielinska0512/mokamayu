@@ -15,7 +15,6 @@ class OutfitManager extends ChangeNotifier {
 
   void setOutfits(Future<List<Outfit>> outfitsList) {
     futureOutfitList = outfitsList;
-    //notifyListeners();
   }
 
   Future<List<Outfit>> readOutfitsOnce() async {

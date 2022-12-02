@@ -46,13 +46,6 @@ class AppRouter {
         builder: (context, state) {
           final tab = int.tryParse(state.params['tab'] ?? '') ?? 0;
           return HomeScreen(key: state.pageKey, currentTab: tab);
-          // return MultiProvider(
-          //   providers: [
-          //     ChangeNotifierProvider(create: (_) => WardrobeManager()),
-          //     ChangeNotifierProvider(create: (_) => OutfitManager()),
-          //   ],
-          //   child: HomeScreen(key: state.pageKey, currentTab: tab),
-          // );
         },
       ),
       GoRoute(

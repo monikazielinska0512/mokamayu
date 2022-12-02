@@ -14,12 +14,12 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
+      type: "add_photo",
         context: context,
         child: Center(
             child: SizedBox(
                 height: double.maxFinite,
                 child: Column(children: <Widget>[
-                  const BackButton(),
                   widget._picker,
                   const SizedBox(height: 10),
                   TextButton(

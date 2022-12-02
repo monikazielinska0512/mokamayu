@@ -132,14 +132,11 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
 
                         Provider.of<WardrobeManager>(context, listen: false)
                             .addWardrobeItem(item);
-                        // Provider.of<WardrobeManager>(context, listen: false)
-                        // .setWardrobeItem(item);
 
                         _type = "";
                         _size = "";
                         _name = "";
                         _styles = [];
-                        //setState(() {});
                         context.go("/home/0");
 
                         ScaffoldMessenger.of(context).showSnackBar(
