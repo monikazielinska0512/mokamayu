@@ -14,11 +14,13 @@ class PhotoCardOutfit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Uint8List? photoUrl = object.cover;
-    //print(id!);
-    // final List<int> codeUnits = photoUrl!.codeUnits;
+    String? photoUrl = object.cover;
+    // final List<int> codeUnits = photoUrl.codeUnits;
     // final Uint8List unit8List = Uint8List.fromList(codeUnits);
-    //print(unit8List);
+    // print(unit8List);
+
+    // Uint8List? photoUrl;
+
     return GestureDetector(
       onTap: () async {},
       child: Card(
@@ -33,8 +35,8 @@ class PhotoCardOutfit extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15), // Image border
                 child: SizedBox.fromSize(
-                  size: const Size.fromRadius(40), // Image radius
-                  child: Image.memory(photoUrl!),
+                  size: const Size.fromRadius(100), // Image radius
+                  child: Image.network(photoUrl),
                 ),
               )),
         ]),

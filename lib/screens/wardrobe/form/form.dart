@@ -140,7 +140,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                         _size = "";
                         _name = "";
                         _styles = [];
-                        setState(() {});
+                        //setState(() {});
                         context.go("/home/0");
 
                         ScaffoldMessenger.of(context).showSnackBar(

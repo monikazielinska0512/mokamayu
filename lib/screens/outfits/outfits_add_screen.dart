@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -8,6 +9,9 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../models/wardrobe_item.dart';
+import 'package:path_provider/path_provider.dart';
+
+import '../../services/storage.dart';
 
 class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.itemList}) : super(key: key);
@@ -42,18 +46,19 @@ class CreateOutfitPage extends StatelessWidget {
             onPressed: () {
               screenshotController.capture().then((capturedImage) async {
                 capturedOutfit = capturedImage;
-                print(map);
-                print(capturedOutfit);
+                final directory = await getApplicationDocumentsDirectory();
+                final imagePath =
+                    await File('${directory.path}/image.png').create();
+                await imagePath.writeAsBytes(capturedOutfit!);
+                String url =
+                    await StorageService().uploadFile(context, imagePath.path);
+
+                //await Share.shareFiles([imagePath.path]);
+
                 Provider.of<PhotoTapped>(context, listen: false)
-                    .setScreenshot(capturedOutfit as Uint8List);
+                    .setScreenshot(url);
                 GoRouter.of(context)
-                    .pushNamed("outfit-summary-screen", extra: map);
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => OutfitSummaryScreen(
-                //           map: map, capturedOutfit: capturedOutfit),
-                //     ));
+                    .goNamed("outfit-summary-screen", extra: map);
               }).catchError((onError) {
                 print(onError);
               });
@@ -82,9 +87,7 @@ class CreateOutfitPage extends StatelessWidget {
               ),
             ))
           ]),
-          //categories for wardrobe
-          //TODO
-          //photos from wardrobe (button add if no photos) - scroll horizontally
+          //TODO categories for wardrobe
           SizedBox(
             height: 100,
           ),

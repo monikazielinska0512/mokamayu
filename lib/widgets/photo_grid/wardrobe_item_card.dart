@@ -30,7 +30,7 @@ class WardrobeItemCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(15), // Image border
               child: SizedBox.fromSize(
                 size: const Size.fromRadius(50),
-                child: Image.network(photoUrl!, fit: BoxFit.fill),
+                child: Image.network(photoUrl, fit: BoxFit.fill),
               ),
             ),
             const SizedBox(

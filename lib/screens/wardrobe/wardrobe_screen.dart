@@ -18,7 +18,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   void initState() {
-    print('here');
+    print('again here0');
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
     Future.delayed(Duration.zero).then((value) {

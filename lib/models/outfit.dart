@@ -6,8 +6,8 @@ class Outfit {
   final String createdBy;
   final String? style;
   final String? season;
-  final Uint8List cover;
-  final List<String> elements;
+  final String cover;
+  // final List<String> elements;
   String? reference;
 
   Outfit({
@@ -15,23 +15,24 @@ class Outfit {
     this.style,
     this.season,
     required this.cover,
-    required this.elements,
+    // required this.elements,
     this.reference,
   });
 
   factory Outfit.fromFirestore(Map<dynamic, dynamic> json) => Outfit(
-      createdBy: json['createdBy'] as String,
-      style: json['style'] as String,
-      season: json['season'] as String,
-      cover: json['cover'] as Uint8List,
-      elements: List.from(json['elements']));
+        createdBy: json['createdBy'] as String,
+        style: json['style'] as String,
+        season: json['season'] as String,
+        cover: json['cover'] as String,
+        // elements: List.from(json['elements'])
+      );
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
         "createdBy": createdBy.toString(),
         "style": style.toString(),
         "season": season.toString(),
         "cover": cover.toString(),
-        "elements": elements,
+        // "elements": elements,
       };
 
   factory Outfit.fromSnapshot(DocumentSnapshot snapshot) {

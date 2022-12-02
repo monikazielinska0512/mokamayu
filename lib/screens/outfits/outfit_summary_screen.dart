@@ -17,9 +17,7 @@ import '../../widgets/photo_grid/photo.dart';
 class OutfitSummaryScreen extends StatelessWidget {
   OutfitSummaryScreen({super.key, this.map});
   Map<List<dynamic>, ContainerList>? map = {};
-
-  //String? capturedOutfit; //ZAMIENIC NA UINT8LIST
-  late Uint8List capturedOutfit;
+  late String capturedOutfit;
   late List<WardrobeItem> itemList;
   List<String> elements = [];
 
@@ -50,13 +48,16 @@ class OutfitSummaryScreen extends StatelessWidget {
           )),
           ButtonDarker(context, "Save", () async {
             Outfit data = Outfit(
-                elements: elements,
+                // elements: elements,
                 cover: capturedOutfit,
                 createdBy: AuthService().getCurrentUserID());
             Provider.of<OutfitManager>(context, listen: false)
                 .addOutfitToFirestore(data);
             Provider.of<PhotoTapped>(context, listen: false).nullMap(elements);
-            GoRouter.of(context).go('/home/1');
+            // setState(() {});
+            context.go("/home/1");
+            // context.go("/home");
+            // GoRouter.of(context).go('/home/1');
           })
         ]));
   }

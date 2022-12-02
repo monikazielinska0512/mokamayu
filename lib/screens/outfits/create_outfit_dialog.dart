@@ -23,17 +23,8 @@ class CustomDialogBox {
       actions: <Widget>[
         CupertinoDialogAction(
           onPressed: () {
-            GoRouter.of(context)
-                .pushNamed("create-outfit-page", extra: itemList!);
+            context.goNamed("create-outfit-page", extra: itemList!);
             Navigator.of(context).pop();
-
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => ChangeNotifierProvider(
-            //               create: (_) => PhotoTapped(),
-            //               child: CreateOutfitPage(itemList: itemList),
-            //             )));
           },
           child: const Text('By yourself'),
         ),

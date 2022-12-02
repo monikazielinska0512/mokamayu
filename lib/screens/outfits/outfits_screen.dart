@@ -22,30 +22,47 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
 
   @override
   void initState() {
+    print('again here');
     outfitsList =
         Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
-    //print(outfitsList);
+    print(outfitsList);
+    Provider.of<OutfitManager>(context, listen: false).setOutfits(outfitsList!);
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
+    Provider.of<WardrobeManager>(context, listen: false)
+        .setWardrobeItem(itemList!);
+    // Future.delayed(const Duration(seconds: 10)).then((value) {
+    //   Provider.of<OutfitManager>(context, listen: false)
+    //       .setOutfits(outfitsList!);
+    //   Provider.of<WardrobeManager>(context, listen: false)
+    //       .setWardrobeItem(itemList!);
+    // });
+
     //print(itemList);
-    Future.delayed(Duration.zero).then((value) {
-      Provider.of<WardrobeManager>(context, listen: false)
-          .setWardrobeItem(itemList!);
-      Provider.of<OutfitManager>(context, listen: false)
-          .setOutfits(outfitsList!);
-    });
+
+    // Future.delayed(Duration.zero).then((value) {
+    //   Provider.of<WardrobeManager>(context, listen: false)
+    //       .setWardrobeItem(itemList!);
+    //   Provider.of<OutfitManager>(context, listen: false)
+    //       .setOutfits(outfitsList!);
+    // });
     // setState(() {});
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          outfitsList =
-              Provider.of<OutfitManager>(context, listen: false).getOutfitList;
-          itemList = Provider.of<WardrobeManager>(context, listen: false)
-              .getWardrobeItemList;
-        }));
+    // WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+    //       // Provider.of<WardrobeManager>(context, listen: false)
+    //       //     .setWardrobeItem(itemList!);
+    //       // Provider.of<OutfitManager>(context, listen: false)
+    //       //     .setOutfits(outfitsList!);
+    //       outfitsList =
+    //           Provider.of<OutfitManager>(context, listen: false).getOutfitList;
+    //       print(outfitsList);
+    //       itemList = Provider.of<WardrobeManager>(context, listen: false)
+    //           .getWardrobeItemList;
+    //     }));
 
     // print(itemList);
     return Scaffold(
