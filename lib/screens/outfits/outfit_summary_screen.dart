@@ -55,10 +55,7 @@ class OutfitSummaryScreen extends StatelessWidget {
                 .addOutfitToFirestore(data);
             Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
             _elements = [];
-            // setState(() {});
             context.go("/home/1");
-            // context.go("/home");
-            // GoRouter.of(context).go('/home/1');
           })
         ]));
   }

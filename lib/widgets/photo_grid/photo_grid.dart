@@ -36,21 +36,13 @@ class PhotoGrid extends StatelessWidget {
               scrollDirection: getScrollDirection(),
               shrinkWrap: false,
               itemCount: snapshot.data!.length,
-              gridDelegate: scrollVertically
-                  ? const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 2.0,
-                      crossAxisSpacing: 2.0,
-                      mainAxisSpacing: 2,
-                      mainAxisExtent: 250,
-                    )
-                  : const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      // childAspectRatio: 2.0,
-                      // crossAxisSpacing: 2,
-                      // mainAxisSpacing: 1,
-                      mainAxisExtent: 100,
-                    ),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1.0,
+                crossAxisSpacing: 1.0,
+                mainAxisSpacing: 2,
+                mainAxisExtent: 180,
+              ),
               itemBuilder: (BuildContext context, int index) {
                 var itemInfo = snapshot.data![index];
                 return PhotoCardOutfit(object: itemInfo);

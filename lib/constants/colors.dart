@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ColorsConstants {
   static const Color grey = Color(0xFFA6A7A6);
   static const Color soft = Color(0xFFF5F1ED);
+  static const Color salmon = Color.fromARGB(255, 228, 176, 167);
   static const Color gunMetal = Color(0xFF2B3041);
   static const Color primary = Color(0xFFD16E6E);
   static const List<Color> colorList = [
