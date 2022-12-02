@@ -1,10 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Outfit {
   final String? createdBy;
   final String? style;
   final String? season;
-  final String? cover;
+  final Uint8List? cover;
   final List<String>? elements;
   String? reference;
 
@@ -21,7 +23,7 @@ class Outfit {
       createdBy: json['createdBy'] as String,
       style: json['style'] as String,
       season: json['season'] as String,
-      cover: json['cover'] as String,
+      cover: json['cover'] as Uint8List,
       elements: List.from(json['elements']));
 
   Map<String, dynamic> toJson() => <String, dynamic>{

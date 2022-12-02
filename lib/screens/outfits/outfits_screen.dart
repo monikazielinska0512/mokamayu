@@ -47,7 +47,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
               .getWardrobeItemList;
         }));
 
-    // print(outfitsList);
+    // print(itemList);
     return Scaffold(
         body: Stack(children: [
       Column(children: [

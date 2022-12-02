@@ -44,8 +44,8 @@ class CreateOutfitPage extends StatelessWidget {
                 capturedOutfit = capturedImage;
                 print(map);
                 print(capturedOutfit);
-                // Provider.of<PhotoTapped>(context, listen: false)
-                //     .setMap(map as Map<List<String>, ContainerList>);
+                Provider.of<PhotoTapped>(context, listen: false)
+                    .setScreenshot(capturedOutfit as Uint8List);
                 GoRouter.of(context)
                     .pushNamed("outfit-summary-screen", extra: map);
                 // Navigator.push(

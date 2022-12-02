@@ -19,13 +19,17 @@ class OutfitSummaryScreen extends StatelessWidget {
   Map<List<dynamic>, ContainerList>? map = {};
 
   //String? capturedOutfit; //ZAMIENIC NA UINT8LIST
+  late Uint8List capturedOutfit;
   late List<WardrobeItem> itemList;
 
   @override
   Widget build(BuildContext context) {
     itemList = Provider.of<WardrobeManager>(context, listen: true)
         .getfinalWardrobeItemList;
-    print(itemList);
+
+    capturedOutfit =
+        Provider.of<PhotoTapped>(context, listen: false).getScreenshot;
+    print(capturedOutfit);
 
     // final List<int> codeUnits = capturedOutfit!.codeUnits;
     // final Uint8List unit8List = Uint8List.fromList(codeUnits);
@@ -47,7 +51,7 @@ class OutfitSummaryScreen extends StatelessWidget {
                       .firstWhere((item) => item.reference == entry.key[1]));
             }).toList(),
           )),
-          // Image.memory(capturedOutfit).toString(),
+          Image.memory(capturedOutfit),
           ButtonDarker(context, "Save", () async {
             //TODO save outfit
             List<String> elements = [];
@@ -58,7 +62,7 @@ class OutfitSummaryScreen extends StatelessWidget {
 
             Outfit data = Outfit(
                 elements: elements,
-                // cover: Image.memory(capturedOutfit!).toString(),
+                cover: capturedOutfit,
                 createdBy: AuthService().getCurrentUserID());
             Provider.of<OutfitManager>(context, listen: false)
                 .addOutfitToFirestore(data);

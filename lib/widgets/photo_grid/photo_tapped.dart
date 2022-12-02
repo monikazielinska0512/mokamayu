@@ -5,11 +5,18 @@ import 'package:mokamayu/widgets/drag_target_container.dart';
 class PhotoTapped extends ChangeNotifier {
   Map<List<String>, ContainerList> map = {};
   List<String> listOfIds = [];
+  late Uint8List screenshot;
+  Uint8List get getScreenshot => screenshot;
   Map<List<String>, ContainerList> get getMap => map;
 
   void nullMap(List<String> ids) {
     map = {};
     ids.forEach((element) => listOfIds.removeWhere((el) => el == element));
+    notifyListeners();
+  }
+
+  void setScreenshot(Uint8List newScreenshot) {
+    screenshot = newScreenshot;
     notifyListeners();
   }
 
