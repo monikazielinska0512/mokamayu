@@ -22,12 +22,12 @@ class BasicScreen extends StatelessWidget {
     return Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: backgroundColor,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
-          elevation: 0,
-          leading: ifShow()
-              ? IconButton(
+        appBar: ifShow()
+            ? AppBar(
+                backgroundColor: Colors.transparent,
+                foregroundColor: Colors.black,
+                elevation: 0,
+                leading: IconButton(
                   onPressed: () {
                     switch (type) {
                       case "add_photo":
@@ -37,9 +37,8 @@ class BasicScreen extends StatelessWidget {
                     }
                   },
                   icon: Icon(Icons.arrow_back_ios),
-                )
-              : null,
-        ),
+                ))
+            : null,
         body: Center(
             child: SafeArea(
                 child: Padding(
