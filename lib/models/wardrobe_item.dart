@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WardrobeItem {
-  final String id;
+  //final String id;
   final String name;
   final String type;
   final String size;
   final String photoURL;
   final List<String> styles;
   final DateTime created;
-  DocumentReference? reference;
+  String? reference;
 
   WardrobeItem({
-    required this.id,
+    //required this.id,
     required this.name,
     required this.type,
     required this.size,
@@ -23,7 +23,7 @@ class WardrobeItem {
 
   factory WardrobeItem.fromFirestore(Map<dynamic, dynamic> item) =>
       WardrobeItem(
-          id: item['id'] as String,
+          //id: item['id'] as String,
           name: item['name'] as String,
           type: item['type'] as String,
           size: item['size'] as String,
@@ -32,7 +32,7 @@ class WardrobeItem {
           created: DateTime.parse(item['created'] as String));
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
-        'id': id.toString(),
+        //'id': id.toString(),
         'name': name.toString(),
         'type': type.toString(),
         'size': size.toString(),
@@ -44,7 +44,7 @@ class WardrobeItem {
   factory WardrobeItem.fromSnapshot(DocumentSnapshot snapshot) {
     final item =
         WardrobeItem.fromFirestore(snapshot.data() as Map<String, dynamic>);
-    item.reference = snapshot.reference;
+    item.reference = snapshot.reference.id;
     return item;
   }
 }

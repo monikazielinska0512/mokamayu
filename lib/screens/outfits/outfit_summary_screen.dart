@@ -15,16 +15,17 @@ import '../../widgets/buttons/buttons.dart';
 import '../../widgets/photo_grid/photo.dart';
 
 class OutfitSummaryScreen extends StatelessWidget {
-  OutfitSummaryScreen({super.key, this.map, this.capturedOutfit});
+  OutfitSummaryScreen({super.key, this.map});
   Map<List<dynamic>, ContainerList>? map = {};
 
-  String? capturedOutfit; //ZAMIENIC NA UINT8LIST
+  //String? capturedOutfit; //ZAMIENIC NA UINT8LIST
   late List<WardrobeItem> itemList;
 
   @override
   Widget build(BuildContext context) {
-    itemList = Provider.of<WardrobeManager>(context, listen: false)
+    itemList = Provider.of<WardrobeManager>(context, listen: true)
         .getfinalWardrobeItemList;
+    print(itemList);
 
     // final List<int> codeUnits = capturedOutfit!.codeUnits;
     // final Uint8List unit8List = Uint8List.fromList(codeUnits);
@@ -51,16 +52,17 @@ class OutfitSummaryScreen extends StatelessWidget {
             //TODO save outfit
             List<String> elements = [];
             itemList.forEach((element) {
-              elements.add(element.id!);
+              elements.add(element.reference!);
             });
+            print(itemList);
 
             Outfit data = Outfit(
-              elements: elements,
-              //cover: Image.memory(capturedOutfit!).toString(),
-              //createdBy: AuthService().getCurrentUserID()
-            );
+                elements: elements,
+                // cover: Image.memory(capturedOutfit!).toString(),
+                createdBy: AuthService().getCurrentUserID());
             Provider.of<OutfitManager>(context, listen: false)
                 .addOutfitToFirestore(data);
+            Provider.of<PhotoTapped>(context, listen: false).nullMap(elements);
             // Navigator.push(
             //     context,
             //     MaterialPageRoute(

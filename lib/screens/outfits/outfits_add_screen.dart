@@ -42,11 +42,12 @@ class CreateOutfitPage extends StatelessWidget {
             onPressed: () {
               screenshotController.capture().then((capturedImage) async {
                 capturedOutfit = capturedImage;
-                GoRouter.of(context).pushNamed("outfit-summary-screen",
-                    extra: map,
-                    queryParams: {
-                      "captureOutfit": Image.memory(capturedOutfit!).toString()
-                    });
+                print(map);
+                print(capturedOutfit);
+                // Provider.of<PhotoTapped>(context, listen: false)
+                //     .setMap(map as Map<List<String>, ContainerList>);
+                GoRouter.of(context)
+                    .pushNamed("outfit-summary-screen", extra: map);
                 // Navigator.push(
                 //     context,
                 //     MaterialPageRoute(

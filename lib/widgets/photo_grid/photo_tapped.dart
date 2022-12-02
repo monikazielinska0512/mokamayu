@@ -7,6 +7,12 @@ class PhotoTapped extends ChangeNotifier {
   List<String> listOfIds = [];
   Map<List<String>, ContainerList> get getMap => map;
 
+  void nullMap(List<String> ids) {
+    map = {};
+    ids.forEach((element) => listOfIds.removeWhere((el) => el == element));
+    notifyListeners();
+  }
+
   void photoRemoved(String id) {
     listOfIds.remove(id);
   }

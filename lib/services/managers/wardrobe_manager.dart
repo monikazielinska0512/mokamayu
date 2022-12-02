@@ -23,14 +23,20 @@ class WardrobeManager extends ChangeNotifier {
         .collection('wardrobe')
         .get();
 
+    // List<WardrobeItem> itemList = [];
+    // for (var element in snapshot.docs) {
+    //   WardrobeItem item = WardrobeItem.fromSnapshot(element);
+    //   print(item);
+    //   itemList.add(item);
+    // }
+
     List<WardrobeItem> itemList = [];
-    for (var element in snapshot.docs) {
+    snapshot.docs.forEach((element) {
       WardrobeItem item = WardrobeItem.fromSnapshot(element);
-      print(item);
       itemList.add(item);
-    }
+    });
     finalWardrobeItemList = itemList;
-    //notifyListeners();
+    // notifyListeners();
 
     return finalWardrobeItemList;
   }
@@ -40,8 +46,8 @@ class WardrobeManager extends ChangeNotifier {
         .collection('users')
         .doc(AuthService().getCurrentUserID())
         .collection('wardrobe')
-        .doc(item.id)
-        .set(item.toFirestore());
+        //.doc(item.id)
+        .add(item.toFirestore());
     notifyListeners();
   }
 }

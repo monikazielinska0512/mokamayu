@@ -25,6 +25,7 @@ class CustomDialogBox {
           onPressed: () {
             GoRouter.of(context)
                 .pushNamed("create-outfit-page", extra: itemList!);
+            Navigator.of(context).pop();
 
             // Navigator.push(
             //     context,
@@ -39,6 +40,7 @@ class CustomDialogBox {
         CupertinoDialogAction(
           onPressed: () {
             //TODO in the future
+            Navigator.of(context).pop();
           },
           child: const Text('With applied filters'),
         ),

@@ -118,11 +118,12 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                     onPressed: () async {
                       _formKey.currentState!.save();
 
-                      String url = await StorageService().uploadFile(context, widget.photoPath);
+                      String url = await StorageService()
+                          .uploadFile(context, widget.photoPath);
 
                       if (_formKey.currentState!.validate()) {
                         final item = WardrobeItem(
-                            id: const Uuid().v4(),
+                            //id: const Uuid().v4(),
                             name: _name,
                             type: _type,
                             size: _size,

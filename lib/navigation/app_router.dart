@@ -1,9 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:provider/provider.dart';
+
+import '../models/wardrobe_item.dart';
+import '../screens/outfits/outfit_summary_screen.dart';
+import '../widgets/drag_target_container.dart';
 
 class AppRouter {
   final AppStateManager appStateManager;
@@ -39,12 +45,14 @@ class AppRouter {
         path: '/home/:tab',
         builder: (context, state) {
           final tab = int.tryParse(state.params['tab'] ?? '') ?? 0;
-          
-          return ChangeNotifierProvider(
-              create: (_) => WardrobeManager(),
-              child: HomeScreen(key: state.pageKey, currentTab: tab));
-
           return HomeScreen(key: state.pageKey, currentTab: tab);
+          // return MultiProvider(
+          //   providers: [
+          //     ChangeNotifierProvider(create: (_) => WardrobeManager()),
+          //     ChangeNotifierProvider(create: (_) => OutfitManager()),
+          //   ],
+          //   child: HomeScreen(key: state.pageKey, currentTab: tab),
+          // );
         },
       ),
       GoRoute(
@@ -58,7 +66,21 @@ class AppRouter {
           builder: (context, state) {
             String file = state.params['file']!;
             return AddWardorbeItemForm(photo: file);
-          })
+          }),
+      GoRoute(
+          name: 'create-outfit-page',
+          path: '/create-outfit-page',
+          builder: (context, state) {
+            return CreateOutfitPage(
+                itemList: state.extra as Future<List<WardrobeItem>>?);
+          }),
+      GoRoute(
+          name: 'outfit-summary-screen',
+          path: '/outfit-summary-screen',
+          builder: (context, state) {
+            return OutfitSummaryScreen(
+                map: state.extra as Map<List<dynamic>, ContainerList>?);
+          }),
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;

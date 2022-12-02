@@ -16,52 +16,52 @@ class PhotoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String? photoUrl = object.photoURL;
     String? name = object.name;
-    DocumentReference? id = object.reference;
+    String? id = object.reference;
     return !scrollVertically
         ? GestureDetector(
-      onTap: () async {
-        Provider.of<PhotoTapped>(context, listen: false)
-            .addToMap(photoUrl, id!.toString());
-      },
-      child: Card(
-        elevation: 4,
-        color: ColorsConstants.soft,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Column(children: [
-          Padding(
-              padding: const EdgeInsets.all(5),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15), // Image border
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(40), // Image radius
-                  child: Image.network(photoUrl, fit: BoxFit.fill),
-                ),
-              )),
-        ]),
-      ),
-    )
-        : Card(
-      semanticContainer: true,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 4,
-      color: ColorsConstants.soft,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: Column(children: [
-        Padding(
-            padding: const EdgeInsets.all(10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15), // Image border
-              child: SizedBox.fromSize(
-                size: const Size.fromRadius(100),
-                child: Image.network(photoUrl, fit: BoxFit.fill),
+            onTap: () async {
+              Provider.of<PhotoTapped>(context, listen: false)
+                  .addToMap(photoUrl, id!.toString());
+            },
+            child: Card(
+              elevation: 4,
+              color: ColorsConstants.soft,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
               ),
-            )),
-        Text(name, style: TextStyles.paragraphRegularSemiBold14()),
-      ]),
-    );
+              child: Column(children: [
+                Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15), // Image border
+                      child: SizedBox.fromSize(
+                        size: const Size.fromRadius(40), // Image radius
+                        child: Image.network(photoUrl, fit: BoxFit.fill),
+                      ),
+                    )),
+              ]),
+            ),
+          )
+        : Card(
+            semanticContainer: true,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            elevation: 4,
+            color: ColorsConstants.soft,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: Column(children: [
+              Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15), // Image border
+                    child: SizedBox.fromSize(
+                      size: const Size.fromRadius(100),
+                      child: Image.network(photoUrl, fit: BoxFit.fill),
+                    ),
+                  )),
+              Text(name, style: TextStyles.paragraphRegularSemiBold14()),
+            ]),
+          );
   }
 }
