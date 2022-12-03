@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
-
 import '../../../utils/validator.dart';
 
 class WardrobeItemForm extends StatefulWidget {
-  final String photoPath;
+  final String? photoPath;
+  final WardrobeItem? item;
 
-  WardrobeItemForm({Key? key, required this.photoPath}) : super(key: key);
+  WardrobeItemForm({Key? key, this.photoPath, this.item}) : super(key: key);
 
   @override
   State<WardrobeItemForm> createState() => _WardrobeItemFormState();
@@ -27,6 +25,13 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
 
   @override
   void initState() {
+    if (widget.item != null) {
+      _type = widget.item!.type;
+      _size = widget.item!.size;
+      _name = widget.item!.name;
+      _styles = widget.item!.styles;
+      print(_styles);
+    }
     super.initState();
   }
 
@@ -42,6 +47,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                 key: _formKey,
                 child: Column(children: [
                   TextFormField(
+                      initialValue: _name,
                       onSaved: (value) => _name = value!,
                       autovalidateMode: AutovalidateMode.disabled,
                       validator: (value) {
@@ -79,6 +85,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: SingleSelectChipsFormField(
+                        initialValue: _type,
                         autoValidate: true,
                         validator: (value) =>
                             Validator.checkIfSingleValueSelected(
@@ -95,6 +102,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: SingleSelectChipsFormField(
+                        initialValue: _size,
                         autoValidate: true,
                         validator: (value) =>
                             Validator.checkIfSingleValueSelected(
@@ -109,6 +117,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                           child: Text("Style",
                               style: TextStyles.paragraphRegularSemiBold18()))),
                   MultiSelectChipsFormField(
+                      initialValue: _styles,
                       chipsList: const ["School", "Wedding", "Classic", "Boho"],
                       onSaved: (value) => _styles = value!,
                       validator: (value) =>
@@ -117,39 +126,51 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                   ElevatedButton(
                     onPressed: () async {
                       _formKey.currentState!.save();
+                      if (widget.item == null) {
+                        if (_formKey.currentState!.validate()) {
+                          String url = await StorageService()
+                              .uploadFile(context, widget.photoPath ?? "");
+                          final item = WardrobeItem(
+                              name: _name,
+                              type: _type,
+                              size: _size,
+                              photoURL: url,
+                              styles: _styles,
+                              created: DateTime.now());
 
-                      String url = await StorageService()
-                          .uploadFile(context, widget.photoPath);
+                          Provider.of<WardrobeManager>(context, listen: false)
+                              .addWardrobeItem(item);
 
-                      if (_formKey.currentState!.validate()) {
-                        final item = WardrobeItem(
-                            name: _name,
-                            type: _type,
-                            size: _size,
-                            photoURL: url,
-                            styles: _styles,
-                            created: DateTime.now());
-
-                        Provider.of<WardrobeManager>(context, listen: false)
-                            .addWardrobeItem(item);
-
-                        _type = "";
-                        _size = "";
-                        _name = "";
-                        _styles = [];
-                        context.go("/home/0");
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Dodano do bazy danych')),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
+                          _type = "";
+                          _size = "";
+                          _name = "";
+                          _styles = [];
+                          context.go("/home/0");
+                          ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: Text('Formularz nie jest poprawny')));
+                                content: Text('Dodano do bazy danych')),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Formularz nie jest poprawny')));
+                        }
+                      } else {
+                        if (_formKey.currentState!.validate()) {
+                          // Provider.of<WardrobeManager>(context, listen: false)
+                          //     .updateWardrobeItem(
+                          //         widget.item?.reference ?? "",
+                          //         _name,
+                          //         _type,
+                          //         _size,
+                          //         widget.item?.photoURL ?? "",
+                          //         _styles);
+                        }
                       }
                     },
-                    child: const Text('Add item'),
+                    child:
+                        widget.item == null ? Text('Add item') : Text('Update'),
                   ),
                 ]))));
   }

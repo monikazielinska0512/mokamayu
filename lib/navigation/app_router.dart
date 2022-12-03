@@ -1,12 +1,8 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
-import 'package:provider/provider.dart';
-
 import '../models/wardrobe_item.dart';
 import '../screens/outfits/outfit_summary_screen.dart';
 import '../widgets/drag_target_container.dart';
@@ -58,7 +54,13 @@ class AppRouter {
           name: 'add-wardrobe-item',
           builder: (context, state) {
             String file = state.params['file']!;
-            return AddWardorbeItemForm(photo: file);
+            return AddWardrobeItemForm(photo: file, isEdit: false);
+          }),
+      GoRoute(
+          path: '/wardrobe-item',
+          name: 'wardrobe-item',
+          builder: (context, state) {
+            return AddWardrobeItemForm(editItem: state.extra as WardrobeItem, isEdit: true);
           }),
       GoRoute(
           name: 'create-outfit-page',
@@ -74,6 +76,7 @@ class AppRouter {
             return OutfitSummaryScreen(
                 map: state.extra as Map<List<dynamic>, ContainerList>?);
           }),
+
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;

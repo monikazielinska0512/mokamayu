@@ -9,9 +9,10 @@ class WardrobeManager extends ChangeNotifier {
   Future<List<WardrobeItem>>? futureWardrobeItemList;
 
   Future<List<WardrobeItem>>? get getWardrobeItemList => futureWardrobeItemList;
-  List<WardrobeItem> get getfinalWardrobeItemList => finalWardrobeItemList;
 
-  void setWardrobeItem(Future<List<WardrobeItem>> itemList) {
+  List<WardrobeItem> get getFinalWardrobeItemList => finalWardrobeItemList;
+
+  void setWardrobeItemList(Future<List<WardrobeItem>> itemList) {
     futureWardrobeItemList = itemList;
   }
 
@@ -28,7 +29,6 @@ class WardrobeManager extends ChangeNotifier {
       itemList.add(item);
     });
     finalWardrobeItemList = itemList;
-
     return finalWardrobeItemList;
   }
 
@@ -40,4 +40,22 @@ class WardrobeManager extends ChangeNotifier {
         .add(item.toFirestore());
     notifyListeners();
   }
+
+  // void updateWardrobeItem(String reference, String? name, String? type,
+  //     String? size, String? photoURL, List<String>? styles) {
+  //   db
+  //       .collection('users')
+  //       .doc(AuthService().getCurrentUserID())
+  //       .collection('wardrobe')
+  //       .doc(reference)
+  //       .update({
+  //         'name': name,
+  //         'type': type,
+  //         'size': size,
+  //         'photoURL': photoURL,
+  //         'styles': styles,
+  //       })
+  //       .then((_) => print('Updated'))
+  //       .catchError((error) => print('Update failed: $error'));
+  // }
 }

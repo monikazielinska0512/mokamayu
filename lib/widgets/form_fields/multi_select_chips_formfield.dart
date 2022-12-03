@@ -9,7 +9,7 @@ class MultiSelectChipsFormField extends FormField<List<String>> {
       required this.chipsList,
       required FormFieldSetter<List<String>> onSaved,
       required FormFieldValidator<List<String>> validator,
-      List<String> initialValue = const [],
+      required List<String> initialValue,
       bool autoValidate = true})
       : super(
             key: key,

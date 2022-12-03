@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
@@ -42,26 +42,28 @@ class PhotoCard extends StatelessWidget {
               ]),
             ),
           )
-        : Card(
-            semanticContainer: true,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            elevation: 4,
-            color: ColorsConstants.soft,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
+        : GestureDetector(
+            child: Card(
+              semanticContainer: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              elevation: 4,
+              color: ColorsConstants.soft,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Column(children: [
+                Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15), // Image border
+                      child: SizedBox.fromSize(
+                        size: const Size.fromRadius(100),
+                        child: Image.network(photoUrl, fit: BoxFit.fill),
+                      ),
+                    )),
+                Text(name, style: TextStyles.paragraphRegularSemiBold14()),
+              ]),
             ),
-            child: Column(children: [
-              Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15), // Image border
-                    child: SizedBox.fromSize(
-                      size: const Size.fromRadius(100),
-                      child: Image.network(photoUrl, fit: BoxFit.fill),
-                    ),
-                  )),
-              Text(name, style: TextStyles.paragraphRegularSemiBold14()),
-            ]),
-          );
+            onTap: () => {context.goNamed('wardrobe-item', extra: object)});
   }
 }

@@ -2,19 +2,27 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
+import '../../models/wardrobe_item.dart';
 
-class AddWardorbeItemForm extends StatefulWidget {
-  final String photo;
-  final String? id;
+class AddWardrobeItemForm extends StatefulWidget {
+  final bool isEdit;
+  final String? photo;
+  WardrobeItem? editItem;
 
-  const AddWardorbeItemForm({Key? key, required this.photo, this.id})
+  AddWardrobeItemForm(
+      {Key? key, this.photo, this.editItem, required this.isEdit})
       : super(key: key);
 
   @override
-  _AddWardorbeItemFormState createState() => _AddWardorbeItemFormState();
+  State<AddWardrobeItemForm> createState() => _AddWardrobeItemFormState();
 }
 
-class _AddWardorbeItemFormState extends State<AddWardorbeItemForm> {
+class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +30,19 @@ class _AddWardorbeItemFormState extends State<AddWardorbeItemForm> {
       children: [
         Positioned(
             child: ClipRRect(
-          child: Image.file(
-            File(widget.photo),
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.fill,
-          ),
-        )),
+                child: !widget.isEdit
+                    ? Image.file(
+                        File(widget.photo ?? ""),
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.fill,
+                      )
+                    : Image.network(
+                        widget.editItem!.photoURL,
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.fill,
+                      ))),
         Align(
             alignment: Alignment.bottomLeft,
             child: SizedBox(
@@ -45,8 +59,8 @@ class _AddWardorbeItemFormState extends State<AddWardorbeItemForm> {
                           topLeft: Radius.circular(40)),
                     ),
                     child: WardrobeItemForm(
-                      photoPath: widget.photo,
-                    )))),
+                        photoPath: widget.photo ?? "",
+                        item: widget.editItem)))),
         Positioned(
             height: MediaQuery.of(context).size.height - 700,
             width: MediaQuery.of(context).size.width - 310,
@@ -54,7 +68,9 @@ class _AddWardorbeItemFormState extends State<AddWardorbeItemForm> {
               iconSize: 30,
               color: Colors.white,
               onPressed: () {
-                context.goNamed('pick-photo');
+                widget.isEdit
+                    ? context.go("/home/0")
+                    : context.go("/pick-photo");
               },
               icon: Icon(Icons.arrow_back_ios),
             )),

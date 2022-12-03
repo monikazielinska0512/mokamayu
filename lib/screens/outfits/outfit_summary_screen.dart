@@ -1,8 +1,6 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/widgets/drag_target_container.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +22,7 @@ class OutfitSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     itemList = Provider.of<WardrobeManager>(context, listen: false)
-        .getfinalWardrobeItemList;
+        .getFinalWardrobeItemList;
     capturedOutfit =
         Provider.of<PhotoTapped>(context, listen: false).getScreenshot;
     return Scaffold(

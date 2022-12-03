@@ -16,14 +16,16 @@ class WardrobeScreen extends StatefulWidget {
 class _WardrobeScreenState extends State<WardrobeScreen> {
   Future<List<WardrobeItem>>? itemList;
 
+
   @override
   void initState() {
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
     Future.delayed(Duration.zero).then((value) {
       Provider.of<WardrobeManager>(context, listen: false)
-          .setWardrobeItem(itemList!);
+          .setWardrobeItemList(itemList!);
     });
+
     super.initState();
   }
 

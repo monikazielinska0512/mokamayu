@@ -28,7 +28,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
     Provider.of<WardrobeManager>(context, listen: false)
-        .setWardrobeItem(itemList!);
+        .setWardrobeItemList(itemList!);
     super.initState();
   }
 
