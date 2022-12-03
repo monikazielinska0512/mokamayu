@@ -70,21 +70,27 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
                           topLeft: Radius.circular(40)),
                     ),
                     child: Column(children: [
-                      IconButton(
-                          onPressed: () {
-                            Provider.of<WardrobeManager>(context, listen: false)
-                                .removeWardrobeItem(widget.editItem?.reference);
-                            context.go("/home/0");
-                          },
-                          icon: const Icon(Icons.delete)),
-                      IconButton(
-                          onPressed: () {
-                            setState(() {
-                              widget.isLocked = false;
-                              print(widget.isLocked);
-                            });
-                          },
-                          icon: const Icon(Icons.edit)),
+                      widget.isEdit
+                          ? Row(children: [
+                              IconButton(
+                                  onPressed: () {
+                                    Provider.of<WardrobeManager>(context,
+                                            listen: false)
+                                        .removeWardrobeItem(
+                                            widget.editItem?.reference);
+                                    context.go("/home/0");
+                                  },
+                                  icon: const Icon(Icons.delete)),
+                              IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.isLocked = false;
+                                      print(widget.isLocked);
+                                    });
+                                  },
+                                  icon: const Icon(Icons.edit))
+                            ])
+                          : Container(),
                       AbsorbPointer(
                           absorbing: widget.isLocked!,
                           child: WardrobeItemForm(
