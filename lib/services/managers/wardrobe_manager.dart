@@ -41,21 +41,32 @@ class WardrobeManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void updateWardrobeItem(String reference, String? name, String? type,
-  //     String? size, String? photoURL, List<String>? styles) {
-  //   db
-  //       .collection('users')
-  //       .doc(AuthService().getCurrentUserID())
-  //       .collection('wardrobe')
-  //       .doc(reference)
-  //       .update({
-  //         'name': name,
-  //         'type': type,
-  //         'size': size,
-  //         'photoURL': photoURL,
-  //         'styles': styles,
-  //       })
-  //       .then((_) => print('Updated'))
-  //       .catchError((error) => print('Update failed: $error'));
-  // }
+  void updateWardrobeItem(String reference, String? name, String? type,
+      String? size, String? photoURL, List<String>? styles) {
+    db
+        .collection('users')
+        .doc(AuthService().getCurrentUserID())
+        .collection('wardrobe')
+        .doc(reference)
+        .update({
+          'name': name,
+          'type': type,
+          'size': size,
+          'photoURL': photoURL,
+          'styles': styles,
+        })
+        .then((_) => print('Updated'))
+        .catchError((error) => print('Update failed: $error'));
+  }
+
+  void removeWardrobeItem(String? reference) {
+    db
+        .collection('users')
+        .doc(AuthService().getCurrentUserID())
+        .collection('wardrobe')
+        .doc(reference)
+        .delete()
+        .then((_) => print('Deleted'))
+        .catchError((error) => print(' $error'));
+  }
 }

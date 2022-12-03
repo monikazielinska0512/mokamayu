@@ -158,14 +158,20 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                         }
                       } else {
                         if (_formKey.currentState!.validate()) {
-                          // Provider.of<WardrobeManager>(context, listen: false)
-                          //     .updateWardrobeItem(
-                          //         widget.item?.reference ?? "",
-                          //         _name,
-                          //         _type,
-                          //         _size,
-                          //         widget.item?.photoURL ?? "",
-                          //         _styles);
+                          Provider.of<WardrobeManager>(context, listen: false)
+                              .updateWardrobeItem(
+                                  widget.item?.reference ?? "",
+                                  _name,
+                                  _type,
+                                  _size,
+                                  widget.item?.photoURL ?? "",
+                                  _styles);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Update')),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Error')));
                         }
                       }
                     },

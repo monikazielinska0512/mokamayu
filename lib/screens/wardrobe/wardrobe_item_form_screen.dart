@@ -2,15 +2,24 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
+import 'package:provider/provider.dart';
 import '../../models/wardrobe_item.dart';
+import '../../services/managers/wardrobe_manager.dart';
 
 class AddWardrobeItemForm extends StatefulWidget {
+  final bool? disableFields;
   final bool isEdit;
+  bool? isLocked;
   final String? photo;
+
   WardrobeItem? editItem;
 
   AddWardrobeItemForm(
-      {Key? key, this.photo, this.editItem, required this.isEdit})
+      {Key? key,
+      this.photo,
+      this.editItem,
+      required this.isEdit,
+      this.disableFields})
       : super(key: key);
 
   @override
@@ -20,11 +29,13 @@ class AddWardrobeItemForm extends StatefulWidget {
 class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
   @override
   void initState() {
+    widget.isLocked = (widget.isEdit == true ? true : false);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(widget.isLocked);
     return Scaffold(
         body: Stack(
       children: [
@@ -58,9 +69,28 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
                           topRight: Radius.circular(40),
                           topLeft: Radius.circular(40)),
                     ),
-                    child: WardrobeItemForm(
-                        photoPath: widget.photo ?? "",
-                        item: widget.editItem)))),
+                    child: Column(children: [
+                      IconButton(
+                          onPressed: () {
+                            Provider.of<WardrobeManager>(context, listen: false)
+                                .removeWardrobeItem(widget.editItem?.reference);
+                            context.go("/home/0");
+                          },
+                          icon: const Icon(Icons.delete)),
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              widget.isLocked = false;
+                              print(widget.isLocked);
+                            });
+                          },
+                          icon: const Icon(Icons.edit)),
+                      AbsorbPointer(
+                          absorbing: widget.isLocked!,
+                          child: WardrobeItemForm(
+                              photoPath: widget.photo ?? "",
+                              item: widget.editItem))
+                    ])))),
         Positioned(
             height: MediaQuery.of(context).size.height - 700,
             width: MediaQuery.of(context).size.width - 310,
