@@ -3,13 +3,14 @@ import 'package:mokamayu/widgets/chips/chips.dart';
 
 class MultiSelectChipsFormField extends FormField<List<String>> {
   final List<String> chipsList;
+  final bool isScroll;
 
   MultiSelectChipsFormField(
-      {Key? key,
+      {Key? key, required this.isScroll,
       required this.chipsList,
-      required FormFieldSetter<List<String>> onSaved,
-      required FormFieldValidator<List<String>> validator,
-      required List<String> initialValue,
+      FormFieldSetter<List<String>>? onSaved,
+      FormFieldValidator<List<String>>? validator,
+      List<String>? initialValue,
       bool autoValidate = true})
       : super(
             key: key,
@@ -19,12 +20,21 @@ class MultiSelectChipsFormField extends FormField<List<String>> {
             autovalidateMode: AutovalidateMode.disabled,
             builder: (FormFieldState<List<String>> state) {
               return Column(children: [
-                Wrap(spacing: 10, children: <Widget>[
-                  MultiSelectChip(chipsList,
-                      onSelectionChanged: (selectedList) {
-                    state.didChange(selectedList);
-                  })
-                ])
+                isScroll
+                    ? SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Wrap(spacing: 10, children: <Widget>[
+                          MultiSelectChip(chipsList,
+                              onSelectionChanged: (selectedList) {
+                            state.didChange(selectedList);
+                          })
+                        ]))
+                    : Wrap(spacing: 10, children: <Widget>[
+                        MultiSelectChip(chipsList,
+                            onSelectionChanged: (selectedList) {
+                          state.didChange(selectedList);
+                        })
+                      ])
               ]);
             });
 }

@@ -117,6 +117,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                           child: Text("Style",
                               style: TextStyles.paragraphRegularSemiBold18()))),
                   MultiSelectChipsFormField(
+                    isScroll: false,
                       initialValue: _styles,
                       chipsList: const ["School", "Wedding", "Classic", "Boho"],
                       onSaved: (value) => _styles = value!,

@@ -17,7 +17,6 @@ abstract class BasePageScreenState<Page extends BasePageScreen>
   void isAppBarVisible(bool isAppBar) {
     isAppBar = isAppBar;
   }
-
   void isNavBarVisible(bool isNavBar) {
     isNavBar = isNavBar;
   }

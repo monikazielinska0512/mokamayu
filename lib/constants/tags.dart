@@ -9,7 +9,6 @@ class Tags {
   ];
 
   static const List<String> types = [
-    'Type',
     'Skirt',
     'T-Shirt',
     'Dress',

@@ -10,18 +10,19 @@ AppBar customAppBar(BuildContext context, String title) {
         break;
     }
   }
-
   return AppBar(
+    backgroundColor: Colors.white,
     title: Text(title),
     actions: [
       PopupMenuButton<int>(
           onSelected: (item) => onSelected(context, item),
-          itemBuilder: (context) => [
-                const PopupMenuItem(
-                  value: 0,
-                  child: Text('Sign out'),
-                )
-              ])
+          itemBuilder: (context) =>
+          [
+            const PopupMenuItem(
+              value: 0,
+              child: Text('Sign out'),
+            )
+          ])
     ],
   );
 }

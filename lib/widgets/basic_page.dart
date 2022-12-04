@@ -27,17 +27,7 @@ class BasicScreen extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 foregroundColor: Colors.black,
                 elevation: 0,
-                leading: IconButton(
-                  onPressed: () {
-                    switch (type) {
-                      case "add_photo":
-                        context.go("/home/0");
-                        break;
-                      //case ...
-                    }
-                  },
-                  icon: Icon(Icons.arrow_back_ios),
-                ))
+                leading: buildLeftIconButton())
             : null,
         body: Center(
             child: SafeArea(
@@ -49,5 +39,30 @@ class BasicScreen extends StatelessWidget {
                       bottom: MediaQuery.of(context).size.width * 0.05,
                     ),
                     child: child))));
+  }
+
+  Widget buildLeftIconButton() {
+    return IconButton(
+      onPressed: () {
+        switch (type) {
+          case "add_photo":
+            context.go("/home/0");
+            break;
+          //case ...
+        }
+      },
+      icon: const Icon(Icons.arrow_back_ios),
+    );
+  }
+
+  Widget buildPageTitle() {
+    return const Text("");
+  }
+
+  Widget buildRightIconButton() {
+    return IconButton(
+      onPressed: () {},
+      icon: const Icon(Icons.arrow_back_ios),
+    );
   }
 }
