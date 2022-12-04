@@ -1,52 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../constants/text_styles.dart';
+import 'drawer.dart';
 
 class BasicScreen extends StatelessWidget {
   BuildContext context;
-  Widget child;
+  Widget body;
   Color? backgroundColor;
   String type;
+  bool? isAppBarVisible;
+  bool? isNavBarVisible = true;
+  bool? isLeftButtonVisible = true;
+  bool? isRightButtonVisible = true;
+  String? leftButtonType = "back";
+  String? rightButtonType = "bell";
 
   BasicScreen({
     Key? key,
-    required this.type,
     required this.context,
-    required this.child,
+    required this.body,
+    required this.type,
+    this.isAppBarVisible = true,
+    this.isLeftButtonVisible = true,
+    this.isRightButtonVisible = true,
+    this.isNavBarVisible = true,
+    this.leftButtonType = "back",
+    this.rightButtonType = "bell",
     this.backgroundColor,
   }) : super(key: key);
-
-  bool ifShow() => type == "wardrobe_home" ? false : true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        backgroundColor: backgroundColor,
-        appBar: ifShow()
+        backgroundColor: Colors.white,
+        appBar: isAppBarVisible!
             ? AppBar(
+                title: buildPageTitle(),
                 backgroundColor: Colors.transparent,
                 foregroundColor: Colors.black,
                 elevation: 0,
-                leading: buildLeftIconButton())
+                actions: [buildRightIconButton()],
+                leading: (leftButtonType == "back")
+                    ? buildLeftBackButton()
+                    : (leftButtonType == "dots")
+                        ? buildDotsButton()
+                        : null)
             : null,
         body: Center(
             child: SafeArea(
                 child: Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.05,
-                      left: MediaQuery.of(context).size.width * 0.0533,
-                      right: MediaQuery.of(context).size.width * 0.0533,
-                      bottom: MediaQuery.of(context).size.width * 0.05,
+                    padding: const EdgeInsets.all(
+                      20.0,
                     ),
-                    child: child))));
+                    child: body))));
   }
 
-  Widget buildLeftIconButton() {
+  Widget buildDotsButton() {
+    return IconButton(
+      onPressed: () {
+        drawer(context);
+      },
+      icon: const Icon(Icons.more_vert),
+    );
+  }
+
+  Widget buildLeftBackButton() {
     return IconButton(
       onPressed: () {
         switch (type) {
           case "add_photo":
             context.go("/home/0");
+            break;
+          case "wardrobe_item_form":
+            context.go("/add_photo");
             break;
           //case ...
         }
@@ -56,13 +82,26 @@ class BasicScreen extends StatelessWidget {
   }
 
   Widget buildPageTitle() {
+    switch (type) {
+      case "wardrobe":
+        return Text("Your Wardrobe", style: TextStyles.appTitle(Colors.black));
+    }
     return const Text("");
   }
 
   Widget buildRightIconButton() {
-    return IconButton(
-      onPressed: () {},
-      icon: const Icon(Icons.arrow_back_ios),
-    );
+    switch (rightButtonType) {
+      case "bell":
+        return IconButton(
+            onPressed: () {}, icon: const Icon(Icons.notifications));
+      case "go_forward":
+        return IconButton(
+            onPressed: () {}, icon: const Icon(Icons.arrow_forward));
+      case "search":
+        return IconButton(onPressed: () {}, icon: const Icon(Icons.search));
+      case "bin":
+        return IconButton(onPressed: () {}, icon: const Icon(Icons.delete));
+    }
+    return Container();
   }
 }

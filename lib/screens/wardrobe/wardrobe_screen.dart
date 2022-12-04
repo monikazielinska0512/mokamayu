@@ -30,12 +30,13 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        type: "wardrobe_home",
+        type: "wardrobe",
+        leftButtonType: "dots",
         context: context,
-        child: Stack(children: [
+        body: Stack(children: [
           Column(
             children: [
-              Wrap(spacing: 20, runSpacing: 10, children: [
+              Wrap(spacing: 20, runSpacing: 20, children: [
                 buildSearchBarAndFilters(),
                 MultiSelectChipsFormField(
                     chipsList: Tags.types, isScroll: true),
