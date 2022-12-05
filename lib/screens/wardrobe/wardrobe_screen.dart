@@ -68,7 +68,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
           context.goNamed('pick-photo');
         },
         icon: const Icon(Icons.add),
-        backgroundColor: ColorsConstants.primary,
+        backgroundColor: ColorsConstants.darkBrick,
         padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
         alignment: Alignment.bottomRight);
   }

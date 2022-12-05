@@ -16,7 +16,7 @@ Container ButtonDarker(BuildContext context, String title, Function onTap,
             if (states.contains(MaterialState.pressed)) {
               return Colors.black26;
             }
-            return ColorsConstants.primary;
+            return ColorsConstants.darkBrick;
           }),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),

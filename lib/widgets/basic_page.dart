@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../constants/text_styles.dart';
+import 'buttons/icon_button.dart';
 import 'drawer.dart';
 
 class BasicScreen extends StatelessWidget {
@@ -95,15 +96,16 @@ class BasicScreen extends StatelessWidget {
   Widget buildRightIconButton() {
     switch (rightButtonType) {
       case "bell":
-        return IconButton(
-            onPressed: () {}, icon: const Icon(Icons.notifications));
+        return CustomIconButton(
+            onPressed: () {}, icon: Icons.notifications,
+            backgroundColor: Colors.transparent, iconColor: Colors.grey);
       case "go_forward":
-        return IconButton(
-            onPressed: () {}, icon: const Icon(Icons.arrow_forward));
+        return CustomIconButton(
+            onPressed: () {}, icon: Icons.arrow_forward);
       case "search":
-        return IconButton(onPressed: () {}, icon: const Icon(Icons.search));
+        return CustomIconButton(onPressed: () {}, icon: Icons.search);
       case "bin":
-        return IconButton(onPressed: () {}, icon: const Icon(Icons.delete));
+        return CustomIconButton(onPressed: () {}, icon: Icons.delete);
     }
     return Container();
   }

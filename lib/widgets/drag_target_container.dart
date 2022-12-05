@@ -47,7 +47,7 @@ class _DragTargetState extends State<DragTargetContainer> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ColorsConstants.soft,
+        color: ColorsConstants.whiteAccent,
         borderRadius: BorderRadius.only(
             topRight: Radius.circular(40.0),
             bottomRight: Radius.circular(40.0),

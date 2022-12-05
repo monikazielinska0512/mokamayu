@@ -22,76 +22,80 @@ class PhotoGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (outfitsList != null) {
-      return FutureBuilder<List<Outfit>>(
-        future: outfitsList,
-        builder: (context, snapshot) {
-          if (snapshot.hasData || snapshot.data != null) {
-            return Center(
-                child: GridView.builder(
-              scrollDirection: getScrollDirection(),
-              shrinkWrap: false,
-              itemCount: snapshot.data!.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 1.0,
-                crossAxisSpacing: 1.0,
-                mainAxisSpacing: 2,
-                mainAxisExtent: 180,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                var itemInfo = snapshot.data![index];
-                return PhotoCardOutfit(object: itemInfo);
-              },
-            ));
-          }
-          return const Center(
-              child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(
-              ColorsConstants.primary,
-            ),
+    return outfitsList != null ? buildOutfitsGrid() : buildWardrobeItemsGrid();
+  }
+
+  Widget buildWardrobeItemsGrid() {
+    return FutureBuilder<List<WardrobeItem>>(
+      future: itemList,
+      builder: (context, snapshot) {
+        if (snapshot.hasData || snapshot.data != null) {
+          return Center(
+              child: GridView.builder(
+            scrollDirection: getScrollDirection(),
+            shrinkWrap: false,
+            itemCount: snapshot.data!.length,
+            gridDelegate: scrollVertically
+                ? const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2.0,
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 1,
+                    mainAxisExtent: 240,
+                  )
+                : const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisExtent: 100,
+                  ),
+            itemBuilder: (BuildContext context, int index) {
+              var itemInfo = snapshot.data![index];
+              return PhotoBox(
+                object: itemInfo,
+                scrollVertically: scrollVertically,
+              );
+            },
           ));
-        },
-      );
-    } else {
-      return FutureBuilder<List<WardrobeItem>>(
-        future: itemList,
-        builder: (context, snapshot) {
-          if (snapshot.hasData || snapshot.data != null) {
-            return Center(
-                child: GridView.builder(
-              scrollDirection: getScrollDirection(),
-              shrinkWrap: false,
-              itemCount: snapshot.data!.length,
-              gridDelegate: scrollVertically
-                  ? const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 2.0,
-                      crossAxisSpacing: 2.0,
-                      mainAxisSpacing: 2,
-                      mainAxisExtent: 250,
-                    )
-                  : const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisExtent: 100,
-                    ),
-              itemBuilder: (BuildContext context, int index) {
-                var itemInfo = snapshot.data![index];
-                return PhotoCard(
-                  object: itemInfo,
-                  scrollVertically: scrollVertically,
-                );
-              },
-            ));
-          }
-          return const Center(
-              child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(
-              ColorsConstants.primary,
+        }
+        return  Center(
+            child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(
+            ColorsConstants.darkBrick,
+          ),
+        ));
+      },
+    );
+  }
+
+  Widget buildOutfitsGrid() {
+    return FutureBuilder<List<Outfit>>(
+      future: outfitsList,
+      builder: (context, snapshot) {
+        if (snapshot.hasData || snapshot.data != null) {
+          return Center(
+              child: GridView.builder(
+            scrollDirection: getScrollDirection(),
+            shrinkWrap: false,
+            itemCount: snapshot.data!.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 1.0,
+              crossAxisSpacing: 1.0,
+              mainAxisSpacing: 2,
+              mainAxisExtent: 180,
             ),
+            itemBuilder: (BuildContext context, int index) {
+              var itemInfo = snapshot.data![index];
+              return PhotoCardOutfit(object: itemInfo);
+            },
           ));
-        },
-      );
-    }
+        }
+        return Center(
+            child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(
+            ColorsConstants.darkBrick,
+          ),
+        ));
+      },
+    );
   }
 }
