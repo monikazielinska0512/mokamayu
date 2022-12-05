@@ -20,10 +20,10 @@ class BackgroundCard extends StatelessWidget {
         height: MediaQuery.of(context).size.height * (height ?? 1.0),
         width: MediaQuery.of(context).size.width * (width ?? 1.0),
         child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(0.0),
             child: Card(
                 margin: EdgeInsets.zero,
-                elevation: 20,
+                elevation: 10,
                 semanticContainer: true,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 shape: const RoundedRectangleBorder(

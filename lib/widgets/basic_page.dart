@@ -14,12 +14,14 @@ class BasicScreen extends StatelessWidget {
   bool? isRightButtonVisible = true;
   String? leftButtonType = "back";
   String? rightButtonType = "bell";
+  bool? isFullScreen;
 
   BasicScreen({
     Key? key,
     required this.context,
     required this.body,
     required this.type,
+    this.isFullScreen = false,
     this.isAppBarVisible = true,
     this.isLeftButtonVisible = true,
     this.isRightButtonVisible = true,
@@ -33,6 +35,7 @@ class BasicScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
+        extendBodyBehindAppBar: true,
         appBar: isAppBarVisible!
             ? AppBar(
                 title: buildPageTitle(),
@@ -47,12 +50,12 @@ class BasicScreen extends StatelessWidget {
                         : null)
             : null,
         body: Center(
-            child: SafeArea(
-                child: Padding(
-                    padding: const EdgeInsets.all(
-                      20.0,
-                    ),
-                    child: body))));
+            child: isFullScreen!
+                ? SafeArea(bottom: false, top: false, child: body)
+                : SafeArea(
+                    bottom: false,
+                    child: Padding(
+                        padding: const EdgeInsets.all(16), child: body))));
   }
 
   Widget buildDotsButton() {
@@ -72,7 +75,7 @@ class BasicScreen extends StatelessWidget {
             context.go("/home/0");
             break;
           case "wardrobe_item_form":
-            context.go("/add_photo");
+            context.go("/pick-photo");
             break;
           //case ...
         }

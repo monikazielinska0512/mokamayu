@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
 import 'package:mokamayu/widgets/background_card.dart';
+import 'package:mokamayu/widgets/basic_page.dart';
 import 'package:provider/provider.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/wardrobe_manager.dart';
@@ -36,10 +37,13 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(children: [buildBackgroundPhoto(), buildForm()]));
+    return BasicScreen(
+        context: context,
+        isFullScreen: true,
+        rightButtonType: "",
+        body: Stack(children: [buildBackgroundPhoto(), buildForm()]),
+        type: "wardrobe_item_form");
   }
-
 
   Widget buildBackgroundPhoto() {
     return Positioned(
