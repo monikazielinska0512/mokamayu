@@ -3,9 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
-import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/validator.dart';
+import '../../../widgets/chips/multi_select_chips_formfield.dart';
+import '../../../widgets/chips/single_select_chips_formfield.dart';
 
 class WardrobeItemForm extends StatefulWidget {
   final String? photoPath;

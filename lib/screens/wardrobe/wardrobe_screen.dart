@@ -6,6 +6,8 @@ import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/constants.dart';
 
+import '../../widgets/chips/multi_select_chips_formfield.dart';
+
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
 

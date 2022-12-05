@@ -28,7 +28,7 @@ class PhotoBox extends StatelessWidget {
     return GestureDetector(
         child: Wrap(runSpacing: 5, children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(10), // Image border
+            borderRadius: BorderRadius.circular(20), // Image border
             child: SizedBox.fromSize(
               size: const Size.fromRadius(100),
               child: Image.network(photoURL!, fit: BoxFit.fill),
