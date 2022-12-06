@@ -4,38 +4,40 @@ import 'package:mokamayu/models/models.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
 
-class ClothesManager extends ChangeNotifier {
-  List<Clothes> clothesList = [];
-  Future<List<Clothes>>? futureClothesList;
+class WardrobeManager extends ChangeNotifier {
+  List<WardrobeItem> finalWardrobeItemList = [];
+  Future<List<WardrobeItem>>? futureWardrobeItemList;
 
-  Future<List<Clothes>>? get getClothesList => futureClothesList;
+  Future<List<WardrobeItem>>? get getWardrobeItemList => futureWardrobeItemList;
+  List<WardrobeItem> get getfinalWardrobeItemList => finalWardrobeItemList;
 
-  void setClothes(Future<List<Clothes>> clothesList) {
-    futureClothesList = clothesList;
-    notifyListeners();
+  void setWardrobeItem(Future<List<WardrobeItem>> itemList) {
+    futureWardrobeItemList = itemList;
   }
 
-  Future<List<Clothes>> readClothesOnce() async {
+  Future<List<WardrobeItem>> readWardrobeItemOnce() async {
     QuerySnapshot snapshot = await db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
-        .collection('clothes')
+        .collection('wardrobe')
         .get();
-    List<Clothes> clothes = snapshot.docs
-        .map((d) => Clothes.fromJson(d.data() as Map<String, dynamic>))
-        .toList();
 
-    clothesList = clothes;
-    return clothesList;
+    List<WardrobeItem> itemList = [];
+    snapshot.docs.forEach((element) {
+      WardrobeItem item = WardrobeItem.fromSnapshot(element);
+      itemList.add(item);
+    });
+    finalWardrobeItemList = itemList;
+
+    return finalWardrobeItemList;
   }
 
-  Future<void> addClothes(Clothes clothes) async {
-    await db
+  void addWardrobeItem(WardrobeItem item) {
+    db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
-        .collection('clothes')
-        .add(clothes.toJson());
-
+        .collection('wardrobe')
+        .add(item.toFirestore());
     notifyListeners();
   }
 }

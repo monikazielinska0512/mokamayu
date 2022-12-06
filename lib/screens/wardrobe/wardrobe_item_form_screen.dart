@@ -1,33 +1,34 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
 
-class AddClothesForm extends StatefulWidget {
-  final File? photo;
+class AddWardorbeItemForm extends StatefulWidget {
+  final String photo;
   final String? id;
 
-  const AddClothesForm({Key? key, required this.photo, this.id})
+  const AddWardorbeItemForm({Key? key, required this.photo, this.id})
       : super(key: key);
 
   @override
-  _AddClothesFormState createState() => _AddClothesFormState();
+  _AddWardorbeItemFormState createState() => _AddWardorbeItemFormState();
 }
 
-class _AddClothesFormState extends State<AddClothesForm> {
+class _AddWardorbeItemFormState extends State<AddWardorbeItemForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
       children: [
-        ClipRRect(
+        Positioned(
+            child: ClipRRect(
           child: Image.file(
-            widget.photo!,
-            height: MediaQuery.of(context).size.height * 0.7,
+            File(widget.photo),
+            height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             fit: BoxFit.fill,
           ),
-        ),
-        const BackButton(),
+        )),
         Align(
             alignment: Alignment.bottomLeft,
             child: SizedBox(
@@ -43,7 +44,20 @@ class _AddClothesFormState extends State<AddClothesForm> {
                           topRight: Radius.circular(40),
                           topLeft: Radius.circular(40)),
                     ),
-                    child: ClothesForm(photo: widget.photo!))))
+                    child: WardrobeItemForm(
+                      photoPath: widget.photo,
+                    )))),
+        Positioned(
+            height: MediaQuery.of(context).size.height - 700,
+            width: MediaQuery.of(context).size.width - 310,
+            child: IconButton(
+              iconSize: 30,
+              color: Colors.white,
+              onPressed: () {
+                context.goNamed('pick-photo');
+              },
+              icon: Icon(Icons.arrow_back_ios),
+            )),
       ],
     ));
   }

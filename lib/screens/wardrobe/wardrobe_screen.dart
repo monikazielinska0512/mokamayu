@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/constants.dart';
-
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
@@ -15,31 +14,30 @@ class WardrobeScreen extends StatefulWidget {
 }
 
 class _WardrobeScreenState extends State<WardrobeScreen> {
-  Future<List<Clothes>>? clothesList;
+  Future<List<WardrobeItem>>? itemList;
 
   @override
   void initState() {
-    clothesList =
-        Provider.of<ClothesManager>(context, listen: false).readClothesOnce();
+    itemList = Provider.of<WardrobeManager>(context, listen: false)
+        .readWardrobeItemOnce();
     Future.delayed(Duration.zero).then((value) {
-      Provider.of<ClothesManager>(context, listen: false)
-          .setClothes(clothesList!);
+      Provider.of<WardrobeManager>(context, listen: false)
+          .setWardrobeItem(itemList!);
     });
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
+        type: "wardrobe_home",
         context: context,
         child: Stack(children: [
           Column(
             children: [
               Column(children: [
                 PageTitle(
-                    title: "Your Wardrobe",
-                    description: "Explore your clothes"),
+                    title: "Your Wardrobe", description: "Explore your item"),
                 const SizedBox(height: 20),
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.9,
@@ -47,7 +45,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     child: Row(children: [
                       Expanded(
                           child: SearchBar(
-                              title: "Search", hintTitle: "Name of clothes")),
+                              title: "Search", hintTitle: "Name of item")),
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.045),
                       CustomIconButton(
@@ -60,18 +58,12 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                 //     chipsList: Tags.types.sublist(0, Tags.types.length - 1)),
               ]),
               const SizedBox(height: 15),
-              Expanded(child: PhotoGrid(clothesList: clothesList))
+              Expanded(child: PhotoGrid(itemList: itemList))
             ],
           ),
           FloatingButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                              create: (_) => ClothesManager(),
-                              child: AddPhotoScreen(),
-                            )));
+                context.goNamed('pick-photo');
               },
               icon: const Icon(Icons.add),
               backgroundColor: ColorsConstants.primary,

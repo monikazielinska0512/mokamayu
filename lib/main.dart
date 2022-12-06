@@ -9,10 +9,12 @@ import 'package:mokamayu/services/authentication/auth.dart';
 import 'package:mokamayu/services/managers/app_state_manager.dart';
 import 'package:mokamayu/services/managers/profile_manager.dart';
 import 'package:mokamayu/services/managers/wardrobe_manager.dart';
+import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:provider/provider.dart';
 import 'generated/l10n.dart';
 import 'models/firebase_user.dart';
 import 'navigation/app_router.dart';
+import 'services/managers/outfit_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,10 +49,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late final _profileManager = ProfileManager();
-  late final _clothesManager = ClothesManager();
+  late final _wardrobeManager = WardrobeManager();
+  late final _outfitManager = OutfitManager();
 
-  late final _appRouter =
-      AppRouter(widget.appStateManager, _profileManager, _clothesManager);
+  late final _appRouter = AppRouter(widget.appStateManager, _profileManager,
+      _wardrobeManager, _outfitManager);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +65,9 @@ class _MyAppState extends State<MyApp> {
             value: AuthService().user, initialData: null),
         ChangeNotifierProvider(create: (context) => _profileManager),
         ChangeNotifierProvider(create: (context) => widget.appStateManager),
-        ChangeNotifierProvider(create: (_) => ClothesManager()),
+        ChangeNotifierProvider(create: (_) => WardrobeManager()),
+        ChangeNotifierProvider(create: (_) => OutfitManager()),
+        ChangeNotifierProvider(create: (_) => PhotoTapped()),
       ],
       child: MaterialApp.router(
         routerDelegate: router.routerDelegate,

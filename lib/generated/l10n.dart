@@ -240,11 +240,11 @@ class S {
     );
   }
 
-  /// `Closet`
-  String get closet {
+  /// `Wardrobe`
+  String get wardrobe {
     return Intl.message(
-      'Closet',
-      name: 'closet',
+      'Wardrobe',
+      name: 'wardrobe',
       desc: '',
       args: [],
     );

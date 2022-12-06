@@ -26,7 +26,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Email został wprowadzony w złym formacie"),
         "bad_password": MessageLookupByLibrary.simpleMessage(
             "Hasło musi mieć długość przynajmniej 6 znaków"),
-        "closet": MessageLookupByLibrary.simpleMessage("Szafa"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Potwierdź hasło"),
         "dismiss": MessageLookupByLibrary.simpleMessage("ZAMKNIJ"),

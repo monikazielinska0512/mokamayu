@@ -1,1 +1,1 @@
-export 'multichoice_chips.dart';
+export 'multi_select_chips.dart';

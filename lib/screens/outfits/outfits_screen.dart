@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:mokamayu/models/outfit.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/constants/constants.dart';
+import '../../services/managers/outfit_manager.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -15,28 +17,37 @@ class OutfitsScreen extends StatefulWidget {
 }
 
 class _OutfitsScreenState extends State<OutfitsScreen> {
-  Future<List<Clothes>>? clothesList;
+  Future<List<Outfit>>? outfitsList;
+  Future<List<WardrobeItem>>? itemList;
+
+  @override
+  void initState() {
+    outfitsList =
+        Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
+    Provider.of<OutfitManager>(context, listen: false).setOutfits(outfitsList!);
+    itemList = Provider.of<WardrobeManager>(context, listen: false)
+        .readWardrobeItemOnce();
+    Provider.of<WardrobeManager>(context, listen: false)
+        .setWardrobeItem(itemList!);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          clothesList = Provider.of<ClothesManager>(context, listen: false)
-              .getClothesList;
-        }));
     return Scaffold(
         body: Stack(children: [
       Column(children: [
         Expanded(
             child: Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-                child: PhotoGrid(clothesList: clothesList)))
+                child: PhotoGrid(outfitsList: outfitsList)))
       ]),
       FloatingButton(
           onPressed: () {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return CustomDialogBox.outfitsDialog(context, clothesList);
+                  return CustomDialogBox.outfitsDialog(context, itemList);
                 });
           },
           icon: const Icon(Icons.add),

@@ -5,6 +5,7 @@ import 'package:mokamayu/constants/colors.dart';
 
 class PhotoPicker extends StatefulWidget {
   File? photo;
+  String? photoPath;
   final ImagePicker picker = ImagePicker();
   final double width;
   final double height;
@@ -25,29 +26,30 @@ class _PhotoPickerState extends State<PhotoPicker> {
       },
       child: widget.photo != null
           ? ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.file(
-                widget.photo!,
-                height: widget.height,
-                fit: BoxFit.fill,
-              ),
-            )
+        borderRadius: BorderRadius.circular(20),
+        child: Image.file(
+          widget.photo!,
+          height: widget.height,
+          fit: BoxFit.fill,
+        ),
+      )
           : Container(
-              decoration: BoxDecoration(
-                  color: ColorsConstants.soft,
-                  borderRadius: BorderRadius.circular(20)),
-              width: double.maxFinite,
-              height: widget.height,
-              child: const Icon(Icons.camera_alt),
-            ),
+        decoration: BoxDecoration(
+            color: ColorsConstants.soft,
+            borderRadius: BorderRadius.circular(20)),
+        width: double.maxFinite,
+        height: widget.height,
+        child: const Icon(Icons.camera_alt),
+      ),
     );
   }
 
   Future pickImage(ImageSource source) async {
     final pickedFile =
-        await widget.picker.pickImage(source: source, imageQuality: 50);
+    await widget.picker.pickImage(source: source, imageQuality: 50);
     setState(() {
       if (pickedFile != null) {
+        widget.photoPath = pickedFile.path;
         widget.photo = File(pickedFile.path);
       } else {
         //TODO SNACK BAR
@@ -62,8 +64,8 @@ class _PhotoPickerState extends State<PhotoPicker> {
   }
 
   void _showPicker(
-    context,
-  ) {
+      context,
+      ) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
@@ -72,7 +74,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
               widget.photo == null
                   ? Container()
                   : PickerBar(
-                      context, const Icon(Icons.delete), "Remove photo", null),
+                  context, const Icon(Icons.delete), "Remove photo", null),
               PickerBar(context, const Icon(Icons.photo_library), "Gallery",
                   ImageSource.gallery),
               PickerBar(context, const Icon(Icons.photo_camera), "Camera",
@@ -89,13 +91,13 @@ class _PhotoPickerState extends State<PhotoPicker> {
         title: Text(title),
         onTap: source != null
             ? () {
-                pickImage(source);
-                Navigator.of(context).pop();
-              }
+          pickImage(source);
+          Navigator.of(context).pop();
+        }
             : () {
-                removeImage();
-                Navigator.of(context).pop();
-              });
+          removeImage();
+          Navigator.of(context).pop();
+        });
   }
 
   File? get getPhoto {

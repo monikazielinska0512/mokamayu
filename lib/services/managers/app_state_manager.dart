@@ -5,7 +5,7 @@ import '../app_cache.dart';
 import '../authentication/auth.dart';
 
 class NavigationBarTab {
-  static const int closet = 0;
+  static const int wardrobe = 0;
   static const int outfits = 1;
   static const int social = 2;
   static const int profile = 3;
@@ -13,7 +13,7 @@ class NavigationBarTab {
 
 class AppStateManager extends ChangeNotifier {
   bool _loggedIn = false;
-  int _selectedTab = NavigationBarTab.closet;
+  int _selectedTab = NavigationBarTab.wardrobe;
   final _appCache = AppCache();
   final AuthService _auth = AuthService();
 

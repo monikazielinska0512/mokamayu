@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
+import 'package:provider/provider.dart';
 
 class ContainerList {
   double height;
@@ -21,7 +23,7 @@ class ContainerList {
 
 class DragTargetContainer extends StatefulWidget {
   DragTargetContainer({Key? key, this.map}) : super(key: key);
-  Map<String, ContainerList>? map = {};
+  Map<List<dynamic>, ContainerList>? map = {};
 
   @override
   _DragTargetState createState() => _DragTargetState();
@@ -44,15 +46,25 @@ class _DragTargetState extends State<DragTargetContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: ColorsConstants.soft,
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(40.0),
+            bottomRight: Radius.circular(40.0),
+            topLeft: Radius.circular(40.0),
+            bottomLeft: Radius.circular(40.0)),
+      ),
       // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       width: MediaQuery.of(context).size.width,
-      height: 450.0,
-      color: ColorsConstants.soft,
+      height: MediaQuery.of(context).size.height - 500,
+      //color: ColorsConstants.soft,
       child: Stack(
         children: widget.map!.entries.map((entry) {
           return GestureDetector(
             onTap: () {
               widget.map!.removeWhere((key, value) => key == entry.key);
+              Provider.of<PhotoTapped>(context, listen: false)
+                  .photoRemoved(entry.key[1]);
               setState(() {});
             },
             onScaleStart: (details) {
@@ -72,7 +84,7 @@ class _DragTargetState extends State<DragTargetContainer> {
               // print(top);
 
               if (left < 0) left = 0;
-              if (left > 0.54) left = 0.54;
+              if (left > 0.72) left = 0.72;
               if (top < 0) top = 0;
               if (top > 0.5) top = 0.5;
               // print(_currentScale);
@@ -109,7 +121,8 @@ class _DragTargetState extends State<DragTargetContainer> {
                                 _currentRotation = entry.value.rotation;
                               },
                               onPointerUp: (details) {},
-                              child: Image.network(entry.key, fit: BoxFit.fill),
+                              child:
+                                  Image.network(entry.key[0], fit: BoxFit.fill),
                             ),
                           ),
                         )),

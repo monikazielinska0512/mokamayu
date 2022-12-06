@@ -3,7 +3,7 @@ import 'package:mokamayu/services/authentication/authentication.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 
-Stream<QuerySnapshot>? clothes;
+Stream<QuerySnapshot>? item;
 
 class DatabaseService {
   static String? userID = AuthService().getCurrentUserID();

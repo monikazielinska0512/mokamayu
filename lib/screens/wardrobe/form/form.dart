@@ -1,22 +1,29 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/managers/managers.dart';
+import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
-class ClothesForm extends StatefulWidget {
-  final File? photo;
+import '../../../utils/validator.dart';
 
-  const ClothesForm({Key? key, required this.photo}) : super(key: key);
+class WardrobeItemForm extends StatefulWidget {
+  final String photoPath;
+
+  WardrobeItemForm({Key? key, required this.photoPath}) : super(key: key);
 
   @override
-  _ClothesFormState createState() => _ClothesFormState();
+  State<WardrobeItemForm> createState() => _WardrobeItemFormState();
 }
 
-class _ClothesFormState extends State<ClothesForm> {
-  String? _type = "";
-  String? _size = "";
-  String? _name = "";
-  List<String>? _Tags = [];
+class _WardrobeItemFormState extends State<WardrobeItemForm> {
+  String _type = "";
+  String _size = "";
+  String _name = "";
+  List<String> _styles = [];
 
   @override
   void initState() {
@@ -52,7 +59,7 @@ class _ClothesFormState extends State<ClothesForm> {
                           fontWeight: FontWeight.w600),
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        labelText: 'Enter your clothes name',
+                        labelText: 'Enter your item name',
                         labelStyle: TextStyles.h4(),
                         focusedBorder: InputBorder.none,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -66,37 +73,32 @@ class _ClothesFormState extends State<ClothesForm> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                          padding: EdgeInsets.only(bottom: 10, top: 10),
+                          padding: const EdgeInsets.only(bottom: 10, top: 10),
                           child: Text("Type",
-                              style: TextStyles
-                                  .paragraphRegularSemiBold18()))),
-                  DropdownMenuFormField(
-                      list: Tags.types,
-                      onSaved: (value) => _type = value!,
-                      validator: (value) {
-                        if (value == "Type") {
-                          return 'Przypau';
-                        }
-                        return null;
-                      },
-                      initialValue: Tags.types[0]),
+                              style: TextStyles.paragraphRegularSemiBold18()))),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: SingleSelectChipsFormField(
+                        autoValidate: true,
+                        validator: (value) =>
+                            Validator.checkIfSingleValueSelected(
+                                value!, context),
+                        onSaved: (value) => _type = value!,
+                        chipsList: const ["T-Shirt", "Dress", "Skirt", "Shoes"],
+                      )),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                          padding: EdgeInsets.only(bottom: 5, top: 10),
+                          padding: const EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Size",
-                              style: TextStyles
-                                  .paragraphRegularSemiBold18()))),
+                              style: TextStyles.paragraphRegularSemiBold18()))),
                   Align(
                       alignment: Alignment.centerLeft,
-                      child: ChoiceChipsFormField(
+                      child: SingleSelectChipsFormField(
                         autoValidate: true,
-                        validator: (value) {
-                          if (value == "") {
-                            return 'Wybrano M';
-                          }
-                          return null;
-                        },
+                        validator: (value) =>
+                            Validator.checkIfSingleValueSelected(
+                                value!, context),
                         onSaved: (value) => _size = value!,
                         chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
                       )),
@@ -105,34 +107,49 @@ class _ClothesFormState extends State<ClothesForm> {
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 5, top: 10),
                           child: Text("Style",
-                              style: TextStyles
-                                  .paragraphRegularSemiBold18()))),
-                  FilterChipsFormField(
-                      chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
-                      onSaved: (value) => _Tags = value,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          print("styles = []");
-                          return "null";
-                        }
-                      }),
+                              style: TextStyles.paragraphRegularSemiBold18()))),
+                  MultiSelectChipsFormField(
+                      chipsList: const ["School", "Wedding", "Classic", "Boho"],
+                      onSaved: (value) => _styles = value!,
+                      validator: (value) =>
+                          Validator.checkIfMultipleValueSelected(
+                              value!, context)),
                   ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
+                    onPressed: () async {
+                      _formKey.currentState!.save();
 
-                        print("Valid$_type$_size$_name$_Tags");
+                      String url = await StorageService()
+                          .uploadFile(context, widget.photoPath);
+
+                      if (_formKey.currentState!.validate()) {
+                        final item = WardrobeItem(
+                            name: _name,
+                            type: _type,
+                            size: _size,
+                            photoURL: url,
+                            styles: _styles,
+                            created: DateTime.now());
+
+                        Provider.of<WardrobeManager>(context, listen: false)
+                            .addWardrobeItem(item);
+
+                        _type = "";
+                        _size = "";
+                        _name = "";
+                        _styles = [];
+                        context.go("/home/0");
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Valid')),
+                          const SnackBar(
+                              content: Text('Dodano do bazy danych')),
                         );
                       } else {
-                        _formKey.currentState!.save();
-                        print("NotValid$_type$_size$_name$_Tags");
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Not Valid')));
+                            const SnackBar(
+                                content: Text('Formularz nie jest poprawny')));
                       }
                     },
-                    child: const Text('Add clothes'),
+                    child: const Text('Add item'),
                   ),
                 ]))));
   }
