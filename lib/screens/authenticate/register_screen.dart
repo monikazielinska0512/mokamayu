@@ -131,6 +131,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             email: _emailTextController.text,
                                             password:
                                                 _passwordTextController.text));
+                                    await _auth.currentUser?.updateDisplayName(
+                                        _usernameTextController.text);
                                     if (mounted &&
                                         status == AuthStatus.successful) {
                                       Navigator.pop(context);

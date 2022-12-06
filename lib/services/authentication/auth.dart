@@ -35,9 +35,7 @@ class AuthService {
             password: _login.password.toString())
         .then((value) => _status = AuthStatus.successful)
         .catchError(
-            (e) => _status = AuthExceptionHandler.handleAuthException(e))
-        .whenComplete(
-            () => _auth.currentUser?.updateDisplayName(_login.username));
+            (e) => _status = AuthExceptionHandler.handleAuthException(e));
     return _status;
   }
 
