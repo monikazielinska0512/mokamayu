@@ -6,7 +6,7 @@ AppBar customAppBar(BuildContext context, String title) {
     title: Text(title),
     actions: [
       GestureDetector(
-        child: const Icon(Icons.notifications),
+        child: const Icon(Icons.notifications_outlined),
         onTap: () => {GoRouter.of(context).push('/notifications')},
       ),
       const Padding(padding: EdgeInsets.symmetric(horizontal: 10))
