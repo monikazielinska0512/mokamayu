@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/constants/constants.dart';
 
 class SingleSelectChipsFormField extends FormField<String> {
   final List chipsList;
@@ -29,14 +28,14 @@ class SingleSelectChipsFormField extends FormField<String> {
                     shape: const RoundedRectangleBorder(
                         borderRadius:
                         BorderRadius.all(Radius.circular(10))),
-                    backgroundColor: ColorsConstants.soft,
-                    selectedColor:
-                    ColorsConstants.colorList[index].withOpacity(0.2),
-                    labelStyle: state.value == chipsList[index]
-                        ? TextStyles.paragraphRegularSemiBold18(
-                        ColorsConstants.colorList[index])
-                        : TextStyles.paragraphRegular18(
-                        ColorsConstants.grey),
+                    // backgroundColor: ColorsConstants.whiteAccent,
+                    // selectedColor:
+                    // ColorsConstants.colorList[index].withOpacity(0.2),
+                    // labelStyle: state.value == chipsList[index]
+                    //     ? TextStyles.paragraphRegularSemiBold18(
+                    //     ColorsConstants.colorList[index])
+                    //     : TextStyles.paragraphRegular18(
+                    //     ColorsConstants.grey),
                     onSelected: (bool selected) {
                       state.didChange(selected ? chipsList[index] : "");
                     });

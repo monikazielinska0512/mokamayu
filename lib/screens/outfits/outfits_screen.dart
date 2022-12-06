@@ -28,7 +28,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
     Provider.of<WardrobeManager>(context, listen: false)
-        .setWardrobeItem(itemList!);
+        .setWardrobeItemList(itemList!);
     super.initState();
   }
 
@@ -51,7 +51,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
                 });
           },
           icon: const Icon(Icons.add),
-          backgroundColor: ColorsConstants.primary,
+          backgroundColor: ColorsConstants.darkBrick,
           padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
           alignment: Alignment.bottomRight)
     ]));

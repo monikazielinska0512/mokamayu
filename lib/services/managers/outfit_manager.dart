@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/models/outfit.dart';
-import 'package:mokamayu/screens/screens.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
 

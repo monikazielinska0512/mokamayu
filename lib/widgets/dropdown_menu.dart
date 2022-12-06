@@ -21,7 +21,7 @@ class DropdownMenuFormField extends FormField<String> {
           builder: (FormFieldState<String> state) {
             return DropdownButtonFormField2(
               decoration: InputDecoration(
-                fillColor: ColorsConstants.primary,
+                fillColor: ColorsConstants.whiteAccent,
                 isDense: true,
                 contentPadding: EdgeInsets.zero,
                 border: OutlineInputBorder(

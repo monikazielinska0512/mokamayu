@@ -7,9 +7,16 @@ class CustomIconButton extends StatelessWidget {
   double? width;
   double? height;
   Color? backgroundColor;
+  Color? iconColor;
 
   CustomIconButton(
-      {Key? key, required this.onPressed, this.icon, this.width, this.height = double.maxFinite, this.backgroundColor})
+      {Key? key,
+      required this.onPressed,
+      this.icon,
+      this.width,
+      this.iconColor,
+      this.height = double.maxFinite,
+      this.backgroundColor})
       : super(key: key);
 
   @override
@@ -20,10 +27,10 @@ class CustomIconButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: backgroundColor ?? ColorsConstants.primary,
+            backgroundColor: backgroundColor ?? ColorsConstants.darkBrick,
             elevation: 0,
           ),
-          child: Icon(icon),
+          child: Icon(icon, color: iconColor),
         ));
   }
 }
