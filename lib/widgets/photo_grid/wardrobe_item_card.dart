@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
-import 'package:provider/provider.dart';
-
-import '../drag_target_container.dart';
 
 class WardrobeItemCard extends StatelessWidget {
   WardrobeItemCard({Key? key, required this.object}) : super(key: key);
@@ -18,7 +14,7 @@ class WardrobeItemCard extends StatelessWidget {
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 0,
-      color: ColorsConstants.soft,
+      color: ColorsConstants.whiteAccent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
@@ -39,7 +35,7 @@ class WardrobeItemCard extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  name!,
+                  name,
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.right,
@@ -48,10 +44,10 @@ class WardrobeItemCard extends StatelessWidget {
                   height: 15,
                 ),
                 TextButton(
-                    child: const Text(
+                    child:  Text(
                       "See details",
                       style: TextStyle(
-                          color: ColorsConstants.primary,
+                          color: ColorsConstants.darkBrick,
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.right,
                     ),

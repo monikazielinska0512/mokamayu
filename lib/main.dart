@@ -81,9 +81,10 @@ class _MyAppState extends State<MyApp> {
         ],
         supportedLocales: S.delegate.supportedLocales,
         title: 'Mokamayu',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch()
-              .copyWith(secondary: ColorsConstants.primary),
+              .copyWith(secondary: ColorsConstants.darkBrick),
         ),
       ),
     );
