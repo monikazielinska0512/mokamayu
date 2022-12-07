@@ -19,8 +19,16 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  Future<UserData?>? userData;
   Future<List<WardrobeItem>>? itemList;
   Future<List<Outfit>>? outfitsList;
+
+  @override
+  void initState() {
+    userData =
+        Provider.of<ProfileManager>(context, listen: false).getUserInfo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +51,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       // TODO(karina)
                     })
           ],
+          FutureBuilder<UserData?>(
+              future: userData,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Text((snapshot.data?.email ?? " "));
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              }),
           profileContent(context),
         ],
       ),
