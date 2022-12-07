@@ -183,6 +183,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             Provider.of<WardrobeManager>(context, listen: false)
                 .updateWardrobeItem(widget.item?.reference ?? "", _name, _type,
                     _size, widget.item?.photoURL ?? "", _styles);
+            context.go("/home/0");
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Update')),
             );
