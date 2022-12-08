@@ -1,17 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/screens/outfits/outfit_summary_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:screenshot/screenshot.dart';
-
-import '../../models/wardrobe_item.dart';
+import 'package:mokamayu/widgets/photo/photo.dart';
 import 'package:path_provider/path_provider.dart';
-
 import '../../services/storage.dart';
+import '../../models/wardrobe_item.dart';
 
 class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.itemList}) : super(key: key);

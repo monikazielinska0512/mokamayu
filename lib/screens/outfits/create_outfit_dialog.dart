@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/screens/outfits/outfits_add_screen.dart';
-import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:provider/provider.dart';
 
 class CustomDialogBox {
   static outfitsDialog(

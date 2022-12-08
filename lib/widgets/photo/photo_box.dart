@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
+import 'package:mokamayu/widgets/photo/photo_tapped.dart';
 import 'package:provider/provider.dart';
 
 class PhotoBox extends StatelessWidget {

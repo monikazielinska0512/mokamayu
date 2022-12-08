@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/models/outfit.dart';
 import 'package:mokamayu/models/wardrobe_item.dart';
-import 'package:mokamayu/widgets/photo_grid/photo_box.dart';
 import 'package:mokamayu/constants/colors.dart';
-import 'package:mokamayu/widgets/photo_grid/photo_box_outfit.dart';
+import 'package:mokamayu/widgets/photo/photo_box.dart';
+import 'package:mokamayu/widgets/photo/photo_box_outfit.dart';
 
 class PhotoGrid extends StatelessWidget {
   final bool scrollVertically;

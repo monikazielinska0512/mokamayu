@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../constants/text_styles.dart';
-import 'buttons/icon_button.dart';
-import 'drawer.dart';
+import '../../constants/text_styles.dart';
+import '../buttons/icon_button.dart';
+import '../navigation/drawer.dart';
 
 class BasicScreen extends StatelessWidget {
   BuildContext context;
@@ -16,6 +16,8 @@ class BasicScreen extends StatelessWidget {
   String? leftButtonType = "back";
   String? rightButtonType = "bell";
   bool? isFullScreen;
+
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   BasicScreen({
     Key? key,
@@ -35,8 +37,10 @@ class BasicScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _key,
         backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,
+        drawer: drawer(context),
         appBar: isAppBarVisible!
             ? AppBar(
                 title: buildPageTitle(),
@@ -61,9 +65,7 @@ class BasicScreen extends StatelessWidget {
 
   Widget buildDotsButton() {
     return IconButton(
-      onPressed: () {
-        drawer(context);
-      },
+      onPressed: () => _key.currentState!.openDrawer(),
       icon: const Icon(Icons.more_vert),
     );
   }
@@ -97,11 +99,12 @@ class BasicScreen extends StatelessWidget {
     switch (rightButtonType) {
       case "bell":
         return CustomIconButton(
-            onPressed: () {}, icon: Icons.notifications,
-            backgroundColor: Colors.transparent, iconColor: Colors.grey);
+            onPressed: () {},
+            icon: Icons.notifications,
+            backgroundColor: Colors.transparent,
+            iconColor: Colors.grey);
       case "go_forward":
-        return CustomIconButton(
-            onPressed: () {}, icon: Icons.arrow_forward);
+        return CustomIconButton(onPressed: () {}, icon: Icons.arrow_forward);
       case "search":
         return CustomIconButton(onPressed: () {}, icon: Icons.search);
       case "bin":

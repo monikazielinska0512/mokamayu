@@ -1,11 +1,5 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:mokamayu/constants/constants.dart';
-import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/models/outfit.dart';
-import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
-import 'package:provider/provider.dart';
 
 class PhotoCardOutfit extends StatelessWidget {
   final Outfit object;

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/constants.dart';
 
 import '../../widgets/chips/multi_select_chips_formfield.dart';
+import '../../widgets/photo/photo_grid.dart';
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);

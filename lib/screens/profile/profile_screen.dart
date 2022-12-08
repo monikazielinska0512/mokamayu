@@ -8,6 +8,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
+import '../../widgets/photo/photo_grid.dart';
 
 class ProfileScreen extends StatefulWidget {
   final User? user;
