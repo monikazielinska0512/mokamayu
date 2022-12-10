@@ -57,7 +57,6 @@ class _OutfitFormState extends State<OutfitForm> {
                 Validator.checkIfSingleValueSelected(value!, context),
             onSaved: (value) {
               _season = value!;
-              print('here');
               Provider.of<OutfitManager>(context, listen: false)
                   .setSeason(_season);
             },

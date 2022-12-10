@@ -4,6 +4,8 @@ import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/widgets/drag_target_container.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/colors.dart';
+import '../../constants/text_styles.dart';
 import '../../models/outfit.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/authentication/auth.dart';
@@ -17,6 +19,8 @@ class OutfitSummaryScreen extends StatelessWidget {
   late String capturedOutfit;
   List<WardrobeItem>? itemList;
   List<String> _elements = [];
+  late String _style;
+  late String _season;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,8 @@ class OutfitSummaryScreen extends StatelessWidget {
         .getFinalWardrobeItemList;
     capturedOutfit =
         Provider.of<PhotoTapped>(context, listen: false).getScreenshot;
+    _season = Provider.of<OutfitManager>(context, listen: false).getSeason;
+    _style = Provider.of<OutfitManager>(context, listen: false).getStyle;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -52,10 +58,50 @@ class OutfitSummaryScreen extends StatelessWidget {
                       .firstWhere((item) => item.reference == entry.key[1]));
             }).toList(),
           )),
+          Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Tags",
+                    style: TextStyles.paragraphRegularSemiBold18(),
+                  ))),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: ChoiceChip(
+                label: Text(_season),
+                selected: true,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                backgroundColor: ColorsConstants.darkMint,
+                selectedColor: ColorsConstants.darkMint.withOpacity(0.2),
+              ),
+            ),
+          ),
+
+          Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: ChoiceChip(
+                  label: Text(_style),
+                  selected: true,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  backgroundColor: ColorsConstants.sunflower,
+                  selectedColor: ColorsConstants.sunflower.withOpacity(0.2),
+                ),
+              )),
+          //ADD chosen outfits attributes
           ButtonDarker(context, "Save", () async {
             Outfit data = Outfit(
                 elements: _elements,
                 cover: capturedOutfit,
+                style: _style,
+                season: _season,
                 createdBy: AuthService().getCurrentUserID());
             Provider.of<OutfitManager>(context, listen: false)
                 .addOutfitToFirestore(data);
