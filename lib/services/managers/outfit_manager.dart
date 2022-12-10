@@ -11,9 +11,24 @@ class OutfitManager extends ChangeNotifier {
   Future<List<Outfit>>? get getOutfitList => futureOutfitList;
   List<Outfit> get getfinalOutfitList => finalOutfitList;
 
+  String outfitStyle = "";
+  String outfitSeason = "";
+
   void setOutfits(Future<List<Outfit>> outfitsList) {
     futureOutfitList = outfitsList;
   }
+
+  void setStyle(String style) {
+    outfitStyle = style;
+  }
+
+  String get getStyle => outfitStyle;
+
+  void setSeason(String season) {
+    outfitSeason = season;
+  }
+
+  String get getSeason => outfitSeason;
 
   Future<List<Outfit>> readOutfitsOnce() async {
     QuerySnapshot snapshot = await db

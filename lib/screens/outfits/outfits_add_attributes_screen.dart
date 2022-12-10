@@ -3,12 +3,14 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/screens/outfits/outfit_form.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../services/managers/wardrobe_manager.dart';
 import '../../services/storage.dart';
+import '../../widgets/background_card.dart';
 import '../../widgets/drag_target_container.dart';
 import '../../widgets/photo_grid/photo_tapped.dart';
 
@@ -34,6 +36,7 @@ class _OutfitsAddAttributesScreenState
     //     Provider.of<PhotoTapped>(context, listen: false).getScreenshot;
     ScreenshotController screenshotController = ScreenshotController();
     Uint8List? capturedOutfit;
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -70,6 +73,8 @@ class _OutfitsAddAttributesScreenState
                     .setScreenshot(url);
                 // GoRouter.of(context)
                 //     .goNamed("outfit-summary-screen", extra: map);
+                print(widget.map);
+                _formKey.currentState!.save();
                 GoRouter.of(context)
                     .goNamed("outfit-summary-screen", extra: widget.map);
               }).catchError((onError) {
@@ -100,6 +105,7 @@ class _OutfitsAddAttributesScreenState
               ),
             )
           ]),
+          OutfitForm(formKey: _formKey),
           // SizedBox(
           //   height: 100,
           // ),
