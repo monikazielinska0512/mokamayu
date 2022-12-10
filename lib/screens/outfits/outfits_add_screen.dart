@@ -18,8 +18,8 @@ class CreateOutfitPage extends StatelessWidget {
   Future<List<WardrobeItem>>? itemList;
   Map<List<dynamic>, ContainerList> map = {};
 
-  ScreenshotController screenshotController = ScreenshotController();
-  Uint8List? capturedOutfit;
+  // ScreenshotController screenshotController = ScreenshotController();
+  // Uint8List? capturedOutfit;
 
   @override
   Widget build(BuildContext context) {
@@ -50,24 +50,24 @@ class CreateOutfitPage extends StatelessWidget {
               size: 35,
             ),
             onPressed: () {
-              screenshotController.capture().then((capturedImage) async {
-                capturedOutfit = capturedImage;
-                final directory = await getApplicationDocumentsDirectory();
-                final imagePath =
-                    await File('${directory.path}/image.png').create();
-                await imagePath.writeAsBytes(capturedOutfit!);
-                String url =
-                    await StorageService().uploadFile(context, imagePath.path);
+              // screenshotController.capture().then((capturedImage) async {
+              // capturedOutfit = capturedImage;
+              // final directory = await getApplicationDocumentsDirectory();
+              // final imagePath =
+              //     await File('${directory.path}/image.png').create();
+              // await imagePath.writeAsBytes(capturedOutfit!);
+              // String url =
+              //     await StorageService().uploadFile(context, imagePath.path);
 
-                Provider.of<PhotoTapped>(context, listen: false)
-                    .setScreenshot(url);
-                // GoRouter.of(context)
-                //     .goNamed("outfit-summary-screen", extra: map);
-                GoRouter.of(context)
-                    .goNamed("outfit-add-attributes-screen", extra: map);
-              }).catchError((onError) {
-                print(onError);
-              });
+              // Provider.of<PhotoTapped>(context, listen: false)
+              //     .setScreenshot(url);
+              // GoRouter.of(context)
+              //     .goNamed("outfit-summary-screen", extra: map);
+              GoRouter.of(context)
+                  .goNamed("outfit-add-attributes-screen", extra: map);
+              // }).catchError((onError) {
+              //   print(onError);
+              // });
             },
           )
         ],
@@ -85,12 +85,13 @@ class CreateOutfitPage extends StatelessWidget {
             )),
             Positioned(
               child: Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, deviceHeight(context) * 0.14, 0, 0),
-                child: Screenshot(
-                    controller: screenshotController,
-                    child: DragTargetContainer(map: map)),
-              ),
+                  padding: EdgeInsets.fromLTRB(
+                      0, deviceHeight(context) * 0.14, 0, 0),
+                  // child: Screenshot(
+                  //     controller: screenshotController,
+                  child: DragTargetContainer(map: map)
+                  // ),
+                  ),
             )
           ]),
           //TODO categories for wardrobe

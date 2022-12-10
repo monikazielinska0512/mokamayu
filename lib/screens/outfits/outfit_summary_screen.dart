@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
@@ -32,9 +31,10 @@ class OutfitSummaryScreen extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
             onPressed: () {
-              context.goNamed("create-outfit-page",
-                  extra: Provider.of<WardrobeManager>(context, listen: false)
-                      .getWardrobeItemList);
+              // context.goNamed("create-outfit-page",
+              //     extra: Provider.of<WardrobeManager>(context, listen: false)
+              //         .getWardrobeItemList);
+              context.goNamed("outfit-add-attributes-screen", extra: map);
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
