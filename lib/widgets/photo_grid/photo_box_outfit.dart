@@ -16,7 +16,9 @@ class PhotoCardOutfit extends StatelessWidget {
   Widget build(BuildContext context) {
     String? photoUrl = object.cover;
     return GestureDetector(
-      onTap: () async {},
+      onTap: () async {
+        
+      },
       child: Card(
         elevation: 2,
         color: Colors.white,

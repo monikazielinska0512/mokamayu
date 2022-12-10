@@ -61,8 +61,10 @@ class CreateOutfitPage extends StatelessWidget {
 
                 Provider.of<PhotoTapped>(context, listen: false)
                     .setScreenshot(url);
+                // GoRouter.of(context)
+                //     .goNamed("outfit-summary-screen", extra: map);
                 GoRouter.of(context)
-                    .goNamed("outfit-summary-screen", extra: map);
+                    .goNamed("outfit-add-attributes-screen", extra: map);
               }).catchError((onError) {
                 print(onError);
               });
