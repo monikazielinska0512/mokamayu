@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
@@ -66,7 +68,6 @@ class OutfitSummaryScreen extends StatelessWidget {
                     "Tags",
                     style: TextStyles.paragraphRegularSemiBold18(),
                   ))),
-
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
             child: Align(
@@ -81,7 +82,6 @@ class OutfitSummaryScreen extends StatelessWidget {
               ),
             ),
           ),
-
           Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
               child: Align(
@@ -95,16 +95,18 @@ class OutfitSummaryScreen extends StatelessWidget {
                   selectedColor: ColorsConstants.sunflower.withOpacity(0.2),
                 ),
               )),
-          //ADD chosen outfits attributes
           ButtonDarker(context, "Save", () async {
             Outfit data = Outfit(
                 elements: _elements,
                 cover: capturedOutfit,
                 style: _style,
                 season: _season,
+                map: map.toString(),
                 createdBy: AuthService().getCurrentUserID());
             Provider.of<OutfitManager>(context, listen: false)
                 .addOutfitToFirestore(data);
+            Provider.of<OutfitManager>(context, listen: false).setSeason("");
+            Provider.of<OutfitManager>(context, listen: false).setStyle("");
             Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
             _elements = [];
             context.go("/home/1");

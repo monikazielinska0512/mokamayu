@@ -1,6 +1,8 @@
 import 'dart:typed_data';
-
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../widgets/drag_target_container.dart';
 
 class Outfit {
   final String createdBy;
@@ -8,6 +10,7 @@ class Outfit {
   final String? season;
   final String cover;
   final List<String>? elements;
+  final String? map;
   String? reference;
 
   Outfit({
@@ -16,6 +19,7 @@ class Outfit {
     this.season,
     required this.cover,
     this.elements,
+    this.map,
     this.reference,
   });
 
@@ -24,6 +28,7 @@ class Outfit {
       style: json['style'] as String,
       season: json['season'] as String,
       cover: json['cover'] as String,
+      map: json['map'] as String,
       elements: List.from(json['elements']));
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
@@ -32,6 +37,7 @@ class Outfit {
         "season": season.toString(),
         "cover": cover.toString(),
         "elements": elements,
+        "map": map.toString()
       };
 
   factory Outfit.fromSnapshot(DocumentSnapshot snapshot) {
