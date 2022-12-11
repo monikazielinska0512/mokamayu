@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/screens/wardrobe/wardrobe_item_search.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,8 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
       Provider.of<WardrobeManager>(context, listen: false)
           .setWardrobeItemList(itemList!);
     });
+    print(Provider.of<WardrobeManager>(context, listen: false)
+        .getFinalWardrobeItemList);
     super.initState();
   }
 
@@ -52,17 +55,16 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   }
 
   Widget buildSearchBarAndFilters() {
+    setState(() {});
     return SizedBox(
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.075,
         child: Row(children: [
-          Expanded(
-              child: SearchBar(title: "Search", hintTitle: "Name of item")),
+         Expanded(child: WardrobeItemSearch(title: "name")),
           SizedBox(width: MediaQuery.of(context).size.width * 0.045),
           CustomIconButton(onPressed: () => {})
         ]));
   }
-
 
   Widget buildFloatingButton() {
     return FloatingButton(
