@@ -17,9 +17,7 @@ class OutfitForm extends StatefulWidget {
   @override
   State<OutfitForm> createState() => _OutfitFormState();
 }
-
 class _OutfitFormState extends State<OutfitForm> {
-  // final _formKey = GlobalKey<FormState>();
   String _season = "";
   String _style = "";
   @override

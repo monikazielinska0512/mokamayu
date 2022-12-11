@@ -51,7 +51,7 @@ class OutfitManager extends ChangeNotifier {
         .collection('users')
         .doc(AuthService().getCurrentUserID())
         .collection('outfits')
-        .add(item.toFirestore());
+        .add(item.toJson());
 
     notifyListeners();
   }

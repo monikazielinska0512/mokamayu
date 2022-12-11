@@ -96,12 +96,18 @@ class OutfitSummaryScreen extends StatelessWidget {
                 ),
               )),
           ButtonDarker(context, "Save", () async {
+            Map<String, String> mapToFirestore = {};
+            map!.forEach((key, value) {
+              // key.toString();
+              // value.toString();
+              mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
+            });
             Outfit data = Outfit(
                 elements: _elements,
                 cover: capturedOutfit,
                 style: _style,
                 season: _season,
-                map: map.toString(),
+                map: mapToFirestore,
                 createdBy: AuthService().getCurrentUserID());
             Provider.of<OutfitManager>(context, listen: false)
                 .addOutfitToFirestore(data);

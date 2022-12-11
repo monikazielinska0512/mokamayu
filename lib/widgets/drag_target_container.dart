@@ -19,6 +19,25 @@ class ContainerList {
     required this.xPosition,
     required this.yPosition,
   });
+
+  factory ContainerList.fromJson(Map<String, dynamic> json) => ContainerList(
+      height: json['height'] as double,
+      rotation: json['rotation'] as double,
+      scale: json['scale'] as double,
+      width: json['width'] as double,
+      xPosition: json['xPosition'] as double,
+      yPosition: json['yPosition'] as double);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'height': height,
+      'rotation': rotation,
+      'scale': scale,
+      'width': width,
+      'xPosition': xPosition,
+      'yPosition': yPosition
+    };
+  }
 }
 
 class DragTargetContainer extends StatefulWidget {

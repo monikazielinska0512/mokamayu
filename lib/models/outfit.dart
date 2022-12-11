@@ -10,7 +10,7 @@ class Outfit {
   final String? season;
   final String cover;
   final List<String>? elements;
-  final String? map;
+  final Map<String, String>? map;
   String? reference;
 
   Outfit({
@@ -23,25 +23,25 @@ class Outfit {
     this.reference,
   });
 
-  factory Outfit.fromFirestore(Map<dynamic, dynamic> json) => Outfit(
+  factory Outfit.fromJson(Map<dynamic, dynamic> json) => Outfit(
       createdBy: json['createdBy'] as String,
       style: json['style'] as String,
       season: json['season'] as String,
       cover: json['cover'] as String,
-      map: json['map'] as String,
+      map: Map.from(json['map']),
       elements: List.from(json['elements']));
 
-  Map<String, dynamic> toFirestore() => <String, dynamic>{
+  Map<String, dynamic> toJson() => <String, dynamic>{
         "createdBy": createdBy.toString(),
         "style": style.toString(),
         "season": season.toString(),
         "cover": cover.toString(),
         "elements": elements,
-        "map": map.toString()
+        "map": map
       };
 
   factory Outfit.fromSnapshot(DocumentSnapshot snapshot) {
-    final item = Outfit.fromFirestore(snapshot.data() as Map<String, dynamic>);
+    final item = Outfit.fromJson(snapshot.data() as Map<String, dynamic>);
     item.reference = snapshot.reference.id;
     return item;
   }
