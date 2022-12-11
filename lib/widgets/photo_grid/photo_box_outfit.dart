@@ -15,44 +15,16 @@ class PhotoCardOutfit extends StatelessWidget {
   final Outfit object;
 
   PhotoCardOutfit({Key? key, required this.object}) : super(key: key);
-  // Map<List<dynamic>, ContainerList>? getMap = {};
 
   @override
   Widget build(BuildContext context) {
     String? photoUrl = object.cover;
     Map<String, String>? map = object.map;
-    print(map);
-
-    // map = map!.replaceFirst(RegExp(r'{'), '');
-    // map = map!.replaceFirst(RegExp(r'}'), '');
-    // map = map.substring(1);
-    // map = '"' + map! + '"';
-
-    // print(getMap);
-    // var iter = 0;
-    // map!.split(', [').forEach((element) {
-    // iter != 0 ? element = '[' + element : element;
-    // iter++;
-    // getMap!.addAll({
-    //   json.decode(element.split(': ')[0]).cast<dynamic>().toList():
-    //       element.split(': ')[1] as ContainerList
-    // });
-    //   print(List.from(element.split(': ')));
-    //   print(element.split(': ')[1]);
-    //   print('here');
-    // });
-    // print(getMap);
-
-    // getMap!.addAll(element as Map<List<dynamic>, ContainerList>));
-    // print(list);
     return GestureDetector(
       onTap: () {
         Map<List<dynamic>, ContainerList>? getMap = {};
         map!.forEach((key, value) {
-          // key.toString();
-          // value.toString();
           Map<String, dynamic> contList = json.decode(value);
-          // print(contList);
           ContainerList list = ContainerList(
               height: contList["height"],
               rotation: contList["rotation"],
@@ -62,8 +34,6 @@ class PhotoCardOutfit extends StatelessWidget {
               yPosition: contList["yPosition"]);
           getMap.addAll({json.decode(key): list});
         });
-
-        // print(getMap);
         GoRouter.of(context)
             .goNamed("outfit-add-attributes-screen", extra: getMap);
       },

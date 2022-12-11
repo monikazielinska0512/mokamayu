@@ -71,8 +71,6 @@ class _OutfitsAddAttributesScreenState
 
                 Provider.of<PhotoTapped>(context, listen: false)
                     .setScreenshot(url);
-                // GoRouter.of(context)
-                //     .goNamed("outfit-summary-screen", extra: map);
                 print(widget.map);
                 _formKey.currentState!.save();
                 GoRouter.of(context)
@@ -106,20 +104,8 @@ class _OutfitsAddAttributesScreenState
             )
           ]),
           OutfitForm(formKey: _formKey),
-          // SizedBox(
-          //   height: 100,
-          // ),
-          // SizedBox(
-          //   width: double.infinity,
-          //   height: 200,
-          //   child: PhotoGrid(
-          //     itemList: itemList,
-          //     scrollVertically: false,
-          //   ),
-          // )
         ],
       ),
-      //),
     );
   }
 }

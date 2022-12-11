@@ -39,9 +39,6 @@ class OutfitSummaryScreen extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
             onPressed: () {
-              // context.goNamed("create-outfit-page",
-              //     extra: Provider.of<WardrobeManager>(context, listen: false)
-              //         .getWardrobeItemList);
               context.goNamed("outfit-add-attributes-screen", extra: map);
             },
             icon: Icon(Icons.arrow_back_ios),
@@ -98,8 +95,6 @@ class OutfitSummaryScreen extends StatelessWidget {
           ButtonDarker(context, "Save", () async {
             Map<String, String> mapToFirestore = {};
             map!.forEach((key, value) {
-              // key.toString();
-              // value.toString();
               mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
             });
             Outfit data = Outfit(
