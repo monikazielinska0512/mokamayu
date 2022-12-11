@@ -4,6 +4,7 @@ class UserData {
   final String uid;
   String email;
   String username;
+  String? profileName;
   String? profilePicture;
   DateTime? birthdayDate;
   String? reference;
@@ -12,21 +13,24 @@ class UserData {
       {required this.uid,
       required this.email,
       required this.username,
+      this.profileName,
       this.profilePicture,
       this.birthdayDate,
       this.reference});
 
   factory UserData.fromFirestore(Map<dynamic, dynamic> json) => UserData(
+      uid: json['uid'] as String,
       email: json['email'] as String,
       username: json['username'] as String,
-      uid: json['uid'] as String,
+      profileName: json['profileName'] as String?,
       profilePicture: json['profilePicture'] as String?,
       birthdayDate: json['birthdayDate'] as DateTime?);
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
+        "uid": uid.toString(),
         "email": email.toString(),
         "username": username.toString(),
-        "uid": uid.toString(),
+        "profileName": profileName,
         "profilePicture": profilePicture,
         "birthdayDate": birthdayDate,
       };

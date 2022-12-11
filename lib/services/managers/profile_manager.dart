@@ -53,6 +53,12 @@ class ProfileManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateProfileName(String newProfileName) async {
+    customUser?.profileName = newProfileName;
+    updateUsersCollection();
+    notifyListeners();
+  }
+
   Future<void> updateBirthdayDate(DateTime newDate) async {
     customUser?.birthdayDate = newDate;
     updateUsersCollection();

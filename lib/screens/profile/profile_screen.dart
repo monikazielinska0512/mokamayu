@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/models/outfit.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
@@ -7,6 +8,7 @@ import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/constants.dart';
 import '../../generated/l10n.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -38,35 +40,97 @@ class _ProfileScreenState extends State<ProfileScreen> {
           outfitsList =
               Provider.of<OutfitManager>(context, listen: false).getOutfitList;
         }));
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          userSummary(context, widget.user, imageRadius: 60),
-          if (AuthService().getCurrentUserID() != widget.user?.uid) ...[
-            Button(
-                context,
-                'Create outfit for ${widget.user?.displayName ?? widget.user?.email}',
-                () => {
-                      // TODO(karina)
-                    })
-          ],
-          FutureBuilder<UserData?>(
-              future: userData,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Text((snapshot.data?.email ?? " "));
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              }),
-          profileContent(context),
-        ],
-      ),
+    return BasicScreen(
+      type: "",
+      leftButtonType: "dots",
+      context: context,
+      isFullScreen: true,
+      body: Stack(children: [
+        const BackgroundImage(
+            imagePath: "assets/images/mountains.png", imageShift: 160),
+        Positioned(
+          bottom: 0,
+          child: BackgroundCard(
+            context: context,
+            height: 0.75,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                buildUserCard(context, widget.user),
+                buildProfileGallery(context),
+              ],
+            ),
+          ),
+        ),
+      ]),
     );
   }
 
-  Widget profileContent(BuildContext context) {
+  Widget buildUserCard(BuildContext context, User? user) {
+    return FutureBuilder<UserData?>(
+        future: userData,
+        builder: (context, snapshot) {
+          return Container(
+            padding: const EdgeInsets.fromLTRB(25, 20, 25, 0),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20), // Image border
+                  child: SizedBox.fromSize(
+                    size: const Size.square(120),
+                    child: Image.asset(
+                        snapshot.data?.profilePicture ??
+                            Assets.avatarPlaceholder,
+                        fit: BoxFit.fill),
+                  ),
+                ),
+                const SizedBox(width: 15),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 10),
+                        Text(
+                            snapshot.data?.profileName ??
+                                snapshot.data?.username ??
+                                'Profile name',
+                            style: TextStyles.h5()),
+                        Text('@${snapshot.data?.username ?? 'username'}',
+                            style: TextStyles.paragraphRegular16(
+                                ColorsConstants.grey)),
+                        buildButtons(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  Widget buildButtons() {
+    if (AuthService().getCurrentUserID() == widget.user?.uid) {
+      return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        // TODO(karina): change buttons to some custom ones
+        ButtonDarker(context, 'edit', () {
+          print('edit');
+          GoRouter.of(context).goNamed('edit-profile');
+        }, shouldExpand: false),
+        ButtonDarker(context, 'friends', () {
+          print('friends');
+        }, shouldExpand: false),
+      ]);
+    } else {
+      return ButtonDarker(context, 'Add friend', () {
+        print('add friend');
+      }, shouldExpand: false);
+    }
+  }
+
+  Widget buildProfileGallery(BuildContext context) {
     List<Tab> tabs = <Tab>[
       Tab(text: S.of(context).wardrobe),
       Tab(text: S.of(context).outfits),
@@ -76,10 +140,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         length: tabs.length,
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               TabBar(
-                labelColor: Colors.black87,
+                indicatorColor: ColorsConstants.darkBrick,
+                labelStyle: TextStyles.paragraphRegular16(),
+                labelColor: ColorsConstants.darkBrick,
+                unselectedLabelColor: ColorsConstants.grey,
                 tabs: tabs,
               ),
               Expanded(

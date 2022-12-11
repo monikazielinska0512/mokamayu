@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
+
 import '../models/wardrobe_item.dart';
 import '../screens/outfits/outfit_summary_screen.dart';
 import '../widgets/drag_target_container.dart';
@@ -54,13 +55,17 @@ class AppRouter {
           name: 'add-wardrobe-item',
           builder: (context, state) {
             String file = state.params['file']!;
-            return AddWardrobeItemForm(photo: file, isEdit: false, disableFields: false);
+            return AddWardrobeItemForm(
+                photo: file, isEdit: false, disableFields: false);
           }),
       GoRoute(
           path: '/wardrobe-item',
           name: 'wardrobe-item',
           builder: (context, state) {
-            return AddWardrobeItemForm(editItem: state.extra as WardrobeItem, isEdit: true, disableFields: true);
+            return AddWardrobeItemForm(
+                editItem: state.extra as WardrobeItem,
+                isEdit: true,
+                disableFields: true);
           }),
       GoRoute(
           name: 'create-outfit-page',
@@ -76,7 +81,12 @@ class AppRouter {
             return OutfitSummaryScreen(
                 map: state.extra as Map<List<dynamic>, ContainerList>?);
           }),
-
+      GoRoute(
+          name: 'edit-profile',
+          path: '/edit-profile',
+          builder: (context, state) {
+            return const EditProfileScreen();
+          }),
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;

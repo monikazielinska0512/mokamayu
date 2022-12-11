@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../constants/text_styles.dart';
 import 'buttons/icon_button.dart';
 import 'drawer.dart';
@@ -95,7 +96,7 @@ class BasicScreen extends StatelessWidget {
       case "wardrobe":
         return Text("Your Wardrobe", style: TextStyles.appTitle(Colors.black));
     }
-    return const Text("");
+    return Text(type, style: TextStyles.appTitle(Colors.black));
   }
 
   Widget buildRightIconButton() {
