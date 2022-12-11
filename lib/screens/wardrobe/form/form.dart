@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/fundamental/snackbar.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/validator.dart';
 import '../../../widgets/chips/multi_select_chips_formfield.dart';
@@ -164,12 +165,9 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             _name = "";
             _styles = [];
             context.go("/home/0");
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Dodano do bazy danych')),
-            );
+            CustomSnackBar.showSuccessSnackBar(context: context, message: "Dodano do bazy danych");
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Formularz nie jest poprawny')));
+            CustomSnackBar.showErrorSnackBar(context: context, message: "Coś poszło nie tak");
           }
         });
   }
@@ -183,12 +181,9 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             Provider.of<WardrobeManager>(context, listen: false)
                 .updateWardrobeItem(widget.item?.reference ?? "", _name, _type,
                     _size, widget.item?.photoURL ?? "", _styles);
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Update')),
-            );
+            CustomSnackBar.showSuccessSnackBar(context: context, message: "Updated");
           } else {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text('Error')));
+            CustomSnackBar.showSuccessSnackBar(context: context, message: "Error");
           }
         });
   }

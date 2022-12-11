@@ -59,12 +59,11 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
           Expanded(
               child: SearchBar(title: "Search", hintTitle: "Name of item")),
           SizedBox(width: MediaQuery.of(context).size.width * 0.045),
-          CustomIconButton(
-              onPressed: () {},
-              width: MediaQuery.of(context).size.width * 0.15,
-              icon: Icons.filter_list)
+          CustomIconButton(onPressed: () => {})
         ]));
   }
+
+
   Widget buildFloatingButton() {
     return FloatingButton(
         onPressed: () {

@@ -4,8 +4,11 @@ import 'package:mokamayu/models/wardrobe_item.dart';
 import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/widgets/photo/photo_box.dart';
 import 'package:mokamayu/widgets/photo/photo_box_outfit.dart';
+import 'package:provider/provider.dart';
 
-class PhotoGrid extends StatelessWidget {
+import '../../services/managers/wardrobe_manager.dart';
+
+class PhotoGrid extends StatefulWidget {
   final bool scrollVertically;
   Future<List<WardrobeItem>>? itemList;
   Future<List<Outfit>>? outfitsList;
@@ -21,21 +24,28 @@ class PhotoGrid extends StatelessWidget {
       scrollVertically ? Axis.vertical : Axis.horizontal;
 
   @override
+  State<PhotoGrid> createState() => _PhotoGridState();
+}
+
+class _PhotoGridState extends State<PhotoGrid> {
+  @override
   Widget build(BuildContext context) {
-    return outfitsList != null ? buildOutfitsGrid() : buildWardrobeItemsGrid();
+    return widget.outfitsList != null
+        ? buildOutfitsGrid()
+        : buildWardrobeItemsGrid();
   }
 
   Widget buildWardrobeItemsGrid() {
     return FutureBuilder<List<WardrobeItem>>(
-      future: itemList,
+      future: widget.itemList,
       builder: (context, snapshot) {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
               child: GridView.builder(
-            scrollDirection: getScrollDirection(),
+            scrollDirection: widget.getScrollDirection(),
             shrinkWrap: false,
             itemCount: snapshot.data!.length,
-            gridDelegate: scrollVertically
+            gridDelegate: widget.scrollVertically
                 ? const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 2.0,
@@ -49,14 +59,56 @@ class PhotoGrid extends StatelessWidget {
                   ),
             itemBuilder: (BuildContext context, int index) {
               var itemInfo = snapshot.data![index];
-              return PhotoBox(
-                object: itemInfo,
-                scrollVertically: scrollVertically,
-              );
+              return GestureDetector(
+                  onLongPress: () {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: 200,
+                          color: Colors.amber,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Text('Usuń $itemInfo]'),
+                                ElevatedButton(
+                                  child: Text('Usuń ${itemInfo.name}'),
+                                  onPressed: () {
+                                    Provider.of<WardrobeManager>(context,
+                                            listen: false)
+                                        .removeWardrobeItem(itemInfo.reference);
+                                    setState(() {
+                                      widget.itemList =
+                                          Provider.of<WardrobeManager>(context,
+                                                  listen: false)
+                                              .readWardrobeItemOnce();
+                                      Future.delayed(Duration.zero)
+                                          .then((value) {
+                                        Provider.of<WardrobeManager>(context,
+                                                listen: false)
+                                            .setWardrobeItemList(
+                                                widget.itemList!);
+                                      });
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: PhotoBox(
+                    object: itemInfo,
+                    scrollVertically: widget.scrollVertically,
+                  ));
             },
           ));
         }
-        return  Center(
+        return Center(
             child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(
             ColorsConstants.darkBrick,
@@ -68,12 +120,12 @@ class PhotoGrid extends StatelessWidget {
 
   Widget buildOutfitsGrid() {
     return FutureBuilder<List<Outfit>>(
-      future: outfitsList,
+      future: widget.outfitsList,
       builder: (context, snapshot) {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
               child: GridView.builder(
-            scrollDirection: getScrollDirection(),
+            scrollDirection: widget.getScrollDirection(),
             shrinkWrap: false,
             itemCount: snapshot.data!.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

@@ -68,5 +68,6 @@ class WardrobeManager extends ChangeNotifier {
         .delete()
         .then((_) => print('Deleted'))
         .catchError((error) => print(' $error'));
+    notifyListeners();
   }
 }

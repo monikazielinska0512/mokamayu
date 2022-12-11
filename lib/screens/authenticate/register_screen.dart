@@ -142,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           .generateErrorMessage(
                                               status, context);
                                       CustomSnackBar.showErrorSnackBar(
-                                        context,
+                                        context: context,
                                         message: error,
                                       );
                                     }

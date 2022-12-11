@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     final error = AuthExceptionHandler
                                         .generateErrorMessage(status, context);
                                     CustomSnackBar.showErrorSnackBar(
-                                      context,
+                                      context: context,
                                       message: error,
                                     );
                                   }
