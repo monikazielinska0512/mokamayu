@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../constants/colors.dart';
 import '../../constants/text_styles.dart';
 import '../../models/outfit.dart';
+import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/managers.dart';
@@ -17,7 +18,7 @@ import '../../widgets/photo_grid/photo.dart';
 
 class OutfitSummaryScreen extends StatelessWidget {
   OutfitSummaryScreen({super.key, this.map});
-  Map<List<dynamic>, ContainerList>? map = {};
+  Map<List<dynamic>, OutfitContainer>? map = {};
   late String capturedOutfit;
   List<WardrobeItem>? itemList;
   List<String> _elements = [];

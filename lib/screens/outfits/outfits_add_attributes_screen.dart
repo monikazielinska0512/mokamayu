@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
+import '../../models/outfit_container.dart';
 import '../../services/managers/wardrobe_manager.dart';
 import '../../services/storage.dart';
 import '../../widgets/background_card.dart';
@@ -16,7 +17,7 @@ import '../../widgets/photo_grid/photo_tapped.dart';
 
 class OutfitsAddAttributesScreen extends StatefulWidget {
   OutfitsAddAttributesScreen({super.key, required this.map});
-  Map<List<dynamic>, ContainerList> map = {};
+  Map<List<dynamic>, OutfitContainer> map = {};
 
   @override
   State<OutfitsAddAttributesScreen> createState() =>

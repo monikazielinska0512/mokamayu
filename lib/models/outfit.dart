@@ -1,8 +1,4 @@
-import 'dart:typed_data';
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../widgets/drag_target_container.dart';
 
 class Outfit {
   final String createdBy;

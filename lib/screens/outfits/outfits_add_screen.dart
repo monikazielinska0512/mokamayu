@@ -1,22 +1,15 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/screens/outfits/outfit_summary_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
-import 'package:screenshot/screenshot.dart';
 
+import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
-import 'package:path_provider/path_provider.dart';
-
-import '../../services/storage.dart';
 
 class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.itemList}) : super(key: key);
   Future<List<WardrobeItem>>? itemList;
-  Map<List<dynamic>, ContainerList> map = {};
+  Map<List<dynamic>, OutfitContainer> map = {};
 
   // ScreenshotController screenshotController = ScreenshotController();
   // Uint8List? capturedOutfit;

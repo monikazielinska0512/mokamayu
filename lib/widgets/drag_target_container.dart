@@ -3,53 +3,18 @@ import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:provider/provider.dart';
 
-class ContainerList {
-  double height;
-  double width;
-  double scale;
-  double rotation;
-  double xPosition;
-  double yPosition;
-
-  ContainerList({
-    required this.height,
-    required this.rotation,
-    required this.scale,
-    required this.width,
-    required this.xPosition,
-    required this.yPosition,
-  });
-
-  factory ContainerList.fromJson(Map<String, dynamic> json) => ContainerList(
-      height: json['height'] as double,
-      rotation: json['rotation'] as double,
-      scale: json['scale'] as double,
-      width: json['width'] as double,
-      xPosition: json['xPosition'] as double,
-      yPosition: json['yPosition'] as double);
-
-  Map<String, dynamic> toJson() {
-    return {
-      'height': height,
-      'rotation': rotation,
-      'scale': scale,
-      'width': width,
-      'xPosition': xPosition,
-      'yPosition': yPosition
-    };
-  }
-}
+import '../models/outfit_container.dart';
 
 class DragTargetContainer extends StatefulWidget {
   DragTargetContainer({Key? key, this.map}) : super(key: key);
-  Map<List<dynamic>, ContainerList>? map = {};
+  Map<List<dynamic>, OutfitContainer>? map = {};
 
   @override
   _DragTargetState createState() => _DragTargetState();
 }
 
 class _DragTargetState extends State<DragTargetContainer> {
-  List<ContainerList> list = [];
+  List<OutfitContainer> list = [];
   late Offset _initPos;
   late Offset _currentPos = const Offset(0, 0);
   late double _currentScale;
