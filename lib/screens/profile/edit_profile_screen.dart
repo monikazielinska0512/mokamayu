@@ -19,6 +19,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController profileNameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  bool isProfilePrivate = false;
 
   // TextEditingController birthdayDate = TextEditingController();
 
@@ -30,6 +31,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       profileNameController.text = data?.profileName ?? ' ';
       usernameController.text = data?.username ?? ' ';
       emailController.text = data?.email ?? ' ';
+      isProfilePrivate = data?.privateProfile ?? false;
     });
     super.initState();
   }
@@ -76,6 +78,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             Provider.of<ProfileManager>(context, listen: false)
                                 .updateEmail,
                             isEmail: true),
+                        buildPrivacySwitch(),
                         // buildRow('Birthday date',
                         //     snapshot.data?.birthdayDate.toString() ?? '', ),
                       ],
@@ -153,5 +156,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       controller.text = previousValue;
     }
+  }
+
+  Widget buildPrivacySwitch() {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Text("Private profile",
+          style: TextStyles.paragraphRegularSemiBold18(ColorsConstants.grey)),
+      Switch(
+        value: isProfilePrivate,
+        activeColor: ColorsConstants.darkBrick,
+        onChanged: (bool value) {
+          setState(() {
+            isProfilePrivate = !isProfilePrivate;
+            Provider.of<ProfileManager>(context, listen: false)
+                .updatePrivacy(isProfilePrivate);
+          });
+        },
+      ),
+    ]);
   }
 }

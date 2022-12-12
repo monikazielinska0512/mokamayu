@@ -75,6 +75,12 @@ class ProfileManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updatePrivacy(bool isPrivate) async {
+    currentCustomUser?.privateProfile = isPrivate;
+    updateUsersCollection();
+    notifyListeners();
+  }
+
   void updateUsersCollection() {
     currentUserDocument.update(currentCustomUser!.toFirestore());
   }
