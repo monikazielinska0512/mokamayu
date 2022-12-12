@@ -85,6 +85,8 @@ class BasicScreen extends StatelessWidget {
             isEdit! ? context.go("/home/0") : context.go("/pick-photo");
             // context.go("/pick-photo");
             break;
+          default:
+            context.go("/home/0");
           //case ...
         }
       },

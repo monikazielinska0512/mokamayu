@@ -7,7 +7,7 @@ import '../../models/models.dart';
 import '../database/database_service.dart';
 
 class ProfileManager extends ChangeNotifier {
-  UserData? _customUser;
+  UserData? _currentCustomUser;
 
   DocumentReference<Map<String, dynamic>> get currentUserDocument =>
       db.collection('users').doc(AuthService().getCurrentUserID());
@@ -16,18 +16,19 @@ class ProfileManager extends ChangeNotifier {
   User? get currentAuthUser => AuthService().currentUser;
 
   // Custom user - in the "users" collection
-  UserData? get currentCustomUser => _customUser;
+  UserData? get currentCustomUser => _currentCustomUser;
 
   void createUser(String email, String username, String uid) async {
     await currentAuthUser?.updateDisplayName(username);
-    _customUser = UserData(email: email, username: username, uid: uid);
+    _currentCustomUser = UserData(email: email, username: username, uid: uid);
     currentUserDocument.set(currentCustomUser!.toFirestore());
   }
 
   Future<UserData?> getCurrentUserData() async {
     if (currentAuthUser != null) {
       DocumentSnapshot? snapshot = await currentUserDocument.get();
-      return UserData.fromSnapshot(snapshot);
+      _currentCustomUser = UserData.fromSnapshot(snapshot);
+      return _currentCustomUser;
     }
     return null;
   }

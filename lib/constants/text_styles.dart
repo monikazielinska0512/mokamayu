@@ -89,11 +89,12 @@ class TextStyles {
         color: color);
   }
 
-  static TextStyle paragraphRegularSemiBold16() {
-    return  TextStyle(
+  static TextStyle paragraphRegularSemiBold16([Color? color = Colors.black]) {
+    return TextStyle(
         fontSize: 16,
         fontFamily: "Poppins",
-        fontWeight: FontWeight.w600);
+        fontWeight: FontWeight.w600,
+        color: color);
   }
 
   static TextStyle paragraphRegular14([Color? color]) {
