@@ -27,8 +27,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    userData =
-        Provider.of<ProfileManager>(context, listen: false).getUserInfo();
+    userData = Provider.of<ProfileManager>(context, listen: false)
+        .getUserData(widget.user);
     super.initState();
   }
 
@@ -71,13 +71,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         future: userData,
         builder: (context, snapshot) {
           return Container(
-            padding: const EdgeInsets.fromLTRB(25, 20, 25, 0),
+            padding: const EdgeInsets.fromLTRB(25, 20, 5, 0),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20), // Image border
                   child: SizedBox.fromSize(
-                    size: const Size.square(120),
+                    size: const Size.square(110),
                     child: Image.asset(
                         snapshot.data?.profilePicture ??
                             Assets.avatarPlaceholder,
@@ -85,24 +86,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 const SizedBox(width: 15),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 10),
-                        Text(
-                            snapshot.data?.profileName ??
-                                snapshot.data?.username ??
-                                'Profile name',
-                            style: TextStyles.h5()),
-                        Text('@${snapshot.data?.username ?? 'username'}',
-                            style: TextStyles.paragraphRegular16(
-                                ColorsConstants.grey)),
-                        buildButtons(),
-                      ],
-                    ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      Text(
+                          snapshot.data?.profileName ??
+                              snapshot.data?.username ??
+                              'Profile name',
+                          style: TextStyles.h5()),
+                      Text('@${snapshot.data?.username ?? 'username'}',
+                          style: TextStyles.paragraphRegular16(
+                              ColorsConstants.grey)),
+                      buildButtons(),
+                    ],
                   ),
                 ),
               ],
@@ -114,19 +113,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget buildButtons() {
     if (AuthService().getCurrentUserID() == widget.user?.uid) {
       return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        // TODO(karina): change buttons to some custom ones
-        ButtonDarker(context, 'edit', () {
-          print('edit');
-          GoRouter.of(context).goNamed('edit-profile');
-        }, shouldExpand: false),
-        ButtonDarker(context, 'friends', () {
-          print('friends');
-        }, shouldExpand: false),
+        IconTextButton(
+          onPressed: () {
+            GoRouter.of(context).goNamed('edit-profile');
+          },
+          icon: Icons.edit_outlined,
+          text: "Edit",
+          backgroundColor: ColorsConstants.peachy,
+        ),
+        IconTextButton(
+          onPressed: () => print('friends list'),
+          icon: Icons.person_outline_outlined,
+          text: "Friends",
+          backgroundColor: ColorsConstants.mint,
+        ),
       ]);
     } else {
-      return ButtonDarker(context, 'Add friend', () {
-        print('add friend');
-      }, shouldExpand: false);
+      return IconTextButton(
+        onPressed: () => print('friends list'),
+        icon: Icons.person_outline_outlined,
+        text: "Add friend",
+        backgroundColor: ColorsConstants.mint,
+      );
     }
   }
 
@@ -139,6 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: DefaultTabController(
         length: tabs.length,
         child: SafeArea(
+          top: false,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

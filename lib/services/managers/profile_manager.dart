@@ -9,63 +9,72 @@ import '../database/database_service.dart';
 class ProfileManager extends ChangeNotifier {
   UserData? _customUser;
 
-  DocumentReference<Map<String, dynamic>> get usersCollection =>
+  DocumentReference<Map<String, dynamic>> get currentUserDocument =>
       db.collection('users').doc(AuthService().getCurrentUserID());
 
   // Default user - in the Authentication tab
-  User? get authUser => AuthService().currentUser;
+  User? get currentAuthUser => AuthService().currentUser;
 
   // Custom user - in the "users" collection
-  UserData? get customUser => _customUser;
+  UserData? get currentCustomUser => _customUser;
 
   void createUser(String email, String username, String uid) async {
-    await authUser?.updateDisplayName(username);
+    await currentAuthUser?.updateDisplayName(username);
     _customUser = UserData(email: email, username: username, uid: uid);
-    usersCollection.set(customUser!.toFirestore());
+    currentUserDocument.set(currentCustomUser!.toFirestore());
   }
 
-  Future<UserData?> getUserInfo() async {
-    if (authUser != null) {
-      DocumentSnapshot? snapshot = await usersCollection.get();
+  Future<UserData?> getCurrentUserData() async {
+    if (currentAuthUser != null) {
+      DocumentSnapshot? snapshot = await currentUserDocument.get();
+      return UserData.fromSnapshot(snapshot);
+    }
+    return null;
+  }
+
+  Future<UserData?> getUserData(User? user) async {
+    if (user != null) {
+      DocumentSnapshot? snapshot =
+          await db.collection('users').doc(user.uid).get();
       return UserData.fromSnapshot(snapshot);
     }
     return null;
   }
 
   Future<void> updateEmail(String newEmail) async {
-    await authUser?.updateEmail(newEmail);
-    customUser?.email = newEmail;
+    await currentAuthUser?.updateEmail(newEmail);
+    currentCustomUser?.email = newEmail;
     updateUsersCollection();
     notifyListeners();
   }
 
   Future<void> updateUsername(String newUsername) async {
-    await authUser?.updateDisplayName(newUsername);
-    customUser?.username = newUsername;
+    await currentAuthUser?.updateDisplayName(newUsername);
+    currentCustomUser?.username = newUsername;
     updateUsersCollection();
     notifyListeners();
   }
 
   Future<void> updateProfilePicture(String newPhotoPath) async {
-    await authUser?.updatePhotoURL(newPhotoPath);
-    customUser?.profilePicture = newPhotoPath;
+    await currentAuthUser?.updatePhotoURL(newPhotoPath);
+    currentCustomUser?.profilePicture = newPhotoPath;
     updateUsersCollection();
     notifyListeners();
   }
 
   Future<void> updateProfileName(String newProfileName) async {
-    customUser?.profileName = newProfileName;
+    currentCustomUser?.profileName = newProfileName;
     updateUsersCollection();
     notifyListeners();
   }
 
   Future<void> updateBirthdayDate(DateTime newDate) async {
-    customUser?.birthdayDate = newDate;
+    currentCustomUser?.birthdayDate = newDate;
     updateUsersCollection();
     notifyListeners();
   }
 
   void updateUsersCollection() {
-    usersCollection.update(customUser!.toFirestore());
+    currentUserDocument.update(currentCustomUser!.toFirestore());
   }
 }

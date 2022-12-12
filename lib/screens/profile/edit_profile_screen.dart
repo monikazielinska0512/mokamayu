@@ -18,8 +18,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   void initState() {
-    userData =
-        Provider.of<ProfileManager>(context, listen: false).getUserInfo();
+    userData = Provider.of<ProfileManager>(context, listen: false)
+        .getCurrentUserData();
     super.initState();
   }
 
@@ -31,7 +31,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       context: context,
       isFullScreen: true,
       body: Stack(children: [
-        // buildBackgroundImage(),
         const BackgroundImage(
             imagePath: "assets/images/mountains.png", imageShift: 180),
         Positioned(

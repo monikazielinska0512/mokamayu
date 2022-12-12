@@ -45,6 +45,7 @@ class BasicScreen extends StatelessWidget {
         appBar: isAppBarVisible!
             ? AppBar(
                 title: buildPageTitle(),
+                centerTitle: true,
                 backgroundColor: Colors.transparent,
                 foregroundColor: color,
                 elevation: 0,

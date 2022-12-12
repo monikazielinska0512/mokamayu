@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<ProfileManager>(context).authUser;
+    final user = Provider.of<ProfileManager>(context).currentAuthUser;
 
     List<Widget> pages = [
       const WardrobeScreen(),
