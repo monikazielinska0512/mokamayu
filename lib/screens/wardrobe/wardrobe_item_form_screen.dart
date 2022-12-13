@@ -31,7 +31,7 @@ class AddWardrobeItemForm extends StatefulWidget {
 class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
   @override
   void initState() {
-    widget.isLocked = (widget.isEdit == true ? true : false);
+    widget.isLocked = (widget.isEdit == true ? false : true);
     super.initState();
   }
 
@@ -40,6 +40,8 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
     return BasicScreen(
         context: context,
         isFullScreen: true,
+        isEdit: true,
+        color: Colors.white,
         rightButtonType: "",
         body: Stack(children: [buildBackgroundPhoto(), buildForm()]),
         type: "wardrobe_item_form");
@@ -70,26 +72,13 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
           context: context,
           height: 0.6,
           child: AbsorbPointer(
-              absorbing: widget.isLocked!,
-              child: Column(children: [
-                WardrobeItemForm(
-                    photoPath: widget.photo ?? "", item: widget.editItem),
-                Positioned(
-                    height: MediaQuery.of(context).size.height - 700,
-                    width: MediaQuery.of(context).size.width - 310,
-                    child: IconButton(
-                      iconSize: 30,
-                      color: Colors.white,
-                      onPressed: () {
-                        widget.isEdit
-                            ? context.go("/home/0")
-                            : context.go("/pick-photo");
-                      },
-                      icon: Icon(Icons.arrow_back_ios),
-                    ))
-              ]))),
+            absorbing: widget.isLocked!,
+            child: WardrobeItemForm(
+                photoPath: widget.photo ?? "", item: widget.editItem),
+          )),
       // child: Column(children: [
       //   widget.isEdit ? buildEditFormButtons() : Container(),
+      // )
     );
   }
 

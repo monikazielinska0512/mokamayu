@@ -16,6 +16,8 @@ class BasicScreen extends StatelessWidget {
   String? leftButtonType = "back";
   String? rightButtonType = "bell";
   bool? isFullScreen;
+  bool? isEdit;
+  Color? color;
 
   final GlobalKey<ScaffoldState> _key = GlobalKey();
 
@@ -24,6 +26,8 @@ class BasicScreen extends StatelessWidget {
     required this.context,
     required this.body,
     required this.type,
+    this.isEdit = false,
+    this.color = Colors.black,
     this.isFullScreen = false,
     this.isAppBarVisible = true,
     this.isLeftButtonVisible = true,
@@ -45,7 +49,7 @@ class BasicScreen extends StatelessWidget {
             ? AppBar(
                 title: buildPageTitle(),
                 backgroundColor: Colors.transparent,
-                foregroundColor: Colors.black,
+                foregroundColor: color,
                 elevation: 0,
                 actions: [buildRightIconButton()],
                 leading: (leftButtonType == "back")
@@ -78,7 +82,8 @@ class BasicScreen extends StatelessWidget {
             context.go("/home/0");
             break;
           case "wardrobe_item_form":
-            context.go("/pick-photo");
+            isEdit! ? context.go("/home/0") : context.go("/pick-photo");
+            // context.go("/pick-photo");
             break;
           //case ...
         }
