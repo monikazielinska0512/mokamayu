@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/outfit_container.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
-import 'package:mokamayu/widgets/drag_target_container.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/colors.dart';
