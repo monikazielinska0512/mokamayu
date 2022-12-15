@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -10,7 +9,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../../constants/colors.dart';
 import '../../models/outfit.dart';
 import '../../models/outfit_container.dart';
 import '../../services/managers/wardrobe_manager.dart';
@@ -19,17 +17,10 @@ import '../../widgets/drag_target_container.dart';
 import '../../widgets/photo_grid/photo_grid.dart';
 import '../../widgets/photo_grid/photo_tapped.dart';
 
-class OutfitsAddAttributesScreen extends StatefulWidget {
-  OutfitsAddAttributesScreen({super.key, required this.map});
+class OutfitsAddAttributesScreen extends StatelessWidget {
+  OutfitsAddAttributesScreen({Key? key, required this.map}) : super(key: key);
   Map<List<dynamic>, OutfitContainer> map = {};
 
-  @override
-  State<OutfitsAddAttributesScreen> createState() =>
-      _OutfitsAddAttributesScreenState();
-}
-
-class _OutfitsAddAttributesScreenState
-    extends State<OutfitsAddAttributesScreen> {
   @override
   Widget build(BuildContext context) {
     double deviceHeight(BuildContext context) =>
@@ -43,9 +34,9 @@ class _OutfitsAddAttributesScreenState
     Outfit? item = Provider.of<PhotoTapped>(context, listen: false).getObject;
     int index =
         Provider.of<OutfitManager>(context, listen: false).getOutfitsNumber;
-    Provider.of<PhotoTapped>(context, listen: false).setMap(widget.map);
+    Provider.of<PhotoTapped>(context, listen: false).setMap(map);
 
-    widget.map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
+    map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -104,11 +95,11 @@ class _OutfitsAddAttributesScreenState
 
                   Provider.of<PhotoTapped>(context, listen: false)
                       .setScreenshot(url);
-                  print(widget.map);
+                  print(map);
                   _formKey.currentState!.save();
 
                   GoRouter.of(context)
-                      .goNamed("outfit-summary-screen", extra: widget.map);
+                      .goNamed("outfit-summary-screen", extra: map);
                 }).catchError((onError) {
                   print(onError);
                 });
@@ -117,12 +108,12 @@ class _OutfitsAddAttributesScreenState
           ],
         ),
         body: item != null
-            ? bodyEdit(screenshotController, _formKey, item)
-            : bodyAdd(screenshotController, _formKey, item));
+            ? bodyEdit(screenshotController, _formKey, item, context)
+            : bodyAdd(screenshotController, _formKey, item, context));
   }
 
   Widget bodyEdit(ScreenshotController screenshotController,
-      GlobalKey<FormState> _formKey, Outfit item) {
+      GlobalKey<FormState> _formKey, Outfit item, BuildContext context) {
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
     double deviceWidth(BuildContext context) =>
@@ -147,7 +138,7 @@ class _OutfitsAddAttributesScreenState
                     EdgeInsets.fromLTRB(0, deviceHeight(context) * 0.14, 0, 0),
                 child: Screenshot(
                     controller: screenshotController,
-                    child: DragTargetContainer(map: widget.map)),
+                    child: DragTargetContainer(map: map)),
               ),
             )
           ]),
@@ -183,7 +174,7 @@ class _OutfitsAddAttributesScreenState
   }
 
   Widget bodyAdd(ScreenshotController screenshotController,
-      GlobalKey<FormState> _formKey, Outfit? item) {
+      GlobalKey<FormState> _formKey, Outfit? item, BuildContext context) {
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
     return Column(
@@ -203,7 +194,7 @@ class _OutfitsAddAttributesScreenState
                   EdgeInsets.fromLTRB(0, deviceHeight(context) * 0.14, 0, 0),
               child: Screenshot(
                   controller: screenshotController,
-                  child: DragTargetContainer(map: widget.map)),
+                  child: DragTargetContainer(map: map)),
             ),
           )
         ]),

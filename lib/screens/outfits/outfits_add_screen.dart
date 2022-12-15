@@ -31,6 +31,7 @@ class CreateOutfitPage extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             Provider.of<PhotoTapped>(context, listen: false).setMap({});
+            Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
             context.go("/home/1");
           },
           icon: Icon(Icons.arrow_back_ios),
@@ -42,6 +43,7 @@ class CreateOutfitPage extends StatelessWidget {
               size: 35,
             ),
             onPressed: () {
+              Provider.of<PhotoTapped>(context, listen: false).setObject(null);
               GoRouter.of(context)
                   .goNamed("outfit-add-attributes-screen", extra: map);
             },

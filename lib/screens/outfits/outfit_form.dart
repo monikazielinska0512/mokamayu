@@ -8,17 +8,10 @@ import '../../services/managers/outfit_manager.dart';
 import '../../utils/validator.dart';
 import '../../widgets/chips/single_select_chips_formfield.dart';
 
-class OutfitForm extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-
-  const OutfitForm({super.key, required this.formKey, this.item});
+class OutfitForm extends StatelessWidget {
+  OutfitForm({super.key, required this.formKey, this.item});
   final Outfit? item;
-
-  @override
-  State<OutfitForm> createState() => _OutfitFormState();
-}
-
-class _OutfitFormState extends State<OutfitForm> {
+  final GlobalKey<FormState> formKey;
   String _season = "";
   String _style = "";
   @override
@@ -30,14 +23,14 @@ class _OutfitFormState extends State<OutfitForm> {
             const EdgeInsets.only(top: 30, bottom: 10, left: 30, right: 30),
         child: SingleChildScrollView(
             child: Form(
-                key: widget.formKey,
+                key: formKey,
                 child: Column(children: [
-                  buildSeasonChipsField(),
-                  buildStyleChipsField()
+                  buildSeasonChipsField(context),
+                  buildStyleChipsField(context)
                 ]))));
   }
 
-  Widget buildSeasonChipsField() {
+  Widget buildSeasonChipsField(BuildContext context) {
     return Column(children: [
       Align(
           alignment: Alignment.centerLeft,
@@ -63,7 +56,7 @@ class _OutfitFormState extends State<OutfitForm> {
     ]);
   }
 
-  Widget buildStyleChipsField() {
+  Widget buildStyleChipsField(BuildContext context) {
     return Column(children: [
       Align(
           alignment: Alignment.centerLeft,

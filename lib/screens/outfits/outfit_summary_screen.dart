@@ -33,10 +33,6 @@ class OutfitSummaryScreen extends StatelessWidget {
         Provider.of<PhotoTapped>(context, listen: false).getScreenshot;
     _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
     _style = Provider.of<OutfitManager>(context, listen: false).getStyle!;
-    // String imagePath =
-    //     Provider.of<PhotoTapped>(context, listen: false).getImagePath;
-
-    //if item no null then EDIT, else SAVE
     Outfit? item = Provider.of<PhotoTapped>(context, listen: false).getObject;
     return Scaffold(
         appBar: AppBar(
