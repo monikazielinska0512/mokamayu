@@ -35,27 +35,6 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //     body: Stack(children: [
-    //   Column(children: [
-    //     Expanded(
-    //         child: Padding(
-    //             padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-    //             child: PhotoGrid(outfitsList: outfitsList)))
-    //   ]),
-    //   FloatingButton(
-    //       onPressed: () {
-    //         showDialog(
-    //             context: context,
-    //             builder: (BuildContext context) {
-    //               return CustomDialogBox.outfitsDialog(context, itemList);
-    //             });
-    //       },
-    //       icon: const Icon(Icons.add),
-    //       backgroundColor: ColorsConstants.darkBrick,
-    //       padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
-    //       alignment: Alignment.bottomRight)
-    // ]));
     return BasicScreen(
         type: "outfits",
         leftButtonType: "dots",
