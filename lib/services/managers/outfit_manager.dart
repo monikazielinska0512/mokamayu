@@ -11,24 +11,26 @@ class OutfitManager extends ChangeNotifier {
   Future<List<Outfit>>? get getOutfitList => futureOutfitList;
   List<Outfit> get getfinalOutfitList => finalOutfitList;
 
-  String outfitStyle = "";
-  String outfitSeason = "";
+  int get getOutfitsNumber => finalOutfitList.length;
+
+  String? outfitStyle = "";
+  String? outfitSeason = "";
 
   void setOutfits(Future<List<Outfit>> outfitsList) {
     futureOutfitList = outfitsList;
   }
 
-  void setStyle(String style) {
+  void setStyle(String? style) {
     outfitStyle = style;
   }
 
-  String get getStyle => outfitStyle;
+  String? get getStyle => outfitStyle;
 
-  void setSeason(String season) {
+  void setSeason(String? season) {
     outfitSeason = season;
   }
 
-  String get getSeason => outfitSeason;
+  String? get getSeason => outfitSeason;
 
   Future<List<Outfit>> readOutfitsOnce() async {
     QuerySnapshot snapshot = await db
@@ -54,5 +56,34 @@ class OutfitManager extends ChangeNotifier {
         .add(item.toJson());
 
     notifyListeners();
+  }
+
+  void updateOutfit(String reference, String? style, String? season,
+      String? cover, List<String>? elements, Map<String, String>? map) {
+    db
+        .collection('users')
+        .doc(AuthService().getCurrentUserID())
+        .collection('outfits')
+        .doc(reference)
+        .update({
+          "style": style,
+          "season": season,
+          "cover": cover,
+          "elements": elements,
+          "map": map,
+        })
+        .then((_) => print('Updated'))
+        .catchError((error) => print('Update failed: $error'));
+  }
+
+  void removeOutfit(String? reference) {
+    db
+        .collection('users')
+        .doc(AuthService().getCurrentUserID())
+        .collection('outfits')
+        .doc(reference)
+        .delete()
+        .then((_) => print('Deleted'))
+        .catchError((error) => print(' $error'));
   }
 }

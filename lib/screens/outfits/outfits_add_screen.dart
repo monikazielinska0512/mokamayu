@@ -11,12 +11,10 @@ class CreateOutfitPage extends StatelessWidget {
   Future<List<WardrobeItem>>? itemList;
   Map<List<dynamic>, OutfitContainer> map = {};
 
-  // ScreenshotController screenshotController = ScreenshotController();
-  // Uint8List? capturedOutfit;
-
   @override
   Widget build(BuildContext context) {
-    map = Provider.of<PhotoTapped>(context, listen: true).getMap;
+    map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
+    print(map);
 
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
@@ -32,6 +30,7 @@ class CreateOutfitPage extends StatelessWidget {
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         leading: IconButton(
           onPressed: () {
+            Provider.of<PhotoTapped>(context, listen: false).setMap({});
             context.go("/home/1");
           },
           icon: Icon(Icons.arrow_back_ios),
@@ -43,24 +42,8 @@ class CreateOutfitPage extends StatelessWidget {
               size: 35,
             ),
             onPressed: () {
-              // screenshotController.capture().then((capturedImage) async {
-              // capturedOutfit = capturedImage;
-              // final directory = await getApplicationDocumentsDirectory();
-              // final imagePath =
-              //     await File('${directory.path}/image.png').create();
-              // await imagePath.writeAsBytes(capturedOutfit!);
-              // String url =
-              //     await StorageService().uploadFile(context, imagePath.path);
-
-              // Provider.of<PhotoTapped>(context, listen: false)
-              //     .setScreenshot(url);
-              // GoRouter.of(context)
-              //     .goNamed("outfit-summary-screen", extra: map);
               GoRouter.of(context)
                   .goNamed("outfit-add-attributes-screen", extra: map);
-              // }).catchError((onError) {
-              //   print(onError);
-              // });
             },
           )
         ],
@@ -80,8 +63,6 @@ class CreateOutfitPage extends StatelessWidget {
               child: Padding(
                   padding: EdgeInsets.fromLTRB(
                       0, deviceHeight(context) * 0.14, 0, 0),
-                  // child: Screenshot(
-                  //     controller: screenshotController,
                   child: DragTargetContainer(map: map)
                   // ),
                   ),

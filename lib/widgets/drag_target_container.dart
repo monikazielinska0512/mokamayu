@@ -46,6 +46,7 @@ class _DragTargetState extends State<DragTargetContainer> {
         children: widget.map!.entries.map((entry) {
           return GestureDetector(
             onTap: () {
+              print('here');
               widget.map!.removeWhere((key, value) => key == entry.key);
               Provider.of<PhotoTapped>(context, listen: false)
                   .photoRemoved(entry.key[1]);

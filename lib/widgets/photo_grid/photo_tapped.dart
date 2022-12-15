@@ -1,17 +1,40 @@
 import 'package:flutter/foundation.dart';
 
+import '../../models/outfit.dart';
 import '../../models/outfit_container.dart';
 
 class PhotoTapped extends ChangeNotifier {
-  Map<List<String>, OutfitContainer> map = {};
+  // Map<List<String>, OutfitContainer> map = {};
+  Map<List<dynamic>, OutfitContainer> mapDynamic = {};
   List<String> listOfIds = [];
   late String screenshot;
   String get getScreenshot => screenshot;
-  Map<List<String>, OutfitContainer> get getMap => map;
+  // Map<List<String>, OutfitContainer> get getMap => map;
+  Outfit? item;
+  late String imagePath;
+  String get getImagePath => imagePath;
+
+  void setImagePath(String newImagePath) {
+    imagePath = newImagePath;
+  }
+
+  Map<List<dynamic>, OutfitContainer> get getMapDynamic => mapDynamic;
+
+  void setObject(Outfit? newItem) {
+    item = newItem;
+  }
+
+  Outfit? get getObject => item;
 
   void nullMap(List<String> ids) {
-    map = {};
+    mapDynamic = {};
     ids.forEach((element) => listOfIds.removeWhere((el) => el == element));
+    notifyListeners();
+  }
+
+  void nullWholeMap() {
+    listOfIds = [];
+    mapDynamic = {};
     notifyListeners();
   }
 
@@ -20,13 +43,20 @@ class PhotoTapped extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setMap(Map<List<dynamic>, OutfitContainer> newMap) {
+    mapDynamic = newMap;
+  }
+
   void photoRemoved(String id) {
     listOfIds.remove(id);
+    print(listOfIds);
   }
 
   void addToMap(String photoURL, String id) {
+    print(id);
+    print(listOfIds);
     if (!listOfIds.contains(id)) {
-      map.addAll({
+      mapDynamic.addAll({
         [photoURL, id]: OutfitContainer(
           height: 100.0,
           width: 100.0,
@@ -38,6 +68,7 @@ class PhotoTapped extends ChangeNotifier {
       });
       listOfIds.add(id);
     }
+    // mapDynamic = map;
     notifyListeners();
   }
 }

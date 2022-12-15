@@ -23,6 +23,7 @@ class CustomDialogBox {
       actions: <Widget>[
         CupertinoDialogAction(
           onPressed: () {
+            Provider.of<PhotoTapped>(context, listen: false).setMap({});
             context.goNamed("create-outfit-page", extra: itemList!);
             Navigator.of(context).pop();
           },

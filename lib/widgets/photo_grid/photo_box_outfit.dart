@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:mokamayu/models/outfit.dart';
+import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/outfit_container.dart';
+import '../../services/managers/outfit_manager.dart';
 
 class PhotoCardOutfit extends StatelessWidget {
   final Outfit object;
@@ -30,6 +33,11 @@ class PhotoCardOutfit extends StatelessWidget {
               yPosition: contList["yPosition"]);
           getMap.addAll({json.decode(key): list});
         });
+        Provider.of<PhotoTapped>(context, listen: false).setObject(object);
+        Provider.of<OutfitManager>(context, listen: false)
+            .setSeason(object.season);
+        Provider.of<OutfitManager>(context, listen: false)
+            .setStyle(object.style);
         GoRouter.of(context)
             .goNamed("outfit-add-attributes-screen", extra: getMap);
       },

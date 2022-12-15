@@ -17,15 +17,14 @@ class OutfitForm extends StatefulWidget {
   @override
   State<OutfitForm> createState() => _OutfitFormState();
 }
+
 class _OutfitFormState extends State<OutfitForm> {
   String _season = "";
   String _style = "";
   @override
   Widget build(BuildContext context) {
-    _season = Provider.of<OutfitManager>(context, listen: false).getSeason;
-    print(_season);
-    _style = Provider.of<OutfitManager>(context, listen: false).getStyle;
-    print(_style);
+    _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
+    _style = Provider.of<OutfitManager>(context, listen: false).getStyle!;
     return Padding(
         padding:
             const EdgeInsets.only(top: 30, bottom: 10, left: 30, right: 30),
@@ -89,58 +88,4 @@ class _OutfitFormState extends State<OutfitForm> {
           )),
     ]);
   }
-
-  // Widget buildAddButton() {
-  //   return ElevatedButton(
-  //       child: const Text('Apply'),
-  //       onPressed: () async {
-  //         _formKey.currentState!.save();
-  //         if (_formKey.currentState!.validate()) {
-  //           String url = await StorageService()
-  //               .uploadFile(context, widget.photoPath ?? "");
-  //           final item = WardrobeItem(
-  //               name: _name,
-  //               type: _type,
-  //               size: _size,
-  //               photoURL: url,
-  //               styles: _styles,
-  //               created: DateTime.now());
-
-  //           Provider.of<WardrobeManager>(context, listen: false)
-  //               .addWardrobeItem(item);
-
-  //           _type = "";
-  //           _size = "";
-  //           _name = "";
-  //           _styles = [];
-  //           context.go("/home/0");
-  //           ScaffoldMessenger.of(context).showSnackBar(
-  //             const SnackBar(content: Text('Dodano do bazy danych')),
-  //           );
-  //         } else {
-  //           ScaffoldMessenger.of(context).showSnackBar(
-  //               const SnackBar(content: Text('Formularz nie jest poprawny')));
-  //         }
-  //       });
-  // }
-
-  // Widget buildUpdateButton() {
-  //   return ElevatedButton(
-  //       child: const Text('Update'),
-  //       onPressed: () async {
-  //         _formKey.currentState!.save();
-  //         if (_formKey.currentState!.validate()) {
-  //           Provider.of<WardrobeManager>(context, listen: false)
-  //               .updateWardrobeItem(widget.item?.reference ?? "", _name, _type,
-  //                   _size, widget.item?.photoURL ?? "", _styles);
-  //           context.go("/home/0");
-  //           ScaffoldMessenger.of(context).showSnackBar(
-  //             const SnackBar(content: Text('Update')),
-  //           );
-  //         } else {
-  //           ScaffoldMessenger.of(context)
-  //               .showSnackBar(const SnackBar(content: Text('Error')));
-  //         }
-  //       });
-  // }
 }

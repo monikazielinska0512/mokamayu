@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/models/outfit_container.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
-import '../models/outfit_container.dart';
 import '../models/wardrobe_item.dart';
 import '../screens/outfits/outfit_summary_screen.dart';
 import '../screens/outfits/outfits_add_attributes_screen.dart';
