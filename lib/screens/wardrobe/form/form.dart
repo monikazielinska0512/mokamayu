@@ -96,6 +96,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             validator: (value) =>
                 Validator.checkIfSingleValueSelected(value!, context),
             onSaved: (value) => _type = value!,
+            color: ColorsConstants.darkMint,
             chipsList: const ["T-Shirt", "Dress", "Skirt", "Shoes"],
           ))
     ]);
@@ -117,6 +118,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             validator: (value) =>
                 Validator.checkIfSingleValueSelected(value!, context),
             onSaved: (value) => _size = value!,
+            color: ColorsConstants.darkMint,
             chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
           )),
     ]);

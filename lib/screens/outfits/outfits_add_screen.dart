@@ -1,29 +1,20 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/screens/outfits/outfit_summary_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
-import 'package:screenshot/screenshot.dart';
 
+import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
-import 'package:path_provider/path_provider.dart';
-
-import '../../services/storage.dart';
 
 class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.itemList}) : super(key: key);
   Future<List<WardrobeItem>>? itemList;
-  Map<List<dynamic>, ContainerList> map = {};
-
-  ScreenshotController screenshotController = ScreenshotController();
-  Uint8List? capturedOutfit;
+  Map<List<dynamic>, OutfitContainer> map = {};
 
   @override
   Widget build(BuildContext context) {
-    map = Provider.of<PhotoTapped>(context, listen: true).getMap;
+    map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
+    print(map);
 
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
@@ -39,6 +30,8 @@ class CreateOutfitPage extends StatelessWidget {
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         leading: IconButton(
           onPressed: () {
+            Provider.of<PhotoTapped>(context, listen: false).setMap({});
+            Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
             context.go("/home/1");
           },
           icon: Icon(Icons.arrow_back_ios),
@@ -50,22 +43,9 @@ class CreateOutfitPage extends StatelessWidget {
               size: 35,
             ),
             onPressed: () {
-              screenshotController.capture().then((capturedImage) async {
-                capturedOutfit = capturedImage;
-                final directory = await getApplicationDocumentsDirectory();
-                final imagePath =
-                    await File('${directory.path}/image.png').create();
-                await imagePath.writeAsBytes(capturedOutfit!);
-                String url =
-                    await StorageService().uploadFile(context, imagePath.path);
-
-                Provider.of<PhotoTapped>(context, listen: false)
-                    .setScreenshot(url);
-                GoRouter.of(context)
-                    .goNamed("outfit-summary-screen", extra: map);
-              }).catchError((onError) {
-                print(onError);
-              });
+              Provider.of<PhotoTapped>(context, listen: false).setObject(null);
+              GoRouter.of(context)
+                  .goNamed("outfit-add-attributes-screen", extra: map);
             },
           )
         ],
@@ -83,12 +63,11 @@ class CreateOutfitPage extends StatelessWidget {
             )),
             Positioned(
               child: Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, deviceHeight(context) * 0.14, 0, 0),
-                child: Screenshot(
-                    controller: screenshotController,
-                    child: DragTargetContainer(map: map)),
-              ),
+                  padding: EdgeInsets.fromLTRB(
+                      0, deviceHeight(context) * 0.14, 0, 0),
+                  child: DragTargetContainer(map: map)
+                  // ),
+                  ),
             )
           ]),
           //TODO categories for wardrobe

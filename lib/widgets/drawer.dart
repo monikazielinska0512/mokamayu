@@ -3,12 +3,12 @@ import 'package:mokamayu/services/services.dart';
 import 'package:provider/provider.dart';
 
 Drawer drawer(BuildContext context) {
-  AuthService auth = AuthService();
-  // TODO(karina): change to provider
-
   return Drawer(
       child: ListView(
     children: [
+      const DrawerHeader(
+        child: Text("Menu"),
+      ),
       ListTile(
         title: const Text('Settings'),
         onTap: () {

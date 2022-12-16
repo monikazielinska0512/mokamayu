@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../constants/text_styles.dart';
 import 'buttons/icon_button.dart';
 import 'drawer.dart';
@@ -44,6 +45,7 @@ class BasicScreen extends StatelessWidget {
         appBar: isAppBarVisible!
             ? AppBar(
                 title: buildPageTitle(),
+                centerTitle: true,
                 backgroundColor: Colors.transparent,
                 foregroundColor: color,
                 elevation: 0,
@@ -83,6 +85,8 @@ class BasicScreen extends StatelessWidget {
             isEdit! ? context.go("/home/0") : context.go("/pick-photo");
             // context.go("/pick-photo");
             break;
+          default:
+            context.go("/home/0");
           //case ...
         }
       },
@@ -94,8 +98,10 @@ class BasicScreen extends StatelessWidget {
     switch (type) {
       case "wardrobe":
         return Text("Your Wardrobe", style: TextStyles.appTitle(Colors.black));
+      case "outfits":
+        return Text("Outfits", style: TextStyles.appTitle(Colors.black));
     }
-    return const Text("");
+    return Text(type, style: TextStyles.appTitle(Colors.black));
   }
 
   Widget buildRightIconButton() {
