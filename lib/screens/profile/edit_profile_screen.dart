@@ -108,10 +108,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 : Image.asset(Assets.avatarPlaceholder, fit: BoxFit.fill),
           ),
         ),
-        ImagePickerButton(onUpdate: (photoPath) {
-          Provider.of<ProfileManager>(context, listen: false)
-              .updateProfilePicture(photoPath);
-        })
+        ImagePickerButton(
+            canRemoveImage: profilePicture != null,
+            onUpdate: (String? photoPath) {
+              Provider.of<ProfileManager>(context, listen: false)
+                  .updateProfilePicture(photoPath);
+            })
       ],
     );
   }

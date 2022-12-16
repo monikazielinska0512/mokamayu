@@ -56,7 +56,7 @@ class ProfileManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateProfilePicture(String newPhotoPath) async {
+  Future<void> updateProfilePicture(String? newPhotoPath) async {
     await currentAuthUser?.updatePhotoURL(newPhotoPath);
     currentCustomUser?.profilePicture = newPhotoPath;
     updateUsersCollection();

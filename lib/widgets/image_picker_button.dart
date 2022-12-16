@@ -4,11 +4,12 @@ import 'package:image_picker/image_picker.dart';
 import '../constants/constants.dart';
 import '../services/storage.dart';
 
-
 class ImagePickerButton extends StatelessWidget {
-  final Function(String) onUpdate;
+  final Function(String?) onUpdate;
+  final bool canRemoveImage;
 
-  const ImagePickerButton({super.key, required this.onUpdate});
+  const ImagePickerButton(
+      {super.key, required this.onUpdate, this.canRemoveImage = false});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +18,19 @@ class ImagePickerButton extends StatelessWidget {
       {
         showModalBottomSheet(
             context: context,
-            builder: (BuildContext bc) {
+            builder: (BuildContext buildContext) {
               return SafeArea(
-                child: Wrap(children: <Widget>[
-                  buildImageSourceOption(
-                      context, const Icon(Icons.photo_library),
+                child: Wrap(children: [
+                  if (canRemoveImage) ...[
+                    buildImageSourceOption(
+                        buildContext, const Icon(Icons.delete), "Remove photo",
+                        null)
+                  ],
+                  buildImageSourceOption(buildContext, const Icon(
+                      Icons.photo_library),
                       "Gallery", ImageSource.gallery),
-                  buildImageSourceOption(
-                      context, const Icon(Icons.photo_camera),
+                  buildImageSourceOption(buildContext, const Icon(
+                      Icons.photo_camera),
                       "Camera", ImageSource.camera),
                 ]),
               );
@@ -45,21 +51,24 @@ class ImagePickerButton extends StatelessWidget {
         onTap: () {
           if (source != null) {
             pickImage(context, source);
+          } else {
+            removeImage();
           }
           Navigator.of(context).pop();
         });
   }
 
   Future<void> pickImage(BuildContext context, ImageSource source) async {
-    final pickedFile = await ImagePicker().pickImage(
-        source: source, imageQuality: 50);
+    final pickedFile =
+    await ImagePicker().pickImage(source: source, imageQuality: 50);
     if (pickedFile != null) {
       var photoPath = pickedFile.path;
       String url = await StorageService().uploadFile(context, photoPath);
       onUpdate(url);
     }
   }
+
+  void removeImage() {
+    onUpdate(null);
+  }
 }
-
-
-
