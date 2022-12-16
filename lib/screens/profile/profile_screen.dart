@@ -79,10 +79,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   borderRadius: BorderRadius.circular(20), // Image border
                   child: SizedBox.fromSize(
                     size: const Size.square(110),
-                    child: Image.asset(
-                        snapshot.data?.profilePicture ??
-                            Assets.avatarPlaceholder,
-                        fit: BoxFit.fill),
+                    child: snapshot.data?.profilePicture != null
+                        ? Image.network(snapshot.data!.profilePicture!,
+                            fit: BoxFit.fill)
+                        : Image.asset(Assets.avatarPlaceholder,
+                            fit: BoxFit.fill),
                   ),
                 ),
                 const SizedBox(width: 15),

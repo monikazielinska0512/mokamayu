@@ -8,6 +8,7 @@ export 'drag_target_container.dart';
 export 'drawer.dart';
 export 'dropdown_menu.dart';
 export 'fields/fields.dart';
+export 'image_picker_button.dart';
 export 'navbar.dart';
 export 'page_title.dart';
 export 'photo_grid/photo.dart';

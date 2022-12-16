@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/utils/validator.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
+import '../../services/services.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -46,47 +46,51 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: Stack(children: [
         const BackgroundImage(
             imagePath: "assets/images/mountains.png", imageShift: 180),
-        FutureBuilder<UserData?>(
-            future: userData,
-            builder: (context, snapshot) {
-              return Positioned(
-                bottom: 0,
-                child: BackgroundCard(
-                  context: context,
-                  height: 0.8,
-                  child: Padding(
-                    padding: const EdgeInsets.all(25),
-                    child: Column(
-                      children: [
-                        buildPhotoRow(snapshot.data?.profilePicture),
-                        buildRow(
-                            'Profile name',
-                            snapshot.data?.profileName ?? '',
-                            profileNameController,
-                            Provider.of<ProfileManager>(context, listen: false)
-                                .updateProfileName),
-                        buildRow(
-                            'Username',
-                            snapshot.data?.username ?? '',
-                            usernameController,
-                            Provider.of<ProfileManager>(context, listen: false)
-                                .updateUsername),
-                        buildRow(
-                            'Email',
-                            snapshot.data?.email ?? '',
-                            emailController,
-                            Provider.of<ProfileManager>(context, listen: false)
-                                .updateEmail,
-                            isEmail: true),
-                        buildPrivacySwitch(),
-                        // buildRow('Birthday date',
-                        //     snapshot.data?.birthdayDate.toString() ?? '', ),
-                      ],
+        Consumer<ProfileManager>(
+            builder: (_, bar, __) => (FutureBuilder<UserData?>(
+                future: userData,
+                builder: (context, snapshot) {
+                  return Positioned(
+                    bottom: 0,
+                    child: BackgroundCard(
+                      context: context,
+                      height: 0.8,
+                      child: Padding(
+                        padding: const EdgeInsets.all(25),
+                        child: Column(
+                          children: [
+                            buildPhotoRow(snapshot.data?.profilePicture),
+                            buildRow(
+                                'Profile name',
+                                snapshot.data?.profileName ?? '',
+                                profileNameController,
+                                Provider.of<ProfileManager>(context,
+                                        listen: false)
+                                    .updateProfileName),
+                            buildRow(
+                                'Username',
+                                snapshot.data?.username ?? '',
+                                usernameController,
+                                Provider.of<ProfileManager>(context,
+                                        listen: false)
+                                    .updateUsername),
+                            buildRow(
+                                'Email',
+                                snapshot.data?.email ?? '',
+                                emailController,
+                                Provider.of<ProfileManager>(context,
+                                        listen: false)
+                                    .updateEmail,
+                                isEmail: true),
+                            buildPrivacySwitch(),
+                            // buildRow('Birthday date',
+                            //     snapshot.data?.birthdayDate.toString() ?? '', ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              );
-            }),
+                  );
+                }))),
       ]),
     );
   }
@@ -99,17 +103,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           borderRadius: BorderRadius.circular(20),
           child: SizedBox.fromSize(
             size: const Size.square(120),
-            child: Image.asset(profilePicture ?? Assets.avatarPlaceholder,
-                fit: BoxFit.fill),
+            child: profilePicture != null
+                ? Image.network(profilePicture, fit: BoxFit.fill)
+                : Image.asset(Assets.avatarPlaceholder, fit: BoxFit.fill),
           ),
         ),
-        TextButton(
-          onPressed: () => {},
-          child: Text(
-            'Change photo',
-            style: TextStyles.paragraphRegularSemiBold16(),
-          ),
-        )
+        ImagePickerButton(onUpdate: (photoPath) {
+          Provider.of<ProfileManager>(context, listen: false)
+              .updateProfilePicture(photoPath);
+        })
       ],
     );
   }
@@ -152,8 +154,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (validatorOutput == null) {
       update(newValue);
     } else {
-      final snackBar = SnackBar(content: Text(validatorOutput));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      CustomSnackBar.showErrorSnackBar(context, message: validatorOutput);
       controller.text = previousValue;
     }
   }
