@@ -26,20 +26,20 @@ class WardrobeItem {
           size: item['size'] as String,
           photoURL: item['photoURL'] as String,
           styles: List.from(item['styles']),
-          created: DateTime.parse(item['created'] as String));
+          created: DateTime.parse(item['created']));
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
-        'name': name.toString(),
-        'type': type.toString(),
-        'size': size.toString(),
-        'photoURL': photoURL.toString(),
-        'styles': styles,
-        'created': created.toString(),
-      };
+    'name': name.toString(),
+    'type': type.toString(),
+    'size': size.toString(),
+    'photoURL': photoURL.toString(),
+    'styles': styles,
+    'created': created.toString(),
+  };
 
   factory WardrobeItem.fromSnapshot(DocumentSnapshot snapshot) {
     final item =
-        WardrobeItem.fromFirestore(snapshot.data() as Map<String, dynamic>);
+    WardrobeItem.fromFirestore(snapshot.data() as Map<String, dynamic>);
     item.reference = snapshot.reference.id;
     return item;
   }

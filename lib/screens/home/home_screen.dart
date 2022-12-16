@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     return Scaffold(
-        appBar: customAppBar(context, pageLabels[widget.currentTab]),
+        // appBar: customAppBar(context, pageLabels[widget.currentTab]),
         drawer: drawer(context),
         body: IndexedStack(index: widget.currentTab, children: pages),
         bottomNavigationBar: NavBar(

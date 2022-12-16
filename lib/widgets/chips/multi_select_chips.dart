@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/colors.dart';
+
 class MultiSelectChip extends StatefulWidget {
   final List<String> reportList;
   final Function(List<String>) onSelectionChanged;
@@ -18,10 +20,20 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
     List<Widget> choices = [];
     for (var item in widget.reportList) {
       choices.add(Container(
-        padding: const EdgeInsets.all(2.0),
+        padding: const EdgeInsets.only(right: 10),
         child: ChoiceChip(
           label: Text(item),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
           selected: selectedChoices.contains(item),
+          backgroundColor: ColorsConstants.darkPeach.withOpacity(0.2),
+          selectedColor: ColorsConstants.darkPeach,
+          // ColorsConstants.colorList[index].withOpacity(0.2),
+          // labelStyle: state.value == chipsList[index]
+          //     ? TextStyles.paragraphRegularSemiBold18(
+          //     ColorsConstants.colorList[index])
+          //     : TextStyles.paragraphRegular18(
+          //     ColorsConstants.grey),
           onSelected: (selected) {
             setState(() {
               selectedChoices.contains(item)
@@ -38,8 +50,8 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: _buildChoiceList(),
-    );
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Wrap(children: _buildChoiceList()));
   }
 }

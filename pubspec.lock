@@ -112,7 +112,7 @@ packages:
       name: dropdown_button2
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.1"
+    version: "1.9.2"
   fake_async:
     dependency: transitive
     description:
@@ -140,7 +140,7 @@ packages:
       name: firebase_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.4"
+    version: "4.1.5"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
@@ -203,7 +203,7 @@ packages:
       name: fluentui_system_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.186"
+    version: "1.1.188"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -258,7 +258,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.0"
+    version: "5.2.1"
   google_nav_bar:
     dependency: "direct main"
     description:
@@ -316,7 +316,7 @@ packages:
     source: hosted
     version: "2.6.2"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       url: "https://pub.dartlang.org"
