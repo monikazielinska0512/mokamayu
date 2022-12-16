@@ -3,34 +3,18 @@ import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:provider/provider.dart';
 
-class ContainerList {
-  double height;
-  double width;
-  double scale;
-  double rotation;
-  double xPosition;
-  double yPosition;
-
-  ContainerList({
-    required this.height,
-    required this.rotation,
-    required this.scale,
-    required this.width,
-    required this.xPosition,
-    required this.yPosition,
-  });
-}
+import '../models/outfit_container.dart';
 
 class DragTargetContainer extends StatefulWidget {
   DragTargetContainer({Key? key, this.map}) : super(key: key);
-  Map<List<dynamic>, ContainerList>? map = {};
+  Map<List<dynamic>, OutfitContainer>? map = {};
 
   @override
   _DragTargetState createState() => _DragTargetState();
 }
 
 class _DragTargetState extends State<DragTargetContainer> {
-  List<ContainerList> list = [];
+  List<OutfitContainer> list = [];
   late Offset _initPos;
   late Offset _currentPos = const Offset(0, 0);
   late double _currentScale;
@@ -62,6 +46,7 @@ class _DragTargetState extends State<DragTargetContainer> {
         children: widget.map!.entries.map((entry) {
           return GestureDetector(
             onTap: () {
+              print('here');
               widget.map!.removeWhere((key, value) => key == entry.key);
               Provider.of<PhotoTapped>(context, listen: false)
                   .photoRemoved(entry.key[1]);

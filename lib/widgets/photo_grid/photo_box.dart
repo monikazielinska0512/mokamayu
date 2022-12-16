@@ -46,6 +46,7 @@ class PhotoBox extends StatelessWidget {
       BuildContext context, String? photoURL, String? id) {
     return GestureDetector(
       onTap: () async {
+        print('heee');
         Provider.of<PhotoTapped>(context, listen: false)
             .addToMap(photoURL!, id!.toString());
       },

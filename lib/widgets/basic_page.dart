@@ -98,6 +98,8 @@ class BasicScreen extends StatelessWidget {
     switch (type) {
       case "wardrobe":
         return Text("Your Wardrobe", style: TextStyles.appTitle(Colors.black));
+      case "outfits":
+        return Text("Outfits", style: TextStyles.appTitle(Colors.black));
     }
     return Text(type, style: TextStyles.appTitle(Colors.black));
   }

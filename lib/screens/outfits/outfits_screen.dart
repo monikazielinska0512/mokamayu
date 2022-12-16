@@ -7,6 +7,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/constants/constants.dart';
 import '../../services/managers/outfit_manager.dart';
+import '../../widgets/chips/multi_select_chips_formfield.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -34,26 +35,52 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BasicScreen(
+        type: "outfits",
+        leftButtonType: "dots",
+        context: context,
         body: Stack(children: [
-      Column(children: [
-        Expanded(
-            child: Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-                child: PhotoGrid(outfitsList: outfitsList)))
-      ]),
-      FloatingButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return CustomDialogBox.outfitsDialog(context, itemList);
-                });
-          },
-          icon: const Icon(Icons.add),
-          backgroundColor: ColorsConstants.darkBrick,
-          padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
-          alignment: Alignment.bottomRight)
-    ]));
+          Column(
+            children: [
+              Wrap(spacing: 20, runSpacing: 20, children: [
+                buildSearchBarAndFilters(),
+                MultiSelectChipsFormField(
+                    chipsList: OutfitTags.styles, isScroll: true),
+              ]),
+              Expanded(child: PhotoGrid(outfitsList: outfitsList)),
+            ],
+          ),
+          buildFloatingButton(),
+        ]));
+  }
+
+  Widget buildSearchBarAndFilters() {
+    return SizedBox(
+        width: MediaQuery.of(context).size.width * 0.9,
+        height: MediaQuery.of(context).size.height * 0.075,
+        child: Row(children: [
+          Expanded(
+              child: SearchBar(title: "Search", hintTitle: "Name of item")),
+          SizedBox(width: MediaQuery.of(context).size.width * 0.045),
+          CustomIconButton(
+              onPressed: () {},
+              width: MediaQuery.of(context).size.width * 0.15,
+              icon: Icons.filter_list)
+        ]));
+  }
+
+  Widget buildFloatingButton() {
+    return FloatingButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomDialogBox.outfitsDialog(context, itemList);
+              });
+        },
+        icon: const Icon(Icons.add),
+        backgroundColor: ColorsConstants.darkBrick,
+        padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
+        alignment: Alignment.bottomRight);
   }
 }
