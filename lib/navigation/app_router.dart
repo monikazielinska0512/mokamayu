@@ -89,6 +89,12 @@ class AppRouter {
             return OutfitSummaryScreen(
                 map: state.extra as Map<List<dynamic>, OutfitContainer>?);
           }),
+      GoRoute(
+          name: 'edit-profile',
+          path: '/edit-profile',
+          builder: (context, state) {
+            return const EditProfileScreen();
+          }),
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;

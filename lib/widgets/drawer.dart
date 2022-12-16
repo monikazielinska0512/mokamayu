@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/widgets/user/user_summary.dart';
-import 'package:provider/provider.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:provider/provider.dart';
 
 Drawer drawer(BuildContext context) {
-  AuthService _auth = AuthService();
-  // TODO(karina): change to provider
-
   return Drawer(
       child: ListView(
     children: [
-      DrawerHeader(
-        child: userSummary(context, _auth.currentUser, imageRadius: 40),
+      const DrawerHeader(
+        child: Text("Menu"),
       ),
       ListTile(
         title: const Text('Settings'),
