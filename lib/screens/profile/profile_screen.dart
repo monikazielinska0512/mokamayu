@@ -63,10 +63,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget buildUserCard(BuildContext context, User? user) {
     return Consumer<ProfileManager>(
-        builder: (_, bar, __) => (FutureBuilder<UserData?>(
+        builder: (context, manager, _) => (FutureBuilder<UserData?>(
             future: userData,
             builder: (context, snapshot) {
               return Container(
+                width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.fromLTRB(25, 20, 5, 0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,6 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(width: 15),
                     Container(
+                      width: 237,
                       padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

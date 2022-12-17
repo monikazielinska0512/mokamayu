@@ -48,7 +48,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         const BackgroundImage(
             imagePath: "assets/images/mountains.png", imageShift: 180),
         Consumer<ProfileManager>(
-            builder: (_, ___, __) => (FutureBuilder<UserData?>(
+            builder: (context, manager, _) => (FutureBuilder<UserData?>(
                 future: userData,
                 builder: (context, snapshot) {
                   return Positioned(
