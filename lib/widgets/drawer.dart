@@ -59,7 +59,7 @@ class CustomDrawer extends StatelessWidget {
       alignment: Alignment.bottomLeft,
       child: Column(
         children: [
-          Divider(color: ColorsConstants.grey),
+          Divider(color: ColorsConstants.lightGrey, thickness: 1.5),
           buildDrawerOption(
               context,
               'Sign out',
