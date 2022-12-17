@@ -32,6 +32,25 @@ class WardrobeManager extends ChangeNotifier {
     return finalWardrobeItemList;
   }
 
+  // Future<List<WardrobeItem>> filteredWardrobe(List<String> filterStyles,
+  //     List<String> filterTypes, List<String> filterSizes) async {
+  //   QuerySnapshot snapshot = await db
+  //       .collection('users')
+  //       .doc(AuthService().getCurrentUserID())
+  //       .collection('wardrobe')
+  //       .get();
+  //
+  //   List<WardrobeItem> itemList = [];
+  //
+  //   snapshot.docs.forEach((element) => {
+  //         filterTypes.contains(WardrobeItem.fromSnapshot(element).type) &&
+  //             filterSizes.contains(WardrobeItem.fromSnapshot(element).size) &&
+  //             filterStyles.contains(WardrobeItem.fromSnapshot(element).styles)
+  //       });
+  //   // finalWardrobeItemList = itemList;
+  //   // return finalWardrobeItemList;
+  // }
+
   void addWardrobeItem(WardrobeItem item) {
     db
         .collection('users')

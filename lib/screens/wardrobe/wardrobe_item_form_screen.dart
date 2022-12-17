@@ -72,13 +72,10 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
           context: context,
           height: 0.6,
           child: AbsorbPointer(
-            absorbing: widget.isLocked!,
+            absorbing: false,
             child: WardrobeItemForm(
                 photoPath: widget.photo ?? "", item: widget.editItem),
           )),
-      // child: Column(children: [
-      //   widget.isEdit ? buildEditFormButtons() : Container(),
-      // )
     );
   }
 

@@ -5,7 +5,6 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/widgets/photo/photo_box.dart';
 import 'package:mokamayu/widgets/photo/photo_box_outfit.dart';
 import 'package:provider/provider.dart';
-
 import '../../services/managers/wardrobe_manager.dart';
 
 class PhotoGrid extends StatefulWidget {
@@ -59,52 +58,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                   ),
             itemBuilder: (BuildContext context, int index) {
               var itemInfo = snapshot.data![index];
-              return GestureDetector(
-                  onLongPress: () {
-                    showModalBottomSheet<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200,
-                          color: Colors.amber,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text('Usuń $itemInfo]'),
-                                ElevatedButton(
-                                  child: Text('Usuń ${itemInfo.name}'),
-                                  onPressed: () {
-                                    Provider.of<WardrobeManager>(context,
-                                            listen: false)
-                                        .removeWardrobeItem(itemInfo.reference);
-                                    setState(() {
-                                      widget.itemList =
-                                          Provider.of<WardrobeManager>(context,
-                                                  listen: false)
-                                              .readWardrobeItemOnce();
-                                      Future.delayed(Duration.zero)
-                                          .then((value) {
-                                        Provider.of<WardrobeManager>(context,
-                                                listen: false)
-                                            .setWardrobeItemList(
-                                                widget.itemList!);
-                                      });
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: PhotoBox(
-                    object: itemInfo,
-                    scrollVertically: widget.scrollVertically,
-                  ));
+              return showDeleteModal(itemInfo);
             },
           ));
         }
@@ -116,6 +70,52 @@ class _PhotoGridState extends State<PhotoGrid> {
         ));
       },
     );
+  }
+
+  Widget showDeleteModal(WardrobeItem item) {
+    return GestureDetector(
+        onLongPress: () {
+          showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context) {
+              return Container(
+                height: 200,
+                color: Colors.amber,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('Usuń ${item.name}]'),
+                      ElevatedButton(
+                        child: Text('Usuń ${item.name}'),
+                        onPressed: () {
+                          Provider.of<WardrobeManager>(context, listen: false)
+                              .removeWardrobeItem(item.reference);
+                          setState(() {
+                            widget.itemList = Provider.of<WardrobeManager>(
+                                    context,
+                                    listen: false)
+                                .readWardrobeItemOnce();
+                            Future.delayed(Duration.zero).then((value) {
+                              Provider.of<WardrobeManager>(context,
+                                      listen: false)
+                                  .setWardrobeItemList(widget.itemList!);
+                            });
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        child: PhotoBox(
+          object: item,
+          scrollVertically: widget.scrollVertically,
+        ));
   }
 
   Widget buildOutfitsGrid() {
