@@ -52,18 +52,6 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                           onSelectionChanged: (selectedList) {
                         selectedChips =
                             selectedList.isEmpty ? Tags.types : selectedList;
-                        // setState(() {
-                        //   selectedChips =
-                        //   selectedList.isEmpty ? Tags.types : selectedList;
-                        //   futureItemList = Provider.of<WardrobeManager>(context,
-                        //           listen: false)
-                        //       .filterWardrobe(context, selectedChips,
-                        //           Tags.styles, Tags.sizes);
-                        //   Future.delayed(Duration.zero).then((value) {
-                        //     Provider.of<WardrobeManager>(context, listen: false)
-                        //         .setWardrobeItemList(futureItemList!);
-                        //   });
-                        // });
                       })
                     ])),
               ]),
