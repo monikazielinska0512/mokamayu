@@ -13,7 +13,7 @@ class BasicScreen extends StatelessWidget {
   bool? isAppBarVisible;
   bool? isNavBarVisible = true;
   bool? isLeftButtonVisible = true;
-  bool? isRightButtonVisible = true;
+  bool isRightButtonVisible = true;
   String? leftButtonType = "back";
   String? rightButtonType = "bell";
   bool? isFullScreen;
@@ -49,7 +49,9 @@ class BasicScreen extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 foregroundColor: color,
                 elevation: 0,
-                actions: [buildRightIconButton()],
+                actions: [
+                  if (isRightButtonVisible) ...[buildRightIconButton()]
+                ],
                 leading: (leftButtonType == "back")
                     ? buildLeftBackButton()
                     : (leftButtonType == "dots")
@@ -86,7 +88,7 @@ class BasicScreen extends StatelessWidget {
             // context.go("/pick-photo");
             break;
           default:
-            context.go("/home/0");
+            context.pop();
           //case ...
         }
       },
@@ -108,7 +110,7 @@ class BasicScreen extends StatelessWidget {
     switch (rightButtonType) {
       case "bell":
         return CustomIconButton(
-            onPressed: () {},
+            onPressed: () => context.push('/notifications'),
             icon: Icons.notifications,
             backgroundColor: Colors.transparent,
             iconColor: Colors.grey);
