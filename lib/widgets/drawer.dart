@@ -28,12 +28,6 @@ Drawer drawer(BuildContext context) {
         },
       ),
       ListTile(
-        title: const Text('Notifications'),
-        onTap: () {
-          Navigator.pop(context);
-        },
-      ),
-      ListTile(
         title: const Text('Sign out'),
         onTap: () {
           Navigator.pop(context);

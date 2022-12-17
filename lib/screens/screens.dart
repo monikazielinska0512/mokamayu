@@ -2,6 +2,7 @@ export 'authenticate/login_screen.dart';
 export 'authenticate/register_screen.dart';
 export 'authenticate/reset_password_screen.dart';
 export 'home/home_screen.dart';
+export 'notifications/notifications_screen.dart';
 export 'outfits/create_outfit_dialog.dart';
 export 'outfits/outfits_add_screen.dart';
 export 'outfits/outfits_screen.dart';

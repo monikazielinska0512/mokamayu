@@ -41,13 +41,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return BasicScreen(
       type: "My profile",
       leftButtonType: "back",
+      isRightButtonVisible: false,
       context: context,
       isFullScreen: true,
       body: Stack(children: [
         const BackgroundImage(
             imagePath: "assets/images/mountains.png", imageShift: 180),
         Consumer<ProfileManager>(
-            builder: (_, bar, __) => (FutureBuilder<UserData?>(
+            builder: (context, manager, _) => (FutureBuilder<UserData?>(
                 future: userData,
                 builder: (context, snapshot) {
                   return Positioned(

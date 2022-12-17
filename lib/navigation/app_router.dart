@@ -95,6 +95,11 @@ class AppRouter {
           builder: (context, state) {
             return const EditProfileScreen();
           }),
+      GoRoute(
+        name: 'notifications',
+        path: '/notifications',
+        builder: (context, state) => const NotificationsScreen(),
+      ),
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;

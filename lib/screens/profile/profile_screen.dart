@@ -26,14 +26,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<List<Outfit>>? outfitsList;
 
   @override
-  void initState() {
+  Widget build(BuildContext context) {
     userData = Provider.of<ProfileManager>(context, listen: false)
         .getUserData(widget.user);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
           itemList = Provider.of<WardrobeManager>(context, listen: false)
               .getWardrobeItemList;
@@ -67,48 +62,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget buildUserCard(BuildContext context, User? user) {
-    return FutureBuilder<UserData?>(
-        future: userData,
-        builder: (context, snapshot) {
-          return Container(
-            padding: const EdgeInsets.fromLTRB(25, 20, 5, 0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20), // Image border
-                  child: SizedBox.fromSize(
-                    size: const Size.square(110),
-                    child: snapshot.data?.profilePicture != null
-                        ? Image.network(snapshot.data!.profilePicture!,
-                            fit: BoxFit.fill)
-                        : Image.asset(Assets.avatarPlaceholder,
-                            fit: BoxFit.fill),
-                  ),
+    return Consumer<ProfileManager>(
+        builder: (context, manager, _) => (FutureBuilder<UserData?>(
+            future: userData,
+            builder: (context, snapshot) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.fromLTRB(25, 20, 5, 0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20), // Image border
+                      child: SizedBox.fromSize(
+                        size: const Size.square(110),
+                        child: snapshot.data?.profilePicture != null
+                            ? Image.network(snapshot.data!.profilePicture!,
+                                fit: BoxFit.fill)
+                            : Image.asset(Assets.avatarPlaceholder,
+                                fit: BoxFit.fill),
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    Container(
+                      width: 237,
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 10),
+                          Text(
+                              snapshot.data?.profileName ??
+                                  snapshot.data?.username ??
+                                  'Profile name',
+                              style: TextStyles.h5()),
+                          Text('@${snapshot.data?.username ?? 'username'}',
+                              style: TextStyles.paragraphRegular16(
+                                  ColorsConstants.grey)),
+                          buildButtons(),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 15),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 10),
-                      Text(
-                          snapshot.data?.profileName ??
-                              snapshot.data?.username ??
-                              'Profile name',
-                          style: TextStyles.h5()),
-                      Text('@${snapshot.data?.username ?? 'username'}',
-                          style: TextStyles.paragraphRegular16(
-                              ColorsConstants.grey)),
-                      buildButtons(),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        });
+              );
+            })));
   }
 
   Widget buildButtons() {
@@ -116,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         IconTextButton(
           onPressed: () {
-            GoRouter.of(context).goNamed('edit-profile');
+            context.push('/edit-profile');
           },
           icon: Icons.edit_outlined,
           text: "Edit",
