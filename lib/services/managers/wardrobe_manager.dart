@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mokamayu/models/models.dart';
+import '../../constants/tags.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
 
@@ -9,7 +10,6 @@ class WardrobeManager extends ChangeNotifier {
   Future<List<WardrobeItem>>? futureWardrobeItemList;
 
   Future<List<WardrobeItem>>? get getWardrobeItemList => futureWardrobeItemList;
-
   List<WardrobeItem> get getFinalWardrobeItemList => finalWardrobeItemList;
 
   void setWardrobeItemList(Future<List<WardrobeItem>> itemList) {
@@ -32,24 +32,44 @@ class WardrobeManager extends ChangeNotifier {
     return finalWardrobeItemList;
   }
 
-  // Future<List<WardrobeItem>> filteredWardrobe(List<String> filterStyles,
-  //     List<String> filterTypes, List<String> filterSizes) async {
-  //   QuerySnapshot snapshot = await db
-  //       .collection('users')
-  //       .doc(AuthService().getCurrentUserID())
-  //       .collection('wardrobe')
-  //       .get();
-  //
-  //   List<WardrobeItem> itemList = [];
-  //
-  //   snapshot.docs.forEach((element) => {
-  //         filterTypes.contains(WardrobeItem.fromSnapshot(element).type) &&
-  //             filterSizes.contains(WardrobeItem.fromSnapshot(element).size) &&
-  //             filterStyles.contains(WardrobeItem.fromSnapshot(element).styles)
-  //       });
-  //   // finalWardrobeItemList = itemList;
-  //   // return finalWardrobeItemList;
-  // }
+  Future<List<WardrobeItem>> filterWardrobe(
+      BuildContext context,
+      List<String> typesList,
+      List<String> stylesList,
+      List<String> sizesList) async {
+    QuerySnapshot snapshot = await db
+        .collection('users')
+        .doc(AuthService().getCurrentUserID())
+        .collection('wardrobe')
+        .get();
+
+    List<WardrobeItem> filteredList = [];
+    typesList = typesList.isNotEmpty ? typesList : Tags.types;
+    sizesList = sizesList.isNotEmpty ? sizesList : Tags.sizes;
+    stylesList = stylesList.isNotEmpty ? stylesList : Tags.styles;
+
+    print(typesList);
+    print(sizesList);
+    print(stylesList);
+
+    var set = Set.of(stylesList);
+
+    for (var element in snapshot.docs) {
+      WardrobeItem item = WardrobeItem.fromSnapshot(element);
+      bool type = typesList.contains(item.type);
+      bool styles = set.containsAll(item.styles);
+      bool size = sizesList.contains(item.size);
+
+      print("Name:" + item.name + "\ntype: " + type.toString() + "\nstyles: " + styles.toString() + "\nsize: " + size.toString());
+
+      if (type && styles && size) {
+        filteredList.add(item);
+      }
+    }
+    finalWardrobeItemList = filteredList;
+
+    return finalWardrobeItemList;
+  }
 
   void addWardrobeItem(WardrobeItem item) {
     db

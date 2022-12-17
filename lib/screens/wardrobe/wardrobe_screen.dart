@@ -18,9 +18,10 @@ class WardrobeScreen extends StatefulWidget {
 class _WardrobeScreenState extends State<WardrobeScreen> {
   Future<List<WardrobeItem>>? futureItemList;
   List<WardrobeItem>? itemList;
-  List<String> selectedTypes = [];
-  List<String> selectedSizes = [];
-  List<String> selectedStyles = [];
+  List<String> selectedTypes = Tags.types;
+  List<String> selectedSizes = Tags.sizes;
+  List<String> selectedStyles = Tags.styles;
+  List<String> selectedChips = Tags.types;
 
   @override
   void initState() {
@@ -35,7 +36,6 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> selectedChips = [];
     return BasicScreen(
         type: "wardrobe",
         leftButtonType: "dots",
@@ -50,42 +50,28 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     child: Wrap(spacing: 10, children: [
                       MultiSelectChip(Tags.types,
                           onSelectionChanged: (selectedList) {
-                        selectedChips = selectedList;
+                        selectedChips =
+                            selectedList.isEmpty ? Tags.types : selectedList;
+                        // setState(() {
+                        //   selectedChips =
+                        //   selectedList.isEmpty ? Tags.types : selectedList;
+                        //   futureItemList = Provider.of<WardrobeManager>(context,
+                        //           listen: false)
+                        //       .filterWardrobe(context, selectedChips,
+                        //           Tags.styles, Tags.sizes);
+                        //   Future.delayed(Duration.zero).then((value) {
+                        //     Provider.of<WardrobeManager>(context, listen: false)
+                        //         .setWardrobeItemList(futureItemList!);
+                        //   });
+                        // });
                       })
                     ])),
               ]),
-              Expanded(
-                  child: PhotoGrid(
-                      itemList: filteredList(
-                          selectedStyles, selectedTypes, selectedSizes))),
+              Expanded(child: PhotoGrid(itemList: futureItemList)),
             ],
           ),
           buildFloatingButton(),
         ]));
-  }
-
-  Future<List<WardrobeItem>>? filteredList(List<String> filterStyles,
-      List<String> filterTypes, List<String> filterSizes) {
-    if (filterSizes == [] && filterSizes == [] && filterTypes == []) {
-      return futureItemList;
-    } else {
-      List<WardrobeItem> list =
-          Provider.of<WardrobeManager>(context, listen: false)
-              .getFinalWardrobeItemList;
-      list
-          .where((item) =>
-              filterTypes.contains(item.type) &&
-              filterStyles.contains(item.styles) &&
-              filterSizes.contains(item.size))
-          .toList();
-      setState(() {
-        Future.delayed(Duration.zero).then((value) {
-          Provider.of<WardrobeManager>(context, listen: false)
-              .setWardrobeItemList(list);
-        });
-      });
-      return futureItemList;
-    }
   }
 
   Widget buildSearchBarAndFilters() {
@@ -127,10 +113,32 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                                     selectedStyles = selectedList;
                                   }),
                                   ElevatedButton(
-                                      onPressed: () => setState(() {
-                                            context.go("/home/0");
-                                          }),
-                                      child: Text("Aplikuj filtry"))
+                                      onPressed: () => {
+                                            setState(() {
+                                              futureItemList =
+                                                  Provider.of<WardrobeManager>(
+                                                          context,
+                                                          listen: false)
+                                                      .filterWardrobe(
+                                                          context,
+                                                          selectedTypes,
+                                                          selectedStyles,
+                                                          selectedSizes);
+                                              Future.delayed(Duration.zero)
+                                                  .then((value) {
+                                                Provider.of<WardrobeManager>(
+                                                        context,
+                                                        listen: false)
+                                                    .setWardrobeItemList(
+                                                        futureItemList!);
+                                              });
+                                            }),
+                                            context.pop(),
+                                            selectedTypes = [],
+                                            selectedSizes = [],
+                                            selectedStyles = []
+                                          },
+                                      child: const Text("Aplikuj filtry"))
                                 ],
                               ),
                             ),

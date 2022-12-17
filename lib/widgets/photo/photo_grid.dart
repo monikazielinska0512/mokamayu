@@ -40,7 +40,9 @@ class _PhotoGridState extends State<PhotoGrid> {
       builder: (context, snapshot) {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
-              child: GridView.builder(
+              child:
+              snapshot.data!.isEmpty ? const Text("Brak rzeczy w szafie") :
+              GridView.builder(
             scrollDirection: widget.getScrollDirection(),
             shrinkWrap: false,
             itemCount: snapshot.data!.length,

@@ -95,7 +95,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             validator: (value) =>
                 Validator.checkIfSingleValueSelected(value!, context),
             onSaved: (value) => _type = value!,
-            chipsList: const ["T-Shirt", "Dress", "Skirt", "Shoes"],
+            chipsList: Tags.types
           ))
     ]);
   }
@@ -116,7 +116,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             validator: (value) =>
                 Validator.checkIfSingleValueSelected(value!, context),
             onSaved: (value) => _size = value!,
-            chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
+            chipsList: Tags.sizes,
           )),
     ]);
   }
@@ -132,7 +132,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       MultiSelectChipsFormField(
           isScroll: false,
           initialValue: _styles,
-          chipsList: const ["School", "Wedding", "Classic", "Boho"],
+          chipsList: Tags.styles,
           onSaved: (value) => _styles = value!,
           validator: (value) =>
               Validator.checkIfMultipleValueSelected(value!, context)),
