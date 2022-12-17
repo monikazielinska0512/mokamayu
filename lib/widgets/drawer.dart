@@ -1,39 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:provider/provider.dart';
 
-Drawer drawer(BuildContext context) {
-  return Drawer(
-      child: ListView(
-    children: [
-      const DrawerHeader(
-        child: Text("Menu"),
+import '../constants/constants.dart';
+
+class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+        child: Container(
+      height: MediaQuery.of(context).size.height,
+      padding: const EdgeInsets.all(22),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                DrawerHeader(
+                    child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text("Menu",
+                            style:
+                                TextStyles.h3(ColorsConstants.blackAccent)))),
+                buildDrawerOption(context, 'Edit profile',
+                    () => context.push('/edit-profile')),
+                buildDrawerOption(context, 'Settings', () => {}),
+                buildDrawerOption(context, 'Friends', () => {}),
+                buildDrawerOption(context, 'Wardrobe', () => {}),
+                buildDrawerOption(context, 'Outfits', () => {}),
+              ],
+            ),
+          ),
+          buildSignOutOption(context),
+        ],
       ),
-      ListTile(
-        title: const Text('Settings'),
-        onTap: () {
-          Navigator.pop(context);
-        },
+    ));
+  }
+
+  Widget buildDrawerOption(
+      BuildContext context, String text, Function navigateTo,
+      [TextStyle? textStyle]) {
+    return ListTile(
+      title: Text(text,
+          style:
+              textStyle ?? TextStyles.paragraphRegular16(ColorsConstants.grey)),
+      onTap: () {
+        Navigator.pop(context);
+        navigateTo();
+      },
+    );
+  }
+
+  Widget buildSignOutOption(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: Column(
+        children: [
+          Divider(color: ColorsConstants.grey),
+          buildDrawerOption(
+              context,
+              'Sign out',
+              () =>
+                  Provider.of<AppStateManager>(context, listen: false).logout(),
+              TextStyles.paragraphRegularSemiBold16(ColorsConstants.grey)),
+        ],
       ),
-      ListTile(
-        title: const Text('My friends'),
-        onTap: () {
-          Navigator.pop(context);
-        },
-      ),
-      ListTile(
-        title: const Text('Edit profile'),
-        onTap: () {
-          Navigator.pop(context);
-        },
-      ),
-      ListTile(
-        title: const Text('Sign out'),
-        onTap: () {
-          Navigator.pop(context);
-          Provider.of<AppStateManager>(context, listen: false).logout();
-        },
-      ),
-    ],
-  ));
+    );
+  }
 }

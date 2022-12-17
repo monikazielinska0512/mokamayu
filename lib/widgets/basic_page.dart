@@ -42,6 +42,7 @@ class BasicScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,
+        drawer: const CustomDrawer(),
         appBar: isAppBarVisible!
             ? AppBar(
                 title: buildPageTitle(),
@@ -70,7 +71,7 @@ class BasicScreen extends StatelessWidget {
   Widget buildDotsButton() {
     return IconButton(
       onPressed: () {
-        drawer(context);
+        const CustomDrawer();
       },
       icon: const Icon(Icons.more_vert),
     );
