@@ -46,7 +46,7 @@ class OutfitSummaryScreen extends StatelessWidget {
                   .setStyle(_style);
               context.goNamed("outfit-add-attributes-screen", extra: map);
             },
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
           ),
           title: const Text("Outfit Summary",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),

@@ -14,7 +14,7 @@ class CustomDialogBox {
         Positioned(
             child: Opacity(
                 opacity: 0.4,
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: Image.asset("assets/images/full_background.png",
@@ -25,7 +25,7 @@ class CustomDialogBox {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                child: Container(
+                child: SizedBox(
                     height: 260,
                     width: 310,
                     child: Padding(
@@ -39,7 +39,7 @@ class CustomDialogBox {
                                   onTap: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.close,
                                     size: 25,
                                     color: Colors.grey,
@@ -70,7 +70,7 @@ class CustomDialogBox {
 
 Widget dialogCard(String text, Function onTap, double pad,
     {String secondText = ""}) {
-  return Container(
+  return SizedBox(
     width: 280,
     height: 65,
     child: ElevatedButton(
@@ -136,7 +136,7 @@ Widget dialogCard(String text, Function onTap, double pad,
             ),
             Padding(
                 padding: EdgeInsets.only(left: pad),
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_forward_ios,
                   size: 15,
                   color: Colors.grey,

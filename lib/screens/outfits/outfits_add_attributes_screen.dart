@@ -30,13 +30,12 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
     ScreenshotController screenshotController = ScreenshotController();
     Uint8List? capturedOutfit;
     final _formKey = GlobalKey<FormState>();
-
     Outfit? item = Provider.of<PhotoTapped>(context, listen: false).getObject;
     int index =
         Provider.of<OutfitManager>(context, listen: false).getOutfitsNumber;
     Provider.of<PhotoTapped>(context, listen: false).setMap(map);
-
     map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
+
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -44,12 +43,10 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
           foregroundColor: Colors.black,
           elevation: 0,
           title: item != null
-              ? Text("Edit outfit",
-                  style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.bold))
-              : Text("Create outfit",
-                  style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.bold)),
+              ? const Text("Edit outfit",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))
+              : const Text("Create outfit",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
           leading: IconButton(
             onPressed: () {
               if (item != null) {
@@ -67,11 +64,11 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                         .getWardrobeItemList);
               }
             },
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.add,
                 size: 35,
               ),
@@ -95,9 +92,7 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
 
                   Provider.of<PhotoTapped>(context, listen: false)
                       .setScreenshot(url);
-                  print(map);
                   _formKey.currentState!.save();
-
                   GoRouter.of(context)
                       .goNamed("outfit-summary-screen", extra: map);
                 }).catchError((onError) {
@@ -142,7 +137,7 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
               ),
             )
           ]),
-          SizedBox(
+          const SizedBox(
             height: 50, //place for wardrobe categories
           ),
           SizedBox(
@@ -167,7 +162,7 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                 fit: BoxFit.fitWidth,
                 height: 40,
               )),
-          SizedBox(
+          const SizedBox(
             height: 50,
           )
         ])));

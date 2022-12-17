@@ -23,7 +23,7 @@ class _DragTargetState extends State<DragTargetContainer> {
 
   @override
   void initState() {
-    screen = Size(400, 500);
+    screen = const Size(400, 500);
     super.initState();
   }
 
@@ -32,7 +32,7 @@ class _DragTargetState extends State<DragTargetContainer> {
     return Container(
       decoration: BoxDecoration(
         color: ColorsConstants.whiteAccent,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
             topRight: Radius.circular(40.0),
             bottomRight: Radius.circular(40.0),
             topLeft: Radius.circular(40.0),
@@ -46,7 +46,6 @@ class _DragTargetState extends State<DragTargetContainer> {
         children: widget.map!.entries.map((entry) {
           return GestureDetector(
             onTap: () {
-              print('here');
               widget.map!.removeWhere((key, value) => key == entry.key);
               Provider.of<PhotoTapped>(context, listen: false)
                   .photoRemoved(entry.key[1]);
@@ -92,7 +91,7 @@ class _DragTargetState extends State<DragTargetContainer> {
                     scale: entry.value.scale,
                     child: Transform.rotate(
                         angle: entry.value.rotation,
-                        child: Container(
+                        child: SizedBox(
                           height: entry.value.height,
                           width: entry.value.width,
                           child: FittedBox(

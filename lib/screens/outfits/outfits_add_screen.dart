@@ -14,31 +14,27 @@ class CreateOutfitPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
-    print(map);
-
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
-    double deviceWidth(BuildContext context) =>
-        MediaQuery.of(context).size.width;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         elevation: 0,
-        title: Text("Create outfit",
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        title: const Text("Create outfit",
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         leading: IconButton(
           onPressed: () {
             Provider.of<PhotoTapped>(context, listen: false).setMap({});
             Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
             context.go("/home/1");
           },
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.add,
               size: 35,
             ),
@@ -71,7 +67,7 @@ class CreateOutfitPage extends StatelessWidget {
             )
           ]),
           //TODO categories for wardrobe
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           SizedBox(

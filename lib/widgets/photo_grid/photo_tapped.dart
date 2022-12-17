@@ -4,12 +4,10 @@ import '../../models/outfit.dart';
 import '../../models/outfit_container.dart';
 
 class PhotoTapped extends ChangeNotifier {
-  // Map<List<String>, OutfitContainer> map = {};
   Map<List<dynamic>, OutfitContainer> mapDynamic = {};
   List<String> listOfIds = [];
   late String screenshot;
   String get getScreenshot => screenshot;
-  // Map<List<String>, OutfitContainer> get getMap => map;
   Outfit? item;
   late String imagePath;
   String get getImagePath => imagePath;
@@ -49,12 +47,9 @@ class PhotoTapped extends ChangeNotifier {
 
   void photoRemoved(String id) {
     listOfIds.remove(id);
-    print(listOfIds);
   }
 
   void addToMap(String photoURL, String id) {
-    print(id);
-    print(listOfIds);
     if (!listOfIds.contains(id)) {
       mapDynamic.addAll({
         [photoURL, id]: OutfitContainer(
@@ -68,7 +63,6 @@ class PhotoTapped extends ChangeNotifier {
       });
       listOfIds.add(id);
     }
-    // mapDynamic = map;
     notifyListeners();
   }
 }
