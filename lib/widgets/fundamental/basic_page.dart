@@ -42,7 +42,7 @@ class BasicScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _key,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         extendBodyBehindAppBar: true,
         drawer: drawer(context),
         appBar: isAppBarVisible!

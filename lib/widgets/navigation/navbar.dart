@@ -1,67 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/colors.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
+import '../../generated/l10n.dart';
 
 class NavBar extends StatefulWidget {
-  Function(int)? onTabChange;
   int selectedIndex;
+  Function(int)? onTabChange;
 
   NavBar({Key? key, required this.selectedIndex, required this.onTabChange})
       : super(key: key);
 
   @override
-  _NavBarState createState() => _NavBarState();
+  NavBarState createState() => NavBarState();
 }
 
-class _NavBarState extends State<NavBar> {
+class NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 10,
-            color: Colors.black.withOpacity(.1),
-          )
-        ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-          child: GNav(
-            rippleColor: ColorsConstants.whiteAccent,
-            hoverColor: ColorsConstants.whiteAccent,
-            gap: 8,
-            activeColor: ColorsConstants.darkBrick,
-            iconSize: 28,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            duration: const Duration(milliseconds: 400),
-            tabBackgroundColor: Colors.grey[100]!,
-            color: Colors.black,
-            tabs: const [
-              GButton(
-                icon: Icons.home,
-                text: 'Wardorbe',
-              ),
-              GButton(
-                icon: Icons.save,
-                text: 'Outfits',
-              ),
-              GButton(
-                icon: Icons.search,
-                text: 'Social',
-              ),
-              GButton(
-                icon: Icons.add,
-                text: 'Profile',
-              ),
-            ],
-            selectedIndex: widget.selectedIndex,
-            onTabChange: widget.onTabChange,
-          ),
-        ),
-      ),
+    return SalomonBottomBar(
+      currentIndex: widget.selectedIndex,
+      margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+      itemPadding:
+          const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+      onTap: widget.onTabChange,
+      items: [
+        SalomonBottomBarItem(
+            icon: const Icon(Ionicons.shirt_outline),
+            title: Text(S.of(context).wardrobe),
+            selectedColor: ColorsConstants.darkBrick),
+        SalomonBottomBarItem(
+            icon: const Icon(Ionicons.body_outline),
+            title: Text(S.of(context).outfits),
+            selectedColor: ColorsConstants.darkPeach),
+        SalomonBottomBarItem(
+            icon: const Icon(Ionicons.people_outline),
+            title: Text(S.of(context).social),
+            selectedColor: ColorsConstants.sunflower),
+        SalomonBottomBarItem(
+            icon: const Icon(Ionicons.person_outline),
+            title: Text(S.of(context).profile),
+            selectedColor: ColorsConstants.green),
+      ],
     );
   }
 }
