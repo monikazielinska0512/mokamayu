@@ -13,59 +13,63 @@ class CustomDialogBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        GestureDetector(
-          onTap: () => context.pop(),
-          child: Stack(children: const [
-            BackgroundImage(
-                imagePath: "assets/images/full_background.png",
-                imageShift: 0,
-                opacity: 0.5),
-          ]),
-        ),
-        Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
+    return SafeArea(
+        bottom: false,
+        child: Stack(
+          children: [
+            GestureDetector(
+              onTap: () => context.pop(),
+              child: Stack(children: const [
+                BackgroundImage(
+                    imagePath: "assets/images/full_background.png",
+                    imageShift: 0,
+                    opacity: 0.5),
+              ]),
             ),
-            child: SizedBox(
-                height: 260,
-                width: 310,
-                child: Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 25),
-                          child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Icon(
-                                Icons.close,
-                                size: 25,
-                                color: Colors.grey,
-                              )),
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.only(top: 25),
-                            child: dialogCard("Create outfit by yourself!", () {
-                              Provider.of<PhotoTapped>(context, listen: false)
-                                  .setMap({});
-                              context.goNamed("create-outfit-page",
-                                  extra: itemList!);
-                              Navigator.of(context).pop();
-                            }, 18, secondText: "Use your creativity!")),
-                        Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: dialogCard("Generate Outfit!", () {
-                              //TO DO
-                            }, 85))
-                      ],
-                    ))))
-      ],
-    );
+            Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                child: SizedBox(
+                    height: 260,
+                    width: 310,
+                    child: Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 25),
+                              child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Icon(
+                                    Icons.close,
+                                    size: 25,
+                                    color: Colors.grey,
+                                  )),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.only(top: 25),
+                                child: dialogCard("Create outfit by yourself!",
+                                    () {
+                                  Provider.of<PhotoTapped>(context,
+                                          listen: false)
+                                      .setMap({});
+                                  context.goNamed("create-outfit-page",
+                                      extra: itemList!);
+                                  Navigator.of(context).pop();
+                                }, 18, secondText: "Use your creativity!")),
+                            Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: dialogCard("Generate Outfit!", () {
+                                  //TO DO
+                                }, 85))
+                          ],
+                        ))))
+          ],
+        ));
   }
 }
 
