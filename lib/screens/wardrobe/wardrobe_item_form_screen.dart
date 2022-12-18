@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
-import 'package:mokamayu/widgets/background_card.dart';
-import 'package:mokamayu/widgets/basic_page.dart';
+import 'package:mokamayu/widgets/fundamental/background_card.dart';
+import 'package:mokamayu/widgets/fundamental/basic_page.dart';
 import 'package:provider/provider.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/wardrobe_manager.dart';
@@ -72,13 +72,10 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
           context: context,
           height: 0.6,
           child: AbsorbPointer(
-            absorbing: widget.isLocked!,
+            absorbing: false,
             child: WardrobeItemForm(
                 photoPath: widget.photo ?? "", item: widget.editItem),
           )),
-      // child: Column(children: [
-      //   widget.isEdit ? buildEditFormButtons() : Container(),
-      // )
     );
   }
 

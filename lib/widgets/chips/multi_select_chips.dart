@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
 
 class MultiSelectChip extends StatefulWidget {
-  final List<String> reportList;
-  final Function(List<String>) onSelectionChanged;
+  final List<String> chipsList;
+  final Function(List<String>)? onSelectionChanged;
 
-  MultiSelectChip(this.reportList,
+  MultiSelectChip(this.chipsList,
       {super.key, required this.onSelectionChanged});
 
   @override
@@ -18,7 +18,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
 
   _buildChoiceList() {
     List<Widget> choices = [];
-    for (var item in widget.reportList) {
+    for (var item in widget.chipsList) {
       choices.add(Container(
         padding: const EdgeInsets.only(right: 10),
         child: ChoiceChip(
@@ -28,18 +28,12 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
           selected: selectedChoices.contains(item),
           backgroundColor: ColorsConstants.darkPeach.withOpacity(0.2),
           selectedColor: ColorsConstants.darkPeach,
-          // ColorsConstants.colorList[index].withOpacity(0.2),
-          // labelStyle: state.value == chipsList[index]
-          //     ? TextStyles.paragraphRegularSemiBold18(
-          //     ColorsConstants.colorList[index])
-          //     : TextStyles.paragraphRegular18(
-          //     ColorsConstants.grey),
           onSelected: (selected) {
             setState(() {
               selectedChoices.contains(item)
                   ? selectedChoices.remove(item)
                   : selectedChoices.add(item);
-              widget.onSelectionChanged(selectedChoices);
+              widget.onSelectionChanged!(selectedChoices);
             });
           },
         ),
@@ -52,6 +46,8 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.only(bottom: 10),
-        child: Wrap(children: _buildChoiceList()));
+        child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Wrap(children: _buildChoiceList())));
   }
 }

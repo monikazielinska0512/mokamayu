@@ -16,8 +16,8 @@ import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 import '../../services/storage.dart';
 import '../../widgets/drag_target_container.dart';
-import '../../widgets/photo_grid/photo_grid.dart';
-import '../../widgets/photo_grid/photo_tapped.dart';
+import '../../widgets/photo/photo_grid.dart';
+import '../../services/managers/photo_tapped_manager.dart';
 
 class OutfitsAddAttributesScreen extends StatelessWidget {
   OutfitsAddAttributesScreen({Key? key, required this.map}) : super(key: key);

@@ -13,7 +13,8 @@ import '../../models/wardrobe_item.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/managers.dart';
 import '../../widgets/buttons/buttons.dart';
-import '../../widgets/photo_grid/photo.dart';
+import '../../services/managers/photo_tapped_manager.dart';
+import '../../widgets/photo/wardrobe_item_card.dart';
 
 class OutfitSummaryScreen extends StatelessWidget {
   OutfitSummaryScreen({super.key, this.map});

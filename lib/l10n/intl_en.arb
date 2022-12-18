@@ -21,5 +21,12 @@
   "wardrobe": "Wardrobe",
   "outfits": "Outfits",
   "social": "Social",
-  "profile": "Profile"
+  "profile": "Profile",
+  "wardrobe_page_title": "Your Wardrobe",
+  "searchbar_wardrobe_item": "Search by name",
+  "skirt": "Skirt",
+  "tshirt": "T-Shirt",
+  "dress": "Dress",
+  "shoes": "Shoes",
+  "hat": "Hat"
 }

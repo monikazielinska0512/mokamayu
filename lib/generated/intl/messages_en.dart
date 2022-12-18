@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "dismiss": MessageLookupByLibrary.simpleMessage("DISMISS"),
+        "dress": MessageLookupByLibrary.simpleMessage("Dress"),
         "email_already_used": MessageLookupByLibrary.simpleMessage(
             "The email address is already in use by another account"),
         "enter_email": MessageLookupByLibrary.simpleMessage("Enter Email"),
@@ -40,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "An error occurred. Please try again later"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+        "hat": MessageLookupByLibrary.simpleMessage("Hat"),
         "no_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
         "outfits": MessageLookupByLibrary.simpleMessage("Outfits"),
@@ -50,13 +52,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "searchbar_wardrobe_item":
+            MessageLookupByLibrary.simpleMessage("Search by name"),
+        "shoes": MessageLookupByLibrary.simpleMessage("Shoes"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Log in"),
         "sign_out": MessageLookupByLibrary.simpleMessage(" Sign out"),
         "sign_up": MessageLookupByLibrary.simpleMessage(" Sign up"),
+        "skirt": MessageLookupByLibrary.simpleMessage("Skirt"),
         "social": MessageLookupByLibrary.simpleMessage("Social"),
+        "tshirt": MessageLookupByLibrary.simpleMessage("T-Shirt"),
         "user_not_exist":
             MessageLookupByLibrary.simpleMessage("User does not exist"),
         "wardrobe": MessageLookupByLibrary.simpleMessage("Wardrobe"),
+        "wardrobe_page_title":
+            MessageLookupByLibrary.simpleMessage("Your Wardrobe"),
         "wrong_password": MessageLookupByLibrary.simpleMessage(
             "Your email or password is wrong")
       };

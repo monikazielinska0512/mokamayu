@@ -15,14 +15,9 @@ class Tags {
     "Shoes",
     "Hat",
     "Sweater",
-    'XS',
-    'S',
-    'M',
-    'L',
-    'XL',
-    'XXL'
   ];
   static const List<String> styles = [
+    "School",
     "Classic",
     "Super",
     "Vintage",

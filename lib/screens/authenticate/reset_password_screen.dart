@@ -5,7 +5,6 @@ import 'package:mokamayu/services/services.dart';
 
 import '../../utils/validator.dart';
 
-
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
 
@@ -59,8 +58,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Button(
-                                    context, S.of(context).reset_password,
+                                Button(context, S.of(context).reset_password,
                                     () async {
                                   if (_form.currentState!.validate()) {
                                     dynamic result = await _auth.resetPassword(
@@ -71,7 +69,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                           .generateErrorMessage(
                                               result, context);
                                       CustomSnackBar.showErrorSnackBar(
-                                        context,
+                                        context: context,
                                         message: error,
                                       );
                                     } else {
@@ -80,7 +78,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                   }
                                 })
                               ]))),
-                      Container(
+                      SizedBox(
                         width: deviceWidth(context),
                         child: Image.asset(
                           "assets/images/navigationAsset.png",

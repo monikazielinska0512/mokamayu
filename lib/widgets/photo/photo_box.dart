@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
+import 'package:mokamayu/services/managers/photo_tapped_manager.dart';
 import 'package:provider/provider.dart';
 
 class PhotoBox extends StatelessWidget {
   final WardrobeItem object;
-  final bool scrollVertically;
+  final bool? scrollVertically;
 
   const PhotoBox(
       {Key? key, required this.object, required this.scrollVertically})
       : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     String? photoURL = object.photoURL;
     String? name = object.name;
     String? id = object.reference;
-    return !scrollVertically
+    return !scrollVertically!
         ? buildPhotoBoxForOutfits(context, photoURL, id)
         : buildPhotoBoxForWardrobe(photoURL, name, context);
   }
@@ -69,4 +70,6 @@ class PhotoBox extends StatelessWidget {
       ),
     );
   }
+
+
 }

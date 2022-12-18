@@ -9,7 +9,7 @@ import 'package:mokamayu/services/authentication/auth.dart';
 import 'package:mokamayu/services/managers/app_state_manager.dart';
 import 'package:mokamayu/services/managers/profile_manager.dart';
 import 'package:mokamayu/services/managers/wardrobe_manager.dart';
-import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
+import 'package:mokamayu/services/managers/photo_tapped_manager.dart';
 import 'package:provider/provider.dart';
 import 'generated/l10n.dart';
 import 'models/firebase_user.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Container Button(BuildContext context, String title, Function onTap,
-    {bool shouldExpand = true}) {
+{bool shouldExpand = true}) {
   return Container(
     width: shouldExpand ? MediaQuery.of(context).size.width : null,
     height: shouldExpand ? 50 : null,

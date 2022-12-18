@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../constants/constants.dart';
-import '../services/storage.dart';
+import '../../constants/constants.dart';
+import '../../services/storage.dart';
 
 class ImagePickerButton extends StatelessWidget {
   final Function(String?) onUpdate;

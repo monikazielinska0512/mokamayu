@@ -3,8 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/constants.dart';
-import '../widgets/widgets.dart';
+import '../../constants/colors.dart';
+import '../../constants/text_styles.dart';
+import '../fundamental/background_image.dart';
+
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);

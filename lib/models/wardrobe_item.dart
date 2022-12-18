@@ -19,6 +19,14 @@ class WardrobeItem {
     this.reference,
   });
 
+  WardrobeItem.init()
+      : name = '',
+        type = '',
+        size = '',
+        photoURL = '',
+        styles = [],
+        created = DateTime.now();
+
   factory WardrobeItem.fromFirestore(Map<dynamic, dynamic> item) =>
       WardrobeItem(
           name: item['name'] as String,
@@ -29,17 +37,17 @@ class WardrobeItem {
           created: DateTime.parse(item['created']));
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
-    'name': name.toString(),
-    'type': type.toString(),
-    'size': size.toString(),
-    'photoURL': photoURL.toString(),
-    'styles': styles,
-    'created': created.toString(),
-  };
+        'name': name.toString(),
+        'type': type.toString(),
+        'size': size.toString(),
+        'photoURL': photoURL.toString(),
+        'styles': styles,
+        'created': created.toString(),
+      };
 
   factory WardrobeItem.fromSnapshot(DocumentSnapshot snapshot) {
     final item =
-    WardrobeItem.fromFirestore(snapshot.data() as Map<String, dynamic>);
+        WardrobeItem.fromFirestore(snapshot.data() as Map<String, dynamic>);
     item.reference = snapshot.reference.id;
     return item;
   }

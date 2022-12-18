@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
 import '../../services/services.dart';
+import '../../widgets/fundamental/background_card.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -157,7 +158,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (validatorOutput == null) {
       update(newValue);
     } else {
-      CustomSnackBar.showErrorSnackBar(context, message: validatorOutput);
+      CustomSnackBar.showErrorSnackBar( message: validatorOutput, context: context);
       controller.text = previousValue;
     }
   }
