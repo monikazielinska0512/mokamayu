@@ -5,6 +5,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 
 import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
+import '../../services/managers/outfit_manager.dart';
 
 class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.itemList}) : super(key: key);
@@ -28,6 +29,8 @@ class CreateOutfitPage extends StatelessWidget {
           onPressed: () {
             Provider.of<PhotoTapped>(context, listen: false).setMap({});
             Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
+            Provider.of<OutfitManager>(context, listen: false).setSeason("");
+            Provider.of<OutfitManager>(context, listen: false).setStyle("");
             context.go("/home/1");
           },
           icon: const Icon(Icons.arrow_back_ios),

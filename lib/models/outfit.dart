@@ -8,6 +8,7 @@ class Outfit {
   final List<String>? elements;
   final Map<String, String>? map;
   final String imagePath;
+  final int index;
   String? reference;
 
   Outfit({
@@ -18,6 +19,7 @@ class Outfit {
     this.elements,
     this.map,
     required this.imagePath,
+    required this.index,
     this.reference,
   });
 
@@ -28,6 +30,7 @@ class Outfit {
       cover: json['cover'] as String,
       map: Map.from(json['map']),
       imagePath: json['imagePath'] as String,
+      index: json['index'],
       elements: List.from(json['elements']));
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -37,6 +40,7 @@ class Outfit {
         "cover": cover.toString(),
         "elements": elements,
         "map": map,
+        "index": index,
         "imagePath": imagePath.toString()
       };
 

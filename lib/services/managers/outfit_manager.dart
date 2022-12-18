@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:mokamayu/models/outfit.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
+import 'dart:math';
 
 class OutfitManager extends ChangeNotifier {
   List<Outfit> finalOutfitList = [];
@@ -11,10 +12,40 @@ class OutfitManager extends ChangeNotifier {
   Future<List<Outfit>>? get getOutfitList => futureOutfitList;
   List<Outfit> get getfinalOutfitList => finalOutfitList;
 
-  int get getOutfitsNumber => finalOutfitList.length;
+  // int get getOutfitsNumber => finalOutfitList.length;
+
+  List<int> outfitIndexes = [0];
+  int index = 0;
+  bool indexSet = false;
+  int get getMaxOutfitIndexes => outfitIndexes.reduce(max);
+  int get getIndex => index;
+  bool get getIndexSet => indexSet;
 
   String? outfitStyle = "";
   String? outfitSeason = "";
+
+  void removeFromIndexes(int idxToRemove) {
+    outfitIndexes.removeWhere((el) => el == idxToRemove);
+  }
+
+  void addToIndexes(int idxToAdd) {
+    print(outfitIndexes);
+    outfitIndexes.add(idxToAdd);
+  }
+
+  void setIndex(int newIdx) {
+    index = newIdx;
+  }
+
+  //for tests
+  void emptyOutfitIndexes() {
+    outfitIndexes.removeWhere((el) => el != 0);
+  }
+
+  void indexIsSet(bool decision) {
+    indexSet = decision;
+    notifyListeners();
+  }
 
   void setOutfits(Future<List<Outfit>> outfitsList) {
     futureOutfitList = outfitsList;

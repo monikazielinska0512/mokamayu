@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/outfits/outfit_form.dart';
@@ -23,16 +23,13 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double deviceHeight(BuildContext context) =>
-        MediaQuery.of(context).size.height;
-    double deviceWidth(BuildContext context) =>
-        MediaQuery.of(context).size.width;
     ScreenshotController screenshotController = ScreenshotController();
     Uint8List? capturedOutfit;
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     Outfit? item = Provider.of<PhotoTapped>(context, listen: false).getObject;
-    int index =
-        Provider.of<OutfitManager>(context, listen: false).getOutfitsNumber;
+    int index = Provider.of<OutfitManager>(context, listen: false).getIndex;
+    bool decision =
+        Provider.of<OutfitManager>(context, listen: true).getIndexSet;
     Provider.of<PhotoTapped>(context, listen: false).setMap(map);
     map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
 
@@ -58,7 +55,11 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                     .setImagePath("");
                 Provider.of<PhotoTapped>(context, listen: false).setMap({});
                 Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
+                Provider.of<OutfitManager>(context, listen: false)
+                    .indexIsSet(false);
               } else {
+                Provider.of<OutfitManager>(context, listen: false)
+                    .indexIsSet(false);
                 context.goNamed("create-outfit-page",
                     extra: Provider.of<WardrobeManager>(context, listen: false)
                         .getWardrobeItemList);
@@ -73,42 +74,65 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                 size: 35,
               ),
               onPressed: () {
+                formKey.currentState!.save();
                 screenshotController.capture().then((capturedImage) async {
                   File imagePath;
                   if (item == null) {
+                    index = Provider.of<OutfitManager>(context, listen: false)
+                        .getMaxOutfitIndexes;
+                    decision == false
+                        ? index == 0
+                            ? index = 1
+                            : index = index + 1
+                        : index = index;
                     final directory = await getApplicationDocumentsDirectory();
-                    imagePath =
-                        await File('${directory.path}/image${index}.png')
-                            .create();
+                    imagePath = await File('${directory.path}/image$index.png')
+                        .create();
+                    // ignore: use_build_context_synchronously
                     Provider.of<PhotoTapped>(context, listen: false)
-                        .setImagePath('${directory.path}/image${index}.png');
+                        .setImagePath('${directory.path}/image$index.png');
+                    if (decision == false) {
+                      // ignore: use_build_context_synchronously
+                      Provider.of<OutfitManager>(context, listen: false)
+                          .addToIndexes(index);
+                      // ignore: use_build_context_synchronously
+                      Provider.of<OutfitManager>(context, listen: false)
+                          .setIndex(index);
+                      // ignore: use_build_context_synchronously
+                      Provider.of<OutfitManager>(context, listen: false)
+                          .indexIsSet(true);
+                    }
                   } else {
                     imagePath = await File(item.imagePath).create();
                   }
                   capturedOutfit = capturedImage;
                   await imagePath.writeAsBytes(capturedOutfit!);
+                  // ignore: use_build_context_synchronously
                   String url = await StorageService()
                       .uploadFile(context, imagePath.path);
 
+                  // ignore: use_build_context_synchronously
                   Provider.of<PhotoTapped>(context, listen: false)
                       .setScreenshot(url);
-                  _formKey.currentState!.save();
+                  // ignore: use_build_context_synchronously
                   GoRouter.of(context)
                       .goNamed("outfit-summary-screen", extra: map);
                 }).catchError((onError) {
-                  print(onError);
+                  if (kDebugMode) {
+                    print(onError);
+                  }
                 });
               },
             )
           ],
         ),
         body: item != null
-            ? bodyEdit(screenshotController, _formKey, item, context)
-            : bodyAdd(screenshotController, _formKey, item, context));
+            ? bodyEdit(screenshotController, formKey, item, context)
+            : bodyAdd(screenshotController, formKey, item, context));
   }
 
   Widget bodyEdit(ScreenshotController screenshotController,
-      GlobalKey<FormState> _formKey, Outfit item, BuildContext context) {
+      GlobalKey<FormState> formKey, Outfit item, BuildContext context) {
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
     double deviceWidth(BuildContext context) =>
@@ -149,13 +173,20 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
               scrollVertically: false,
             ),
           ),
-          OutfitForm(formKey: _formKey, item: item),
+          OutfitForm(formKey: formKey, item: item),
           GestureDetector(
               onTap: () {
                 //Outfit removed
                 Provider.of<OutfitManager>(context, listen: false)
                     .removeOutfit(item.reference);
                 context.go("/home/1");
+                Provider.of<OutfitManager>(context, listen: false)
+                    .setSeason("");
+                Provider.of<OutfitManager>(context, listen: false).setStyle("");
+                Provider.of<OutfitManager>(context, listen: false)
+                    .removeFromIndexes(item.index);
+                Provider.of<OutfitManager>(context, listen: false)
+                    .indexIsSet(false);
               },
               child: Image.asset(
                 "assets/images/trash.png",
@@ -169,7 +200,7 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
   }
 
   Widget bodyAdd(ScreenshotController screenshotController,
-      GlobalKey<FormState> _formKey, Outfit? item, BuildContext context) {
+      GlobalKey<FormState> formKey, Outfit? item, BuildContext context) {
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
     return Column(
@@ -193,7 +224,7 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
             ),
           )
         ]),
-        OutfitForm(formKey: _formKey, item: item),
+        OutfitForm(formKey: formKey, item: item),
       ],
     );
   }
