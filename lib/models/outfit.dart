@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Outfit {
@@ -8,6 +6,9 @@ class Outfit {
   final String? season;
   final String cover;
   final List<String>? elements;
+  final Map<String, String>? map;
+  final String imagePath;
+  final int index;
   String? reference;
 
   Outfit({
@@ -16,26 +17,35 @@ class Outfit {
     this.season,
     required this.cover,
     this.elements,
+    this.map,
+    required this.imagePath,
+    required this.index,
     this.reference,
   });
 
-  factory Outfit.fromFirestore(Map<dynamic, dynamic> json) => Outfit(
+  factory Outfit.fromJson(Map<dynamic, dynamic> json) => Outfit(
       createdBy: json['createdBy'] as String,
       style: json['style'] as String,
       season: json['season'] as String,
       cover: json['cover'] as String,
+      map: Map.from(json['map']),
+      imagePath: json['imagePath'] as String,
+      index: json['index'],
       elements: List.from(json['elements']));
 
-  Map<String, dynamic> toFirestore() => <String, dynamic>{
+  Map<String, dynamic> toJson() => <String, dynamic>{
         "createdBy": createdBy.toString(),
         "style": style.toString(),
         "season": season.toString(),
         "cover": cover.toString(),
         "elements": elements,
+        "map": map,
+        "index": index,
+        "imagePath": imagePath.toString()
       };
 
   factory Outfit.fromSnapshot(DocumentSnapshot snapshot) {
-    final item = Outfit.fromFirestore(snapshot.data() as Map<String, dynamic>);
+    final item = Outfit.fromJson(snapshot.data() as Map<String, dynamic>);
     item.reference = snapshot.reference.id;
     return item;
   }

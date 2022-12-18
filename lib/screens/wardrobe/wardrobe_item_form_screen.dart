@@ -31,7 +31,7 @@ class AddWardrobeItemForm extends StatefulWidget {
 class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
   @override
   void initState() {
-    widget.isLocked = (widget.isEdit == true ? false : true);
+    widget.isLocked = (widget.isEdit == true ? false : false);
     super.initState();
   }
 

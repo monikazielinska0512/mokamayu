@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ionicons/ionicons.dart';
-import '../../constants/text_styles.dart';
-import '../../generated/l10n.dart';
-import '../buttons/icon_button.dart';
-import '../navigation/drawer.dart';
+
+import '../constants/text_styles.dart';
+import 'buttons/icon_button.dart';
 
 class BasicScreen extends StatelessWidget {
   BuildContext context;
@@ -14,14 +12,12 @@ class BasicScreen extends StatelessWidget {
   bool? isAppBarVisible;
   bool? isNavBarVisible = true;
   bool? isLeftButtonVisible = true;
-  bool? isRightButtonVisible = true;
+  bool isRightButtonVisible = true;
   String? leftButtonType = "back";
   String? rightButtonType = "bell";
   bool? isFullScreen;
   bool? isEdit;
   Color? color;
-
-  final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   BasicScreen({
     Key? key,
@@ -43,29 +39,22 @@ class BasicScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _key,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,
-        drawer: drawer(context),
         appBar: isAppBarVisible!
             ? AppBar(
                 title: buildPageTitle(),
+                centerTitle: true,
                 backgroundColor: Colors.transparent,
                 foregroundColor: color,
                 elevation: 0,
                 actions: [
-                  Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: buildRightIconButton())
+                  if (isRightButtonVisible) ...[buildRightIconButton()]
                 ],
                 leading: (leftButtonType == "back")
-                    ? Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: buildLeftBackButton())
+                    ? buildLeftBackButton()
                     : (leftButtonType == "dots")
-                        ? Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: buildDotsButton())
+                        ? buildDotsButton(context)
                         : null)
             : null,
         body: Center(
@@ -74,23 +63,20 @@ class BasicScreen extends StatelessWidget {
                 : SafeArea(
                     bottom: false,
                     child: Padding(
-                        padding: const EdgeInsets.all(20), child: body))));
+                        padding: const EdgeInsets.all(16), child: body))));
   }
 
-  Widget buildDotsButton() {
-    return CustomIconButton(
-      icon: Ionicons.ellipsis_vertical,
-      backgroundColor: Colors.transparent,
-      iconColor: Colors.black,
-      onPressed: () => _key.currentState!.openDrawer(),
+  Widget buildDotsButton(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        Scaffold.of(context).openDrawer();
+      },
+      icon: const Icon(Icons.more_vert),
     );
   }
 
   Widget buildLeftBackButton() {
-    return CustomIconButton(
-      icon: Ionicons.chevron_back,
-      backgroundColor: Colors.transparent,
-      iconColor: Colors.black,
+    return IconButton(
       onPressed: () {
         switch (type) {
           case "add_photo":
@@ -100,28 +86,33 @@ class BasicScreen extends StatelessWidget {
             isEdit! ? context.go("/home/0") : context.go("/pick-photo");
             // context.go("/pick-photo");
             break;
+          default:
+            context.pop();
           //case ...
         }
       },
+      icon: const Icon(Icons.arrow_back_ios),
     );
   }
 
   Widget buildPageTitle() {
     switch (type) {
       case "wardrobe":
-        return Text(S.of(context).wardrobe_page_title, style: TextStyles.appTitle(Colors.black));
+        return Text("Your Wardrobe", style: TextStyles.appTitle(Colors.black));
+      case "outfits":
+        return Text("Outfits", style: TextStyles.appTitle(Colors.black));
     }
-    return const Text("");
+    return Text(type, style: TextStyles.appTitle(Colors.black));
   }
 
   Widget buildRightIconButton() {
     switch (rightButtonType) {
       case "bell":
         return CustomIconButton(
-            onPressed: () {},
-            icon: Ionicons.notifications_outline,
+            onPressed: () => context.push('/notifications'),
+            icon: Icons.notifications,
             backgroundColor: Colors.transparent,
-            iconColor: Colors.black);
+            iconColor: Colors.grey);
       case "go_forward":
         return CustomIconButton(onPressed: () {}, icon: Icons.arrow_forward);
       case "search":

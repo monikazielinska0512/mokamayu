@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<ProfileManager>(context).getUser;
+    final user = Provider.of<ProfileManager>(context).currentAuthUser;
 
     List<Widget> pages = [
       const WardrobeScreen(),
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     return Scaffold(
-        drawer: drawer(context),
+        drawer: const CustomDrawer(),
         body: IndexedStack(index: widget.currentTab, children: pages),
         bottomNavigationBar: NavBar(
             selectedIndex: widget.currentTab,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/models/outfit_container.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
 import '../models/wardrobe_item.dart';
 import '../screens/outfits/outfit_summary_screen.dart';
+import '../screens/outfits/outfits_add_attributes_screen.dart';
 import '../widgets/drag_target_container.dart';
 
 class AppRouter {
@@ -54,13 +56,17 @@ class AppRouter {
           name: 'add-wardrobe-item',
           builder: (context, state) {
             String file = state.params['file']!;
-            return AddWardrobeItemForm(photo: file, isEdit: false, disableFields: false);
+            return AddWardrobeItemForm(
+                photo: file, isEdit: false, disableFields: false);
           }),
       GoRoute(
           path: '/wardrobe-item',
           name: 'wardrobe-item',
           builder: (context, state) {
-            return AddWardrobeItemForm(editItem: state.extra as WardrobeItem, isEdit: true, disableFields: true);
+            return AddWardrobeItemForm(
+                editItem: state.extra as WardrobeItem,
+                isEdit: true,
+                disableFields: true);
           }),
       GoRoute(
           name: 'create-outfit-page',
@@ -70,13 +76,30 @@ class AppRouter {
                 itemList: state.extra as Future<List<WardrobeItem>>?);
           }),
       GoRoute(
+          name: 'outfit-add-attributes-screen',
+          path: '/outfit-add-attributes-screen',
+          builder: (context, state) {
+            return OutfitsAddAttributesScreen(
+                map: state.extra as Map<List<dynamic>, OutfitContainer>);
+          }),
+      GoRoute(
           name: 'outfit-summary-screen',
           path: '/outfit-summary-screen',
           builder: (context, state) {
             return OutfitSummaryScreen(
-                map: state.extra as Map<List<dynamic>, ContainerList>?);
+                map: state.extra as Map<List<dynamic>, OutfitContainer>?);
           }),
-
+      GoRoute(
+          name: 'edit-profile',
+          path: '/edit-profile',
+          builder: (context, state) {
+            return const EditProfileScreen();
+          }),
+      GoRoute(
+        name: 'notifications',
+        path: '/notifications',
+        builder: (context, state) => const NotificationsScreen(),
+      ),
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;

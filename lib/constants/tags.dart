@@ -28,3 +28,13 @@ class Tags {
     "Streetwea1r",
   ];
 }
+
+class OutfitTags {
+  static const List<String> styles = [
+    'Active',
+    'Party',
+    'Work',
+    'Casual',
+    'Wedding'
+  ];
+}

@@ -3,34 +3,18 @@ import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/photo/photo_tapped.dart';
 import 'package:provider/provider.dart';
 
-class ContainerList {
-  double height;
-  double width;
-  double scale;
-  double rotation;
-  double xPosition;
-  double yPosition;
-
-  ContainerList({
-    required this.height,
-    required this.rotation,
-    required this.scale,
-    required this.width,
-    required this.xPosition,
-    required this.yPosition,
-  });
-}
+import '../models/outfit_container.dart';
 
 class DragTargetContainer extends StatefulWidget {
   DragTargetContainer({Key? key, this.map}) : super(key: key);
-  Map<List<dynamic>, ContainerList>? map = {};
+  Map<List<dynamic>, OutfitContainer>? map = {};
 
   @override
   _DragTargetState createState() => _DragTargetState();
 }
 
 class _DragTargetState extends State<DragTargetContainer> {
-  List<ContainerList> list = [];
+  List<OutfitContainer> list = [];
   late Offset _initPos;
   late Offset _currentPos = const Offset(0, 0);
   late double _currentScale;
@@ -39,7 +23,7 @@ class _DragTargetState extends State<DragTargetContainer> {
 
   @override
   void initState() {
-    screen = Size(400, 500);
+    screen = const Size(400, 500);
     super.initState();
   }
 
@@ -48,7 +32,7 @@ class _DragTargetState extends State<DragTargetContainer> {
     return Container(
       decoration: BoxDecoration(
         color: ColorsConstants.whiteAccent,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
             topRight: Radius.circular(40.0),
             bottomRight: Radius.circular(40.0),
             topLeft: Radius.circular(40.0),
@@ -107,7 +91,7 @@ class _DragTargetState extends State<DragTargetContainer> {
                     scale: entry.value.scale,
                     child: Transform.rotate(
                         angle: entry.value.rotation,
-                        child: Container(
+                        child: SizedBox(
                           height: entry.value.height,
                           width: entry.value.width,
                           child: FittedBox(
