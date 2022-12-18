@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 import '../../services/managers/wardrobe_manager.dart';
+import '../modals/delete_wardrobe_item_modal.dart';
 
 class PhotoGrid extends StatefulWidget {
   final bool scrollVertically;
@@ -61,7 +62,25 @@ class _PhotoGridState extends State<PhotoGrid> {
                             ),
                       itemBuilder: (BuildContext context, int index) {
                         var itemInfo = snapshot.data![index];
-                        return showDeleteModal(itemInfo);
+                        return DeleteBottomModal(
+                          item: itemInfo,
+                          actionFunction: () {
+                            Provider.of<WardrobeManager>(context, listen: false)
+                                .removeWardrobeItem(itemInfo.reference);
+                            setState(() {
+                              widget.itemList = Provider.of<WardrobeManager>(
+                                      context,
+                                      listen: false)
+                                  .readWardrobeItemOnce();
+                              Future.delayed(Duration.zero).then((value) {
+                                Provider.of<WardrobeManager>(context,
+                                        listen: false)
+                                    .setWardrobeItemList(widget.itemList!);
+                              });
+                            });
+                            context.pop();
+                          },
+                        );
                       },
                     ));
         }
@@ -73,98 +92,6 @@ class _PhotoGridState extends State<PhotoGrid> {
         ));
       },
     );
-  }
-
-  Widget showDeleteModal(WardrobeItem item) {
-    return GestureDetector(
-        onLongPress: () {
-          showModalBottomSheet<void>(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            backgroundColor: Colors.transparent,
-            isScrollControlled: true,
-            barrierColor: Colors.transparent,
-            context: context,
-            builder: (BuildContext context) {
-              return Stack(
-                  alignment: AlignmentDirectional.bottomCenter,
-                  children: [
-                    GestureDetector(
-                        onTap: () => context.pop(),
-                        child: Stack(children: const [
-                          BackgroundImage(
-                              imagePath: "assets/images/full_background.png",
-                              imageShift: 0,
-                              opacity: 0.5),
-                        ])),
-                    Container(
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(30))),
-                      height: MediaQuery.of(context).size.height * 0.30,
-                      // color: Colors.white,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 25, left: 30),
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Icon(
-                                        Icons.close,
-                                        size: 25,
-                                        color: Colors.grey,
-                                      )),
-                                )),
-                            Padding(
-                                padding: const EdgeInsets.all(15),
-                                child: Column(children: [
-                                  Text('Do you want delete this item',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyles.paragraphRegular20(
-                                          ColorsConstants.grey)),
-                                  Text('${item.name}?',
-                                      textAlign: TextAlign.center,
-                                      style:
-                                          TextStyles.paragraphRegularSemiBold20(
-                                              ColorsConstants.grey))
-                                ])),
-                            ButtonDarker(context, "Delete", () {
-                              Provider.of<WardrobeManager>(context,
-                                      listen: false)
-                                  .removeWardrobeItem(item.reference);
-                              setState(() {
-                                widget.itemList = Provider.of<WardrobeManager>(
-                                        context,
-                                        listen: false)
-                                    .readWardrobeItemOnce();
-                                Future.delayed(Duration.zero).then((value) {
-                                  Provider.of<WardrobeManager>(context,
-                                          listen: false)
-                                      .setWardrobeItemList(widget.itemList!);
-                                });
-                              });
-                            }, shouldExpand: false, height: 0.062, width: 0.25),
-                          ],
-                        ),
-                      ),
-                    )
-                  ]);
-            },
-          );
-        },
-        child: PhotoBox(
-          object: item,
-          scrollVertically: widget.scrollVertically,
-        ));
   }
 
   Widget buildOutfitsGrid() {

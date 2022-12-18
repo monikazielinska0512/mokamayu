@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class PhotoBox extends StatelessWidget {
   final WardrobeItem object;
-  final bool scrollVertically;
+  final bool? scrollVertically;
 
   const PhotoBox(
       {Key? key, required this.object, required this.scrollVertically})
@@ -19,7 +19,7 @@ class PhotoBox extends StatelessWidget {
     String? photoURL = object.photoURL;
     String? name = object.name;
     String? id = object.reference;
-    return !scrollVertically
+    return !scrollVertically!
         ? buildPhotoBoxForOutfits(context, photoURL, id)
         : buildPhotoBoxForWardrobe(photoURL, name, context);
   }
