@@ -5,64 +5,63 @@ import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/background_image.dart';
+
 class CustomDialogBox {
   static outfitsDialog(
       BuildContext context, Future<List<WardrobeItem>>? itemList) {
     return SizedBox.expand(
         child: Stack(
       children: [
-        Positioned(
-            child: Opacity(
-                opacity: 0.4,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: Image.asset("assets/images/full_background.png",
-                      fit: BoxFit.fill),
-                ))),
-        Positioned(
-            child: Dialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                child: SizedBox(
-                    height: 260,
-                    width: 310,
-                    child: Padding(
-                        padding: const EdgeInsets.only(left: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 25),
-                              child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Icon(
-                                    Icons.close,
-                                    size: 25,
-                                    color: Colors.grey,
-                                  )),
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 25),
-                                child: dialogCard("Create outfit by yourself!",
-                                    () {
-                                  Provider.of<PhotoTapped>(context,
-                                          listen: false)
-                                      .setMap({});
-                                  context.goNamed("create-outfit-page",
-                                      extra: itemList!);
-                                  Navigator.of(context).pop();
-                                }, 18, secondText: "Use your creativity!")),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: dialogCard("Generate Outfit!", () {
-                                  //TO DO
-                                }, 85))
-                          ],
-                        )))))
+        GestureDetector(
+          onTap: () => context.pop(),
+          child: Stack(children: const [
+            BackgroundImage(
+                imagePath: "assets/images/full_background.png",
+                imageShift: 0,
+                opacity: 0.5),
+          ]),
+        ),
+        Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            child: SizedBox(
+                height: 260,
+                width: 310,
+                child: Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 25),
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Icon(
+                                Icons.close,
+                                size: 25,
+                                color: Colors.grey,
+                              )),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(top: 25),
+                            child: dialogCard("Create outfit by yourself!", () {
+                              Provider.of<PhotoTapped>(context, listen: false)
+                                  .setMap({});
+                              context.goNamed("create-outfit-page",
+                                  extra: itemList!);
+                              Navigator.of(context).pop();
+                            }, 18, secondText: "Use your creativity!")),
+                        Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: dialogCard("Generate Outfit!", () {
+                              //TO DO
+                            }, 85))
+                      ],
+                    ))))
       ],
     ));
   }
