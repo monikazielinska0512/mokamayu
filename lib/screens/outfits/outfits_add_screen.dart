@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
-
-import '../../models/outfit_container.dart';
-import '../../models/wardrobe_item.dart';
-import '../../services/managers/outfit_manager.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/services.dart';
 
 class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.itemList}) : super(key: key);

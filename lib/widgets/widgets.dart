@@ -7,4 +7,4 @@ export 'fields/fields.dart';
 export 'navigation/navbar.dart';
 export 'navigation/drawer.dart';
 export 'photo/photo.dart';
-export 'photo/image_picker_button.dart';
+export 'modals/modals.dart';

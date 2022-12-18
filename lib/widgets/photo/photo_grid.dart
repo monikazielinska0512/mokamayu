@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
 import '../../services/managers/wardrobe_manager.dart';
-import '../modals/delete_wardrobe_item_modal.dart';
 
 class PhotoGrid extends StatefulWidget {
   final bool scrollVertically;

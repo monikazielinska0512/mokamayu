@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/colors.dart';
+import 'package:mokamayu/constants/constants.dart';
 
 class MultiSelectChip extends StatefulWidget {
   final List<String> chipsList;
   final Function(List<String>)? onSelectionChanged;
+  Color chipsColor;
+  bool isScrollable;
 
   MultiSelectChip(this.chipsList,
-      {super.key, required this.onSelectionChanged});
+      {super.key,
+      required this.onSelectionChanged,
+      this.isScrollable = true,
+      this.chipsColor = ColorsConstants.darkPeach});
 
   @override
   State<MultiSelectChip> createState() => _MultiSelectChipState();
@@ -20,14 +25,20 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
     List<Widget> choices = [];
     for (var item in widget.chipsList) {
       choices.add(Container(
-        padding: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.only(right: 15),
         child: ChoiceChip(
-          label: Text(item),
+          labelPadding: const EdgeInsets.only(right: 7, left: 7, top: 3, bottom: 3),
+          label: selectedChoices.contains(item)
+              ? Text(item,
+                  style: TextStyles.paragraphRegularSemiBold18(
+                      ColorsConstants.white))
+              : Text(item,
+                  style: TextStyles.paragraphRegular18(ColorsConstants.white)),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
           selected: selectedChoices.contains(item),
-          backgroundColor: ColorsConstants.darkPeach.withOpacity(0.2),
-          selectedColor: ColorsConstants.darkPeach,
+          backgroundColor: widget.chipsColor.withOpacity(0.6),
+          selectedColor: widget.chipsColor,
           onSelected: (selected) {
             setState(() {
               selectedChoices.contains(item)
@@ -46,8 +57,10 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.only(bottom: 10),
-        child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Wrap(children: _buildChoiceList())));
+        child: widget.isScrollable
+            ? SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Wrap(children: _buildChoiceList()))
+            : Wrap(runSpacing: 7, children: _buildChoiceList()));
   }
 }

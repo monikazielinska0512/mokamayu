@@ -48,10 +48,6 @@ class WardrobeManager extends ChangeNotifier {
     sizesList = sizesList.isNotEmpty ? sizesList : Tags.sizes;
     stylesList = stylesList.isNotEmpty ? stylesList : Tags.styles;
 
-    print(typesList);
-    print(sizesList);
-    print(stylesList);
-
     var set = Set.of(stylesList);
 
     for (var element in snapshot.docs) {
@@ -60,7 +56,7 @@ class WardrobeManager extends ChangeNotifier {
       bool styles = set.containsAll(item.styles);
       bool size = sizesList.contains(item.size);
 
-      print("Name:" + item.name + "\ntype: " + type.toString() + "\nstyles: " + styles.toString() + "\nsize: " + size.toString());
+      // print("Name:" + item.name + "\ntype: " + type.toString() + "\nstyles: " + styles.toString() + "\nsize: " + size.toString());
 
       if (type && styles && size) {
         filteredList.add(item);

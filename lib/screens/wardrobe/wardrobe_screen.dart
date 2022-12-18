@@ -64,14 +64,16 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   }
 
   Widget buildSearchBarAndFilters() {
-    setState(() {});
     return SizedBox(
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.075,
         child: Row(children: [
           Expanded(child: WardrobeItemSearch(title: "name")),
           SizedBox(width: MediaQuery.of(context).size.width * 0.045),
-          buildFiltersPageModal()
+          FilterModal(
+              onApply: (selectedList) => {
+                    futureItemList = selectedList
+                  })
         ]));
   }
 
