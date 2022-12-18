@@ -112,4 +112,20 @@ class TextStyles {
         fontWeight: FontWeight.w600,
         color: color);
   }
+
+  static TextStyle paragraphRegular20([Color? color]) {
+    return TextStyle(
+        fontSize: 20,
+        fontFamily: "Poppins",
+        fontWeight: FontWeight.w400,
+        color: color);
+  }
+
+  static TextStyle paragraphRegularSemiBold20([Color? color]) {
+    return TextStyle(
+        fontSize: 20,
+        fontFamily: "Poppins",
+        fontWeight: FontWeight.w600,
+        color: color);
+  }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:mokamayu/models/outfit.dart';
-import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
+import 'package:mokamayu/services/managers/photo_tapped_manager.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/outfit_container.dart';

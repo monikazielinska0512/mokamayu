@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:searchfield/searchfield.dart';
-
-import '../../constants/colors.dart';
-import '../../constants/text_styles.dart';
+import 'package:mokamayu/constants/constants.dart';
 import '../../generated/l10n.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/wardrobe_manager.dart';

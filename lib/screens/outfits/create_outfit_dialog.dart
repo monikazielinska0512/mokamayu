@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/colors.dart';
-import 'package:mokamayu/widgets/photo_grid/photo_tapped.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/background_image.dart';
+import '../../widgets/fundamental/background_image.dart';
+import '../../services/managers/photo_tapped_manager.dart';
 
 class CustomDialogBox extends StatelessWidget {
   CustomDialogBox({Key? key, required this.itemList}) : super(key: key);

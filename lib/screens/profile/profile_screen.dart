@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
 import '../../generated/l10n.dart';
+import '../../widgets/fundamental/background_card.dart';
 import '../../widgets/photo/photo_grid.dart';
 
 class ProfileScreen extends StatefulWidget {

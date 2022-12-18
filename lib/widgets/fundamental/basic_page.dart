@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../constants/text_styles.dart';
-import 'buttons/icon_button.dart';
+import '../../constants/text_styles.dart';
+import '../buttons/icon_button.dart';
 
 class BasicScreen extends StatelessWidget {
   BuildContext context;

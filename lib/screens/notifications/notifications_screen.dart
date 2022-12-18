@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/constants.dart';
+import '../../widgets/fundamental/background_card.dart';
 import '../../widgets/widgets.dart';
 
 class NotificationsScreen extends StatefulWidget {
