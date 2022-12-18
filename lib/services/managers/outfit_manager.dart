@@ -18,6 +18,7 @@ class OutfitManager extends ChangeNotifier {
   int index = 0;
   bool indexSet = false;
   int get getMaxOutfitIndexes => outfitIndexes.reduce(max);
+  List<int> get getIndexList => outfitIndexes;
   int get getIndex => index;
   bool get getIndexSet => indexSet;
 
@@ -35,6 +36,10 @@ class OutfitManager extends ChangeNotifier {
 
   void setIndex(int newIdx) {
     index = newIdx;
+  }
+
+  void setOutfitIndexesList(List<int> list) {
+    outfitIndexes = list;
   }
 
   //for tests

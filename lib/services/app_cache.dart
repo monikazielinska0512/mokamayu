@@ -17,4 +17,10 @@ class AppCache {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(user) ?? false;
   }
+
+  Future<void> cacheIndexList(List<int> indexList) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> strList = indexList.map((i) => i.toString()).toList();
+    prefs.setStringList("indexList", strList);
+  }
 }

@@ -8,9 +8,11 @@ import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/outfit.dart';
 import '../../models/outfit_container.dart';
+import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 import '../../services/storage.dart';
 import '../../widgets/drag_target_container.dart';
@@ -76,8 +78,19 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
               onPressed: () {
                 formKey.currentState!.save();
                 screenshotController.capture().then((capturedImage) async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  List<String>? indexList = prefs.getStringList('indexList');
+                  if (indexList!.isEmpty == false) {
+                    print('here');
+                    // ignore: use_build_context_synchronously
+                    Provider.of<OutfitManager>(context, listen: false)
+                        .setOutfitIndexesList(
+                            indexList.map((i) => int.parse(i)).toList());
+                  }
                   File imagePath;
                   if (item == null) {
+                    // ignore: use_build_context_synchronously
                     index = Provider.of<OutfitManager>(context, listen: false)
                         .getMaxOutfitIndexes;
                     decision == false
@@ -187,6 +200,12 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                     .removeFromIndexes(item.index);
                 Provider.of<OutfitManager>(context, listen: false)
                     .indexIsSet(false);
+                Provider.of<AppStateManager>(context, listen: false)
+                    .cacheIndexList(
+                        Provider.of<OutfitManager>(context, listen: false)
+                            .getIndexList);
+                // Provider.of<OutfitManager>(context, listen: false)
+                //     .emptyOutfitIndexes();
               },
               child: Image.asset(
                 "assets/images/trash.png",
