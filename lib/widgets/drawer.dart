@@ -4,40 +4,52 @@ import 'package:mokamayu/services/services.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
+import '../widgets/widgets.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-        child: Container(
-      height: MediaQuery.of(context).size.height,
-      padding: const EdgeInsets.all(22),
-      child: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              children: [
-                DrawerHeader(
-                    child: Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text("Menu",
-                            style:
-                                TextStyles.h3(ColorsConstants.blackAccent)))),
-                buildDrawerOption(context, 'Edit profile',
-                    () => context.push('/edit-profile')),
-                buildDrawerOption(context, 'Settings', () => {}),
-                buildDrawerOption(context, 'Friends', () => {}),
-                buildDrawerOption(context, 'Wardrobe', () => {}),
-                buildDrawerOption(context, 'Outfits', () => {}),
-              ],
-            ),
-          ),
-          buildSignOutOption(context),
-        ],
+    return Stack(children: [
+      GestureDetector(
+        onTap: () => context.pop(),
+        child: Stack(children: const [
+          BackgroundImage(
+              imagePath: "assets/images/full_background.png",
+              imageShift: 0,
+              opacity: 0.5),
+        ]),
       ),
-    ));
+      Drawer(
+          child: Container(
+        height: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.all(22),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                children: [
+                  DrawerHeader(
+                      child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text("Menu",
+                              style:
+                                  TextStyles.h3(ColorsConstants.blackAccent)))),
+                  buildDrawerOption(context, 'Edit profile',
+                      () => context.push('/edit-profile')),
+                  buildDrawerOption(context, 'Settings', () => {}),
+                  buildDrawerOption(context, 'Friends', () => {}),
+                  buildDrawerOption(context, 'Wardrobe', () => {}),
+                  buildDrawerOption(context, 'Outfits', () => {}),
+                ],
+              ),
+            ),
+            buildSignOutOption(context),
+          ],
+        ),
+      )),
+    ]);
   }
 
   Widget buildDrawerOption(
