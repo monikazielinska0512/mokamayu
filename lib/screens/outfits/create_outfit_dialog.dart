@@ -7,11 +7,13 @@ import 'package:provider/provider.dart';
 
 import '../../widgets/background_image.dart';
 
-class CustomDialogBox {
-  static outfitsDialog(
-      BuildContext context, Future<List<WardrobeItem>>? itemList) {
-    return SizedBox.expand(
-        child: Stack(
+class CustomDialogBox extends StatelessWidget {
+  CustomDialogBox({Key? key, required this.itemList}) : super(key: key);
+  Future<List<WardrobeItem>>? itemList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
       children: [
         GestureDetector(
           onTap: () => context.pop(),
@@ -63,7 +65,7 @@ class CustomDialogBox {
                       ],
                     ))))
       ],
-    ));
+    );
   }
 }
 

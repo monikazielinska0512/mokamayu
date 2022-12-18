@@ -75,7 +75,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
           showDialog(
               context: context,
               builder: (BuildContext context) {
-                return CustomDialogBox.outfitsDialog(context, itemList);
+                return CustomDialogBox(itemList: itemList);
               });
         },
         icon: const Icon(Icons.add),
