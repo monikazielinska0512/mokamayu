@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import '../constants/text_styles.dart';
 import 'buttons/icon_button.dart';
-import 'drawer.dart';
 
 class BasicScreen extends StatelessWidget {
   BuildContext context;
@@ -42,7 +41,6 @@ class BasicScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,
-        drawer: const CustomDrawer(),
         appBar: isAppBarVisible!
             ? AppBar(
                 title: buildPageTitle(),
@@ -56,7 +54,7 @@ class BasicScreen extends StatelessWidget {
                 leading: (leftButtonType == "back")
                     ? buildLeftBackButton()
                     : (leftButtonType == "dots")
-                        ? buildDotsButton()
+                        ? buildDotsButton(context)
                         : null)
             : null,
         body: Center(
@@ -68,10 +66,10 @@ class BasicScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(16), child: body))));
   }
 
-  Widget buildDotsButton() {
+  Widget buildDotsButton(BuildContext context) {
     return IconButton(
       onPressed: () {
-        const CustomDrawer();
+        Scaffold.of(context).openDrawer();
       },
       icon: const Icon(Icons.more_vert),
     );
