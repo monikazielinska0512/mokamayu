@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 import '../../constants/text_styles.dart';
+import '../../generated/l10n.dart';
 import '../buttons/icon_button.dart';
 import '../navigation/drawer.dart';
 
@@ -51,11 +53,19 @@ class BasicScreen extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 foregroundColor: color,
                 elevation: 0,
-                actions: [buildRightIconButton()],
+                actions: [
+                  Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: buildRightIconButton())
+                ],
                 leading: (leftButtonType == "back")
-                    ? buildLeftBackButton()
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: buildLeftBackButton())
                     : (leftButtonType == "dots")
-                        ? buildDotsButton()
+                        ? Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: buildDotsButton())
                         : null)
             : null,
         body: Center(
@@ -64,18 +74,23 @@ class BasicScreen extends StatelessWidget {
                 : SafeArea(
                     bottom: false,
                     child: Padding(
-                        padding: const EdgeInsets.all(16), child: body))));
+                        padding: const EdgeInsets.all(20), child: body))));
   }
 
   Widget buildDotsButton() {
-    return IconButton(
+    return CustomIconButton(
+      icon: Ionicons.ellipsis_vertical,
+      backgroundColor: Colors.transparent,
+      iconColor: Colors.black,
       onPressed: () => _key.currentState!.openDrawer(),
-      icon: const Icon(Icons.more_vert),
     );
   }
 
   Widget buildLeftBackButton() {
-    return IconButton(
+    return CustomIconButton(
+      icon: Ionicons.chevron_back,
+      backgroundColor: Colors.transparent,
+      iconColor: Colors.black,
       onPressed: () {
         switch (type) {
           case "add_photo":
@@ -88,14 +103,13 @@ class BasicScreen extends StatelessWidget {
           //case ...
         }
       },
-      icon: const Icon(Icons.arrow_back_ios),
     );
   }
 
   Widget buildPageTitle() {
     switch (type) {
       case "wardrobe":
-        return Text("Your Wardrobe", style: TextStyles.appTitle(Colors.black));
+        return Text(S.of(context).wardrobe_page_title, style: TextStyles.appTitle(Colors.black));
     }
     return const Text("");
   }
@@ -105,9 +119,9 @@ class BasicScreen extends StatelessWidget {
       case "bell":
         return CustomIconButton(
             onPressed: () {},
-            icon: Icons.notifications,
+            icon: Ionicons.notifications_outline,
             backgroundColor: Colors.transparent,
-            iconColor: Colors.grey);
+            iconColor: Colors.black);
       case "go_forward":
         return CustomIconButton(onPressed: () {}, icon: Icons.arrow_forward);
       case "search":

@@ -8,3 +8,4 @@ export 'fields/fields.dart';
 export 'navigation/navbar.dart';
 export 'user/user_summary.dart';
 export 'navigation/drawer.dart';
+export 'photo/photo.dart';

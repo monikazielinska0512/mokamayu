@@ -78,6 +78,9 @@ class _PhotoGridState extends State<PhotoGrid> {
     return GestureDetector(
         onLongPress: () {
           showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(60.0),
+            ),
             context: context,
             builder: (BuildContext context) {
               return Container(

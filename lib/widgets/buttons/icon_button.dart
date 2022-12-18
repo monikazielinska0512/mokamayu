@@ -30,7 +30,7 @@ class CustomIconButton extends StatelessWidget {
             backgroundColor: backgroundColor ?? ColorsConstants.darkBrick,
             elevation: 0,
           ),
-          child: Icon(icon, color: iconColor),
+          child: Center(child: Icon(icon, color: iconColor)),
         ));
   }
 }

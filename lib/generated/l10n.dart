@@ -279,6 +279,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Your Wardrobe`
+  String get wardrobe_page_title {
+    return Intl.message(
+      'Your Wardrobe',
+      name: 'wardrobe_page_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search by name`
+  String get searchbar_wardrobe_item {
+    return Intl.message(
+      'Search by name',
+      name: 'searchbar_wardrobe_item',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skirt`
+  String get skirt {
+    return Intl.message(
+      'Skirt',
+      name: 'skirt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `T-Shirt`
+  String get tshirt {
+    return Intl.message(
+      'T-Shirt',
+      name: 'tshirt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dress`
+  String get dress {
+    return Intl.message(
+      'Dress',
+      name: 'dress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shoes`
+  String get shoes {
+    return Intl.message(
+      'Shoes',
+      name: 'shoes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hat`
+  String get hat {
+    return Intl.message(
+      'Hat',
+      name: 'hat',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:searchfield/searchfield.dart';
 
+import '../../constants/colors.dart';
+import '../../constants/text_styles.dart';
+import '../../generated/l10n.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/wardrobe_manager.dart';
 
@@ -28,16 +31,16 @@ class _WardrobeItemSearchState extends State<WardrobeItemSearch> {
   @override
   void initState() {
     super.initState();
-    countries = Provider.of<WardrobeManager>(context, listen: false)
+    items = Provider.of<WardrobeManager>(context, listen: false)
         .getFinalWardrobeItemList;
   }
 
   final focus = FocusNode();
-  List<WardrobeItem> countries = [];
+  List<WardrobeItem> items = [];
   WardrobeItem _selectedWardrobeItem = WardrobeItem.init();
 
   bool containsWardrobeItem(String text) {
-    final WardrobeItem result = countries.firstWhere(
+    final WardrobeItem result = items.firstWhere(
         (WardrobeItem item) => item.name.toLowerCase() == text.toLowerCase(),
         orElse: () => WardrobeItem.init());
 
@@ -53,15 +56,15 @@ class _WardrobeItemSearchState extends State<WardrobeItemSearch> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: SearchField(
           focusNode: focus,
-          suggestions: countries
+          suggestions: items
               .map((item) => SearchFieldListItem(item.name, item: item))
               .toList(),
           suggestionState: Suggestion.hidden,
           hasOverlay: true,
           controller: _searchController,
-          hint: 'Search by item name',
+          hint: S.of(context).searchbar_wardrobe_item,
           maxSuggestionsInViewPort: 4,
-          itemHeight: 45,
+          itemHeight: 100,
           inputType: TextInputType.text,
           onSuggestionTap: (SearchFieldListItem<WardrobeItem> x) {
             setState(() {
@@ -70,70 +73,25 @@ class _WardrobeItemSearchState extends State<WardrobeItemSearch> {
             context.goNamed('wardrobe-item', extra: _selectedWardrobeItem);
             focus.unfocus();
           },
+          searchInputDecoration: InputDecoration(
+              filled: true,
+              fillColor: ColorsConstants.whiteAccent,
+              labelStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
+              hintStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
+              ),
+              border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(14.0))),
+              prefixIcon: const Icon(Icons.search),
+              prefixIconColor: focus.hasFocus == false
+                  ? ColorsConstants.grey
+                  : ColorsConstants.darkBrick),
         ));
   }
-//     Expanded(
-//         child: Center(
-//             child: _selectedWardrobeItem.name.isEmpty
-//                 ? Text('select WardrobeItem')
-//                 : Text),
-//   ],
-// );
 }
-
-// class WardrobeItemDetail extends StatefulWidget {
-//   final WardrobeItem? item;
-//
-//   WardrobeItemDetail({Key? key, required this.item}) : super(key: key);
-//
-//   @override
-//   _WardrobeItemDetailState createState() => _WardrobeItemDetailState();
-// }
-
-// class _WardrobeItemDetailState extends State<WardrobeItemDetail> {
-//   Widget dataWidget(String key, dynamic value) {
-//     return Container(
-//       alignment: Alignment.center,
-//       padding: EdgeInsets.symmetric(
-//           horizontal: MediaQuery.of(context).size.width * 0.15),
-//       child: Row(
-//         crossAxisAlignment: CrossAxisAlignment.center,
-//         children: [
-//           Text('$key:'),
-//           SizedBox(
-//             width: 16,
-//           ),
-//           Flexible(
-//             child: Text(
-//               '$value',
-//               style: const TextStyle(fontSize: 30),
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         Container(
-//           padding: const EdgeInsets.symmetric(horizontal: 24),
-//           alignment: Alignment.center,
-//           child: Text(
-//             widget.item!.name,
-//             style: TextStyle(fontSize: 40),
-//           ),
-//         ),
-//         SizedBox(
-//           height: 20,
-//         ),
-//         dataWidget('Population:', widget.item!.name),
-//         dataWidget('Density', widget.item!.type),
-//         dataWidget('Land Area (in Km\'s)', widget.item!.size)
-//       ],
-//     );
-//   }
-// }
