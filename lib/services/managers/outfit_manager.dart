@@ -8,12 +8,8 @@ import 'dart:math';
 class OutfitManager extends ChangeNotifier {
   List<Outfit> finalOutfitList = [];
   Future<List<Outfit>>? futureOutfitList;
-
   Future<List<Outfit>>? get getOutfitList => futureOutfitList;
   List<Outfit> get getfinalOutfitList => finalOutfitList;
-
-  // int get getOutfitsNumber => finalOutfitList.length;
-
   List<int> outfitIndexes = [0];
   int index = 0;
   bool indexSet = false;
@@ -21,7 +17,6 @@ class OutfitManager extends ChangeNotifier {
   List<int> get getIndexList => outfitIndexes;
   int get getIndex => index;
   bool get getIndexSet => indexSet;
-
   String? outfitStyle = "";
   String? outfitSeason = "";
 
@@ -43,9 +38,9 @@ class OutfitManager extends ChangeNotifier {
   }
 
   //for tests
-  void emptyOutfitIndexes() {
-    outfitIndexes.removeWhere((el) => el != 0);
-  }
+  // void emptyOutfitIndexes() {
+  //   outfitIndexes.removeWhere((el) => el != 0);
+  // }
 
   void indexIsSet(bool decision) {
     indexSet = decision;

@@ -204,8 +204,6 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                     .cacheIndexList(
                         Provider.of<OutfitManager>(context, listen: false)
                             .getIndexList);
-                // Provider.of<OutfitManager>(context, listen: false)
-                //     .emptyOutfitIndexes();
               },
               child: Image.asset(
                 "assets/images/trash.png",
