@@ -59,25 +59,32 @@ class _PhotoGridState extends State<PhotoGrid> {
                             ),
                       itemBuilder: (BuildContext context, int index) {
                         var itemInfo = snapshot.data![index];
-                        return DeleteBottomModal(
-                          item: itemInfo,
-                          actionFunction: () {
-                            Provider.of<WardrobeManager>(context, listen: false)
-                                .removeWardrobeItem(itemInfo.reference);
-                            setState(() {
-                              widget.itemList = Provider.of<WardrobeManager>(
-                                      context,
-                                      listen: false)
-                                  .readWardrobeItemOnce();
-                              Future.delayed(Duration.zero).then((value) {
-                                Provider.of<WardrobeManager>(context,
-                                        listen: false)
-                                    .setWardrobeItemList(widget.itemList!);
-                              });
-                            });
-                            context.pop();
-                          },
-                        );
+                        return widget.scrollVertically == Axis.vertical
+                            ? DeleteBottomModal(
+                                item: itemInfo,
+                                actionFunction: () {
+                                  Provider.of<WardrobeManager>(context,
+                                          listen: false)
+                                      .removeWardrobeItem(itemInfo.reference);
+                                  setState(() {
+                                    widget.itemList =
+                                        Provider.of<WardrobeManager>(context,
+                                                listen: false)
+                                            .readWardrobeItemOnce();
+                                    Future.delayed(Duration.zero).then((value) {
+                                      Provider.of<WardrobeManager>(context,
+                                              listen: false)
+                                          .setWardrobeItemList(
+                                              widget.itemList!);
+                                    });
+                                  });
+                                  context.pop();
+                                },
+                              )
+                            : PhotoBox(
+                                object: itemInfo,
+                                scrollVertically: widget.scrollVertically,
+                              );
                       },
                     ));
         }

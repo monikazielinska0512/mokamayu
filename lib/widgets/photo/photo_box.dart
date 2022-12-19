@@ -13,7 +13,6 @@ class PhotoBox extends StatelessWidget {
       {Key? key, required this.object, required this.scrollVertically})
       : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     String? photoURL = object.photoURL;
@@ -70,6 +69,4 @@ class PhotoBox extends StatelessWidget {
       ),
     );
   }
-
-
 }
