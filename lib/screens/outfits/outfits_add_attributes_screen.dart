@@ -53,8 +53,6 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                 Provider.of<OutfitManager>(context, listen: false)
                     .setSeason("");
                 Provider.of<OutfitManager>(context, listen: false).setStyle("");
-                Provider.of<PhotoTapped>(context, listen: false)
-                    .setImagePath("");
                 Provider.of<PhotoTapped>(context, listen: false).setMap({});
                 Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
                 Provider.of<OutfitManager>(context, listen: false)
@@ -76,6 +74,7 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                 size: 35,
               ),
               onPressed: () {
+                //take care of that
                 formKey.currentState!.save();
                 screenshotController.capture().then((capturedImage) async {
                   SharedPreferences prefs =
@@ -101,9 +100,6 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                     final directory = await getApplicationDocumentsDirectory();
                     imagePath = await File('${directory.path}/image$index.png')
                         .create();
-                    // ignore: use_build_context_synchronously
-                    Provider.of<PhotoTapped>(context, listen: false)
-                        .setImagePath('${directory.path}/image$index.png');
                     if (decision == false) {
                       // ignore: use_build_context_synchronously
                       Provider.of<OutfitManager>(context, listen: false)
@@ -116,7 +112,10 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                           .indexIsSet(true);
                     }
                   } else {
-                    imagePath = await File(item.imagePath).create();
+                    final directory = await getApplicationDocumentsDirectory();
+                    imagePath =
+                        await File('${directory.path}/image$item.index.png')
+                            .create();
                   }
                   capturedOutfit = capturedImage;
                   await imagePath.writeAsBytes(capturedOutfit!);

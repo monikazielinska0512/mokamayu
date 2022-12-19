@@ -9,12 +9,6 @@ class PhotoTapped extends ChangeNotifier {
   late String screenshot;
   String get getScreenshot => screenshot;
   Outfit? item;
-  late String imagePath;
-  String get getImagePath => imagePath;
-
-  void setImagePath(String newImagePath) {
-    imagePath = newImagePath;
-  }
 
   Map<List<dynamic>, OutfitContainer> get getMapDynamic => mapDynamic;
 
