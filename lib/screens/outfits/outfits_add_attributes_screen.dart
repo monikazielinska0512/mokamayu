@@ -81,7 +81,6 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                       await SharedPreferences.getInstance();
                   List<String>? indexList = prefs.getStringList('indexList');
                   if (indexList!.isEmpty == false) {
-                    print('here');
                     // ignore: use_build_context_synchronously
                     Provider.of<OutfitManager>(context, listen: false)
                         .setOutfitIndexesList(
