@@ -42,13 +42,15 @@ class OutfitForm extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: SingleSelectChipsFormField(
             initialValue: _season,
+            type: 'season',
             autoValidate: true,
+            context: context,
             validator: (value) =>
                 Validator.checkIfSingleValueSelected(value!, context),
             onSaved: (value) {
               _season = value!;
-              Provider.of<OutfitManager>(context, listen: false)
-                  .setSeason(_season);
+              // Provider.of<OutfitManager>(context, listen: false)
+              //     .setSeason(_season);
             },
             color: ColorsConstants.darkMint,
             chipsList: const ["Spring", "Summer", "Fall", "Winter"],
@@ -68,13 +70,15 @@ class OutfitForm extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: SingleSelectChipsFormField(
             initialValue: _style,
+            type: 'style',
             autoValidate: true,
+            context: context,
             validator: (value) =>
                 Validator.checkIfSingleValueSelected(value!, context),
             onSaved: (value) {
               _style = value!;
-              Provider.of<OutfitManager>(context, listen: false)
-                  .setStyle(_style);
+              // Provider.of<OutfitManager>(context, listen: false)
+              //     .setStyle(_style);
             },
             color: ColorsConstants.sunflower,
             chipsList: const ["Party", "Work", "Active", "Casual", "Wedding"],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/colors.dart';
+import '../../services/managers/outfit_manager.dart';
 
 class SingleSelectChipsFormField extends FormField<String> {
   final List chipsList;
@@ -12,7 +14,9 @@ class SingleSelectChipsFormField extends FormField<String> {
       required this.color,
       required FormFieldSetter<String> onSaved,
       required FormFieldValidator<String> validator,
+      BuildContext? context,
       String initialValue = "",
+      String? type,
       bool autoValidate = true})
       : super(
             key: key,
@@ -41,6 +45,18 @@ class SingleSelectChipsFormField extends FormField<String> {
                           //     ColorsConstants.grey),
                           onSelected: (bool selected) {
                             state.didChange(selected ? chipsList[index] : "");
+                            if (type == 'season') {
+                              print('season');
+                              Provider.of<OutfitManager>(context!,
+                                      listen: false)
+                                  .setSeason(chipsList[index]);
+                            }
+                            if (type == 'style') {
+                              print('style');
+                              Provider.of<OutfitManager>(context!,
+                                      listen: false)
+                                  .setStyle(chipsList[index]);
+                            }
                           });
                     }).toList()),
               ]);

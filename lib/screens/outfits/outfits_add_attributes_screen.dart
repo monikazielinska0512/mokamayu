@@ -19,21 +19,32 @@ import '../../widgets/drag_target_container.dart';
 import '../../widgets/photo/photo_grid.dart';
 import '../../services/managers/photo_tapped_manager.dart';
 
-class OutfitsAddAttributesScreen extends StatelessWidget {
+class OutfitsAddAttributesScreen extends StatefulWidget {
   OutfitsAddAttributesScreen({Key? key, required this.map}) : super(key: key);
   Map<List<dynamic>, OutfitContainer> map = {};
+  Uint8List? capturedOutfit;
+
+  @override
+  State<OutfitsAddAttributesScreen> createState() =>
+      _OutfitsAddAttributesScreenState();
+}
+
+class _OutfitsAddAttributesScreenState
+    extends State<OutfitsAddAttributesScreen> {
+  ScreenshotController screenshotController = ScreenshotController();
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  Outfit? item;
+  int index = 0;
+  bool decision = false;
 
   @override
   Widget build(BuildContext context) {
-    ScreenshotController screenshotController = ScreenshotController();
-    Uint8List? capturedOutfit;
-    final formKey = GlobalKey<FormState>();
-    Outfit? item = Provider.of<PhotoTapped>(context, listen: false).getObject;
-    int index = Provider.of<OutfitManager>(context, listen: false).getIndex;
-    bool decision =
-        Provider.of<OutfitManager>(context, listen: true).getIndexSet;
-    Provider.of<PhotoTapped>(context, listen: false).setMap(map);
-    map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
+    item = Provider.of<PhotoTapped>(context, listen: false).getObject;
+    index = Provider.of<OutfitManager>(context, listen: false).getIndex;
+    decision = Provider.of<OutfitManager>(context, listen: true).getIndexSet;
+    Provider.of<PhotoTapped>(context, listen: false).setMap(widget.map);
+    widget.map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
 
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -74,13 +85,14 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                 size: 35,
               ),
               onPressed: () {
-                //take care of that
-                formKey.currentState!.save();
                 screenshotController.capture().then((capturedImage) async {
+                  setState(() {
+                    widget.capturedOutfit = capturedImage;
+                  });
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
-                  List<String>? indexList = prefs.getStringList('indexList');
-                  if (indexList!.isEmpty == false) {
+                  var indexList = prefs.getStringList('indexList');
+                  if (indexList != null && indexList.isEmpty == false) {
                     // ignore: use_build_context_synchronously
                     Provider.of<OutfitManager>(context, listen: false)
                         .setOutfitIndexesList(
@@ -113,11 +125,16 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                   } else {
                     final directory = await getApplicationDocumentsDirectory();
                     imagePath =
-                        await File('${directory.path}/image$item.index.png')
+                        await File('${directory.path}/image${item!.index}.png')
                             .create();
                   }
-                  capturedOutfit = capturedImage;
+                  var capturedOutfit = widget.capturedOutfit;
+                  // print(capturedOutfit);
+                  // if (capturedOutfit != null) {
+                  //   await imagePath.writeAsBytes(capturedOutfit);
+                  // }
                   await imagePath.writeAsBytes(capturedOutfit!);
+
                   // ignore: use_build_context_synchronously
                   String url = await StorageService()
                       .uploadFile(context, imagePath.path);
@@ -127,7 +144,7 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                       .setScreenshot(url);
                   // ignore: use_build_context_synchronously
                   GoRouter.of(context)
-                      .goNamed("outfit-summary-screen", extra: map);
+                      .goNamed("outfit-summary-screen", extra: widget.map);
                 }).catchError((onError) {
                   if (kDebugMode) {
                     print(onError);
@@ -138,7 +155,7 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
           ],
         ),
         body: item != null
-            ? bodyEdit(screenshotController, formKey, item, context)
+            ? bodyEdit(screenshotController, formKey, item!, context)
             : bodyAdd(screenshotController, formKey, item, context));
   }
 
@@ -168,7 +185,7 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                     EdgeInsets.fromLTRB(0, deviceHeight(context) * 0.14, 0, 0),
                 child: Screenshot(
                     controller: screenshotController,
-                    child: DragTargetContainer(map: map)),
+                    child: DragTargetContainer(map: widget.map)),
               ),
             )
           ]),
@@ -235,7 +252,7 @@ class OutfitsAddAttributesScreen extends StatelessWidget {
                   EdgeInsets.fromLTRB(0, deviceHeight(context) * 0.14, 0, 0),
               child: Screenshot(
                   controller: screenshotController,
-                  child: DragTargetContainer(map: map)),
+                  child: DragTargetContainer(map: widget.map)),
             ),
           )
         ]),
