@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
+import '../../constants/tags.dart';
 import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/outfit_manager.dart';
@@ -11,6 +12,7 @@ class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.itemList}) : super(key: key);
   Future<List<WardrobeItem>>? itemList;
   Map<List<dynamic>, OutfitContainer> map = {};
+  List<String> selectedChips = Tags.types;
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +54,10 @@ class CreateOutfitPage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Stack(children: <Widget>[
-            Positioned(
-                child: Opacity(
-              opacity: 0.5,
-              child: Image.asset(
-                "assets/images/backgroundWaves.png",
-                fit: BoxFit.fitWidth,
-              ),
-            )),
+            const BackgroundImage(
+              imagePath: "assets/images/upside_down_background.png",
+              imageShift: -50,
+            ),
             Positioned(
               child: Padding(
                   padding: EdgeInsets.fromLTRB(
@@ -69,10 +67,9 @@ class CreateOutfitPage extends StatelessWidget {
                   ),
             )
           ]),
-          //TODO categories for wardrobe
-          const SizedBox(
-            height: 100,
-          ),
+          MultiSelectChip(Tags.types, onSelectionChanged: (selectedList) {
+            selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
+          }),
           SizedBox(
             width: double.infinity,
             height: 200,

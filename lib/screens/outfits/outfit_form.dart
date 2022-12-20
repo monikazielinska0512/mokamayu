@@ -49,8 +49,6 @@ class OutfitForm extends StatelessWidget {
                 Validator.checkIfSingleValueSelected(value!, context),
             onSaved: (value) {
               _season = value!;
-              // Provider.of<OutfitManager>(context, listen: false)
-              //     .setSeason(_season);
             },
             color: ColorsConstants.darkMint,
             chipsList: const ["Spring", "Summer", "Fall", "Winter"],
@@ -77,8 +75,6 @@ class OutfitForm extends StatelessWidget {
                 Validator.checkIfSingleValueSelected(value!, context),
             onSaved: (value) {
               _style = value!;
-              // Provider.of<OutfitManager>(context, listen: false)
-              //     .setStyle(_style);
             },
             color: ColorsConstants.sunflower,
             chipsList: const ["Party", "Work", "Active", "Casual", "Wedding"],

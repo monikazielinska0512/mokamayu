@@ -10,12 +10,15 @@ import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../constants/tags.dart';
 import '../../models/outfit.dart';
 import '../../models/outfit_container.dart';
 import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 import '../../services/storage.dart';
+import '../../widgets/chips/multi_select_chips.dart';
 import '../../widgets/drag_target_container.dart';
+import '../../widgets/fundamental/background_image.dart';
 import '../../widgets/photo/photo_grid.dart';
 import '../../services/managers/photo_tapped_manager.dart';
 
@@ -32,6 +35,7 @@ class OutfitsAddAttributesScreen extends StatefulWidget {
 class _OutfitsAddAttributesScreenState
     extends State<OutfitsAddAttributesScreen> {
   ScreenshotController screenshotController = ScreenshotController();
+  List<String> selectedChips = Tags.types;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Outfit? item;
@@ -129,10 +133,6 @@ class _OutfitsAddAttributesScreenState
                             .create();
                   }
                   var capturedOutfit = widget.capturedOutfit;
-                  // print(capturedOutfit);
-                  // if (capturedOutfit != null) {
-                  //   await imagePath.writeAsBytes(capturedOutfit);
-                  // }
                   await imagePath.writeAsBytes(capturedOutfit!);
 
                   // ignore: use_build_context_synchronously
@@ -171,14 +171,10 @@ class _OutfitsAddAttributesScreenState
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
           Stack(children: <Widget>[
-            Positioned(
-                child: Opacity(
-              opacity: 0.5,
-              child: Image.asset(
-                "assets/images/backgroundWaves.png",
-                fit: BoxFit.fitWidth,
-              ),
-            )),
+            const BackgroundImage(
+              imagePath: "assets/images/upside_down_background.png",
+              imageShift: -50,
+            ),
             Positioned(
               child: Padding(
                 padding:
@@ -189,9 +185,9 @@ class _OutfitsAddAttributesScreenState
               ),
             )
           ]),
-          const SizedBox(
-            height: 50, //place for wardrobe categories
-          ),
+          MultiSelectChip(Tags.types, onSelectionChanged: (selectedList) {
+            selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
+          }),
           SizedBox(
             width: double.infinity,
             height: 200,
@@ -238,14 +234,10 @@ class _OutfitsAddAttributesScreenState
     return Column(
       children: <Widget>[
         Stack(children: <Widget>[
-          Positioned(
-              child: Opacity(
-            opacity: 0.5,
-            child: Image.asset(
-              "assets/images/backgroundWaves.png",
-              fit: BoxFit.fitWidth,
-            ),
-          )),
+          const BackgroundImage(
+            imagePath: "assets/images/upside_down_background.png",
+            imageShift: -50,
+          ),
           Positioned(
             child: Padding(
               padding:
