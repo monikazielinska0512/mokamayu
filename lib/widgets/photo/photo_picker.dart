@@ -52,6 +52,8 @@ class _PhotoPickerState extends State<PhotoPicker> {
   Future pickImage(ImageSource source) async {
     final pickedFile =
         await widget.picker.pickImage(source: source, imageQuality: 50);
+    print(pickedFile);
+
     setState(() {
       if (pickedFile != null) {
         widget.photoPath = pickedFile.path;
@@ -144,6 +146,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
             title,
             source != null
                 ? () {
+                    print('here');
                     pickImage(source);
                     Navigator.of(context).pop();
                   }

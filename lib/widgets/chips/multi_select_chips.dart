@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/constants.dart';
+
+import '../../constants/colors.dart';
+import '../../models/wardrobe_item.dart';
+import '../../services/managers/wardrobe_manager.dart';
 
 class MultiSelectChip extends StatefulWidget {
   final List<String> chipsList;
   final Function(List<String>)? onSelectionChanged;
-  Color chipsColor;
+  String? type;
+  Future<List<WardrobeItem>>? list;
   bool isScrollable;
+  Color chipsColor;
 
   MultiSelectChip(this.chipsList,
       {super.key,
       required this.onSelectionChanged,
+      this.type,
+      this.list,
       this.isScrollable = true,
-      this.chipsColor = ColorsConstants.darkPeach});
+      required this.chipsColor});
 
   @override
   State<MultiSelectChip> createState() => _MultiSelectChipState();
@@ -21,31 +29,83 @@ class MultiSelectChip extends StatefulWidget {
 class _MultiSelectChipState extends State<MultiSelectChip> {
   List<String> selectedChoices = [];
 
+  @override
+  void initState() {
+    if (widget.type == 'type' &&
+        Provider.of<WardrobeManager>(context, listen: false).getTypes != null) {
+      selectedChoices =
+          Provider.of<WardrobeManager>(context, listen: false).getTypes!;
+    }
+    if (widget.type == 'size' &&
+        Provider.of<WardrobeManager>(context, listen: false).getSizes != null) {
+      selectedChoices =
+          Provider.of<WardrobeManager>(context, listen: false).getSizes!;
+    }
+    if (widget.type == 'style' &&
+        Provider.of<WardrobeManager>(context, listen: false).getStyles !=
+            null) {
+      selectedChoices =
+          Provider.of<WardrobeManager>(context, listen: false).getStyles!;
+    }
+    if (widget.type == 'type_main' &&
+        Provider.of<WardrobeManager>(context, listen: false).getTypes != null) {
+      selectedChoices =
+          Provider.of<WardrobeManager>(context, listen: false).getTypes!;
+    }
+    super.initState();
+  }
+
   _buildChoiceList() {
     List<Widget> choices = [];
     for (var item in widget.chipsList) {
       choices.add(Container(
-        padding: const EdgeInsets.only(right: 15),
+        padding: const EdgeInsets.only(right: 10),
         child: ChoiceChip(
-          labelPadding: const EdgeInsets.only(right: 7, left: 7, top: 2, bottom: 2),
-          label: selectedChoices.contains(item)
-              ? Text(item,
-                  style: TextStyles.paragraphRegularSemiBold18(
-                      ColorsConstants.white))
-              : Text(item,
-                  style: TextStyles.paragraphRegular18(ColorsConstants.white)),
+          label: Text(item),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
           selected: selectedChoices.contains(item),
           backgroundColor: widget.chipsColor.withOpacity(0.6),
           selectedColor: widget.chipsColor,
+
           onSelected: (selected) {
             setState(() {
               selectedChoices.contains(item)
                   ? selectedChoices.remove(item)
                   : selectedChoices.add(item);
               widget.onSelectionChanged!(selectedChoices);
+              if (widget.type == 'type_main') {
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setTypes(selectedChoices);
+                widget.list =
+                    Provider.of<WardrobeManager>(context, listen: false)
+                        .filterWardrobe(
+                            context,
+                            selectedChoices,
+                            [],
+                            [],
+                            Provider.of<WardrobeManager>(context, listen: false)
+                                .getFinalWardrobeItemList);
+
+                if (widget.list != null) {
+                  Provider.of<WardrobeManager>(context, listen: false)
+                      .setWardrobeItemListCopy(widget.list!);
+                }
+              }
             });
+
+            if (widget.type == 'type') {
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .setTypes(selectedChoices);
+            }
+            if (widget.type == 'size') {
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .setSizes(selectedChoices);
+            }
+            if (widget.type == 'style') {
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .setStyles(selectedChoices);
+            }
           },
         ),
       ));

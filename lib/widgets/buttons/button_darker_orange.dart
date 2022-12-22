@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/colors.dart';
 
 Container ButtonDarker(BuildContext context, String title, Function onTap,
-    {bool shouldExpand = true, double width = 0.01, double height = 0.01, EdgeInsets margin = const EdgeInsets.fromLTRB(0, 10, 0, 50)} ) {
+    {bool shouldExpand = true,
+    double width = 0.01,
+    double height = 0.01,
+    EdgeInsets margin = const EdgeInsets.fromLTRB(0, 10, 0, 50)}) {
   return Container(
-    width: shouldExpand ? MediaQuery.of(context).size.width - 40 : MediaQuery.of(context).size.width * width,
+    width: shouldExpand
+        ? MediaQuery.of(context).size.width - 40
+        : MediaQuery.of(context).size.width * width,
     height: shouldExpand ? 50 : MediaQuery.of(context).size.height * height,
     margin: margin,
     child: ElevatedButton(

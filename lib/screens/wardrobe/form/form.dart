@@ -49,7 +49,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                   buildTypeChipsField(),
                   buildSizeChipsField(),
                   buildStyleChipsField(),
-                  widget.item == null ? buildAddButton() : buildUpdateButton()
+                  widget.item == null ? buildAddButton() : buildUpdateButton(),
                 ]))));
   }
 
@@ -90,14 +90,13 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       Align(
           alignment: Alignment.centerLeft,
           child: SingleSelectChipsFormField(
-            initialValue: _type,
-            autoValidate: true,
-            validator: (value) =>
-                Validator.checkIfSingleValueSelected(value!, context),
-            onSaved: (value) => _type = value!,
-            color: ColorsConstants.darkMint,
-            chipsList: Tags.types
-          ))
+              initialValue: _type,
+              autoValidate: true,
+              validator: (value) =>
+                  Validator.checkIfSingleValueSelected(value!, context),
+              onSaved: (value) => _type = value!,
+              color: ColorsConstants.darkMint,
+              chipsList: Tags.types))
     ]);
   }
 
@@ -164,6 +163,12 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             _size = "";
             _name = "";
             _styles = [];
+
+            Provider.of<WardrobeManager>(context, listen: false)
+                .nullListItemCopy();
+            Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
+            Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
+            Provider.of<WardrobeManager>(context, listen: false).setStyles([]);
             context.go("/home/0");
 
             CustomSnackBar.showSuccessSnackBar(
@@ -176,22 +181,44 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   }
 
   Widget buildUpdateButton() {
-    return ElevatedButton(
-        child: const Text('Update'),
-        onPressed: () async {
-          _formKey.currentState!.save();
-          if (_formKey.currentState!.validate()) {
-            Provider.of<WardrobeManager>(context, listen: false)
-                .updateWardrobeItem(widget.item?.reference ?? "", _name, _type,
-                    _size, widget.item?.photoURL ?? "", _styles);
-            context.go("/home/0");
-            CustomSnackBar.showSuccessSnackBar(
-                context: context, message: "Updated");
-          } else {
-            CustomSnackBar.showSuccessSnackBar(
-                context: context, message: "Error");
-          }
-
-        });
+    return Column(
+      children: [
+        ElevatedButton(
+            child: const Text('Update'),
+            onPressed: () async {
+              _formKey.currentState!.save();
+              if (_formKey.currentState!.validate()) {
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .updateWardrobeItem(widget.item?.reference ?? "", _name,
+                        _type, _size, widget.item?.photoURL ?? "", _styles);
+                        Provider.of<WardrobeManager>(context, listen: false)
+                  .nullListItemCopy();
+              Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
+              Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .setStyles([]);
+                context.go("/home/0");
+                CustomSnackBar.showSuccessSnackBar(
+                    context: context, message: "Updated");
+              } else {
+                CustomSnackBar.showSuccessSnackBar(
+                    context: context, message: "Error");
+              }
+            }),
+        IconButton(
+            onPressed: () {
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .removeWardrobeItem(widget.item?.reference);
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .nullListItemCopy();
+              Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
+              Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .setStyles([]);
+              context.go("/home/0");
+            },
+            icon: const Icon(Icons.delete))
+      ],
+    );
   }
 }

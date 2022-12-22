@@ -161,8 +161,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Expanded(
                 child: TabBarView(children: [
-                  PhotoGrid(itemList: itemList),
-                  PhotoGrid(outfitsList: outfitsList),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: PhotoGrid(itemList: itemList)),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: PhotoGrid(outfitsList: outfitsList))
                 ]),
               ),
             ],

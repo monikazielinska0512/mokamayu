@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:mokamayu/models/outfit.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/constants/constants.dart';
 import '../../services/managers/outfit_manager.dart';
-import '../../widgets/chips/multi_select_chips_formfield.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -28,8 +26,11 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
     Provider.of<OutfitManager>(context, listen: false).setOutfits(outfitsList!);
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
-    Provider.of<WardrobeManager>(context, listen: false)
-        .setWardrobeItemList(itemList!);
+    Future.delayed(Duration.zero).then((value) {
+      Provider.of<WardrobeManager>(context, listen: false)
+          .setWardrobeItemList(itemList!);
+    });
+
     super.initState();
   }
 
