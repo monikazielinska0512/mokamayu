@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:mokamayu/constants/constants.dart';
 
 import '../../constants/colors.dart';
 import '../../models/wardrobe_item.dart';
@@ -10,9 +11,16 @@ class MultiSelectChip extends StatefulWidget {
   final Function(List<String>)? onSelectionChanged;
   String? type;
   Future<List<WardrobeItem>>? list;
+  bool isScrollable;
+  Color chipsColor;
 
   MultiSelectChip(this.chipsList,
-      {super.key, required this.onSelectionChanged, this.type, this.list});
+      {super.key,
+      required this.onSelectionChanged,
+      this.type,
+      this.list,
+      this.isScrollable = true,
+      required this.chipsColor});
 
   @override
   State<MultiSelectChip> createState() => _MultiSelectChipState();
@@ -56,9 +64,12 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
           label: Text(item),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
-          selected: selectedChoices!.contains(item),
-          backgroundColor: ColorsConstants.darkPeach.withOpacity(0.2),
-          selectedColor: ColorsConstants.darkPeach,
+          selected: selectedChoices.contains(item),
+          // backgroundColor: ColorsConstants.darkPeach.withOpacity(0.2),
+          // selectedColor: ColorsConstants.darkPeach,
+          backgroundColor: widget.chipsColor.withOpacity(0.6),
+          selectedColor: widget.chipsColor,
+
           onSelected: (selected) {
             setState(() {
               selectedChoices.contains(item)
@@ -66,7 +77,6 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
                   : selectedChoices.add(item);
               widget.onSelectionChanged!(selectedChoices);
               if (widget.type == 'type_main') {
-                print('here');
                 Provider.of<WardrobeManager>(context, listen: false)
                     .setTypes(selectedChoices);
                 widget.list =
@@ -109,8 +119,10 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.only(bottom: 10),
-        child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Wrap(children: _buildChoiceList())));
+        child: widget.isScrollable
+            ? SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Wrap(children: _buildChoiceList()))
+            : Wrap(runSpacing: 7, children: _buildChoiceList()));
   }
 }

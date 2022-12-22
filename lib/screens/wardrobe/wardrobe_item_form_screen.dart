@@ -67,16 +67,16 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
 
   Widget buildForm() {
     return Align(
-      alignment: Alignment.bottomLeft,
-      child: BackgroundCard(
+        alignment: Alignment.bottomLeft,
+        child: BackgroundCard(
           context: context,
           height: 0.6,
           child: AbsorbPointer(
             absorbing: false,
             child: WardrobeItemForm(
                 photoPath: widget.photo ?? "", item: widget.editItem),
-          )),
-    );
+          ),
+        ));
   }
 
   Widget buildEditFormButtons() {
@@ -85,6 +85,11 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
           onPressed: () {
             Provider.of<WardrobeManager>(context, listen: false)
                 .removeWardrobeItem(widget.editItem?.reference);
+            Provider.of<WardrobeManager>(context, listen: false)
+                .nullListItemCopy();
+            Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
+            Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
+            Provider.of<WardrobeManager>(context, listen: false).setStyles([]);
             context.go("/home/0");
           },
           icon: const Icon(Icons.delete)),

@@ -22,10 +22,16 @@ class WardrobeManager extends ChangeNotifier {
 
   void setWardrobeItemList(Future<List<WardrobeItem>> itemList) {
     futureWardrobeItemList = itemList;
+    notifyListeners();
   }
 
   void setWardrobeItemListCopy(Future<List<WardrobeItem>> itemList) {
     futureWardrobeItemListCopy = itemList;
+    notifyListeners();
+  }
+
+  void nullListItemCopy() {
+    futureWardrobeItemListCopy = null;
     notifyListeners();
   }
 
@@ -139,6 +145,6 @@ class WardrobeManager extends ChangeNotifier {
         .delete()
         .then((_) => print('Deleted'))
         .catchError((error) => print(' $error'));
-    notifyListeners();
+    // notifyListeners();
   }
 }
