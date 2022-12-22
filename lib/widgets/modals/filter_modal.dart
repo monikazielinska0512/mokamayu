@@ -164,7 +164,7 @@ class _FilterModalState extends State<FilterModal> {
                 // clearFilters()
               },
           shouldExpand: false,
-          height: 0.062,
+          height: 0.060,
           width: 0.6),
     );
   }

@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../constants/colors.dart';
 import '../../constants/tags.dart';
 import '../../models/outfit.dart';
 import '../../models/outfit_container.dart';
@@ -185,7 +186,13 @@ class _OutfitsAddAttributesScreenState
               ),
             )
           ]),
-          MultiSelectChip(Tags.types, onSelectionChanged: (selectedList) {
+          //todo
+          MultiSelectChip(Tags.types,
+              type: "type_main",
+              list: Provider.of<WardrobeManager>(context, listen: false)
+                  .getWardrobeItemListCopy,
+              chipsColor: ColorsConstants.darkPeach,
+              onSelectionChanged: (selectedList) {
             selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
           }),
           SizedBox(
@@ -193,7 +200,9 @@ class _OutfitsAddAttributesScreenState
             height: 200,
             child: PhotoGrid(
               itemList: Provider.of<WardrobeManager>(context, listen: false)
-                  .getWardrobeItemList,
+                      .getWardrobeItemListCopy ??
+                  Provider.of<WardrobeManager>(context, listen: false)
+                      .getWardrobeItemList,
               scrollVertically: false,
             ),
           ),

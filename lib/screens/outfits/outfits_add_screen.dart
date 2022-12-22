@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
+import '../../constants/colors.dart';
 import '../../constants/tags.dart';
 import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
@@ -67,7 +68,8 @@ class CreateOutfitPage extends StatelessWidget {
                   ),
             )
           ]),
-          MultiSelectChip(Tags.types, onSelectionChanged: (selectedList) {
+          MultiSelectChip(Tags.types, chipsColor: ColorsConstants.darkPeach,
+              onSelectionChanged: (selectedList) {
             selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
           }),
           SizedBox(

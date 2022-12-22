@@ -65,8 +65,6 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
           selected: selectedChoices.contains(item),
-          // backgroundColor: ColorsConstants.darkPeach.withOpacity(0.2),
-          // selectedColor: ColorsConstants.darkPeach,
           backgroundColor: widget.chipsColor.withOpacity(0.6),
           selectedColor: widget.chipsColor,
 
