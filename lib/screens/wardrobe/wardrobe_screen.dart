@@ -18,7 +18,7 @@ class WardrobeScreen extends StatefulWidget {
 
 class _WardrobeScreenState extends State<WardrobeScreen> {
   Future<List<WardrobeItem>>? futureItemList;
-  List<WardrobeItem>? itemList;
+  Future<List<WardrobeItem>>? futureItemListCopy;
   List<String> selectedTypes = Tags.types;
   List<String> selectedSizes = Tags.sizes;
   List<String> selectedStyles = Tags.styles;
@@ -28,6 +28,8 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   void initState() {
     futureItemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
+    futureItemListCopy = Provider.of<WardrobeManager>(context, listen: false)
+        .getWardrobeItemListCopy;
     Future.delayed(Duration.zero).then((value) {
       Provider.of<WardrobeManager>(context, listen: false)
           .setWardrobeItemList(futureItemList!);
@@ -37,6 +39,8 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(futureItemListCopy);
+    print(futureItemList);
     return BasicScreen(
         type: "wardrobe",
         leftButtonType: "dots",
@@ -56,7 +60,11 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                       })
                     ])),
               ]),
-              Expanded(child: PhotoGrid(itemList: futureItemList)),
+              Expanded(
+                  child: PhotoGrid(
+                      itemList: futureItemListCopy != null
+                          ? futureItemListCopy
+                          : futureItemList)),
             ],
           ),
           buildFloatingButton(),
@@ -64,7 +72,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   }
 
   Widget buildSearchBarAndFilters() {
-    setState(() {});
+    // setState(() {});
     return SizedBox(
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.075,
@@ -89,88 +97,107 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   Widget buildFiltersPageModal() {
     return CustomIconButton(
         icon: Ionicons.filter,
-        onPressed: () => showMaterialModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            expand: true,
-            builder: (context) => Container()));
-    // onPressed: () => {
-    //       showModalBottomSheet(
-    //           backgroundColor: Colors.transparent,
-    //           shape: RoundedRectangleBorder(
-    //             borderRadius: BorderRadius.circular(30.0),
-    //           ),
-    //           isScrollControlled: true,
-    //           context: context,
-    //           builder: (context) {
-    //             return
-    //               Stack(
-    //                 alignment: AlignmentDirectional.bottomCenter,
-    //                   children: [
-    //                 // ClipRRect(
-    //                 //     child: Opacity(opacity: 0.1,
-    //                 //     child: Image.asset(
-    //                 //       "assets/images/mountains.png",
-    //                 //       height: MediaQuery.of(context).size.height*0.2,
-    //                 //       width: MediaQuery.of(context).size.width,
-    //                 //     ))),
-    //               Container(
-    //               decoration: const BoxDecoration(
-    //                 color: Colors.white,
-    //                   borderRadius: BorderRadius.all(Radius.circular(30))
-    //               ),
-    //               alignment: Alignment.centerLeft,
-    //               height: MediaQuery.of(context).size.height * 0.6,
-    //               padding: EdgeInsets.all(20),
-    //               child: Column(
-    //                 mainAxisAlignment: MainAxisAlignment.center,
-    //                 mainAxisSize: MainAxisSize.min,
-    //                 children: <Widget>[
-    //                   const Text("Filter & Sorting"),
-    //                   const Text("Type"),
-    //                   MultiSelectChip(Tags.types,
-    //                       onSelectionChanged: (selectedList) {
-    //                     selectedTypes = selectedList;
-    //                   }),
-    //                   const Text("Size"),
-    //                   MultiSelectChip(Tags.sizes,
-    //                       onSelectionChanged: (selectedList) {
-    //                     selectedSizes = selectedList;
-    //                   }),
-    //                   const Text("Styles"),
-    //                   MultiSelectChip(Tags.styles,
-    //                       onSelectionChanged: (selectedList) {
-    //                     selectedStyles = selectedList;
-    //                   }),
-    //                   ElevatedButton(
-    //                       onPressed: () => {
-    //                             setState(() {
-    //                               futureItemList =
-    //                                   Provider.of<WardrobeManager>(context,
-    //                                           listen: false)
-    //                                       .filterWardrobe(
-    //                                           context,
-    //                                           selectedTypes,
-    //                                           selectedStyles,
-    //                                           selectedSizes);
-    //                               Future.delayed(Duration.zero)
-    //                                   .then((value) {
-    //                                 Provider.of<WardrobeManager>(context,
-    //                                         listen: false)
-    //                                     .setWardrobeItemList(
-    //                                         futureItemList!);
-    //                               });
-    //                             }),
-    //                             context.pop(),
-    //                             selectedTypes = [],
-    //                             selectedSizes = [],
-    //                             selectedStyles = []
-    //                           },
-    //                       child: const Text("Aplikuj filtry"))
-    //                 ],
-    //               ),
-    //             )]);
-    //           })
-    //     });
+        onPressed: () => {
+              showModalBottomSheet(
+                  backgroundColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) {
+                    return Stack(
+                        alignment: AlignmentDirectional.bottomCenter,
+                        children: [
+                          // ClipRRect(
+                          //     child: Opacity(opacity: 0.1,
+                          //     child: Image.asset(
+                          //       "assets/images/mountains.png",
+                          //       height: MediaQuery.of(context).size.height*0.2,
+                          //       width: MediaQuery.of(context).size.width,
+                          //     ))),
+                          Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30))),
+                            alignment: Alignment.centerLeft,
+                            height: MediaQuery.of(context).size.height * 0.6,
+                            padding: EdgeInsets.all(20),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                const Text("Filter & Sorting"),
+                                const Text("Type"),
+                                MultiSelectChip(
+                                  Tags.types,
+                                  onSelectionChanged: (selectedList) {
+                                    selectedTypes = selectedList;
+                                  },
+                                  type: "type",
+                                ),
+                                const Text("Size"),
+                                MultiSelectChip(
+                                  Tags.sizes,
+                                  onSelectionChanged: (selectedList) {
+                                    selectedSizes = selectedList;
+                                  },
+                                  type: "size",
+                                ),
+                                const Text("Styles"),
+                                MultiSelectChip(
+                                  Tags.styles,
+                                  onSelectionChanged: (selectedList) {
+                                    selectedStyles = selectedList;
+                                  },
+                                  type: "style",
+                                ),
+                                ElevatedButton(
+                                    onPressed: () => {
+                                          setState(() {
+                                            futureItemListCopy = Provider.of<
+                                                        WardrobeManager>(
+                                                    context,
+                                                    listen: false)
+                                                .filterWardrobe(
+                                                    context,
+                                                    selectedTypes,
+                                                    selectedStyles,
+                                                    selectedSizes,
+                                                    Provider.of<WardrobeManager>(
+                                                            context,
+                                                            listen: false)
+                                                        .getFinalWardrobeItemList);
+
+                                            if (futureItemListCopy != null) {
+                                              Provider.of<WardrobeManager>(
+                                                      context,
+                                                      listen: false)
+                                                  .setWardrobeItemListCopy(
+                                                      futureItemListCopy!);
+                                            }
+                                          }),
+
+                                          // Future.delayed(Duration.zero)
+                                          //     .then((value) {
+                                          //   Provider.of<WardrobeManager>(
+                                          //           context,
+                                          //           listen: false)
+                                          //       .setWardrobeItemList(
+                                          //           futureItemList!);
+
+                                          context.pop(),
+                                          selectedTypes = [],
+                                          selectedSizes = [],
+                                          selectedStyles = []
+                                        },
+                                    child: const Text("Aplikuj filtry"))
+                              ],
+                            ),
+                          )
+                        ]);
+                  })
+            });
   }
 }

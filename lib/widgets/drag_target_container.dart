@@ -78,7 +78,7 @@ class _DragTargetState extends State<DragTargetContainer> {
                 entry.value.yPosition = Offset(left, top).dy;
                 entry.value.rotation = details.rotation + _currentRotation;
                 entry.value.scale = details.scale * _currentScale;
-                if (entry.value.scale > 1) entry.value.scale = 1;
+                if (entry.value.scale > 2) entry.value.scale = 2;
                 // print(entry.value.scale);
               });
             },
