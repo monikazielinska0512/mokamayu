@@ -7,14 +7,51 @@ import '../database/database_service.dart';
 
 class WardrobeManager extends ChangeNotifier {
   List<WardrobeItem> finalWardrobeItemList = [];
+  List<WardrobeItem> finalWardrobeItemListCopy = [];
   Future<List<WardrobeItem>>? futureWardrobeItemList;
+  Future<List<WardrobeItem>>? futureWardrobeItemListCopy;
 
   Future<List<WardrobeItem>>? get getWardrobeItemList => futureWardrobeItemList;
+  Future<List<WardrobeItem>>? get getWardrobeItemListCopy =>
+      futureWardrobeItemListCopy;
   List<WardrobeItem> get getFinalWardrobeItemList => finalWardrobeItemList;
+
+  List<String>? itemTypes;
+  List<String>? itemSizes;
+  List<String>? itemStyles;
 
   void setWardrobeItemList(Future<List<WardrobeItem>> itemList) {
     futureWardrobeItemList = itemList;
+    notifyListeners();
   }
+
+  void setWardrobeItemListCopy(Future<List<WardrobeItem>> itemList) {
+    futureWardrobeItemListCopy = itemList;
+    notifyListeners();
+  }
+
+  void nullListItemCopy() {
+    futureWardrobeItemListCopy = null;
+    notifyListeners();
+  }
+
+  void setTypes(List<String>? types) {
+    itemTypes = types;
+  }
+
+  List<String>? get getTypes => itemTypes;
+
+  void setSizes(List<String>? sizes) {
+    itemSizes = sizes;
+  }
+
+  List<String>? get getSizes => itemSizes;
+
+  void setStyles(List<String>? styles) {
+    itemStyles = styles;
+  }
+
+  List<String>? get getStyles => itemStyles;
 
   Future<List<WardrobeItem>> readWardrobeItemOnce() async {
     QuerySnapshot snapshot = await db
@@ -36,39 +73,40 @@ class WardrobeManager extends ChangeNotifier {
       BuildContext context,
       List<String> typesList,
       List<String> stylesList,
-      List<String> sizesList) async {
-    QuerySnapshot snapshot = await db
-        .collection('users')
-        .doc(AuthService().getCurrentUserID())
-        .collection('wardrobe')
-        .get();
-
+      List<String> sizesList,
+      List<WardrobeItem> itemList) async {
     List<WardrobeItem> filteredList = [];
     typesList = typesList.isNotEmpty ? typesList : Tags.types;
     sizesList = sizesList.isNotEmpty ? sizesList : Tags.sizes;
     stylesList = stylesList.isNotEmpty ? stylesList : Tags.styles;
 
-    print(typesList);
-    print(sizesList);
-    print(stylesList);
-
     var set = Set.of(stylesList);
 
-    for (var element in snapshot.docs) {
-      WardrobeItem item = WardrobeItem.fromSnapshot(element);
+    itemList.forEach((element) {
+      WardrobeItem item = element;
       bool type = typesList.contains(item.type);
       bool styles = set.containsAll(item.styles);
       bool size = sizesList.contains(item.size);
 
-      print("Name:" + item.name + "\ntype: " + type.toString() + "\nstyles: " + styles.toString() + "\nsize: " + size.toString());
+      // print("Name:" +
+      //     item.name +
+      //     "\ntype: " +
+      //     type.toString() +
+      //     "\nstyles: " +
+      //     styles.toString() +
+      //     "\nsize: " +
+      //     size.toString());
 
       if (type && styles && size) {
         filteredList.add(item);
       }
-    }
-    finalWardrobeItemList = filteredList;
+    });
 
-    return finalWardrobeItemList;
+    filteredList != null
+        ? finalWardrobeItemListCopy = filteredList
+        : finalWardrobeItemListCopy = itemList;
+
+    return finalWardrobeItemListCopy;
   }
 
   void addWardrobeItem(WardrobeItem item) {
@@ -107,6 +145,6 @@ class WardrobeManager extends ChangeNotifier {
         .delete()
         .then((_) => print('Deleted'))
         .catchError((error) => print(' $error'));
-    notifyListeners();
+    // notifyListeners();
   }
 }

@@ -62,25 +62,35 @@ class _PhotoGridState extends State<PhotoGrid> {
                             ),
                       itemBuilder: (BuildContext context, int index) {
                         var itemInfo = snapshot.data![index];
-                        return widget.scrollVertically == Axis.vertical
+                        return widget.getScrollDirection() == Axis.vertical
                             ? DeleteBottomModal(
                                 item: itemInfo,
                                 actionFunction: () {
                                   Provider.of<WardrobeManager>(context,
                                           listen: false)
                                       .removeWardrobeItem(itemInfo.reference);
-                                  setState(() {
-                                    widget.itemList =
-                                        Provider.of<WardrobeManager>(context,
-                                                listen: false)
-                                            .readWardrobeItemOnce();
-                                    Future.delayed(Duration.zero).then((value) {
+                                  Provider.of<WardrobeManager>(context,
+                                          listen: false)
+                                      .nullListItemCopy();
+                                  Provider.of<WardrobeManager>(context,
+                                          listen: false)
+                                      .setTypes([]);
+                                  Provider.of<WardrobeManager>(context,
+                                          listen: false)
+                                      .setSizes([]);
+                                  Provider.of<WardrobeManager>(context,
+                                          listen: false)
+                                      .setStyles([]);
+                                  widget.itemList =
                                       Provider.of<WardrobeManager>(context,
                                               listen: false)
-                                          .setWardrobeItemList(
-                                              widget.itemList!);
-                                    });
+                                          .readWardrobeItemOnce();
+                                  Future.delayed(Duration.zero).then((value) {
+                                    Provider.of<WardrobeManager>(context,
+                                            listen: false)
+                                        .setWardrobeItemList(widget.itemList!);
                                   });
+                          
                                   context.pop();
                                 },
                               )
