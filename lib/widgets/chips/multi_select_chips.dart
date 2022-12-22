@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/colors.dart';
+import '../../models/wardrobe_item.dart';
 import '../../services/managers/wardrobe_manager.dart';
 
 class MultiSelectChip extends StatefulWidget {
   final List<String> chipsList;
   final Function(List<String>)? onSelectionChanged;
   String? type;
+  Future<List<WardrobeItem>>? list;
 
   MultiSelectChip(this.chipsList,
-      {super.key, required this.onSelectionChanged, this.type});
+      {super.key, required this.onSelectionChanged, this.type, this.list});
 
   @override
   State<MultiSelectChip> createState() => _MultiSelectChipState();
@@ -37,6 +39,11 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
       selectedChoices =
           Provider.of<WardrobeManager>(context, listen: false).getStyles!;
     }
+    if (widget.type == 'type_main' &&
+        Provider.of<WardrobeManager>(context, listen: false).getTypes != null) {
+      selectedChoices =
+          Provider.of<WardrobeManager>(context, listen: false).getTypes!;
+    }
     super.initState();
   }
 
@@ -54,10 +61,29 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
           selectedColor: ColorsConstants.darkPeach,
           onSelected: (selected) {
             setState(() {
-              selectedChoices!.contains(item)
-                  ? selectedChoices!.remove(item)
-                  : selectedChoices!.add(item);
-              widget.onSelectionChanged!(selectedChoices!);
+              selectedChoices.contains(item)
+                  ? selectedChoices.remove(item)
+                  : selectedChoices.add(item);
+              widget.onSelectionChanged!(selectedChoices);
+              if (widget.type == 'type_main') {
+                print('here');
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setTypes(selectedChoices);
+                widget.list =
+                    Provider.of<WardrobeManager>(context, listen: false)
+                        .filterWardrobe(
+                            context,
+                            selectedChoices,
+                            [],
+                            [],
+                            Provider.of<WardrobeManager>(context, listen: false)
+                                .getFinalWardrobeItemList);
+
+                if (widget.list != null) {
+                  Provider.of<WardrobeManager>(context, listen: false)
+                      .setWardrobeItemListCopy(widget.list!);
+                }
+              }
             });
 
             if (widget.type == 'type') {

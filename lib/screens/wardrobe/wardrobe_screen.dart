@@ -39,8 +39,8 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(futureItemListCopy);
-    print(futureItemList);
+    futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
+        .getWardrobeItemListCopy;
     return BasicScreen(
         type: "wardrobe",
         leftButtonType: "dots",
@@ -57,7 +57,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                           onSelectionChanged: (selectedList) {
                         selectedChips =
                             selectedList.isEmpty ? Tags.types : selectedList;
-                      })
+                      }, type: "type_main", list: futureItemListCopy)
                     ])),
               ]),
               Expanded(
@@ -72,7 +72,6 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   }
 
   Widget buildSearchBarAndFilters() {
-    // setState(() {});
     return SizedBox(
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.075,
@@ -109,13 +108,6 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                     return Stack(
                         alignment: AlignmentDirectional.bottomCenter,
                         children: [
-                          // ClipRRect(
-                          //     child: Opacity(opacity: 0.1,
-                          //     child: Image.asset(
-                          //       "assets/images/mountains.png",
-                          //       height: MediaQuery.of(context).size.height*0.2,
-                          //       width: MediaQuery.of(context).size.width,
-                          //     ))),
                           Container(
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -178,15 +170,6 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                                                       futureItemListCopy!);
                                             }
                                           }),
-
-                                          // Future.delayed(Duration.zero)
-                                          //     .then((value) {
-                                          //   Provider.of<WardrobeManager>(
-                                          //           context,
-                                          //           listen: false)
-                                          //       .setWardrobeItemList(
-                                          //           futureItemList!);
-
                                           context.pop(),
                                           selectedTypes = [],
                                           selectedSizes = [],
