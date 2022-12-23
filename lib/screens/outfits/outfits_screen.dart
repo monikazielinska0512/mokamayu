@@ -6,6 +6,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/constants/constants.dart';
 import '../../services/managers/outfit_manager.dart';
+import '../../widgets/modals/filter_modal.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -78,10 +79,9 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
           Expanded(
               child: SearchBar(title: "Search", hintTitle: "Name of item")),
           SizedBox(width: MediaQuery.of(context).size.width * 0.045),
-          CustomIconButton(
-              onPressed: () {},
-              width: MediaQuery.of(context).size.width * 0.15,
-              icon: Icons.filter_list)
+          FilterModal(
+              onApplyOutfits: (selectedList) =>
+                  {outfitsListCopy = selectedList})
         ]));
   }
 

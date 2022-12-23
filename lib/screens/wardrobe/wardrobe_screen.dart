@@ -26,7 +26,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   List<String> selectedChips = Tags.types;
 
   Future<List<Outfit>>? outfitsList;
-  
+
   @override
   void initState() {
     //reading outfits here, so they're properly loaded in outfits screen
@@ -83,7 +83,8 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
           Expanded(child: WardrobeItemSearch(title: "name")),
           SizedBox(width: MediaQuery.of(context).size.width * 0.045),
           FilterModal(
-              onApply: (selectedList) => {futureItemListCopy = selectedList})
+              onApplyWardrobe: (selectedList) =>
+                  {futureItemListCopy = selectedList})
         ]));
   }
 

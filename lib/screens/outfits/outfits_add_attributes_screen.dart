@@ -113,6 +113,7 @@ class _OutfitsAddAttributesScreenState
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
                   var indexList = prefs.getStringList('indexList');
+                  // print(indexList);
                   if (indexList != null && indexList.isEmpty == false) {
                     // ignore: use_build_context_synchronously
                     Provider.of<OutfitManager>(context, listen: false)
@@ -124,11 +125,8 @@ class _OutfitsAddAttributesScreenState
                     // ignore: use_build_context_synchronously
                     index = Provider.of<OutfitManager>(context, listen: false)
                         .getMaxOutfitIndexes;
-                    decision == false
-                        ? index == 0
-                            ? index = 1
-                            : index = index + 1
-                        : index = index;
+                    // print(index);
+                    decision == false ? index = index + 1 : index = index;
                     final directory = await getApplicationDocumentsDirectory();
                     imagePath = await File('${directory.path}/image$index.png')
                         .create();

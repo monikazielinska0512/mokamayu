@@ -33,7 +33,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
 
   @override
   void initState() {
-    if (widget.type == 'type' &&
+    if ((widget.type == 'type' || widget.type == 'type_main') &&
         Provider.of<WardrobeManager>(context, listen: false).getTypes != null) {
       selectedChoices =
           Provider.of<WardrobeManager>(context, listen: false).getTypes!;
@@ -49,15 +49,20 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
       selectedChoices =
           Provider.of<WardrobeManager>(context, listen: false).getStyles!;
     }
-    if (widget.type == 'type_main' &&
-        Provider.of<WardrobeManager>(context, listen: false).getTypes != null) {
-      selectedChoices =
-          Provider.of<WardrobeManager>(context, listen: false).getTypes!;
-    }
-    if (widget.type == 'style_main' &&
+    // if (widget.type == 'type_main' &&
+    //     Provider.of<WardrobeManager>(context, listen: false).getTypes != null) {
+    //   selectedChoices =
+    //       Provider.of<WardrobeManager>(context, listen: false).getTypes!;
+    // }
+    if ((widget.type == 'style_main' || widget.type == 'outfit_style') &&
         Provider.of<OutfitManager>(context, listen: false).getStyles != null) {
       selectedChoices =
           Provider.of<OutfitManager>(context, listen: false).getStyles!;
+    }
+    if (widget.type == 'outfit_season' &&
+        Provider.of<OutfitManager>(context, listen: false).getSeasons != null) {
+      selectedChoices =
+          Provider.of<OutfitManager>(context, listen: false).getSeasons!;
     }
     super.initState();
   }
@@ -128,6 +133,14 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
             if (widget.type == 'style') {
               Provider.of<WardrobeManager>(context, listen: false)
                   .setStyles(selectedChoices);
+            }
+            if (widget.type == 'outfit_style') {
+              Provider.of<OutfitManager>(context, listen: false)
+                  .setStyles(selectedChoices);
+            }
+            if (widget.type == 'outfit_season') {
+              Provider.of<OutfitManager>(context, listen: false)
+                  .setSeasons(selectedChoices);
             }
           },
         ),
