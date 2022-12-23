@@ -21,6 +21,7 @@ class OutfitSummaryScreen extends StatelessWidget {
   Map<List<dynamic>, OutfitContainer>? map = {};
   late String capturedOutfit;
   List<WardrobeItem>? itemList;
+  // late List<WardrobeItem> itemListCopy = [];
   List<String> _elements = [];
   late String _style;
   late String _season;
@@ -57,10 +58,21 @@ class OutfitSummaryScreen extends StatelessWidget {
               child: ListView(
             padding: const EdgeInsets.all(8),
             children: map!.entries.map((entry) {
-              _elements.add(entry.key[1]);
+              itemList!.forEach((element) {
+                if (element.reference == entry.key[1]) {
+                  _elements.add(entry.key[1]);
+                }
+              });
               return WardrobeItemCard(
-                  object: itemList!
-                      .firstWhere((item) => item.reference == entry.key[1]));
+                  object: itemList!.firstWhere(
+                      (item) => item.reference == entry.key[1],
+                      orElse: () => WardrobeItem(
+                          name: "Photo deleted :(",
+                          type: "",
+                          size: "",
+                          photoURL: "Photo deleted",
+                          styles: [],
+                          created: DateTime.now())));
             }).toList(),
           )),
           Padding(

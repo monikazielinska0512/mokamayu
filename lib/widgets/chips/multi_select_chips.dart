@@ -18,7 +18,6 @@ class MultiSelectChip extends StatefulWidget {
       {super.key,
       required this.onSelectionChanged,
       this.type,
-      this.list,
       this.isScrollable = true,
       required this.chipsColor});
 
@@ -67,7 +66,6 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
           selected: selectedChoices.contains(item),
           backgroundColor: widget.chipsColor.withOpacity(0.6),
           selectedColor: widget.chipsColor,
-
           onSelected: (selected) {
             setState(() {
               selectedChoices.contains(item)

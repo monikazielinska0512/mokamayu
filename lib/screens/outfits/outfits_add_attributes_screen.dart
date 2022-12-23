@@ -14,6 +14,7 @@ import '../../constants/colors.dart';
 import '../../constants/tags.dart';
 import '../../models/outfit.dart';
 import '../../models/outfit_container.dart';
+import '../../models/wardrobe_item.dart';
 import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 import '../../services/storage.dart';
@@ -42,6 +43,8 @@ class _OutfitsAddAttributesScreenState
   Outfit? item;
   int index = 0;
   bool decision = false;
+  Future<List<WardrobeItem>>? futureItemListCopy;
+  Future<List<WardrobeItem>>? itemList;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +53,11 @@ class _OutfitsAddAttributesScreenState
     decision = Provider.of<OutfitManager>(context, listen: true).getIndexSet;
     Provider.of<PhotoTapped>(context, listen: false).setMap(widget.map);
     widget.map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
+
+    futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
+        .getWardrobeItemListCopy;
+    itemList =
+        Provider.of<WardrobeManager>(context, listen: true).getWardrobeItemList;
 
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -73,6 +81,10 @@ class _OutfitsAddAttributesScreenState
                 Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
                 Provider.of<OutfitManager>(context, listen: false)
                     .indexIsSet(false);
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .nullListItemCopy();
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setTypes([]);
               } else {
                 Provider.of<OutfitManager>(context, listen: false)
                     .indexIsSet(false);
@@ -144,6 +156,12 @@ class _OutfitsAddAttributesScreenState
                   Provider.of<PhotoTapped>(context, listen: false)
                       .setScreenshot(url);
                   // ignore: use_build_context_synchronously
+                  Provider.of<WardrobeManager>(context, listen: false)
+                      .nullListItemCopy();
+                  // ignore: use_build_context_synchronously
+                  Provider.of<WardrobeManager>(context, listen: false)
+                      .setTypes([]);
+                  // ignore: use_build_context_synchronously
                   GoRouter.of(context)
                       .goNamed("outfit-summary-screen", extra: widget.map);
                 }).catchError((onError) {
@@ -188,10 +206,7 @@ class _OutfitsAddAttributesScreenState
           ]),
           //todo
           MultiSelectChip(Tags.types,
-              type: "type_main",
-              list: Provider.of<WardrobeManager>(context, listen: false)
-                  .getWardrobeItemListCopy,
-              chipsColor: ColorsConstants.darkPeach,
+              type: "type_main", chipsColor: ColorsConstants.darkPeach,
               onSelectionChanged: (selectedList) {
             selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
           }),
@@ -199,10 +214,7 @@ class _OutfitsAddAttributesScreenState
             width: double.infinity,
             height: 200,
             child: PhotoGrid(
-              itemList: Provider.of<WardrobeManager>(context, listen: false)
-                      .getWardrobeItemListCopy ??
-                  Provider.of<WardrobeManager>(context, listen: false)
-                      .getWardrobeItemList,
+              itemList: futureItemListCopy ?? itemList,
               scrollVertically: false,
             ),
           ),

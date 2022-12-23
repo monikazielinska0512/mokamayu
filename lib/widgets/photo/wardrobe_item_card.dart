@@ -3,12 +3,12 @@ import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 
 class WardrobeItemCard extends StatelessWidget {
-  WardrobeItemCard({Key? key, required this.object}) : super(key: key);
-  final WardrobeItem object;
+  WardrobeItemCard({Key? key, this.object}) : super(key: key);
+  final WardrobeItem? object;
   @override
   Widget build(BuildContext context) {
-    String? photoUrl = object.photoURL;
-    String? name = object.name;
+    String? photoUrl = object!.photoURL;
+    String? name = object!.name;
     return Card(
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -43,7 +43,7 @@ class WardrobeItemCard extends StatelessWidget {
                   height: 15,
                 ),
                 TextButton(
-                    child:  Text(
+                    child: Text(
                       "See details",
                       style: TextStyle(
                           color: ColorsConstants.darkBrick,

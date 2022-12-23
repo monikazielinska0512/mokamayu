@@ -60,7 +60,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                           onSelectionChanged: (selectedList) {
                         selectedChips =
                             selectedList.isEmpty ? Tags.types : selectedList;
-                      }, type: "type_main", list: futureItemListCopy)
+                      }, type: "type_main")
                     ])),
               ]),
               Expanded(
