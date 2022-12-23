@@ -49,6 +49,7 @@ class OutfitManager extends ChangeNotifier {
 
   void setOutfits(Future<List<Outfit>> outfitsList) {
     futureOutfitList = outfitsList;
+    notifyListeners();
   }
 
   void setStyle(String? style) {

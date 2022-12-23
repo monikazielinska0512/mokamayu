@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/widgets.dart';
+import '../../models/outfit.dart';
 import '../../models/wardrobe_item.dart';
 
-
 class DeleteBottomModal extends StatefulWidget {
-  WardrobeItem item = WardrobeItem.init();
+  WardrobeItem? wardrobe = WardrobeItem.init();
+  Outfit? outfit = Outfit.init();
   Function actionFunction;
-  DeleteBottomModal( {
-    Key? key,
-    required this.item,
-    required this.actionFunction
-  }) : super(key: key);
-
+  DeleteBottomModal(
+      {Key? key,
+      // required this.item,
+      this.outfit,
+      this.wardrobe,
+      required this.actionFunction})
+      : super(key: key);
 
   @override
   State<DeleteBottomModal> createState() => _DeleteBottomModalState();
@@ -48,10 +50,7 @@ class _DeleteBottomModalState extends State<DeleteBottomModal> {
                       decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(30))),
-                      height: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.30,
+                      height: MediaQuery.of(context).size.height * 0.30,
                       // color: Colors.white,
                       child: Center(
                         child: Column(
@@ -62,7 +61,7 @@ class _DeleteBottomModalState extends State<DeleteBottomModal> {
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding:
-                                  const EdgeInsets.only(top: 25, left: 30),
+                                      const EdgeInsets.only(top: 25, left: 30),
                                   child: GestureDetector(
                                       onTap: () {
                                         Navigator.of(context).pop();
@@ -76,15 +75,16 @@ class _DeleteBottomModalState extends State<DeleteBottomModal> {
                             Padding(
                                 padding: const EdgeInsets.all(15),
                                 child: Column(children: [
-                                  Text('Do you want delete this item',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyles.paragraphRegular20(
-                                          ColorsConstants.grey)),
-                                  Text('${widget.item.name}?',
-                                      textAlign: TextAlign.center,
-                                      style:
-                                      TextStyles.paragraphRegularSemiBold20(
-                                          ColorsConstants.grey))
+                                  widget.wardrobe != null
+                                      ? Text(
+                                          'Do you want delete this item ${widget.wardrobe!.name}?',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyles.paragraphRegular20(
+                                              ColorsConstants.grey))
+                                      : Text('Do you want delete this outfit?',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyles.paragraphRegular20(
+                                              ColorsConstants.grey))
                                 ])),
                             ButtonDarker(
                                 context, "Delete", widget.actionFunction,
@@ -99,9 +99,9 @@ class _DeleteBottomModalState extends State<DeleteBottomModal> {
             },
           );
         },
-        child: PhotoBox(
-          object: widget.item,
+        child: widget.wardrobe != null ? PhotoBox(
+          object: widget.wardrobe,
           scrollVertically: true,
-        ));
+        ) : PhotoCardOutfit(object: widget.outfit));
   }
 }

@@ -204,7 +204,6 @@ class _OutfitsAddAttributesScreenState
               ),
             )
           ]),
-          //todo
           MultiSelectChip(Tags.types,
               type: "type_main", chipsColor: ColorsConstants.darkPeach,
               onSelectionChanged: (selectedList) {

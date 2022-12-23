@@ -36,6 +36,8 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    outfitsList =
+        Provider.of<OutfitManager>(context, listen: true).getOutfitList;
     return BasicScreen(
         type: "outfits",
         leftButtonType: "dots",

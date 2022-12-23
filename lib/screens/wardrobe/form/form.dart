@@ -191,12 +191,14 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                 Provider.of<WardrobeManager>(context, listen: false)
                     .updateWardrobeItem(widget.item?.reference ?? "", _name,
                         _type, _size, widget.item?.photoURL ?? "", _styles);
-                        Provider.of<WardrobeManager>(context, listen: false)
-                  .nullListItemCopy();
-              Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-              Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
-              Provider.of<WardrobeManager>(context, listen: false)
-                  .setStyles([]);
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .nullListItemCopy();
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setTypes([]);
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setSizes([]);
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setStyles([]);
                 context.go("/home/0");
                 CustomSnackBar.showSuccessSnackBar(
                     context: context, message: "Updated");
@@ -217,7 +219,11 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                   .setStyles([]);
               context.go("/home/0");
             },
-            icon: const Icon(Icons.delete))
+            icon: Image.asset(
+              "assets/images/trash.png",
+              fit: BoxFit.fitWidth,
+              height: 40,
+            ))
       ],
     );
   }

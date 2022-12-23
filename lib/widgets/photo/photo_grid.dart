@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -64,7 +65,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                         var itemInfo = snapshot.data![index];
                         return widget.getScrollDirection() == Axis.vertical
                             ? DeleteBottomModal(
-                                item: itemInfo,
+                                wardrobe: itemInfo,
                                 actionFunction: () {
                                   Provider.of<WardrobeManager>(context,
                                           listen: false)
@@ -90,7 +91,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                                             listen: false)
                                         .setWardrobeItemList(widget.itemList!);
                                   });
-                          
+
                                   context.pop();
                                 },
                               )
@@ -130,7 +131,30 @@ class _PhotoGridState extends State<PhotoGrid> {
             ),
             itemBuilder: (BuildContext context, int index) {
               var itemInfo = snapshot.data![index];
-              return PhotoCardOutfit(object: itemInfo);
+              return DeleteBottomModal(
+                outfit: itemInfo,
+                actionFunction: () {
+                  Provider.of<OutfitManager>(context, listen: false)
+                      .removeOutfit(itemInfo.reference);
+                  // Provider.of<WardrobeManager>(context, listen: false)
+                  //     .nullListItemCopy();
+                  // Provider.of<WardrobeManager>(context, listen: false)
+                  //     .setTypes([]);
+                  // Provider.of<WardrobeManager>(context, listen: false)
+                  //     .setSizes([]);
+                  // Provider.of<WardrobeManager>(context, listen: false)
+                  //     .setStyles([]);
+                  widget.outfitsList =
+                      Provider.of<OutfitManager>(context, listen: false)
+                          .readOutfitsOnce();
+                  Future.delayed(Duration.zero).then((value) {
+                    Provider.of<OutfitManager>(context, listen: false)
+                        .setOutfits(widget.outfitsList!);
+                  });
+
+                  context.pop();
+                },
+              );
             },
           ));
         }

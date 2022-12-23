@@ -21,6 +21,15 @@ class Outfit {
     this.reference,
   });
 
+  Outfit.init()
+      : createdBy = '',
+        style = '',
+        season = '',
+        cover = '',
+        elements = [],
+        map = {},
+        index = 0;
+
   factory Outfit.fromJson(Map<dynamic, dynamic> json) => Outfit(
       createdBy: json['createdBy'] as String,
       style: json['style'] as String,
