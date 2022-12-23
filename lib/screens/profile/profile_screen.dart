@@ -28,11 +28,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<List<Outfit>>? outfitsList;
 
   @override
-  void initState() {
-    print('PROFILE');
-  }
-
-  @override
   Widget build(BuildContext context) {
     userData = Provider.of<ProfileManager>(context, listen: false)
         .getUserData(widget.user);

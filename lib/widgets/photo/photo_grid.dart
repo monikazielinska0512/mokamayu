@@ -89,12 +89,6 @@ class _PhotoGridState extends State<PhotoGrid> {
                                   Provider.of<WardrobeManager>(context,
                                           listen: false)
                                       .setWardrobeItemList(widget.itemList!);
-                                  // Future.delayed(Duration.zero).then((value) {
-                                  //   Provider.of<WardrobeManager>(context,
-                                  //           listen: false)
-                                  //       .setWardrobeItemList(widget.itemList!);
-                                  // });
-
                                   context.pop();
                                 },
                               )
@@ -154,11 +148,6 @@ class _PhotoGridState extends State<PhotoGrid> {
                                 .readOutfitsOnce();
                             Provider.of<OutfitManager>(context, listen: false)
                                 .setOutfits(widget.outfitsList!);
-                            // Future.delayed(Duration.zero).then((value) {
-                            //   Provider.of<OutfitManager>(context, listen: false)
-                            //       .setOutfits(widget.outfitsList!);
-                            // });
-
                             context.pop();
                           },
                         );

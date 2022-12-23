@@ -21,10 +21,10 @@ class OutfitSummaryScreen extends StatelessWidget {
   Map<List<dynamic>, OutfitContainer>? map = {};
   late String capturedOutfit;
   List<WardrobeItem>? itemList;
-  // late List<WardrobeItem> itemListCopy = [];
   List<String> _elements = [];
   late String _style;
   late String _season;
+  Future<List<Outfit>>? outfitsList;
 
   @override
   Widget build(BuildContext context) {
@@ -152,6 +152,10 @@ class OutfitSummaryScreen extends StatelessWidget {
           createdBy: AuthService().getCurrentUserID());
       Provider.of<OutfitManager>(context, listen: false)
           .addOutfitToFirestore(data);
+      outfitsList =
+          Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
+      Provider.of<OutfitManager>(context, listen: false)
+          .setOutfits(outfitsList!);
       Provider.of<OutfitManager>(context, listen: false).setSeason("");
       Provider.of<OutfitManager>(context, listen: false).setStyle("");
       Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
