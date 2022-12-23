@@ -16,6 +16,7 @@ class CustomDialogBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         bottom: false,
+        top: false,
         child: Stack(
           children: [
             GestureDetector(

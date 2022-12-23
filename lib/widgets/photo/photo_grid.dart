@@ -44,7 +44,8 @@ class _PhotoGridState extends State<PhotoGrid> {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
               child: snapshot.data!.isEmpty
-                  ? const Text("Brak rzeczy w szafie")
+                  ? Text("You don't have any items in your wardrobe!",
+                      style: TextStyles.paragraphRegularSemiBold14(Colors.grey))
                   : GridView.builder(
                       scrollDirection: widget.getScrollDirection(),
                       shrinkWrap: false,
@@ -116,7 +117,8 @@ class _PhotoGridState extends State<PhotoGrid> {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
               child: snapshot.data!.isEmpty
-                  ? const Text("Brak outfitów")
+                  ? Text("You haven't created any outfits yet!",
+                      style: TextStyles.paragraphRegularSemiBold14(Colors.grey))
                   : GridView.builder(
                       scrollDirection: widget.getScrollDirection(),
                       shrinkWrap: false,

@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/models/outfit.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
@@ -10,8 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
 import '../../generated/l10n.dart';
-import '../../widgets/fundamental/background_card.dart';
-import '../../widgets/photo/photo_grid.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   final User? user;

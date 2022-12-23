@@ -90,6 +90,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
         onPressed: () {
           showDialog(
               context: context,
+              useSafeArea: false,
               builder: (BuildContext context) {
                 return CustomDialogBox(itemList: itemList);
               });
