@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `Log in`
+  /// `Sign in`
   String get sign_in {
     return Intl.message(
-      'Log in',
+      'Sign in',
       name: 'sign_in',
       desc: '',
       args: [],
@@ -90,40 +90,40 @@ class S {
     );
   }
 
-  /// `Don't have account?`
+  /// `Don't have an account?`
   String get no_account {
     return Intl.message(
-      'Don\'t have account?',
+      'Don\'t have an account?',
       name: 'no_account',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enter Password`
+  /// `Password`
   String get enter_password {
     return Intl.message(
-      'Enter Password',
+      'Password',
       name: 'enter_password',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enter Username`
+  /// `Username`
   String get enter_username {
     return Intl.message(
-      'Enter Username',
+      'Username',
       name: 'enter_username',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enter Email`
+  /// `Email`
   String get enter_email {
     return Intl.message(
-      'Enter Email',
+      'Email',
       name: 'enter_email',
       desc: '',
       args: [],
@@ -240,11 +240,11 @@ class S {
     );
   }
 
-  /// `Closet`
-  String get closet {
+  /// `Wardrobe`
+  String get wardrobe {
     return Intl.message(
-      'Closet',
-      name: 'closet',
+      'Wardrobe',
+      name: 'wardrobe',
       desc: '',
       args: [],
     );
@@ -275,6 +275,76 @@ class S {
     return Intl.message(
       'Profile',
       name: 'profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Wardrobe`
+  String get wardrobe_page_title {
+    return Intl.message(
+      'Your Wardrobe',
+      name: 'wardrobe_page_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search by name`
+  String get searchbar_wardrobe_item {
+    return Intl.message(
+      'Search by name',
+      name: 'searchbar_wardrobe_item',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skirt`
+  String get skirt {
+    return Intl.message(
+      'Skirt',
+      name: 'skirt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `T-Shirt`
+  String get tshirt {
+    return Intl.message(
+      'T-Shirt',
+      name: 'tshirt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dress`
+  String get dress {
+    return Intl.message(
+      'Dress',
+      name: 'dress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shoes`
+  String get shoes {
+    return Intl.message(
+      'Shoes',
+      name: 'shoes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hat`
+  String get hat {
+    return Intl.message(
+      'Hat',
+      name: 'hat',
       desc: '',
       args: [],
     );

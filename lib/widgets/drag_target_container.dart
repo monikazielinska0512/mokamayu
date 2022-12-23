@@ -1,61 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/services/photo_tapped.dart';
+import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/services/managers/photo_tapped_manager.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/colors.dart';
-
-class ContainerList {
-  double height;
-  double width;
-  double scale;
-  double rotation;
-  double xPosition;
-  double yPosition;
-
-  ContainerList({
-    required this.height,
-    required this.rotation,
-    required this.scale,
-    required this.width,
-    required this.xPosition,
-    required this.yPosition,
-  });
-}
+import '../models/outfit_container.dart';
 
 class DragTargetContainer extends StatefulWidget {
   DragTargetContainer({Key? key, this.map}) : super(key: key);
-  Map<String, ContainerList>? map = {};
+  Map<List<dynamic>, OutfitContainer>? map = {};
 
   @override
   _DragTargetState createState() => _DragTargetState();
 }
 
 class _DragTargetState extends State<DragTargetContainer> {
-  List<ContainerList> list = [];
+  List<OutfitContainer> list = [];
   late Offset _initPos;
-  late Offset _currentPos = Offset(0, 0);
+  late Offset _currentPos = const Offset(0, 0);
   late double _currentScale;
   late double _currentRotation;
   late Size screen;
 
   @override
   void initState() {
-    screen = Size(400, 500);
+    screen = const Size(400, 500);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: ColorsConstants.whiteAccent,
+        borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(40.0),
+            bottomRight: Radius.circular(40.0),
+            topLeft: Radius.circular(40.0),
+            bottomLeft: Radius.circular(40.0)),
+      ),
       // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       width: MediaQuery.of(context).size.width,
-      height: 450.0,
-      color: CustomColors.soft,
+      height: MediaQuery.of(context).size.height - 500,
+      //color: ColorsConstants.soft,
       child: Stack(
         children: widget.map!.entries.map((entry) {
           return GestureDetector(
             onTap: () {
               widget.map!.removeWhere((key, value) => key == entry.key);
+              Provider.of<PhotoTapped>(context, listen: false)
+                  .photoRemoved(entry.key[1]);
               setState(() {});
             },
             onScaleStart: (details) {
@@ -75,7 +68,7 @@ class _DragTargetState extends State<DragTargetContainer> {
               // print(top);
 
               if (left < 0) left = 0;
-              if (left > 0.54) left = 0.54;
+              if (left > 0.72) left = 0.72;
               if (top < 0) top = 0;
               if (top > 0.5) top = 0.5;
               // print(_currentScale);
@@ -85,7 +78,7 @@ class _DragTargetState extends State<DragTargetContainer> {
                 entry.value.yPosition = Offset(left, top).dy;
                 entry.value.rotation = details.rotation + _currentRotation;
                 entry.value.scale = details.scale * _currentScale;
-                if (entry.value.scale > 1) entry.value.scale = 1;
+                if (entry.value.scale > 2) entry.value.scale = 2;
                 // print(entry.value.scale);
               });
             },
@@ -98,7 +91,7 @@ class _DragTargetState extends State<DragTargetContainer> {
                     scale: entry.value.scale,
                     child: Transform.rotate(
                         angle: entry.value.rotation,
-                        child: Container(
+                        child: SizedBox(
                           height: entry.value.height,
                           width: entry.value.width,
                           child: FittedBox(
@@ -112,7 +105,8 @@ class _DragTargetState extends State<DragTargetContainer> {
                                 _currentRotation = entry.value.rotation;
                               },
                               onPointerUp: (details) {},
-                              child: Image.network(entry.key, fit: BoxFit.fill),
+                              child:
+                                  Image.network(entry.key[0], fit: BoxFit.fill),
                             ),
                           ),
                         )),

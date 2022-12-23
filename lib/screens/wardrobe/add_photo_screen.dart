@@ -1,48 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/widgets/basic_page.dart';
-import 'package:provider/provider.dart';
-import '../../services/clothes_provider.dart';
-import '../../widgets/photo_picker.dart';
-import 'clothes_form_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 
-class PhotoPickerScreen extends StatefulWidget {
-  PhotoPickerScreen({Key? key}) : super(key: key);
-  final PhotoPicker _picker = PhotoPicker(
-      //TODO size depends on MediaQuery
-      width: 370,
-      height: 500);
+class AddPhotoScreen extends StatefulWidget {
+  AddPhotoScreen({Key? key}) : super(key: key);
+  final PhotoPicker _picker = PhotoPicker(width: 370, height: 500);
 
   @override
-  _PhotoPickerScreenState createState() => _PhotoPickerScreenState();
+  _AddPhotoScreenState createState() => _AddPhotoScreenState();
 }
 
-class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
+class _AddPhotoScreenState extends State<AddPhotoScreen> {
   @override
   Widget build(BuildContext context) {
-    return BasicPage(
+    return BasicScreen(
+        type: "add_photo",
+        rightButtonType: "",
         context: context,
-        child: Center(
+        body: Center(
             child: SizedBox(
                 height: double.maxFinite,
                 child: Column(children: <Widget>[
-                  const BackButton(),
                   widget._picker,
                   const SizedBox(height: 10),
                   TextButton(
                       onPressed: () {
                         widget._picker.photo != null
-                            ? Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ChangeNotifierProvider(
-                                          create: (_) => ClothesProvider(),
-                                          child: AddClothesForm(
-                                              photo: widget._picker.photo),
-                                        )))
+                            ? context.goNamed(
+                                'add-wardrobe-item',
+                                params: {
+                                  'file': widget._picker.photoPath as String,
+                                },
+                              )
                             : null;
                       },
-                      child: const Text("Przjedź dalej"))
+                      child: const Text("Przejedź dalej"))
                 ]))));
   }
 }

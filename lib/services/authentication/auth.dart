@@ -1,10 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../../models/user/firebase_user.dart';
-import '../../models/user/login_user.dart';
-import 'auth_exception_handler.dart';
-
-
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/authentication/authentication.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -39,9 +35,7 @@ class AuthService {
             password: _login.password.toString())
         .then((value) => _status = AuthStatus.successful)
         .catchError(
-            (e) => _status = AuthExceptionHandler.handleAuthException(e))
-        .whenComplete(
-            () => _auth.currentUser?.updateDisplayName(_login.username));
+            (e) => _status = AuthExceptionHandler.handleAuthException(e));
     return _status;
   }
 

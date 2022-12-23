@@ -9,21 +9,15 @@ class Tags {
   ];
 
   static const List<String> types = [
-    'Type',
     'Skirt',
     'T-Shirt',
     'Dress',
     "Shoes",
     "Hat",
     "Sweater",
-    'XS',
-    'S',
-    'M',
-    'L',
-    'XL',
-    'XXL'
   ];
   static const List<String> styles = [
+    "School",
     "Classic",
     "Super",
     "Vintage",
@@ -33,4 +27,16 @@ class Tags {
     "Vintage1",
     "Streetwea1r",
   ];
+}
+
+class OutfitTags {
+  static const List<String> styles = [
+    'Active',
+    'Party',
+    'Work',
+    'Casual',
+    'Wedding'
+  ];
+
+  static const List<String> seasons = ['Summer', 'Winter', 'Fall', 'Spring'];
 }

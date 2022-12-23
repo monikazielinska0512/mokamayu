@@ -18,8 +18,15 @@
   "user_not_exist": "Podany użytkownik nie istnieje",
   "error_message": "Wystąpił błąd. Proszę spróbować ponownie później.",
   "dismiss": "ZAMKNIJ",
-  "closet": "Szafa",
+  "wardrobe": "Szafa",
   "outfits": "Stylizacje",
   "social": "Społeczność",
-  "profile": "Profil"
+  "profile": "Profil",
+  "wardrobe_page_title": "Twoja szafa",
+  "searchbar_wardrobe_item": "Szukaj po nazwie",
+  "skirt": "Spódniczka",
+  "tshirt": "Koszulka",
+  "dress": "Sukienka",
+  "shoes": "Buty",
+  "hat": "Kapelusz"
 }

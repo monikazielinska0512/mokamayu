@@ -1,28 +1,36 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import '../../../constants/tags.dart';
-import '../../../constants/text_styles.dart';
-import '../../../widgets/dropdown_menu.dart';
-import 'form_fields/choice_form_field.dart';
-import 'form_fields/filter_form_field.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/services.dart';
+import 'package:provider/provider.dart';
+import '../../../utils/validator.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 
-class ClothesForm extends StatefulWidget {
-  final File? photo;
+class WardrobeItemForm extends StatefulWidget {
+  final String? photoPath;
+  final WardrobeItem? item;
 
-  const ClothesForm({Key? key, required this.photo}) : super(key: key);
+  WardrobeItemForm({Key? key, this.photoPath, this.item}) : super(key: key);
 
   @override
-  _ClothesFormState createState() => _ClothesFormState();
+  State<WardrobeItemForm> createState() => _WardrobeItemFormState();
 }
 
-class _ClothesFormState extends State<ClothesForm> {
-  String? _type = "";
-  String? _size = "";
-  String? _name = "";
-  List<String>? _tags = [];
+class _WardrobeItemFormState extends State<WardrobeItemForm> {
+  String _type = "";
+  String _size = "";
+  String _name = "";
+  List<String> _styles = [];
 
   @override
   void initState() {
+    if (widget.item != null) {
+      _type = widget.item!.type;
+      _size = widget.item!.size;
+      _name = widget.item!.name;
+      _styles = widget.item!.styles;
+    }
     super.initState();
   }
 
@@ -37,103 +45,186 @@ class _ClothesFormState extends State<ClothesForm> {
             child: Form(
                 key: _formKey,
                 child: Column(children: [
-                  TextFormField(
-                      onSaved: (value) => _name = value!,
-                      autovalidateMode: AutovalidateMode.disabled,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter name';
-                        }
-                        if (value.length > 20) {
-                          return 'Maximum lenght is 20 characters';
-                        }
-                        return null;
-                      },
-                      style: const TextStyle(
-                          fontSize: 26,
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.w600),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        labelText: 'Enter your clothes name',
-                        labelStyle: TextStyles.h4(),
-                        focusedBorder: InputBorder.none,
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        contentPadding: const EdgeInsets.only(
-                            bottom: 0, top: 11, right: 15),
-                      )),
-                  const SizedBox(height: 10),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                          padding: EdgeInsets.only(bottom: 10, top: 10),
-                          child: Text("Type",
-                              style: TextStyles.paragraphRegularSemiBold18()))),
-                  DropdownMenuFormField(
-                      list: Tags.types,
-                      onSaved: (value) => _type = value!,
-                      validator: (value) {
-                        if (value == "Type") {
-                          return 'Przypau';
-                        }
-                        return null;
-                      },
-                      initialValue: Tags.types[0]),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                          padding: EdgeInsets.only(bottom: 5, top: 10),
-                          child: Text("Size",
-                              style: TextStyles.paragraphRegularSemiBold18()))),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: ChoiceChipsFormField(
-                        autoValidate: true,
-                        validator: (value) {
-                          if (value == "") {
-                            return 'Wybrano M';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) => _size = value!,
-                        chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
-                      )),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                          padding: const EdgeInsets.only(bottom: 5, top: 10),
-                          child: Text("Style",
-                              style: TextStyles.paragraphRegularSemiBold18()))),
-                  FilterChipsFormField(
-                      chipsList: const ["XS", "S", "M", "L", "XL", "XXL"],
-                      onSaved: (value) => _tags = value,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          print("styles = []");
-                          return "null";
-                        }
-                      }),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-
-                        print("Valid$_type$_size$_name$_tags");
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Valid')),
-                        );
-                      } else {
-                        _formKey.currentState!.save();
-                        print("NotValid$_type$_size$_name$_tags");
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Not Valid')));
-                      }
-                    },
-                    child: const Text('Add clothes'),
-                  ),
+                  buildNameTextField(),
+                  buildTypeChipsField(),
+                  buildSizeChipsField(),
+                  buildStyleChipsField(),
+                  widget.item == null ? buildAddButton() : buildUpdateButton(),
                 ]))));
+  }
+
+  Widget buildNameTextField() {
+    return TextFormField(
+        initialValue: _name,
+        onSaved: (value) => _name = value!,
+        autovalidateMode: AutovalidateMode.disabled,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter name';
+          }
+          if (value.length > 20) {
+            return 'Maximum lenght is 20 characters';
+          }
+          return null;
+        },
+        style: const TextStyle(
+            fontSize: 26, fontFamily: "Poppins", fontWeight: FontWeight.w600),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          labelText: 'Enter your item name',
+          labelStyle: TextStyles.h4(),
+          focusedBorder: InputBorder.none,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          enabledBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          contentPadding: const EdgeInsets.only(bottom: 0, top: 11, right: 15),
+        ));
+  }
+
+  Widget buildTypeChipsField() {
+    return Column(children: [
+      Padding(
+          padding: const EdgeInsets.only(bottom: 10, top: 10),
+          child: Text("Type", style: TextStyles.paragraphRegularSemiBold18())),
+      Align(
+          alignment: Alignment.centerLeft,
+          child: SingleSelectChipsFormField(
+              initialValue: _type,
+              autoValidate: true,
+              validator: (value) =>
+                  Validator.checkIfSingleValueSelected(value!, context),
+              onSaved: (value) => _type = value!,
+              color: ColorsConstants.darkMint,
+              chipsList: Tags.types))
+    ]);
+  }
+
+  Widget buildSizeChipsField() {
+    return Column(children: [
+      Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+              padding: const EdgeInsets.only(bottom: 5, top: 10),
+              child: Text("Size",
+                  style: TextStyles.paragraphRegularSemiBold18()))),
+      Align(
+          alignment: Alignment.centerLeft,
+          child: SingleSelectChipsFormField(
+            initialValue: _size,
+            autoValidate: true,
+            validator: (value) =>
+                Validator.checkIfSingleValueSelected(value!, context),
+            onSaved: (value) => _size = value!,
+            color: ColorsConstants.darkMint,
+            chipsList: Tags.sizes,
+          )),
+    ]);
+  }
+
+  Widget buildStyleChipsField() {
+    return Column(children: [
+      Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+              padding: const EdgeInsets.only(bottom: 5, top: 10),
+              child: Text("Style",
+                  style: TextStyles.paragraphRegularSemiBold18()))),
+      MultiSelectChipsFormField(
+          isScroll: false,
+          initialValue: _styles,
+          chipsList: Tags.styles,
+          onSaved: (value) => _styles = value!,
+          validator: (value) =>
+              Validator.checkIfMultipleValueSelected(value!, context)),
+    ]);
+  }
+
+  Widget buildAddButton() {
+    return ElevatedButton(
+        child: const Text('Add item'),
+        onPressed: () async {
+          _formKey.currentState!.save();
+          if (_formKey.currentState!.validate()) {
+            String url = await StorageService()
+                .uploadFile(context, widget.photoPath ?? "");
+            final item = WardrobeItem(
+                name: _name,
+                type: _type,
+                size: _size,
+                photoURL: url,
+                styles: _styles,
+                created: DateTime.now());
+
+            Provider.of<WardrobeManager>(context, listen: false)
+                .addWardrobeItem(item);
+
+            _type = "";
+            _size = "";
+            _name = "";
+            _styles = [];
+
+            Provider.of<WardrobeManager>(context, listen: false)
+                .nullListItemCopy();
+            Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
+            Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
+            Provider.of<WardrobeManager>(context, listen: false).setStyles([]);
+            context.go("/home/0");
+
+            CustomSnackBar.showSuccessSnackBar(
+                context: context, message: "Dodano do bazy danych");
+          } else {
+            CustomSnackBar.showErrorSnackBar(
+                context: context, message: "Coś poszło nie tak");
+          }
+        });
+  }
+
+  Widget buildUpdateButton() {
+    return Column(
+      children: [
+        ElevatedButton(
+            child: const Text('Update'),
+            onPressed: () async {
+              _formKey.currentState!.save();
+              if (_formKey.currentState!.validate()) {
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .updateWardrobeItem(widget.item?.reference ?? "", _name,
+                        _type, _size, widget.item?.photoURL ?? "", _styles);
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .nullListItemCopy();
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setTypes([]);
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setSizes([]);
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setStyles([]);
+                context.go("/home/0");
+                CustomSnackBar.showSuccessSnackBar(
+                    context: context, message: "Updated");
+              } else {
+                CustomSnackBar.showSuccessSnackBar(
+                    context: context, message: "Error");
+              }
+            }),
+        IconButton(
+            onPressed: () {
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .removeWardrobeItem(widget.item?.reference);
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .nullListItemCopy();
+              Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
+              Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .setStyles([]);
+              context.go("/home/0");
+            },
+            icon: Image.asset(
+              "assets/images/trash.png",
+              fit: BoxFit.fitWidth,
+              height: 40,
+            ))
+      ],
+    );
   }
 }
