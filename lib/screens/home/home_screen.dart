@@ -5,6 +5,8 @@ import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../calendar/calendar_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   final int currentTab;
 
@@ -26,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       const WardrobeScreen(),
       const OutfitsScreen(),
       const SocialScreen(),
+      const CalendarScreen(),
       ProfileScreen(user: user),
     ];
 

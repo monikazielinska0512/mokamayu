@@ -8,7 +8,8 @@ class NavigationBarTab {
   static const int wardrobe = 0;
   static const int outfits = 1;
   static const int social = 2;
-  static const int profile = 3;
+  static const int calendar = 3;
+  static const int profile = 4;
 }
 
 class AppStateManager extends ChangeNotifier {

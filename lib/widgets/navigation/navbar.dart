@@ -48,6 +48,12 @@ class NavBarState extends State<NavBar> {
                 style: TextStyles.paragraphRegularSemiBold14()),
             selectedColor: ColorsConstants.sunflower),
         SalomonBottomBarItem(
+            icon: const Icon(Ionicons.calendar_outline),
+            activeIcon: const Icon(Ionicons.calendar),
+            title: Text("Calendar",
+                style: TextStyles.paragraphRegularSemiBold14()),
+            selectedColor: ColorsConstants.mint),
+        SalomonBottomBarItem(
             icon: const Icon(Ionicons.person_outline),
             activeIcon: const Icon(Ionicons.person),
             title: Text(S.of(context).profile,

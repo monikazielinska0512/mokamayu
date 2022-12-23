@@ -62,6 +62,7 @@ dependencies:
   salomon_bottom_bar: ^3.3.1
   iconsax: ^0.0.8
   ionicons: ^0.2.1
+  table_calendar: ^3.0.8
 
 dev_dependencies:
   flutter_test:
