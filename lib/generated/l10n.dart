@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `Log in`
+  /// `Sign in`
   String get sign_in {
     return Intl.message(
-      'Log in',
+      'Sign in',
       name: 'sign_in',
       desc: '',
       args: [],
@@ -90,40 +90,40 @@ class S {
     );
   }
 
-  /// `Don't have account?`
+  /// `Don't have an account?`
   String get no_account {
     return Intl.message(
-      'Don\'t have account?',
+      'Don\'t have an account?',
       name: 'no_account',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enter Password`
+  /// `Password`
   String get enter_password {
     return Intl.message(
-      'Enter Password',
+      'Password',
       name: 'enter_password',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enter Username`
+  /// `Username`
   String get enter_username {
     return Intl.message(
-      'Enter Username',
+      'Username',
       name: 'enter_username',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enter Email`
+  /// `Email`
   String get enter_email {
     return Intl.message(
-      'Enter Email',
+      'Email',
       name: 'enter_email',
       desc: '',
       args: [],

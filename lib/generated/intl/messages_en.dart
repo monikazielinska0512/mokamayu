@@ -32,18 +32,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "dress": MessageLookupByLibrary.simpleMessage("Dress"),
         "email_already_used": MessageLookupByLibrary.simpleMessage(
             "The email address is already in use by another account"),
-        "enter_email": MessageLookupByLibrary.simpleMessage("Enter Email"),
-        "enter_password":
-            MessageLookupByLibrary.simpleMessage("Enter Password"),
-        "enter_username":
-            MessageLookupByLibrary.simpleMessage("Enter Username"),
+        "enter_email": MessageLookupByLibrary.simpleMessage("Email"),
+        "enter_password": MessageLookupByLibrary.simpleMessage("Password"),
+        "enter_username": MessageLookupByLibrary.simpleMessage("Username"),
         "error_message": MessageLookupByLibrary.simpleMessage(
             "An error occurred. Please try again later"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "hat": MessageLookupByLibrary.simpleMessage("Hat"),
         "no_account":
-            MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
+            MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "outfits": MessageLookupByLibrary.simpleMessage("Outfits"),
         "passwords_dont_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
@@ -55,7 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchbar_wardrobe_item":
             MessageLookupByLibrary.simpleMessage("Search by name"),
         "shoes": MessageLookupByLibrary.simpleMessage("Shoes"),
-        "sign_in": MessageLookupByLibrary.simpleMessage("Log in"),
+        "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "sign_out": MessageLookupByLibrary.simpleMessage(" Sign out"),
         "sign_up": MessageLookupByLibrary.simpleMessage(" Sign up"),
         "skirt": MessageLookupByLibrary.simpleMessage("Skirt"),

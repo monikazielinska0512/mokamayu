@@ -7,7 +7,6 @@ import 'package:mokamayu/services/managers/outfit_manager.dart';
 import '../models/wardrobe_item.dart';
 import '../screens/outfits/outfit_summary_screen.dart';
 import '../screens/outfits/outfits_add_attributes_screen.dart';
-import '../widgets/drag_target_container.dart';
 
 class AppRouter {
   final AppStateManager appStateManager;
