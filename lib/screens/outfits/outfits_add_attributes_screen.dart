@@ -92,6 +92,10 @@ class _OutfitsAddAttributesScreenState
                     extra: Provider.of<WardrobeManager>(context, listen: false)
                         .getWardrobeItemList);
               }
+              Provider.of<OutfitManager>(context, listen: false)
+                  .nullListItemCopy();
+              Provider.of<OutfitManager>(context, listen: false).setStyles([]);
+              Provider.of<OutfitManager>(context, listen: false).setSeasons([]);
             },
             icon: const Icon(Icons.arrow_back_ios),
           ),
@@ -235,6 +239,12 @@ class _OutfitsAddAttributesScreenState
                     .cacheIndexList(
                         Provider.of<OutfitManager>(context, listen: false)
                             .getIndexList);
+                Provider.of<OutfitManager>(context, listen: false)
+                    .nullListItemCopy();
+                Provider.of<OutfitManager>(context, listen: false)
+                    .setStyles([]);
+                Provider.of<OutfitManager>(context, listen: false)
+                    .setSeasons([]);
               },
               child: Image.asset(
                 "assets/images/trash.png",

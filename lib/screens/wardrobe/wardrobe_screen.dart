@@ -7,6 +7,7 @@ import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/constants.dart';
 
+import '../../services/managers/outfit_manager.dart';
 import '../../widgets/modals/filter_modal.dart';
 
 class WardrobeScreen extends StatefulWidget {
@@ -24,16 +25,18 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   List<String> selectedStyles = Tags.styles;
   List<String> selectedChips = Tags.types;
 
+  Future<List<Outfit>>? outfitsList;
+  
   @override
   void initState() {
-    futureItemList = Provider.of<WardrobeManager>(context, listen: false)
-        .readWardrobeItemOnce();
-    futureItemListCopy = Provider.of<WardrobeManager>(context, listen: false)
-        .getWardrobeItemListCopy;
+    //reading outfits here, so they're properly loaded in outfits screen
+    outfitsList =
+        Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
     Future.delayed(Duration.zero).then((value) {
-      Provider.of<WardrobeManager>(context, listen: false)
-          .setWardrobeItemList(futureItemList!);
+      Provider.of<OutfitManager>(context, listen: false)
+          .setOutfits(outfitsList!);
     });
+
     super.initState();
   }
 

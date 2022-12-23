@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mokamayu/models/outfit.dart';
+import '../../constants/tags.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
 import 'dart:math';
 
 class OutfitManager extends ChangeNotifier {
   List<Outfit> finalOutfitList = [];
+  List<Outfit> finalOutfitListCopy = [];
   Future<List<Outfit>>? futureOutfitList;
+  Future<List<Outfit>>? futureOutfitListCopy;
   Future<List<Outfit>>? get getOutfitList => futureOutfitList;
+  Future<List<Outfit>>? get getOutfitListCopy => futureOutfitListCopy;
   List<Outfit> get getfinalOutfitList => finalOutfitList;
   List<int> outfitIndexes = [0];
   int index = 0;
@@ -19,6 +23,9 @@ class OutfitManager extends ChangeNotifier {
   bool get getIndexSet => indexSet;
   String? outfitStyle = "";
   String? outfitSeason = "";
+
+  List<String>? outfitStyles;
+  List<String>? outfitSeasons;
 
   void removeFromIndexes(int idxToRemove) {
     outfitIndexes.removeWhere((el) => el == idxToRemove);
@@ -38,9 +45,9 @@ class OutfitManager extends ChangeNotifier {
   }
 
   //for tests
-  // void emptyOutfitIndexes() {
-  //   outfitIndexes.removeWhere((el) => el != 0);
-  // }
+  void emptyOutfitIndexes() {
+    outfitIndexes.removeWhere((el) => el != 0);
+  }
 
   void indexIsSet(bool decision) {
     indexSet = decision;
@@ -49,6 +56,11 @@ class OutfitManager extends ChangeNotifier {
 
   void setOutfits(Future<List<Outfit>> outfitsList) {
     futureOutfitList = outfitsList;
+    notifyListeners();
+  }
+
+  void setOutfitsCopy(Future<List<Outfit>> outfitsList) {
+    futureOutfitListCopy = outfitsList;
     notifyListeners();
   }
 
@@ -63,6 +75,23 @@ class OutfitManager extends ChangeNotifier {
   }
 
   String? get getSeason => outfitSeason;
+
+  void setStyles(List<String>? styles) {
+    outfitStyles = styles;
+  }
+
+  List<String>? get getStyles => outfitStyles;
+
+  void setSeasons(List<String>? seasons) {
+    outfitSeasons = seasons;
+  }
+
+  List<String>? get getSeasons => outfitSeasons;
+
+  void nullListItemCopy() {
+    futureOutfitListCopy = null;
+    notifyListeners();
+  }
 
   Future<List<Outfit>> readOutfitsOnce() async {
     QuerySnapshot snapshot = await db
@@ -106,6 +135,41 @@ class OutfitManager extends ChangeNotifier {
         })
         .then((_) => print('Updated'))
         .catchError((error) => print('Update failed: $error'));
+  }
+
+  Future<List<Outfit>> filterOutfits(
+      BuildContext context,
+      List<String> stylesList,
+      List<String> seasonsList,
+      List<Outfit> itemList) async {
+    List<Outfit> filteredList = [];
+    stylesList = stylesList.isNotEmpty ? stylesList : OutfitTags.styles;
+    seasonsList = seasonsList.isNotEmpty ? seasonsList : OutfitTags.seasons;
+
+    itemList.forEach((element) {
+      Outfit item = element;
+      bool season = seasonsList.contains(item.season);
+      bool style = stylesList.contains(item.style);
+
+      // print("Name:" +
+      //     item.name +
+      //     "\ntype: " +
+      //     type.toString() +
+      //     "\nstyles: " +
+      //     styles.toString() +
+      //     "\nsize: " +
+      //     size.toString());
+
+      if (season && style) {
+        filteredList.add(item);
+      }
+    });
+
+    filteredList != null
+        ? finalOutfitListCopy = filteredList
+        : finalOutfitListCopy = itemList;
+
+    return finalOutfitListCopy;
   }
 
   void removeOutfit(String? reference) {

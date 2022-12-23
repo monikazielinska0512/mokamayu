@@ -17,13 +17,13 @@ class OutfitsScreen extends StatefulWidget {
 
 class _OutfitsScreenState extends State<OutfitsScreen> {
   Future<List<Outfit>>? outfitsList;
+  Future<List<Outfit>>? outfitsListCopy;
   Future<List<WardrobeItem>>? itemList;
+  List<String> selectedChips = OutfitTags.styles;
 
   @override
   void initState() {
-    outfitsList =
-        Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
-    Provider.of<OutfitManager>(context, listen: false).setOutfits(outfitsList!);
+    //reading wardrobeItems here, so they're properly loaded in wardrobe screen
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
     Future.delayed(Duration.zero).then((value) {
@@ -38,6 +38,8 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
   Widget build(BuildContext context) {
     outfitsList =
         Provider.of<OutfitManager>(context, listen: true).getOutfitList;
+    outfitsListCopy =
+        Provider.of<OutfitManager>(context, listen: true).getOutfitListCopy;
     return BasicScreen(
         type: "outfits",
         leftButtonType: "dots",
@@ -47,10 +49,21 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
             children: [
               Wrap(spacing: 20, runSpacing: 20, children: [
                 buildSearchBarAndFilters(),
-                MultiSelectChipsFormField(
-                    chipsList: OutfitTags.styles, isScroll: true),
+                SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Wrap(spacing: 10, children: [
+                      MultiSelectChip(OutfitTags.styles,
+                          chipsColor: ColorsConstants.darkPeach,
+                          onSelectionChanged: (selectedList) {
+                        selectedChips = selectedList.isEmpty
+                            ? OutfitTags.styles
+                            : selectedList;
+                      }, type: "style_main")
+                    ])),
               ]),
-              Expanded(child: PhotoGrid(outfitsList: outfitsList)),
+              Expanded(
+                  child:
+                      PhotoGrid(outfitsList: outfitsListCopy ?? outfitsList)),
             ],
           ),
           buildFloatingButton(),

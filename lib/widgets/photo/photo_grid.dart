@@ -86,11 +86,14 @@ class _PhotoGridState extends State<PhotoGrid> {
                                       Provider.of<WardrobeManager>(context,
                                               listen: false)
                                           .readWardrobeItemOnce();
-                                  Future.delayed(Duration.zero).then((value) {
-                                    Provider.of<WardrobeManager>(context,
-                                            listen: false)
-                                        .setWardrobeItemList(widget.itemList!);
-                                  });
+                                  Provider.of<WardrobeManager>(context,
+                                          listen: false)
+                                      .setWardrobeItemList(widget.itemList!);
+                                  // Future.delayed(Duration.zero).then((value) {
+                                  //   Provider.of<WardrobeManager>(context,
+                                  //           listen: false)
+                                  //       .setWardrobeItemList(widget.itemList!);
+                                  // });
 
                                   context.pop();
                                 },
@@ -118,45 +121,49 @@ class _PhotoGridState extends State<PhotoGrid> {
       builder: (context, snapshot) {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
-              child: GridView.builder(
-            scrollDirection: widget.getScrollDirection(),
-            shrinkWrap: false,
-            itemCount: snapshot.data!.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1.0,
-              crossAxisSpacing: 1.0,
-              mainAxisSpacing: 2,
-              mainAxisExtent: 180,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              var itemInfo = snapshot.data![index];
-              return DeleteBottomModal(
-                outfit: itemInfo,
-                actionFunction: () {
-                  Provider.of<OutfitManager>(context, listen: false)
-                      .removeOutfit(itemInfo.reference);
-                  // Provider.of<WardrobeManager>(context, listen: false)
-                  //     .nullListItemCopy();
-                  // Provider.of<WardrobeManager>(context, listen: false)
-                  //     .setTypes([]);
-                  // Provider.of<WardrobeManager>(context, listen: false)
-                  //     .setSizes([]);
-                  // Provider.of<WardrobeManager>(context, listen: false)
-                  //     .setStyles([]);
-                  widget.outfitsList =
-                      Provider.of<OutfitManager>(context, listen: false)
-                          .readOutfitsOnce();
-                  Future.delayed(Duration.zero).then((value) {
-                    Provider.of<OutfitManager>(context, listen: false)
-                        .setOutfits(widget.outfitsList!);
-                  });
+              child: snapshot.data!.isEmpty
+                  ? const Text("Brak outfitów")
+                  : GridView.builder(
+                      scrollDirection: widget.getScrollDirection(),
+                      shrinkWrap: false,
+                      itemCount: snapshot.data!.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1.0,
+                        crossAxisSpacing: 1.0,
+                        mainAxisSpacing: 2,
+                        mainAxisExtent: 180,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        var itemInfo = snapshot.data![index];
+                        return DeleteBottomModal(
+                          outfit: itemInfo,
+                          actionFunction: () {
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .removeOutfit(itemInfo.reference);
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .nullListItemCopy();
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .setStyles([]);
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .setSeasons([]);
+                            widget.outfitsList = Provider.of<OutfitManager>(
+                                    context,
+                                    listen: false)
+                                .readOutfitsOnce();
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .setOutfits(widget.outfitsList!);
+                            // Future.delayed(Duration.zero).then((value) {
+                            //   Provider.of<OutfitManager>(context, listen: false)
+                            //       .setOutfits(widget.outfitsList!);
+                            // });
 
-                  context.pop();
-                },
-              );
-            },
-          ));
+                            context.pop();
+                          },
+                        );
+                      },
+                    ));
         }
         return Center(
             child: CircularProgressIndicator(

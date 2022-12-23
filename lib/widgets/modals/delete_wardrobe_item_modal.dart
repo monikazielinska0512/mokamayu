@@ -7,7 +7,7 @@ import '../../models/wardrobe_item.dart';
 
 class DeleteBottomModal extends StatefulWidget {
   WardrobeItem? wardrobe = WardrobeItem.init();
-  Outfit? outfit = Outfit.init();
+  Outfit? outfit;
   Function actionFunction;
   DeleteBottomModal(
       {Key? key,
@@ -99,9 +99,11 @@ class _DeleteBottomModalState extends State<DeleteBottomModal> {
             },
           );
         },
-        child: widget.wardrobe != null ? PhotoBox(
-          object: widget.wardrobe,
-          scrollVertically: true,
-        ) : PhotoCardOutfit(object: widget.outfit));
+        child: widget.wardrobe != null
+            ? PhotoBox(
+                object: widget.wardrobe,
+                scrollVertically: true,
+              )
+            : PhotoCardOutfit(object: widget.outfit));
   }
 }

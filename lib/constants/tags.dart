@@ -37,4 +37,6 @@ class OutfitTags {
     'Casual',
     'Wedding'
   ];
+
+  static const List<String> seasons = ['Summer', 'Winter', 'Fall', 'Spring'];
 }

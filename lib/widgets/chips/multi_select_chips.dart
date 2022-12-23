@@ -3,14 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/constants.dart';
 
 import '../../constants/colors.dart';
+import '../../models/outfit.dart';
 import '../../models/wardrobe_item.dart';
+import '../../services/managers/outfit_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 
 class MultiSelectChip extends StatefulWidget {
   final List<String> chipsList;
   final Function(List<String>)? onSelectionChanged;
   String? type;
-  Future<List<WardrobeItem>>? list;
+  Future<List<WardrobeItem>>? wardrobeItemList;
+  Future<List<Outfit>>? outfitList;
   bool isScrollable;
   Color chipsColor;
 
@@ -51,6 +54,11 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
       selectedChoices =
           Provider.of<WardrobeManager>(context, listen: false).getTypes!;
     }
+    if (widget.type == 'style_main' &&
+        Provider.of<OutfitManager>(context, listen: false).getStyles != null) {
+      selectedChoices =
+          Provider.of<OutfitManager>(context, listen: false).getStyles!;
+    }
     super.initState();
   }
 
@@ -75,7 +83,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
               if (widget.type == 'type_main') {
                 Provider.of<WardrobeManager>(context, listen: false)
                     .setTypes(selectedChoices);
-                widget.list =
+                widget.wardrobeItemList =
                     Provider.of<WardrobeManager>(context, listen: false)
                         .filterWardrobe(
                             context,
@@ -85,9 +93,26 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
                             Provider.of<WardrobeManager>(context, listen: false)
                                 .getFinalWardrobeItemList);
 
-                if (widget.list != null) {
+                if (widget.wardrobeItemList != null) {
                   Provider.of<WardrobeManager>(context, listen: false)
-                      .setWardrobeItemListCopy(widget.list!);
+                      .setWardrobeItemListCopy(widget.wardrobeItemList!);
+                }
+              }
+              if (widget.type == 'style_main') {
+                Provider.of<OutfitManager>(context, listen: false)
+                    .setStyles(selectedChoices);
+                widget.outfitList =
+                    Provider.of<OutfitManager>(context, listen: false)
+                        .filterOutfits(
+                            context,
+                            selectedChoices,
+                            [],
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .getfinalOutfitList);
+
+                if (widget.outfitList != null) {
+                  Provider.of<OutfitManager>(context, listen: false)
+                      .setOutfitsCopy(widget.outfitList!);
                 }
               }
             });
