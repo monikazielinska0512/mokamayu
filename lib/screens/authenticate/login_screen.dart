@@ -7,6 +7,7 @@ import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/text_styles.dart';
 import '../../utils/validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -127,7 +128,8 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(S.of(context).no_account,
-            style: const TextStyle(color: Colors.black)),
+            style: TextStyles.paragraphRegular14(Colors.grey)),
+        // const TextStyle(color: Colors.grey)),
         GestureDetector(
           onTap: () {
             GoRouter.of(context).push('/register');
@@ -151,7 +153,7 @@ Widget forgottenPassword(BuildContext context) {
     child: TextButton(
         child: Text(
           S.of(context).forgot_password,
-          style: TextStyle(color: ColorsConstants.red),
+          style: TextStyles.paragraphRegularSemiBold14(ColorsConstants.red),
           textAlign: TextAlign.right,
         ),
         onPressed: () => GoRouter.of(context).push('/reset-password')),

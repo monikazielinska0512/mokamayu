@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
+import '../../constants/text_styles.dart';
 
 TextFormField CustomTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller, String? Function(String?)? onValidate) {
@@ -10,8 +11,8 @@ TextFormField CustomTextField(String text, IconData icon, bool isPasswordType,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
-    cursorColor: Colors.black,
-    style: TextStyle(color: Colors.black.withOpacity(0.9)),
+    cursorColor: Colors.grey,
+    style: TextStyles.paragraphRegular14(Colors.grey),
     decoration: InputDecoration(
       prefixIcon: Icon(icon, color: ColorsConstants.grey),
       labelText: text,
