@@ -64,7 +64,8 @@ class OutfitSummaryScreen extends StatelessWidget {
                 }
               });
               return WardrobeItemCard(
-                  object: itemList!.firstWhere(
+                  size: 50,
+                  wardrobItem: itemList!.firstWhere(
                       (item) => item.reference == entry.key[1],
                       orElse: () => WardrobeItem(
                           name: "Photo deleted :(",
