@@ -15,6 +15,7 @@ import '../../constants/tags.dart';
 import '../../models/outfit.dart';
 import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
+import '../../services/authentication/auth.dart';
 import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 import '../../services/storage.dart';
@@ -112,7 +113,8 @@ class _OutfitsAddAttributesScreenState
                   });
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
-                  var indexList = prefs.getStringList('indexList');
+                  final AuthService _auth = AuthService();
+                  var indexList = prefs.getStringList(_auth.getCurrentUserID());
                   // print(indexList);
                   if (indexList != null && indexList.isEmpty == false) {
                     // ignore: use_build_context_synchronously
@@ -125,8 +127,10 @@ class _OutfitsAddAttributesScreenState
                     // ignore: use_build_context_synchronously
                     index = Provider.of<OutfitManager>(context, listen: false)
                         .getMaxOutfitIndexes;
-                    // print(index);
+                    print(index);
+                    print(decision);
                     decision == false ? index = index + 1 : index = index;
+                    print(index);
                     final directory = await getApplicationDocumentsDirectory();
                     imagePath = await File('${directory.path}/image$index.png')
                         .create();
@@ -231,6 +235,8 @@ class _OutfitsAddAttributesScreenState
                 Provider.of<OutfitManager>(context, listen: false).setStyle("");
                 Provider.of<OutfitManager>(context, listen: false)
                     .removeFromIndexes(item.index);
+                // Provider.of<OutfitManager>(context, listen: false)
+                //     .emptyOutfitIndexes;
                 Provider.of<OutfitManager>(context, listen: false)
                     .indexIsSet(false);
                 Provider.of<AppStateManager>(context, listen: false)

@@ -7,6 +7,7 @@ import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 import '../modals/delete_wardrobe_item_modal.dart';
 
@@ -157,11 +158,28 @@ class _PhotoGridState extends State<PhotoGrid> {
                                           .readOutfitsOnce();
                                   Provider.of<OutfitManager>(context,
                                           listen: false)
+                                      .removeFromIndexes(itemInfo.index);
+                                  Provider.of<OutfitManager>(context,
+                                          listen: false)
+                                      .indexIsSet(false);
+                                  // Provider.of<OutfitManager>(context,
+                                  //         listen: false)
+                                  //     .emptyOutfitIndexes;
+                                  Provider.of<AppStateManager>(context,
+                                          listen: false)
+                                      .cacheIndexList(
+                                          Provider.of<OutfitManager>(context,
+                                                  listen: false)
+                                              .getIndexList);
+
+                                  Provider.of<OutfitManager>(context,
+                                          listen: false)
                                       .setOutfits(widget.outfitsList!);
                                   context.pop();
                                 },
                               )
-                            : PhotoCardOutfit(object: itemInfo, type: "pick_outfits");
+                            : PhotoCardOutfit(
+                                object: itemInfo, type: "pick_outfits");
                       },
                     ));
         }

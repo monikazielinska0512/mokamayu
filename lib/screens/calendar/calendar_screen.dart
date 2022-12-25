@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../constants/colors.dart';
+import '../../services/authentication/auth.dart';
 import '../../services/managers/outfit_manager.dart';
 import '../../widgets/buttons/floating_button.dart';
 import '../../widgets/fundamental/fundamentals.dart';
@@ -31,13 +32,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   Map<DateTime, List<Event>> selectedEvents = {};
   List<Outfit>? outfitList;
+  final AuthService _auth = AuthService();
 
   prefsData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     outfitList =
         Provider.of<OutfitManager>(context, listen: false).getfinalOutfitList;
     setState(() {
-      String? encodedMap = prefs.getString('events');
+      String? encodedMap = prefs.getString(_auth.getCurrentUserID());
       Map<String, dynamic> getEvents = json.decode(encodedMap ?? "{}");
       List<Event> list = [];
       getEvents.forEach((key, value) {
@@ -179,17 +181,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   scrollDirection: Axis.horizontal,
                   children: [
                     ..._getEventsfromDay(_selectedDay)
-                        .map(
-                          (Event event) =>
-                              Provider.of<OutfitManager>(context, listen: false)
-                                      .getfinalOutfitList
-                                      .contains(event.outfit)
-                                  ? WardrobeItemCard(
-                                      size: 65,
-                                      outfit: event.outfit,
-                                      event: event)
-                                  : const SizedBox.shrink(),
-                        )
+                        .map((Event event) =>
+                                // Provider.of<OutfitManager>(context, listen: false)
+                                //         .getfinalOutfitList
+                                //         .contains(event.outfit)
+                                //     ?
+                                WardrobeItemCard(
+                                    size: 65,
+                                    outfit: event.outfit,
+                                    event: event)
+                            // : const SizedBox.shrink(),
+                            )
                         .toList(),
                   ],
                 )))

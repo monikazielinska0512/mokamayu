@@ -125,6 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       email: _emailTextController.text,
                       password: _passwordTextController.text));
                   if (mounted && status == AuthStatus.successful) {
+                    print('here');
                     Provider.of<ProfileManager>(context, listen: false)
                         .createUser(
                             _emailTextController.text,
