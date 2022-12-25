@@ -52,10 +52,6 @@ class _DeleteBottomModalState extends State<DeleteBottomModal> {
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(30))),
                       height: MediaQuery.of(context).size.height * 0.30,
-                      height: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.28,
                       // color: Colors.white,
                       child: Center(
                         child: Column(

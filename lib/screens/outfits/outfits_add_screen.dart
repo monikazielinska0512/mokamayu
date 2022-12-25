@@ -8,6 +8,7 @@ import '../../constants/tags.dart';
 import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/outfit_manager.dart';
+import '../../services/managers/photo_tapped_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 
 class CreateOutfitPage extends StatelessWidget {

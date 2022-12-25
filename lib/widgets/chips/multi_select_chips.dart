@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/constants.dart';
-
-import '../../constants/colors.dart';
-import '../../models/outfit.dart';
-import '../../models/wardrobe_item.dart';
-import '../../services/managers/outfit_manager.dart';
-import '../../services/managers/wardrobe_manager.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 
 class MultiSelectChip extends StatefulWidget {
   final List<String> chipsList;
@@ -73,7 +69,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
       choices.add(Container(
         padding: const EdgeInsets.only(right: 10),
         child: ChoiceChip(
-          label: Text(item),
+          label: selectedChoices.contains(item) ? Text(item, style: TextStyles.paragraphRegularSemiBold16(Colors.white)) : Text(item, style: TextStyles.paragraphRegular16(Colors.white)) ,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
           selected: selectedChoices.contains(item),
