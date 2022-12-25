@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
@@ -59,9 +58,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               reference: mapOutfit['reference']);
 
           Outfit finalOutfit = Outfit.init();
-          // print(outfitList);
           for (var element in outfitList!) {
-            // print(element);
             if (element.reference == outfit.reference) {
               finalOutfit = element;
             }
