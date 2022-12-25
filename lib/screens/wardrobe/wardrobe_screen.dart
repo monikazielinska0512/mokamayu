@@ -7,9 +7,6 @@ import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/constants.dart';
 
-import '../../services/managers/outfit_manager.dart';
-import '../../widgets/modals/filter_modal.dart';
-
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
 
@@ -53,7 +50,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
         body: Stack(children: [
           Column(
             children: [
-              Wrap(spacing: 20, runSpacing: 20, children: [
+              Wrap(spacing: 10, runSpacing: 10, children: [
                 buildSearchBarAndFilters(),
                 SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -77,11 +74,11 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   Widget buildSearchBarAndFilters() {
     return SizedBox(
-        width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.075,
-        child: Row(children: [
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Expanded(child: WardrobeItemSearch(title: "name")),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.045),
+          const SizedBox(width: 10),
           FilterModal(
               onApplyWardrobe: (selectedList) =>
                   {futureItemListCopy = selectedList})

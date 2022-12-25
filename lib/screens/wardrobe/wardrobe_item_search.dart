@@ -76,11 +76,11 @@ class _WardrobeItemSearchState extends State<WardrobeItemSearch> {
               fillColor: ColorsConstants.whiteAccent,
               labelStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
               hintStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
               ),
-              focusedBorder: OutlineInputBorder(
+              focusedBorder: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
               ),
