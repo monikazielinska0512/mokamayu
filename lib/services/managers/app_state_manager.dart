@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+import '../../models/calendar_event.dart';
 import '../app_cache.dart';
 import '../authentication/auth.dart';
 
@@ -50,6 +51,11 @@ class AppStateManager extends ChangeNotifier {
 
   void cacheIndexList(List<int> indexList) async {
     await _appCache.cacheIndexList(indexList);
+    notifyListeners();
+  }
+
+  void cacheEvents(Map<String, String> events) async {
+    await _appCache.cacheEvents(events);
     notifyListeners();
   }
 }

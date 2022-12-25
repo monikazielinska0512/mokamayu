@@ -1,11 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/outfit.dart';
+import 'package:mokamayu/services/managers/calendar_manager.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../constants/colors.dart';
-import '../../constants/text_styles.dart';
+import '../../services/managers/outfit_manager.dart';
 import '../../widgets/buttons/floating_button.dart';
 import '../../widgets/fundamental/fundamentals.dart';
 import '../../models/calendar_event.dart';
@@ -23,11 +30,57 @@ class _CalendarScreenState extends State<CalendarScreen> {
   DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
   Map<DateTime, List<Event>> selectedEvents = {};
+  List<Outfit>? outfitList;
+
+  prefsData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    outfitList =
+        Provider.of<OutfitManager>(context, listen: false).getfinalOutfitList;
+    setState(() {
+      String? encodedMap = prefs.getString('events');
+      Map<String, dynamic> getEvents = json.decode(encodedMap ?? "{}");
+      List<Event> list = [];
+      getEvents.forEach((key, value) {
+        var val = (json.decode(value) as List).map((e) => e as String).toList();
+        for (var element in val) {
+          Map<String, dynamic> map = jsonDecode(element);
+          Map<String, dynamic> mapOutfit = map['outfit'];
+
+          Outfit outfit = Outfit(
+              createdBy: mapOutfit['createdBy'] as String,
+              style: mapOutfit['style'] as String,
+              season: mapOutfit['season'] as String,
+              cover: mapOutfit['cover'] as String,
+              map: Map.from(mapOutfit['map']),
+              index: mapOutfit['index'],
+              elements: List.from(mapOutfit['elements']),
+              reference: mapOutfit['reference']);
+
+          Outfit finalOutfit = Outfit.init();
+          // print(outfitList);
+          for (var element in outfitList!) {
+            // print(element);
+            if (element.reference == outfit.reference) {
+              finalOutfit = element;
+            }
+          }
+
+          final event = Event(outfit: finalOutfit);
+          list.add(event);
+        }
+        selectedEvents[DateTime.parse(key)] = list;
+        list = [];
+      });
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     selectedEvents = {};
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(Duration(seconds: 2), () => prefsData());
+    });
   }
 
   @override
@@ -41,8 +94,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    selectedEvents =
+        Provider.of<CalendarManager>(context, listen: true).getEvents;
     return BasicScreen(
-        type: "",
+        type: "Calendar",
         leftButtonType: "dots",
         isRightButtonVisible: true,
         context: context,
@@ -106,20 +161,34 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     )
                   : null,
             )),
-        Container(
-            height: MediaQuery.of(context).size.height * 0.4,
+        Padding(
+            padding: const EdgeInsets.only(top: 20, left: 20, bottom: 10),
+            child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Looks for the ${DateFormat.MMMMd().format(_selectedDay)}:",
+                  style: TextStyles.h5(ColorsConstants.grey),
+                ))),
+        SizedBox(
+            height: 170,
             width: MediaQuery.of(context).size.width,
             child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: ListView(
                   shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
                   children: [
                     ..._getEventsfromDay(_selectedDay)
                         .map(
-                          (Event event) => WardrobeItemCard(
-                            size: 30,
-                            outfit: event.outfit,
-                          ),
+                          (Event event) =>
+                              Provider.of<OutfitManager>(context, listen: false)
+                                      .getfinalOutfitList
+                                      .contains(event.outfit)
+                                  ? WardrobeItemCard(
+                                      size: 65,
+                                      outfit: event.outfit,
+                                      event: event)
+                                  : const SizedBox.shrink(),
                         )
                         .toList(),
                   ],
@@ -192,23 +261,19 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             child: Column(
                               children: [
                                 dialogCardCalendar(
-                                    "Add look for ${DateFormat.MMMMd().format(_selectedDay)} :)",
+                                    "Add looks for ${DateFormat.MMMMd().format(_selectedDay)}",
                                     () {
-                                  //select outfit to add for the day
+                                  Provider.of<CalendarManager>(context,
+                                          listen: false)
+                                      .setSelectedEvents(selectedEvents);
+                                  Provider.of<CalendarManager>(context,
+                                          listen: false)
+                                      .setSelectedDay(_selectedDay);
 
-                                  if (selectedEvents[_selectedDay] != null) {
-                                    selectedEvents[_selectedDay]!.add(
-                                      Event(Outfit.init()),
-                                    );
-                                  } else {
-                                    selectedEvents[_selectedDay] = [
-                                      Event(Outfit.init())
-                                    ];
-                                  }
+                                  context.push('/pick-outfits-calendar');
 
                                   Navigator.of(context).pop();
-                                  setState(() {});
-                                }, 25)
+                                }, MediaQuery.of(context).size.width * 0.04)
                               ],
                             )),
                       ])

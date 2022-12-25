@@ -69,7 +69,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 })
               ]))),
       Container(
-          height: deviceWidth(context) + 132.7,
+          height: deviceWidth(context) * 1.295,
           child: Opacity(
             opacity: 0.9,
             child: Image.asset(

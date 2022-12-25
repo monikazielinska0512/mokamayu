@@ -14,7 +14,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        type: "add_photo",
+        type: "Add photo",
         rightButtonType: "",
         context: context,
         body: Center(

@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(children: [
         Stack(children: [
           Positioned(
-            bottom: MediaQuery.of(context).size.height - 448,
+            bottom: MediaQuery.of(context).size.height * 0.5,
             width: MediaQuery.of(context).size.width,
             child: Image.asset(
               "assets/images/background_auth.png",
@@ -47,9 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           Positioned(
-            bottom: MediaQuery.of(context).size.height - 412,
-            width: MediaQuery.of(context).size.width - 235,
-            right: MediaQuery.of(context).size.width - 350,
+            bottom: MediaQuery.of(context).size.height * 0.54,
+            width: MediaQuery.of(context).size.width * 0.4,
+            right: MediaQuery.of(context).size.width * 0.1,
             child: Image.asset(
               "assets/images/man.png",
               fit: BoxFit.fitWidth,

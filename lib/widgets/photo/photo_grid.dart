@@ -14,11 +14,13 @@ class PhotoGrid extends StatefulWidget {
   final bool scrollVertically;
   Future<List<WardrobeItem>>? itemList;
   Future<List<Outfit>>? outfitsList;
+  String? type;
 
   PhotoGrid({
     Key? key,
     this.itemList,
     this.outfitsList,
+    this.type,
     this.scrollVertically = true,
   }) : super(key: key);
 
@@ -133,26 +135,33 @@ class _PhotoGridState extends State<PhotoGrid> {
                       ),
                       itemBuilder: (BuildContext context, int index) {
                         var itemInfo = snapshot.data![index];
-                        return DeleteBottomModal(
-                          outfit: itemInfo,
-                          actionFunction: () {
-                            Provider.of<OutfitManager>(context, listen: false)
-                                .removeOutfit(itemInfo.reference);
-                            Provider.of<OutfitManager>(context, listen: false)
-                                .nullListItemCopy();
-                            Provider.of<OutfitManager>(context, listen: false)
-                                .setStyles([]);
-                            Provider.of<OutfitManager>(context, listen: false)
-                                .setSeasons([]);
-                            widget.outfitsList = Provider.of<OutfitManager>(
-                                    context,
-                                    listen: false)
-                                .readOutfitsOnce();
-                            Provider.of<OutfitManager>(context, listen: false)
-                                .setOutfits(widget.outfitsList!);
-                            context.pop();
-                          },
-                        );
+                        return widget.type == null
+                            ? DeleteBottomModal(
+                                outfit: itemInfo,
+                                actionFunction: () {
+                                  Provider.of<OutfitManager>(context,
+                                          listen: false)
+                                      .removeOutfit(itemInfo.reference);
+                                  Provider.of<OutfitManager>(context,
+                                          listen: false)
+                                      .nullListItemCopy();
+                                  Provider.of<OutfitManager>(context,
+                                          listen: false)
+                                      .setStyles([]);
+                                  Provider.of<OutfitManager>(context,
+                                          listen: false)
+                                      .setSeasons([]);
+                                  widget.outfitsList =
+                                      Provider.of<OutfitManager>(context,
+                                              listen: false)
+                                          .readOutfitsOnce();
+                                  Provider.of<OutfitManager>(context,
+                                          listen: false)
+                                      .setOutfits(widget.outfitsList!);
+                                  context.pop();
+                                },
+                              )
+                            : PhotoCardOutfit(object: itemInfo, type: "pick_outfits");
                       },
                     ));
         }

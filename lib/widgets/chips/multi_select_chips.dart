@@ -49,11 +49,6 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
       selectedChoices =
           Provider.of<WardrobeManager>(context, listen: false).getStyles!;
     }
-    // if (widget.type == 'type_main' &&
-    //     Provider.of<WardrobeManager>(context, listen: false).getTypes != null) {
-    //   selectedChoices =
-    //       Provider.of<WardrobeManager>(context, listen: false).getTypes!;
-    // }
     if ((widget.type == 'style_main' || widget.type == 'outfit_style') &&
         Provider.of<OutfitManager>(context, listen: false).getStyles != null) {
       selectedChoices =

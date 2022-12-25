@@ -37,7 +37,8 @@ class Outfit {
       cover: json['cover'] as String,
       map: Map.from(json['map']),
       index: json['index'],
-      elements: List.from(json['elements']));
+      elements: List.from(json['elements']),
+      reference: json['reference']);
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         "createdBy": createdBy.toString(),
@@ -47,6 +48,7 @@ class Outfit {
         "elements": elements,
         "map": map,
         "index": index,
+        "reference": reference,
       };
 
   factory Outfit.fromSnapshot(DocumentSnapshot snapshot) {

@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/constants/colors.dart';
 
 import 'package:mokamayu/models/outfit.dart';
+import 'package:mokamayu/services/managers/calendar_manager.dart';
 import 'package:mokamayu/services/managers/photo_tapped_manager.dart';
 import 'package:provider/provider.dart';
 
@@ -11,38 +13,40 @@ import '../../models/outfit_container.dart';
 import '../../services/managers/outfit_manager.dart';
 
 class PhotoCardOutfit extends StatelessWidget {
+  PhotoCardOutfit({Key? key, this.object, this.type}) : super(key: key);
   final Outfit? object;
-
-  PhotoCardOutfit({Key? key, this.object}) : super(key: key);
+  String? type;
+  bool? selected = false;
+  Map<Outfit?, bool> outfitsMap = {};
+  List<Outfit?> pickedOutfits = [];
 
   @override
   Widget build(BuildContext context) {
+    if (type != null) {
+      outfitsMap =
+          Provider.of<CalendarManager>(context, listen: true).getOutfitsMap;
+      selected = outfitsMap[object];
+      if (selected == null) {
+        selected = false;
+      }
+      // print(selected);
+    }
+
     String? photoUrl = object!.cover;
     Map<String, String>? map = object!.map;
     return GestureDetector(
       onTap: () {
-        Map<List<dynamic>, OutfitContainer>? getMap = {};
-        map!.forEach((key, value) {
-          Map<String, dynamic> contList = json.decode(value);
-          OutfitContainer list = OutfitContainer(
-              height: contList["height"],
-              rotation: contList["rotation"],
-              scale: contList["scale"],
-              width: contList["width"],
-              xPosition: contList["xPosition"],
-              yPosition: contList["yPosition"]);
-          getMap.addAll({json.decode(key): list});
-        });
-        Provider.of<PhotoTapped>(context, listen: false).setObject(object);
-        Provider.of<OutfitManager>(context, listen: false)
-            .setSeason(object!.season);
-        Provider.of<OutfitManager>(context, listen: false)
-            .setStyle(object!.style);
-        GoRouter.of(context)
-            .goNamed("outfit-add-attributes-screen", extra: getMap);
+        type == null ? tapOutfit(context, map) : tapOutfitCalendar(context);
       },
       child: Card(
-        elevation: 2,
+        elevation: type != null
+            ? selected == false
+                ? 2
+                : 15
+            : 2,
+        shadowColor: selected == false
+            ? ColorsConstants.white
+            : ColorsConstants.darkBrick,
         color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
@@ -60,5 +64,39 @@ class PhotoCardOutfit extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  void tapOutfit(BuildContext context, Map<String, String>? map) {
+    Map<List<dynamic>, OutfitContainer>? getMap = {};
+    map!.forEach((key, value) {
+      Map<String, dynamic> contList = json.decode(value);
+      OutfitContainer list = OutfitContainer(
+          height: contList["height"],
+          rotation: contList["rotation"],
+          scale: contList["scale"],
+          width: contList["width"],
+          xPosition: contList["xPosition"],
+          yPosition: contList["yPosition"]);
+      getMap.addAll({json.decode(key): list});
+    });
+    Provider.of<PhotoTapped>(context, listen: false).setObject(object);
+    Provider.of<OutfitManager>(context, listen: false)
+        .setSeason(object!.season);
+    Provider.of<OutfitManager>(context, listen: false).setStyle(object!.style);
+    GoRouter.of(context).goNamed("outfit-add-attributes-screen", extra: getMap);
+  }
+
+  void tapOutfitCalendar(BuildContext context) {
+    if (selected == false) {
+      Provider.of<CalendarManager>(context, listen: false)
+          .selectOutfit(object, selected);
+      Provider.of<CalendarManager>(context, listen: false).addOutfit(object);
+      selected = true;
+    } else {
+      Provider.of<CalendarManager>(context, listen: false)
+          .selectOutfit(object, selected);
+      Provider.of<CalendarManager>(context, listen: false).removeOutfit(object);
+      selected = false;
+    }
   }
 }
