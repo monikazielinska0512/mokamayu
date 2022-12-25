@@ -12,11 +12,8 @@ class PhotoPicker extends StatefulWidget {
   File? photo;
   String? photoPath;
   final ImagePicker picker = ImagePicker();
-  final double width;
-  final double height;
 
-  PhotoPicker({Key? key, required this.width, required this.height})
-      : super(key: key);
+  PhotoPicker({Key? key}) : super(key: key);
 
   @override
   State<PhotoPicker> createState() => _PhotoPickerState();
@@ -34,7 +31,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
               borderRadius: BorderRadius.circular(20),
               child: Image.file(
                 widget.photo!,
-                height: widget.height,
+                height: MediaQuery.of(context).size.height * 0.7,
                 fit: BoxFit.fill,
               ),
             )
@@ -43,8 +40,9 @@ class _PhotoPickerState extends State<PhotoPicker> {
                   color: ColorsConstants.whiteAccent,
                   borderRadius: BorderRadius.circular(20)),
               width: double.maxFinite,
-              height: widget.height,
-              child: const Icon(Icons.camera_alt),
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: const Icon(Ionicons.camera_outline,
+                  color: ColorsConstants.grey),
             ),
     );
   }
