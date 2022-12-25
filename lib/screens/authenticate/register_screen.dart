@@ -29,134 +29,122 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 244, 232, 217),
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Text(
-            S.of(context).sign_up,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    return BasicScreen(
+      type: "Sign up",
+      leftButtonType: "back",
+      isRightButtonVisible: false,
+      context: context,
+      isFullScreen: true,
+      body: Stack(children: [
+        Stack(children: [
+          Positioned(
+            bottom: MediaQuery.of(context).size.height - 448,
+            width: MediaQuery.of(context).size.width,
+            child: Image.asset(
+              "assets/images/background_auth.png",
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+          Positioned(
+            bottom: MediaQuery.of(context).size.height - 412,
+            width: MediaQuery.of(context).size.width - 250,
+            right: MediaQuery.of(context).size.width - 240,
+            child: Image.asset(
+              "assets/images/woman2.png",
+              fit: BoxFit.fitWidth,
+            ),
+          )
+        ]),
+        Positioned(
+          bottom: 0,
+          child: BackgroundCard(
+            context: context,
+            height: 0.54,
+            child: buildRegistrationForm(context),
           ),
         ),
-        body: SizedBox(
-            width: deviceWidth(context),
-            height: deviceHeight(context),
-            child: SingleChildScrollView(
-                child: Padding(
-                    padding:
-                        EdgeInsets.fromLTRB(0, deviceHeight(context) * 0, 0, 0),
-                    child: Column(children: <Widget>[
-                      SizedBox(
-                        height: deviceWidth(context),
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned(
-                              child: Image.asset(
-                                "assets/images/mountains.png",
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                            Positioned(
-                              right: 20,
-                              bottom: 6,
-                              child: Image.asset(
-                                "assets/images/woman.png",
-                                fit: BoxFit.fitWidth,
-                                height: 260,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Form(
-                          key: _form,
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(
-                                20, deviceHeight(context) * 0.05, 20, 0),
-                            child: Column(
-                              children: <Widget>[
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                CustomTextField(
-                                    S.of(context).enter_username,
-                                    Icons.person_outline,
-                                    false,
-                                    _usernameTextController,
-                                    (value) => Validator.checkIfEmptyField(
-                                        _usernameTextController.text, context)),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                CustomTextField(
-                                    S.of(context).enter_email,
-                                    Icons.mail,
-                                    false,
-                                    _emailTextController,
-                                    (value) => Validator.validateEmail(
-                                        _emailTextController.text, context)),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                CustomTextField(
-                                    S.of(context).enter_password,
-                                    Icons.lock_outline,
-                                    true,
-                                    _passwordTextController,
-                                    (value) => Validator.validatePassword(
-                                        _passwordTextController.text, context)),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                CustomTextField(
-                                    S.of(context).confirm_password,
-                                    Icons.lock_outline,
-                                    true,
-                                    _retypepasswordTextController,
-                                    (value) =>
-                                        Validator.checkIfPasswordsIdentical(
-                                            _retypepasswordTextController.text,
-                                            _passwordTextController.text,
-                                            context)),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Button(context, S.of(context).sign_up,
-                                    () async {
-                                  if (_form.currentState!.validate()) {
-                                    final status = await _auth.register(
-                                        LoginUser(
-                                            email: _emailTextController.text,
-                                            password:
-                                                _passwordTextController.text));
-                                    if (mounted &&
-                                        status == AuthStatus.successful) {
-                                      Provider.of<ProfileManager>(context,
-                                              listen: false)
-                                          .createUser(
-                                              _emailTextController.text,
-                                              _usernameTextController.text,
-                                              _auth.getCurrentUserID());
-                                      Navigator.pop(context);
-                                      Provider.of<AppStateManager>(context,
-                                              listen: false)
-                                          .login();
-                                    } else {
-                                      final error = AuthExceptionHandler
-                                          .generateErrorMessage(
-                                              status, context);
-                                      CustomSnackBar.showErrorSnackBar(
-                                        context: context,
-                                        message: error,
-                                      );
-                                    }
-                                  }
-                                })
-                              ],
-                            ),
-                          ))
-                    ])))));
+      ]),
+    );
+  }
+
+  Widget buildRegistrationForm(BuildContext context) {
+    return Form(
+        key: _form,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(20, deviceHeight(context) * 0.05, 20, 0),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(
+                height: 5,
+              ),
+              CustomTextField(
+                  S.of(context).enter_username,
+                  Icons.person_outline,
+                  false,
+                  _usernameTextController,
+                  (value) => Validator.checkIfEmptyField(
+                      _usernameTextController.text, context)),
+              const SizedBox(
+                height: 15,
+              ),
+              CustomTextField(
+                  S.of(context).enter_email,
+                  Icons.mail,
+                  false,
+                  _emailTextController,
+                  (value) => Validator.validateEmail(
+                      _emailTextController.text, context)),
+              const SizedBox(
+                height: 15,
+              ),
+              CustomTextField(
+                  S.of(context).enter_password,
+                  Icons.lock_outline,
+                  true,
+                  _passwordTextController,
+                  (value) => Validator.validatePassword(
+                      _passwordTextController.text, context)),
+              const SizedBox(
+                height: 15,
+              ),
+              CustomTextField(
+                  S.of(context).confirm_password,
+                  Icons.lock_outline,
+                  true,
+                  _retypepasswordTextController,
+                  (value) => Validator.checkIfPasswordsIdentical(
+                      _retypepasswordTextController.text,
+                      _passwordTextController.text,
+                      context)),
+              const SizedBox(
+                height: 15,
+              ),
+              ButtonDarker(context, S.of(context).sign_up, () async {
+                if (_form.currentState!.validate()) {
+                  final status = await _auth.register(LoginUser(
+                      email: _emailTextController.text,
+                      password: _passwordTextController.text));
+                  if (mounted && status == AuthStatus.successful) {
+                    Provider.of<ProfileManager>(context, listen: false)
+                        .createUser(
+                            _emailTextController.text,
+                            _usernameTextController.text,
+                            _auth.getCurrentUserID());
+                    Navigator.pop(context);
+                    Provider.of<AppStateManager>(context, listen: false)
+                        .login();
+                  } else {
+                    final error = AuthExceptionHandler.generateErrorMessage(
+                        status, context);
+                    CustomSnackBar.showErrorSnackBar(
+                      context: context,
+                      message: error,
+                    );
+                  }
+                }
+              })
+            ],
+          ),
+        ));
   }
 }

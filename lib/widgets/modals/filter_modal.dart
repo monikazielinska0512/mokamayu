@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/models/outfit.dart';
+import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -11,12 +13,18 @@ import '../../services/managers/wardrobe_manager.dart';
 //ignore: must_be_immutable
 class FilterModal extends StatefulWidget {
   Future<List<WardrobeItem>>? futureItemListCopy;
+  Future<List<Outfit>>? futureOutfitListCopy;
   List<String> selectedTypes = Tags.types;
   List<String> selectedStyles = Tags.styles;
   List<String> selectedSizes = Tags.sizes;
-  Function(Future<List<WardrobeItem>>?)? onApply;
 
-  FilterModal({Key? key, required this.onApply}) : super(key: key);
+  List<String> selectedOutfitStyles = OutfitTags.styles;
+  List<String> selectedOutfitSeasons = OutfitTags.seasons;
+  Function(Future<List<WardrobeItem>>?)? onApplyWardrobe;
+  Function(Future<List<Outfit>>?)? onApplyOutfits;
+
+  FilterModal({Key? key, this.onApplyWardrobe, this.onApplyOutfits})
+      : super(key: key);
 
   @override
   State<FilterModal> createState() => _FilterModalState();
@@ -118,6 +126,44 @@ class _FilterModalState extends State<FilterModal> {
     ]);
   }
 
+  Widget buildOutfitStylesSection() {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text("Styles",
+          style: TextStyles.paragraphRegularSemiBold18(),
+          textAlign: TextAlign.start),
+      Padding(
+          padding: const EdgeInsets.only(bottom: 10, top: 5),
+          child: MultiSelectChip(
+              chipsColor: ColorsConstants.mint,
+              OutfitTags.styles,
+              isScrollable: false,
+              type: "outfit_style",
+              onSelectionChanged: (selectedList) => {
+                    widget.selectedOutfitStyles = selectedList,
+                    // print(widget.selectedStyles)
+                  })),
+    ]);
+  }
+
+  Widget buildOutfitSeasonSection() {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text("Seasons",
+          style: TextStyles.paragraphRegularSemiBold18(),
+          textAlign: TextAlign.start),
+      Padding(
+          padding: const EdgeInsets.only(bottom: 10, top: 5),
+          child: MultiSelectChip(
+              chipsColor: ColorsConstants.mint,
+              OutfitTags.seasons,
+              isScrollable: false,
+              type: "outfit_season",
+              onSelectionChanged: (selectedList) => {
+                    widget.selectedOutfitSeasons = selectedList,
+                    // print(widget.selectedStyles)
+                  })),
+    ]);
+  }
+
   Widget buildSizesSection() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text("Size",
@@ -143,8 +189,11 @@ class _FilterModalState extends State<FilterModal> {
           context,
           "Apply",
           () => {
-                widget.futureItemListCopy =
-                    Provider.of<WardrobeManager>(context, listen: false)
+                if (widget.onApplyWardrobe != null)
+                  {
+                    widget.futureItemListCopy = Provider.of<WardrobeManager>(
+                            context,
+                            listen: false)
                         .filterWardrobe(
                             context,
                             widget.selectedTypes,
@@ -152,11 +201,28 @@ class _FilterModalState extends State<FilterModal> {
                             widget.selectedSizes,
                             Provider.of<WardrobeManager>(context, listen: false)
                                 .getFinalWardrobeItemList),
-
-                if (widget.futureItemListCopy != null)
+                    if (widget.futureItemListCopy != null)
+                      {
+                        Provider.of<WardrobeManager>(context, listen: false)
+                            .setWardrobeItemListCopy(widget.futureItemListCopy!)
+                      },
+                  }
+                else
                   {
-                    Provider.of<WardrobeManager>(context, listen: false)
-                        .setWardrobeItemListCopy(widget.futureItemListCopy!)
+                    widget.futureOutfitListCopy = Provider.of<OutfitManager>(
+                            context,
+                            listen: false)
+                        .filterOutfits(
+                            context,
+                            widget.selectedOutfitStyles,
+                            widget.selectedOutfitSeasons,
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .getfinalOutfitList),
+                    if (widget.futureOutfitListCopy != null)
+                      {
+                        Provider.of<OutfitManager>(context, listen: false)
+                            .setOutfitsCopy(widget.futureOutfitListCopy!)
+                      },
                   },
 
                 // widget.onApply!(widget.futureItemListCopy),
@@ -199,12 +265,19 @@ class _FilterModalState extends State<FilterModal> {
         child: Padding(
             padding:
                 const EdgeInsets.only(top: 20, right: 30, left: 30, bottom: 30),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildTypesSection(),
-                  buildStylesSection(),
-                  buildSizesSection()
-                ])));
+            child: widget.onApplyWardrobe != null
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                        buildTypesSection(),
+                        buildStylesSection(),
+                        buildSizesSection()
+                      ])
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                        buildOutfitStylesSection(),
+                        buildOutfitSeasonSection()
+                      ])));
   }
 }

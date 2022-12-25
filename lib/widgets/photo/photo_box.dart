@@ -7,18 +7,17 @@ import 'package:mokamayu/services/managers/wardrobe_manager.dart';
 import 'package:provider/provider.dart';
 
 class PhotoBox extends StatelessWidget {
-  final WardrobeItem object;
+  final WardrobeItem? object;
   final bool? scrollVertically;
 
-  const PhotoBox(
-      {Key? key, required this.object, required this.scrollVertically})
+  const PhotoBox({Key? key, this.object, required this.scrollVertically})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String? photoURL = object.photoURL;
-    String? name = object.name;
-    String? id = object.reference;
+    String? photoURL = object!.photoURL;
+    String? name = object!.name;
+    String? id = object!.reference;
     return !scrollVertically!
         ? buildPhotoBoxForOutfits(context, photoURL, id)
         : buildPhotoBoxForWardrobe(photoURL, name, context);

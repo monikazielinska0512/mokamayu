@@ -6,6 +6,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/constants/constants.dart';
 import '../../services/managers/outfit_manager.dart';
+import '../../widgets/modals/filter_modal.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -17,13 +18,13 @@ class OutfitsScreen extends StatefulWidget {
 
 class _OutfitsScreenState extends State<OutfitsScreen> {
   Future<List<Outfit>>? outfitsList;
+  Future<List<Outfit>>? outfitsListCopy;
   Future<List<WardrobeItem>>? itemList;
+  List<String> selectedChips = OutfitTags.styles;
 
   @override
   void initState() {
-    outfitsList =
-        Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
-    Provider.of<OutfitManager>(context, listen: false).setOutfits(outfitsList!);
+    //reading wardrobeItems here, so they're properly loaded in wardrobe screen
     itemList = Provider.of<WardrobeManager>(context, listen: false)
         .readWardrobeItemOnce();
     Future.delayed(Duration.zero).then((value) {
@@ -36,6 +37,10 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    outfitsList =
+        Provider.of<OutfitManager>(context, listen: true).getOutfitList;
+    outfitsListCopy =
+        Provider.of<OutfitManager>(context, listen: true).getOutfitListCopy;
     return BasicScreen(
         type: "outfits",
         leftButtonType: "dots",
@@ -45,10 +50,21 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
             children: [
               Wrap(spacing: 20, runSpacing: 20, children: [
                 buildSearchBarAndFilters(),
-                MultiSelectChipsFormField(
-                    chipsList: OutfitTags.styles, isScroll: true),
+                SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Wrap(spacing: 10, children: [
+                      MultiSelectChip(OutfitTags.styles,
+                          chipsColor: ColorsConstants.darkPeach,
+                          onSelectionChanged: (selectedList) {
+                        selectedChips = selectedList.isEmpty
+                            ? OutfitTags.styles
+                            : selectedList;
+                      }, type: "style_main")
+                    ])),
               ]),
-              Expanded(child: PhotoGrid(outfitsList: outfitsList)),
+              Expanded(
+                  child:
+                      PhotoGrid(outfitsList: outfitsListCopy ?? outfitsList)),
             ],
           ),
           buildFloatingButton(),
@@ -63,10 +79,9 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
           Expanded(
               child: SearchBar(title: "Search", hintTitle: "Name of item")),
           SizedBox(width: MediaQuery.of(context).size.width * 0.045),
-          CustomIconButton(
-              onPressed: () {},
-              width: MediaQuery.of(context).size.width * 0.15,
-              icon: Icons.filter_list)
+          FilterModal(
+              onApplyOutfits: (selectedList) =>
+                  {outfitsListCopy = selectedList})
         ]));
   }
 
@@ -75,6 +90,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
         onPressed: () {
           showDialog(
               context: context,
+              useSafeArea: false,
               builder: (BuildContext context) {
                 return CustomDialogBox(itemList: itemList);
               });

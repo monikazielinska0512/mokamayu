@@ -11,14 +11,14 @@ import '../../models/outfit_container.dart';
 import '../../services/managers/outfit_manager.dart';
 
 class PhotoCardOutfit extends StatelessWidget {
-  final Outfit object;
+  final Outfit? object;
 
-  PhotoCardOutfit({Key? key, required this.object}) : super(key: key);
+  PhotoCardOutfit({Key? key, this.object}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String? photoUrl = object.cover;
-    Map<String, String>? map = object.map;
+    String? photoUrl = object!.cover;
+    Map<String, String>? map = object!.map;
     return GestureDetector(
       onTap: () {
         Map<List<dynamic>, OutfitContainer>? getMap = {};
@@ -35,9 +35,9 @@ class PhotoCardOutfit extends StatelessWidget {
         });
         Provider.of<PhotoTapped>(context, listen: false).setObject(object);
         Provider.of<OutfitManager>(context, listen: false)
-            .setSeason(object.season);
+            .setSeason(object!.season);
         Provider.of<OutfitManager>(context, listen: false)
-            .setStyle(object.style);
+            .setStyle(object!.style);
         GoRouter.of(context)
             .goNamed("outfit-add-attributes-screen", extra: getMap);
       },

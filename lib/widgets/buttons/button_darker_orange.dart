@@ -5,7 +5,7 @@ Container ButtonDarker(BuildContext context, String title, Function onTap,
     {bool shouldExpand = true,
     double width = 0.01,
     double height = 0.01,
-    EdgeInsets margin = const EdgeInsets.fromLTRB(0, 10, 0, 50)}) {
+    EdgeInsets margin = const EdgeInsets.fromLTRB(0, 10, 0, 30)}) {
   return Container(
     width: shouldExpand
         ? MediaQuery.of(context).size.width - 40

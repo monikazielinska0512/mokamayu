@@ -24,6 +24,7 @@ class OutfitSummaryScreen extends StatelessWidget {
   List<String> _elements = [];
   late String _style;
   late String _season;
+  Future<List<Outfit>>? outfitsList;
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +58,21 @@ class OutfitSummaryScreen extends StatelessWidget {
               child: ListView(
             padding: const EdgeInsets.all(8),
             children: map!.entries.map((entry) {
-              _elements.add(entry.key[1]);
+              itemList!.forEach((element) {
+                if (element.reference == entry.key[1]) {
+                  _elements.add(entry.key[1]);
+                }
+              });
               return WardrobeItemCard(
-                  object: itemList!
-                      .firstWhere((item) => item.reference == entry.key[1]));
+                  object: itemList!.firstWhere(
+                      (item) => item.reference == entry.key[1],
+                      orElse: () => WardrobeItem(
+                          name: "Photo deleted :(",
+                          type: "",
+                          size: "",
+                          photoURL: "Photo deleted",
+                          styles: [],
+                          created: DateTime.now())));
             }).toList(),
           )),
           Padding(
@@ -140,6 +152,10 @@ class OutfitSummaryScreen extends StatelessWidget {
           createdBy: AuthService().getCurrentUserID());
       Provider.of<OutfitManager>(context, listen: false)
           .addOutfitToFirestore(data);
+      outfitsList =
+          Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
+      Provider.of<OutfitManager>(context, listen: false)
+          .setOutfits(outfitsList!);
       Provider.of<OutfitManager>(context, listen: false).setSeason("");
       Provider.of<OutfitManager>(context, listen: false).setStyle("");
       Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);

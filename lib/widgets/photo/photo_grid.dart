@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../services/managers/wardrobe_manager.dart';
@@ -40,7 +41,8 @@ class _PhotoGridState extends State<PhotoGrid> {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
               child: snapshot.data!.isEmpty
-                  ? const Text("Brak rzeczy w szafie")
+                  ? Text("You don't have any items in your wardrobe!",
+                      style: TextStyles.paragraphRegularSemiBold14(Colors.grey))
                   : GridView.builder(
                       scrollDirection: widget.getScrollDirection(),
                       shrinkWrap: false,
@@ -61,7 +63,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                         var itemInfo = snapshot.data![index];
                         return widget.getScrollDirection() == Axis.vertical
                             ? DeleteBottomModal(
-                                item: itemInfo,
+                                wardrobe: itemInfo,
                                 actionFunction: () {
                                   Provider.of<WardrobeManager>(context,
                                           listen: false)
@@ -82,12 +84,9 @@ class _PhotoGridState extends State<PhotoGrid> {
                                       Provider.of<WardrobeManager>(context,
                                               listen: false)
                                           .readWardrobeItemOnce();
-                                  Future.delayed(Duration.zero).then((value) {
-                                    Provider.of<WardrobeManager>(context,
-                                            listen: false)
-                                        .setWardrobeItemList(widget.itemList!);
-                                  });
-                          
+                                  Provider.of<WardrobeManager>(context,
+                                          listen: false)
+                                      .setWardrobeItemList(widget.itemList!);
                                   context.pop();
                                 },
                               )
@@ -114,22 +113,45 @@ class _PhotoGridState extends State<PhotoGrid> {
       builder: (context, snapshot) {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
-              child: GridView.builder(
-            scrollDirection: widget.getScrollDirection(),
-            shrinkWrap: false,
-            itemCount: snapshot.data!.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1.0,
-              crossAxisSpacing: 1.0,
-              mainAxisSpacing: 2,
-              mainAxisExtent: 180,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              var itemInfo = snapshot.data![index];
-              return PhotoCardOutfit(object: itemInfo);
-            },
-          ));
+              child: snapshot.data!.isEmpty
+                  ? Text("You haven't created any outfits yet!",
+                      style: TextStyles.paragraphRegularSemiBold14(Colors.grey))
+                  : GridView.builder(
+                      scrollDirection: widget.getScrollDirection(),
+                      shrinkWrap: false,
+                      itemCount: snapshot.data!.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1.0,
+                        crossAxisSpacing: 1.0,
+                        mainAxisSpacing: 2,
+                        mainAxisExtent: 180,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        var itemInfo = snapshot.data![index];
+                        return DeleteBottomModal(
+                          outfit: itemInfo,
+                          actionFunction: () {
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .removeOutfit(itemInfo.reference);
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .nullListItemCopy();
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .setStyles([]);
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .setSeasons([]);
+                            widget.outfitsList = Provider.of<OutfitManager>(
+                                    context,
+                                    listen: false)
+                                .readOutfitsOnce();
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .setOutfits(widget.outfitsList!);
+                            context.pop();
+                          },
+                        );
+                      },
+                    ));
         }
         return Center(
             child: CircularProgressIndicator(

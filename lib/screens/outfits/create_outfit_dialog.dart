@@ -4,6 +4,7 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/managers/wardrobe_manager.dart';
 import '../../widgets/fundamental/background_image.dart';
 import '../../services/managers/photo_tapped_manager.dart';
 
@@ -15,6 +16,7 @@ class CustomDialogBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         bottom: false,
+        top: false,
         child: Stack(
           children: [
             GestureDetector(
@@ -57,6 +59,18 @@ class CustomDialogBox extends StatelessWidget {
                                   Provider.of<PhotoTapped>(context,
                                           listen: false)
                                       .setMap({});
+                                  Provider.of<WardrobeManager>(context,
+                                          listen: false)
+                                      .nullListItemCopy();
+                                  Provider.of<WardrobeManager>(context,
+                                          listen: false)
+                                      .setTypes([]);
+                                  Provider.of<WardrobeManager>(context,
+                                          listen: false)
+                                      .setSizes([]);
+                                  Provider.of<WardrobeManager>(context,
+                                          listen: false)
+                                      .setStyles([]);
                                   context.goNamed("create-outfit-page",
                                       extra: itemList!);
                                   Navigator.of(context).pop();

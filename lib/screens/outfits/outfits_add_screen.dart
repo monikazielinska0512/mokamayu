@@ -8,18 +8,25 @@ import '../../constants/tags.dart';
 import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/outfit_manager.dart';
+import '../../services/managers/wardrobe_manager.dart';
 
 class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.itemList}) : super(key: key);
   Future<List<WardrobeItem>>? itemList;
   Map<List<dynamic>, OutfitContainer> map = {};
   List<String> selectedChips = Tags.types;
+  Future<List<WardrobeItem>>? futureItemListCopy;
 
   @override
   Widget build(BuildContext context) {
     map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
+
+    futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
+        .getWardrobeItemListCopy;
+    itemList =
+        Provider.of<WardrobeManager>(context, listen: true).getWardrobeItemList;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -34,6 +41,9 @@ class CreateOutfitPage extends StatelessWidget {
             Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
             Provider.of<OutfitManager>(context, listen: false).setSeason("");
             Provider.of<OutfitManager>(context, listen: false).setStyle("");
+            Provider.of<WardrobeManager>(context, listen: false)
+                .nullListItemCopy();
+            Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
             context.go("/home/1");
           },
           icon: const Icon(Icons.arrow_back_ios),
@@ -46,6 +56,9 @@ class CreateOutfitPage extends StatelessWidget {
             ),
             onPressed: () {
               Provider.of<PhotoTapped>(context, listen: false).setObject(null);
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .nullListItemCopy();
+              Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
               GoRouter.of(context)
                   .goNamed("outfit-add-attributes-screen", extra: map);
             },
@@ -68,7 +81,8 @@ class CreateOutfitPage extends StatelessWidget {
                   ),
             )
           ]),
-          MultiSelectChip(Tags.types, chipsColor: ColorsConstants.darkPeach,
+          MultiSelectChip(Tags.types,
+              type: "type_main", chipsColor: ColorsConstants.darkPeach,
               onSelectionChanged: (selectedList) {
             selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
           }),
@@ -76,7 +90,7 @@ class CreateOutfitPage extends StatelessWidget {
             width: double.infinity,
             height: 200,
             child: PhotoGrid(
-              itemList: itemList,
+              itemList: futureItemListCopy ?? itemList,
               scrollVertically: false,
             ),
           )
