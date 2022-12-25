@@ -162,8 +162,6 @@ class OutfitSummaryScreen extends StatelessWidget {
       Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
       Provider.of<PhotoTapped>(context, listen: false).setObject(null);
       Provider.of<OutfitManager>(context, listen: false).indexIsSet(false);
-      Provider.of<AppStateManager>(context, listen: false).cacheIndexList(
-          Provider.of<OutfitManager>(context, listen: false).getIndexList);
 
       _elements = [];
       context.go("/home/1");

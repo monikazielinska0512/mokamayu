@@ -111,26 +111,21 @@ class _OutfitsAddAttributesScreenState
                   setState(() {
                     widget.capturedOutfit = capturedImage;
                   });
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  final AuthService _auth = AuthService();
-                  var indexList = prefs.getStringList(_auth.getCurrentUserID());
-                  // print(indexList);
-                  if (indexList != null && indexList.isEmpty == false) {
-                    // ignore: use_build_context_synchronously
-                    Provider.of<OutfitManager>(context, listen: false)
-                        .setOutfitIndexesList(
-                            indexList.map((i) => int.parse(i)).toList());
-                  }
+
                   File imagePath;
                   if (item == null) {
                     // ignore: use_build_context_synchronously
-                    index = Provider.of<OutfitManager>(context, listen: false)
-                        .getMaxOutfitIndexes;
-                    print(index);
-                    print(decision);
+                    List<Outfit>? outfitList =
+                        Provider.of<OutfitManager>(context, listen: false)
+                            .getfinalOutfitList;
+                    int max = 0;
+                    for (var element in outfitList) {
+                      max < element.index ? max = element.index : max = max;
+                    }
+                    // index = Provider.of<OutfitManager>(context, listen: false)
+                    //     .getMaxOutfitIndexes;
+                    index = max;
                     decision == false ? index = index + 1 : index = index;
-                    print(index);
                     final directory = await getApplicationDocumentsDirectory();
                     imagePath = await File('${directory.path}/image$index.png')
                         .create();
@@ -235,14 +230,8 @@ class _OutfitsAddAttributesScreenState
                 Provider.of<OutfitManager>(context, listen: false).setStyle("");
                 Provider.of<OutfitManager>(context, listen: false)
                     .removeFromIndexes(item.index);
-                // Provider.of<OutfitManager>(context, listen: false)
-                //     .emptyOutfitIndexes;
                 Provider.of<OutfitManager>(context, listen: false)
                     .indexIsSet(false);
-                Provider.of<AppStateManager>(context, listen: false)
-                    .cacheIndexList(
-                        Provider.of<OutfitManager>(context, listen: false)
-                            .getIndexList);
                 Provider.of<OutfitManager>(context, listen: false)
                     .nullListItemCopy();
                 Provider.of<OutfitManager>(context, listen: false)

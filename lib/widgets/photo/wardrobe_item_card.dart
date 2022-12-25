@@ -51,7 +51,6 @@ class WardrobeItemCard extends StatelessWidget {
                       Provider.of<CalendarManager>(context, listen: false)
                           .setSelectedEvents(events);
                       Map<String, String> encodedEvents = encodeMap(events);
-
                       Provider.of<AppStateManager>(context, listen: false)
                           .cacheEvents(encodedEvents);
                     },

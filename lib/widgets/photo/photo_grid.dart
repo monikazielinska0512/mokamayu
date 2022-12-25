@@ -165,12 +165,12 @@ class _PhotoGridState extends State<PhotoGrid> {
                                   // Provider.of<OutfitManager>(context,
                                   //         listen: false)
                                   //     .emptyOutfitIndexes;
-                                  Provider.of<AppStateManager>(context,
-                                          listen: false)
-                                      .cacheIndexList(
-                                          Provider.of<OutfitManager>(context,
-                                                  listen: false)
-                                              .getIndexList);
+                                  // Provider.of<AppStateManager>(context,
+                                  //         listen: false)
+                                  //     .cacheIndexList(
+                                  //         Provider.of<OutfitManager>(context,
+                                  //                 listen: false)
+                                  //             .getIndexList);
 
                                   Provider.of<OutfitManager>(context,
                                           listen: false)

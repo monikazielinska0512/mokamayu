@@ -39,6 +39,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         Provider.of<OutfitManager>(context, listen: false).getfinalOutfitList;
     setState(() {
       String? encodedMap = prefs.getString(_auth.getCurrentUserID());
+      // print(encodedMap);
       Map<String, dynamic> getEvents = json.decode(encodedMap ?? "{}");
       List<Event> list = [];
       getEvents.forEach((key, value) {
@@ -177,12 +178,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   children: [
+                    //remove event when outfit was deleted TODO
                     ..._getEventsfromDay(_selectedDay)
                         .map((Event event) =>
                                 // Provider.of<OutfitManager>(context, listen: false)
                                 //         .getfinalOutfitList
                                 //         .contains(event.outfit)
-                                //     ?
+                                // ?
                                 WardrobeItemCard(
                                     size: 65,
                                     outfit: event.outfit,

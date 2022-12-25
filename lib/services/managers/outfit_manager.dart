@@ -28,7 +28,9 @@ class OutfitManager extends ChangeNotifier {
   List<String>? outfitSeasons;
 
   void removeFromIndexes(int idxToRemove) {
-    outfitIndexes.removeWhere((el) => el == idxToRemove);
+    if (idxToRemove != 0) {
+      outfitIndexes.removeWhere((el) => el == idxToRemove);
+    }
   }
 
   void addToIndexes(int idxToAdd) {
