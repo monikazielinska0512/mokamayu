@@ -12,9 +12,12 @@ import 'package:uuid/uuid.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/tags.dart';
+import '../../models/calendar_event.dart';
 import '../../models/outfit.dart';
 import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
+import '../../services/managers/app_state_manager.dart';
+import '../../services/managers/calendar_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 import '../../services/storage.dart';
 import '../../widgets/chips/multi_select_chips.dart';
@@ -22,6 +25,7 @@ import '../../widgets/drag_target_container.dart';
 import '../../widgets/fundamental/background_image.dart';
 import '../../widgets/photo/photo_grid.dart';
 import '../../services/managers/photo_tapped_manager.dart';
+import '../../widgets/photo/wardrobe_item_card.dart';
 
 class OutfitsAddAttributesScreen extends StatefulWidget {
   OutfitsAddAttributesScreen({Key? key, required this.map}) : super(key: key);
@@ -204,6 +208,36 @@ class _OutfitsAddAttributesScreenState
                     .setStyles([]);
                 Provider.of<OutfitManager>(context, listen: false)
                     .setSeasons([]);
+
+                //checking if outfit was in any event, if so, then delete event from calendar
+                Map<DateTime, List<Event>> events =
+                    Provider.of<CalendarManager>(context, listen: false)
+                        .getEvents;
+
+                List<Event> eventsToRemove = [];
+
+                events.forEach((key, value) {
+                  for (var element in value) {
+                    if (element.outfit == item) {
+                      eventsToRemove.add(element);
+                    }
+                  }
+                });
+
+                for (var element in eventsToRemove) {
+                  Provider.of<CalendarManager>(context, listen: false)
+                      .removeEvent(element);
+                }
+
+                events = Provider.of<CalendarManager>(context, listen: false)
+                    .getEvents;
+
+                Provider.of<CalendarManager>(context, listen: false)
+                    .setSelectedEvents(events);
+                Map<String, String> encodedEvents = encodeMap(events);
+
+                Provider.of<AppStateManager>(context, listen: false)
+                    .cacheEvents(encodedEvents);
               },
               child: Image.asset(
                 "assets/images/trash.png",

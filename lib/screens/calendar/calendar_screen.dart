@@ -80,7 +80,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     super.initState();
     selectedEvents = {};
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(Duration(seconds: 2), () => prefsData());
+      Future.delayed(const Duration(seconds: 2), () => prefsData());
     });
   }
 
@@ -162,7 +162,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Looks for the ${DateFormat.MMMMd().format(_selectedDay)}:",
+                  "Looks for ${DateFormat.MMMMd().format(_selectedDay)}:",
                   style: TextStyles.h5(ColorsConstants.grey),
                 ))),
         SizedBox(
@@ -174,19 +174,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   children: [
-                    //remove event when outfit was deleted TODO
                     ..._getEventsfromDay(_selectedDay)
-                        .map((Event event) =>
-                                // Provider.of<OutfitManager>(context, listen: false)
-                                //         .getfinalOutfitList
-                                //         .contains(event.outfit)
-                                // ?
-                                WardrobeItemCard(
-                                    size: 65,
-                                    outfit: event.outfit,
-                                    event: event)
-                            // : const SizedBox.shrink(),
-                            )
+                        .map((Event event) => WardrobeItemCard(
+                            size: 65, outfit: event.outfit, event: event))
                         .toList(),
                   ],
                 )))

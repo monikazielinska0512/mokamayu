@@ -7,7 +7,9 @@ import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/calendar_event.dart';
 import '../../services/managers/app_state_manager.dart';
+import '../../services/managers/calendar_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 import '../modals/delete_wardrobe_item_modal.dart';
 
@@ -156,26 +158,48 @@ class _PhotoGridState extends State<PhotoGrid> {
                                       Provider.of<OutfitManager>(context,
                                               listen: false)
                                           .readOutfitsOnce();
-                                  // Provider.of<OutfitManager>(context,
-                                  //         listen: false)
-                                  //     .removeFromIndexes(itemInfo.index);
-                                  // Provider.of<OutfitManager>(context,
-                                  //         listen: false)
-                                  //     .indexIsSet(false);
-                                  // Provider.of<OutfitManager>(context,
-                                  //         listen: false)
-                                  //     .emptyOutfitIndexes;
-                                  // Provider.of<AppStateManager>(context,
-                                  //         listen: false)
-                                  //     .cacheIndexList(
-                                  //         Provider.of<OutfitManager>(context,
-                                  //                 listen: false)
-                                  //             .getIndexList);
 
                                   Provider.of<OutfitManager>(context,
                                           listen: false)
                                       .setOutfits(widget.outfitsList!);
+
                                   context.pop();
+                                  //checking if outfit was in any event, if so, then delete event from calendar
+                                  Map<DateTime, List<Event>> events =
+                                      Provider.of<CalendarManager>(context,
+                                              listen: false)
+                                          .getEvents;
+
+                                  List<Event> eventsToRemove = [];
+
+                                  events.forEach((key, value) {
+                                    for (var element in value) {
+                                      if (element.outfit == itemInfo) {
+                                        eventsToRemove.add(element);
+                                      }
+                                    }
+                                  });
+
+                                  for (var element in eventsToRemove) {
+                                    Provider.of<CalendarManager>(context,
+                                            listen: false)
+                                        .removeEvent(element);
+                                  }
+
+                                  events = Provider.of<CalendarManager>(context,
+                                          listen: false)
+                                      .getEvents;
+
+                                  Provider.of<CalendarManager>(context,
+                                          listen: false)
+                                      .setSelectedEvents(events);
+                                  Map<String, String> encodedEvents =
+                                      encodeMap(events);
+
+                                  Provider.of<AppStateManager>(context,
+                                          listen: false)
+                                      .cacheEvents(encodedEvents);
+
                                 },
                               )
                             : PhotoCardOutfit(
