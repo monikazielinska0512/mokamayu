@@ -49,11 +49,6 @@ class AppStateManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void cacheIndexList(List<int> indexList) async {
-  //   await _appCache.cacheIndexList(indexList);
-  //   notifyListeners();
-  // }
-
   void cacheEvents(Map<String, String> events) async {
     await _appCache.cacheEvents(events);
     notifyListeners();

@@ -8,15 +8,13 @@ import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/tags.dart';
 import '../../models/outfit.dart';
 import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
-import '../../services/authentication/auth.dart';
-import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 import '../../services/storage.dart';
 import '../../widgets/chips/multi_select_chips.dart';
@@ -50,8 +48,6 @@ class _OutfitsAddAttributesScreenState
   @override
   Widget build(BuildContext context) {
     item = Provider.of<PhotoTapped>(context, listen: false).getObject;
-    index = Provider.of<OutfitManager>(context, listen: false).getIndex;
-    decision = Provider.of<OutfitManager>(context, listen: true).getIndexSet;
     Provider.of<PhotoTapped>(context, listen: false).setMap(widget.map);
     widget.map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
 
@@ -80,15 +76,11 @@ class _OutfitsAddAttributesScreenState
                 Provider.of<OutfitManager>(context, listen: false).setStyle("");
                 Provider.of<PhotoTapped>(context, listen: false).setMap({});
                 Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
-                Provider.of<OutfitManager>(context, listen: false)
-                    .indexIsSet(false);
                 Provider.of<WardrobeManager>(context, listen: false)
                     .nullListItemCopy();
                 Provider.of<WardrobeManager>(context, listen: false)
                     .setTypes([]);
               } else {
-                Provider.of<OutfitManager>(context, listen: false)
-                    .indexIsSet(false);
                 context.goNamed("create-outfit-page",
                     extra: Provider.of<WardrobeManager>(context, listen: false)
                         .getWardrobeItemList);
@@ -114,39 +106,17 @@ class _OutfitsAddAttributesScreenState
 
                   File imagePath;
                   if (item == null) {
-                    // ignore: use_build_context_synchronously
-                    List<Outfit>? outfitList =
-                        Provider.of<OutfitManager>(context, listen: false)
-                            .getfinalOutfitList;
-                    int max = 0;
-                    for (var element in outfitList) {
-                      max < element.index ? max = element.index : max = max;
-                    }
-                    // index = Provider.of<OutfitManager>(context, listen: false)
-                    //     .getMaxOutfitIndexes;
-                    index = max;
-                    decision == false ? index = index + 1 : index = index;
                     final directory = await getApplicationDocumentsDirectory();
-                    imagePath = await File('${directory.path}/image$index.png')
+                    imagePath = await File(
+                            '${directory.path}/image${const Uuid().v4()}.png')
                         .create();
-                    if (decision == false) {
-                      // ignore: use_build_context_synchronously
-                      Provider.of<OutfitManager>(context, listen: false)
-                          .addToIndexes(index);
-                      // ignore: use_build_context_synchronously
-                      Provider.of<OutfitManager>(context, listen: false)
-                          .setIndex(index);
-                      // ignore: use_build_context_synchronously
-                      Provider.of<OutfitManager>(context, listen: false)
-                          .indexIsSet(true);
-                    }
                   } else {
                     final directory = await getApplicationDocumentsDirectory();
-                    imagePath =
-                        await File('${directory.path}/image${item!.index}.png')
-                            .create();
+                    imagePath = await File(
+                            '${directory.path}/image${item!.reference}.png')
+                        .create();
                   }
-                  var capturedOutfit = widget.capturedOutfit;
+                  Uint8List? capturedOutfit = widget.capturedOutfit;
                   await imagePath.writeAsBytes(capturedOutfit!);
 
                   // ignore: use_build_context_synchronously
@@ -228,10 +198,6 @@ class _OutfitsAddAttributesScreenState
                 Provider.of<OutfitManager>(context, listen: false)
                     .setSeason("");
                 Provider.of<OutfitManager>(context, listen: false).setStyle("");
-                Provider.of<OutfitManager>(context, listen: false)
-                    .removeFromIndexes(item.index);
-                Provider.of<OutfitManager>(context, listen: false)
-                    .indexIsSet(false);
                 Provider.of<OutfitManager>(context, listen: false)
                     .nullListItemCopy();
                 Provider.of<OutfitManager>(context, listen: false)

@@ -132,7 +132,6 @@ class OutfitSummaryScreen extends StatelessWidget {
       Provider.of<OutfitManager>(context, listen: false).setStyle("");
       Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
       Provider.of<PhotoTapped>(context, listen: false).setObject(null);
-      Provider.of<OutfitManager>(context, listen: false).indexIsSet(false);
       context.go("/home/1");
     });
   }
@@ -149,7 +148,6 @@ class OutfitSummaryScreen extends StatelessWidget {
           style: _style,
           season: _season,
           map: mapToFirestore,
-          index: Provider.of<OutfitManager>(context, listen: false).getIndex,
           createdBy: AuthService().getCurrentUserID());
       Provider.of<OutfitManager>(context, listen: false)
           .addOutfitToFirestore(data);
@@ -161,7 +159,6 @@ class OutfitSummaryScreen extends StatelessWidget {
       Provider.of<OutfitManager>(context, listen: false).setStyle("");
       Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
       Provider.of<PhotoTapped>(context, listen: false).setObject(null);
-      Provider.of<OutfitManager>(context, listen: false).indexIsSet(false);
 
       _elements = [];
       context.go("/home/1");

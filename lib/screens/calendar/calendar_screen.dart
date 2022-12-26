@@ -35,8 +35,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   prefsData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    outfitList =
-        Provider.of<OutfitManager>(context, listen: false).getfinalOutfitList;
+    if (mounted) {
+      outfitList =
+          Provider.of<OutfitManager>(context, listen: false).getfinalOutfitList;
+    }
     setState(() {
       String? encodedMap = prefs.getString(_auth.getCurrentUserID());
       // print(encodedMap);
@@ -54,7 +56,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
               season: mapOutfit['season'] as String,
               cover: mapOutfit['cover'] as String,
               map: Map.from(mapOutfit['map']),
-              index: mapOutfit['index'],
               elements: List.from(mapOutfit['elements']),
               reference: mapOutfit['reference']);
 
@@ -81,11 +82,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(Duration(seconds: 2), () => prefsData());
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   List<Event> _getEventsfromDay(DateTime day) {

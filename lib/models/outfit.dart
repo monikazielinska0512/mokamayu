@@ -7,7 +7,6 @@ class Outfit {
   final String cover;
   final List<String>? elements;
   final Map<String, String>? map;
-  final int index;
   String? reference;
 
   Outfit({
@@ -17,7 +16,6 @@ class Outfit {
     required this.cover,
     this.elements,
     this.map,
-    required this.index,
     this.reference,
   });
 
@@ -27,8 +25,7 @@ class Outfit {
         season = '',
         cover = '',
         elements = [],
-        map = {},
-        index = 0;
+        map = {};
 
   factory Outfit.fromJson(Map<dynamic, dynamic> json) => Outfit(
       createdBy: json['createdBy'] as String,
@@ -36,7 +33,6 @@ class Outfit {
       season: json['season'] as String,
       cover: json['cover'] as String,
       map: Map.from(json['map']),
-      index: json['index'],
       elements: List.from(json['elements']),
       reference: json['reference']);
 
@@ -47,7 +43,6 @@ class Outfit {
         "cover": cover.toString(),
         "elements": elements,
         "map": map,
-        "index": index,
         "reference": reference,
       };
 

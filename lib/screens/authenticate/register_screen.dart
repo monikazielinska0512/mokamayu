@@ -125,13 +125,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       email: _emailTextController.text,
                       password: _passwordTextController.text));
                   if (mounted && status == AuthStatus.successful) {
-                    print('here');
+                    // print('here');
                     Provider.of<ProfileManager>(context, listen: false)
                         .createUser(
                             _emailTextController.text,
                             _usernameTextController.text,
                             _auth.getCurrentUserID());
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     Provider.of<AppStateManager>(context, listen: false)
                         .login();
                   } else {

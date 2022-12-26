@@ -156,12 +156,12 @@ class _PhotoGridState extends State<PhotoGrid> {
                                       Provider.of<OutfitManager>(context,
                                               listen: false)
                                           .readOutfitsOnce();
-                                  Provider.of<OutfitManager>(context,
-                                          listen: false)
-                                      .removeFromIndexes(itemInfo.index);
-                                  Provider.of<OutfitManager>(context,
-                                          listen: false)
-                                      .indexIsSet(false);
+                                  // Provider.of<OutfitManager>(context,
+                                  //         listen: false)
+                                  //     .removeFromIndexes(itemInfo.index);
+                                  // Provider.of<OutfitManager>(context,
+                                  //         listen: false)
+                                  //     .indexIsSet(false);
                                   // Provider.of<OutfitManager>(context,
                                   //         listen: false)
                                   //     .emptyOutfitIndexes;
