@@ -35,13 +35,13 @@ class BasicScreen extends StatelessWidget {
     this.isNavBarVisible = true,
     this.leftButtonType = "back",
     this.rightButtonType = "bell",
-    this.backgroundColor,
+    this.backgroundColor = Colors.white,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor,
         extendBodyBehindAppBar: true,
         appBar: isAppBarVisible!
             ? AppBar(

@@ -11,7 +11,7 @@ class WardrobeItemForm extends StatefulWidget {
   final String? photoPath;
   final WardrobeItem? item;
 
-  WardrobeItemForm({Key? key, this.photoPath, this.item}) : super(key: key);
+  const WardrobeItemForm({Key? key, this.photoPath, this.item}) : super(key: key);
 
   @override
   State<WardrobeItemForm> createState() => _WardrobeItemFormState();
@@ -144,10 +144,13 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
     return ElevatedButton(
         child: const Text('Add item'),
         onPressed: () async {
+
           _formKey.currentState!.save();
           if (_formKey.currentState!.validate()) {
+
             String url = await StorageService()
                 .uploadFile(context, widget.photoPath ?? "");
+
             final item = WardrobeItem(
                 name: _name,
                 type: _type,
@@ -155,7 +158,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                 photoURL: url,
                 styles: _styles,
                 created: DateTime.now());
-
+            if (!mounted) return;
             Provider.of<WardrobeManager>(context, listen: false)
                 .addWardrobeItem(item);
 
@@ -164,11 +167,8 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             _name = "";
             _styles = [];
 
-            Provider.of<WardrobeManager>(context, listen: false)
-                .nullListItemCopy();
-            Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-            Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
-            Provider.of<WardrobeManager>(context, listen: false).setStyles([]);
+            reset();
+
             context.go("/home/0");
 
             CustomSnackBar.showSuccessSnackBar(
@@ -191,14 +191,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                 Provider.of<WardrobeManager>(context, listen: false)
                     .updateWardrobeItem(widget.item?.reference ?? "", _name,
                         _type, _size, widget.item?.photoURL ?? "", _styles);
-                Provider.of<WardrobeManager>(context, listen: false)
-                    .nullListItemCopy();
-                Provider.of<WardrobeManager>(context, listen: false)
-                    .setTypes([]);
-                Provider.of<WardrobeManager>(context, listen: false)
-                    .setSizes([]);
-                Provider.of<WardrobeManager>(context, listen: false)
-                    .setStyles([]);
+                reset();
                 context.go("/home/0");
                 CustomSnackBar.showSuccessSnackBar(
                     context: context, message: "Updated");
@@ -211,12 +204,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             onPressed: () {
               Provider.of<WardrobeManager>(context, listen: false)
                   .removeWardrobeItem(widget.item?.reference);
-              Provider.of<WardrobeManager>(context, listen: false)
-                  .nullListItemCopy();
-              Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-              Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
-              Provider.of<WardrobeManager>(context, listen: false)
-                  .setStyles([]);
+              reset();
               context.go("/home/0");
             },
             icon: Image.asset(
@@ -226,5 +214,12 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             ))
       ],
     );
+  }
+
+  void reset() {
+    Provider.of<WardrobeManager>(context, listen: false).nullListItemCopy();
+    Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
+    Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
+    Provider.of<WardrobeManager>(context, listen: false).setStyles([]);
   }
 }

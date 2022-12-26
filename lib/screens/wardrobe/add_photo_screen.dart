@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
 class AddPhotoScreen extends StatefulWidget {
-  AddPhotoScreen({Key? key}) : super(key: key);
+  const AddPhotoScreen({Key? key}) : super(key: key);
 
   @override
   State<AddPhotoScreen> createState() => _AddPhotoScreenState();
@@ -12,7 +12,7 @@ class AddPhotoScreen extends StatefulWidget {
 class _AddPhotoScreenState extends State<AddPhotoScreen> {
   @override
   Widget build(BuildContext context) {
-    final PhotoPicker _picker = PhotoPicker();
+    final PhotoPicker picker = PhotoPicker();
     return BasicScreen(
         type: "add_photo",
         rightButtonType: "",
@@ -39,21 +39,21 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              _picker,
+                              picker,
                               const SizedBox(height: 10),
-                              buildButton(_picker)
+                              buildButton(picker)
                             ])))),
           )
         ]));
   }
 
-  Widget buildButton(PhotoPicker _picker) {
+  Widget buildButton(PhotoPicker picker) {
     return ButtonDarker(context, "Next", () {
-      _picker.photo != null
+      picker.photo != null
           ? context.goNamed(
               'add-wardrobe-item',
               params: {
-                'file': _picker.photoPath as String,
+                'file': picker.photoPath as String,
               },
             )
           : null;

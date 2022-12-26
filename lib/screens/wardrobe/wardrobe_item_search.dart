@@ -8,7 +8,7 @@ import '../../models/wardrobe_item.dart';
 import '../../services/managers/wardrobe_manager.dart';
 
 class WardrobeItemSearch extends StatefulWidget {
-  WardrobeItemSearch({Key? key, required this.title}) : super(key: key);
+  const WardrobeItemSearch({Key? key, required this.title}) : super(key: key);
 
   final String title;
 

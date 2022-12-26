@@ -46,6 +46,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
     return BasicScreen(
         type: "wardrobe",
         leftButtonType: "dots",
+        backgroundColor: Colors.transparent,
         context: context,
         body: Stack(children: [
           Column(

@@ -5,3 +5,4 @@ export 'profile_manager.dart';
 export 'wardrobe_manager.dart';
 export 'photo_tapped_manager.dart';
 export 'outfit_manager.dart';
+export 'calendar_manager.dart';
