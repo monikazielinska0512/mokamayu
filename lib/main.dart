@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/services/authentication/auth.dart';
 import 'package:mokamayu/services/managers/app_state_manager.dart';
+import 'package:mokamayu/services/managers/calendar_manager.dart';
 import 'package:mokamayu/services/managers/profile_manager.dart';
 import 'package:mokamayu/services/managers/wardrobe_manager.dart';
 import 'package:mokamayu/services/managers/photo_tapped_manager.dart';
@@ -70,6 +70,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => WardrobeManager()),
         ChangeNotifierProvider(create: (_) => OutfitManager()),
         ChangeNotifierProvider(create: (_) => PhotoTapped()),
+        ChangeNotifierProvider(create: (_) => CalendarManager()),
       ],
       child: MaterialApp.router(
         routerDelegate: router.routerDelegate,

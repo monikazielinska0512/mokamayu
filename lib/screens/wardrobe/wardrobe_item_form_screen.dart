@@ -44,7 +44,7 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
         color: Colors.white,
         rightButtonType: "",
         body: Stack(children: [buildBackgroundPhoto(), buildForm()]),
-        type: "wardrobe_item_form");
+        type: "Wardrobe Item Form");
   }
 
   Widget buildBackgroundPhoto() {

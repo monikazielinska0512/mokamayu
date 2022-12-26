@@ -15,7 +15,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
     final PhotoPicker _picker = PhotoPicker();
     return BasicScreen(
         type: "add_photo",
-        isRightButtonVisible: false,
+        rightButtonType: "",
         context: context,
         isFullScreen: true,
         body: Stack(alignment: AlignmentDirectional.bottomCenter, children: [

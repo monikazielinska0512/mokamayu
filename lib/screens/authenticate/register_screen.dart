@@ -38,7 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Stack(children: [
         Stack(children: [
           Positioned(
-            bottom: MediaQuery.of(context).size.height - 448,
+            bottom: MediaQuery.of(context).size.height * 0.5,
             width: MediaQuery.of(context).size.width,
             child: Image.asset(
               "assets/images/background_auth.png",
@@ -46,9 +46,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
           Positioned(
-            bottom: MediaQuery.of(context).size.height - 412,
-            width: MediaQuery.of(context).size.width - 250,
-            right: MediaQuery.of(context).size.width - 240,
+            bottom: MediaQuery.of(context).size.height * 0.54,
+            width: MediaQuery.of(context).size.width * 0.4,
+            right: MediaQuery.of(context).size.width * 0.4,
             child: Image.asset(
               "assets/images/woman2.png",
               fit: BoxFit.fitWidth,
@@ -125,12 +125,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       email: _emailTextController.text,
                       password: _passwordTextController.text));
                   if (mounted && status == AuthStatus.successful) {
+                    // print('here');
                     Provider.of<ProfileManager>(context, listen: false)
                         .createUser(
                             _emailTextController.text,
                             _usernameTextController.text,
                             _auth.getCurrentUserID());
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     Provider.of<AppStateManager>(context, listen: false)
                         .login();
                   } else {

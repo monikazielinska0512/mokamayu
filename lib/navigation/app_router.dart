@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/outfit_container.dart';
+import 'package:mokamayu/screens/calendar/pick_outfit_screen.dart';
+import 'package:mokamayu/screens/calendar/summarize_outfits_screen.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
@@ -98,6 +100,16 @@ class AppRouter {
         name: 'notifications',
         path: '/notifications',
         builder: (context, state) => const NotificationsScreen(),
+      ),
+      GoRoute(
+        name: 'pick-outfits-calendar',
+        path: '/pick-outfits-calendar',
+        builder: (context, state) => const PickOutfitScreen(),
+      ),
+      GoRoute(
+        name: 'summarize-outfits-screen',
+        path: '/summarize-outfits-screen',
+        builder: (context, state) => const SummarizeOutfitsScreen(),
       ),
     ],
     redirect: (_, GoRouterState state) {

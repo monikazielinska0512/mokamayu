@@ -8,14 +8,16 @@ import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/tags.dart';
+import '../../models/calendar_event.dart';
 import '../../models/outfit.dart';
 import '../../models/outfit_container.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/app_state_manager.dart';
+import '../../services/managers/calendar_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 import '../../services/storage.dart';
 import '../../widgets/chips/multi_select_chips.dart';
@@ -23,6 +25,7 @@ import '../../widgets/drag_target_container.dart';
 import '../../widgets/fundamental/background_image.dart';
 import '../../widgets/photo/photo_grid.dart';
 import '../../services/managers/photo_tapped_manager.dart';
+import '../../widgets/photo/wardrobe_item_card.dart';
 
 class OutfitsAddAttributesScreen extends StatefulWidget {
   OutfitsAddAttributesScreen({Key? key, required this.map}) : super(key: key);
@@ -49,8 +52,6 @@ class _OutfitsAddAttributesScreenState
   @override
   Widget build(BuildContext context) {
     item = Provider.of<PhotoTapped>(context, listen: false).getObject;
-    index = Provider.of<OutfitManager>(context, listen: false).getIndex;
-    decision = Provider.of<OutfitManager>(context, listen: true).getIndexSet;
     Provider.of<PhotoTapped>(context, listen: false).setMap(widget.map);
     widget.map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
 
@@ -79,15 +80,11 @@ class _OutfitsAddAttributesScreenState
                 Provider.of<OutfitManager>(context, listen: false).setStyle("");
                 Provider.of<PhotoTapped>(context, listen: false).setMap({});
                 Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
-                Provider.of<OutfitManager>(context, listen: false)
-                    .indexIsSet(false);
                 Provider.of<WardrobeManager>(context, listen: false)
                     .nullListItemCopy();
                 Provider.of<WardrobeManager>(context, listen: false)
                     .setTypes([]);
               } else {
-                Provider.of<OutfitManager>(context, listen: false)
-                    .indexIsSet(false);
                 context.goNamed("create-outfit-page",
                     extra: Provider.of<WardrobeManager>(context, listen: false)
                         .getWardrobeItemList);
@@ -110,44 +107,20 @@ class _OutfitsAddAttributesScreenState
                   setState(() {
                     widget.capturedOutfit = capturedImage;
                   });
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  var indexList = prefs.getStringList('indexList');
-                  // print(indexList);
-                  if (indexList != null && indexList.isEmpty == false) {
-                    // ignore: use_build_context_synchronously
-                    Provider.of<OutfitManager>(context, listen: false)
-                        .setOutfitIndexesList(
-                            indexList.map((i) => int.parse(i)).toList());
-                  }
+
                   File imagePath;
                   if (item == null) {
-                    // ignore: use_build_context_synchronously
-                    index = Provider.of<OutfitManager>(context, listen: false)
-                        .getMaxOutfitIndexes;
-                    // print(index);
-                    decision == false ? index = index + 1 : index = index;
                     final directory = await getApplicationDocumentsDirectory();
-                    imagePath = await File('${directory.path}/image$index.png')
+                    imagePath = await File(
+                            '${directory.path}/image${const Uuid().v4()}.png')
                         .create();
-                    if (decision == false) {
-                      // ignore: use_build_context_synchronously
-                      Provider.of<OutfitManager>(context, listen: false)
-                          .addToIndexes(index);
-                      // ignore: use_build_context_synchronously
-                      Provider.of<OutfitManager>(context, listen: false)
-                          .setIndex(index);
-                      // ignore: use_build_context_synchronously
-                      Provider.of<OutfitManager>(context, listen: false)
-                          .indexIsSet(true);
-                    }
                   } else {
                     final directory = await getApplicationDocumentsDirectory();
-                    imagePath =
-                        await File('${directory.path}/image${item!.index}.png')
-                            .create();
+                    imagePath = await File(
+                            '${directory.path}/image${item!.reference}.png')
+                        .create();
                   }
-                  var capturedOutfit = widget.capturedOutfit;
+                  Uint8List? capturedOutfit = widget.capturedOutfit;
                   await imagePath.writeAsBytes(capturedOutfit!);
 
                   // ignore: use_build_context_synchronously
@@ -230,19 +203,41 @@ class _OutfitsAddAttributesScreenState
                     .setSeason("");
                 Provider.of<OutfitManager>(context, listen: false).setStyle("");
                 Provider.of<OutfitManager>(context, listen: false)
-                    .removeFromIndexes(item.index);
-                Provider.of<OutfitManager>(context, listen: false)
-                    .indexIsSet(false);
-                Provider.of<AppStateManager>(context, listen: false)
-                    .cacheIndexList(
-                        Provider.of<OutfitManager>(context, listen: false)
-                            .getIndexList);
-                Provider.of<OutfitManager>(context, listen: false)
                     .nullListItemCopy();
                 Provider.of<OutfitManager>(context, listen: false)
                     .setStyles([]);
                 Provider.of<OutfitManager>(context, listen: false)
                     .setSeasons([]);
+
+                //checking if outfit was in any event, if so, then delete event from calendar
+                Map<DateTime, List<Event>> events =
+                    Provider.of<CalendarManager>(context, listen: false)
+                        .getEvents;
+
+                List<Event> eventsToRemove = [];
+
+                events.forEach((key, value) {
+                  for (var element in value) {
+                    if (element.outfit == item) {
+                      eventsToRemove.add(element);
+                    }
+                  }
+                });
+
+                for (var element in eventsToRemove) {
+                  Provider.of<CalendarManager>(context, listen: false)
+                      .removeEvent(element);
+                }
+
+                events = Provider.of<CalendarManager>(context, listen: false)
+                    .getEvents;
+
+                Provider.of<CalendarManager>(context, listen: false)
+                    .setSelectedEvents(events);
+                Map<String, String> encodedEvents = encodeMap(events);
+
+                Provider.of<AppStateManager>(context, listen: false)
+                    .cacheEvents(encodedEvents);
               },
               child: Image.asset(
                 "assets/images/trash.png",

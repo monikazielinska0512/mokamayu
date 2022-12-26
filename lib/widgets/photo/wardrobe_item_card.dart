@@ -1,14 +1,31 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/calendar_event.dart';
+import '../../services/managers/app_state_manager.dart';
+import '../../services/managers/calendar_manager.dart';
 
 class WardrobeItemCard extends StatelessWidget {
-  WardrobeItemCard({Key? key, this.object}) : super(key: key);
-  final WardrobeItem? object;
+  WardrobeItemCard(
+      {Key? key, this.wardrobItem, this.outfit, required this.size, this.event})
+      : super(key: key);
+  final WardrobeItem? wardrobItem;
+  final Outfit? outfit;
+  String? photoUrl = "";
+  String? name = "";
+  double size = 50;
+  Event? event;
   @override
   Widget build(BuildContext context) {
-    String? photoUrl = object!.photoURL;
-    String? name = object!.name;
+    if (wardrobItem != null) {
+      photoUrl = wardrobItem!.photoURL;
+      name = wardrobItem!.name;
+    }
+
     return Card(
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -22,55 +39,107 @@ class WardrobeItemCard extends StatelessWidget {
         child: Row(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(15), // Image border
+              borderRadius: BorderRadius.circular(15),
               child: SizedBox.fromSize(
-                size: const Size.fromRadius(50),
-                child: Image.network(photoUrl, fit: BoxFit.fill),
-              ),
+                  size: Size.fromRadius(size),
+                  child: wardrobItem != null
+                      ? Image.network(photoUrl!, fit: BoxFit.fill)
+                      : Image.network(outfit!.cover, fit: BoxFit.fill)),
             ),
-            const SizedBox(
-              width: 30,
-            ),
-            Column(
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.right,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                TextButton(
-                    child: Text(
-                      "See details",
-                      style: TextStyle(
-                          color: ColorsConstants.darkBrick,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.right,
+            wardrobItem != null
+                ? const SizedBox(
+                    width: 30,
+                  )
+                : const SizedBox(
+                    width: 20,
+                  ),
+            wardrobItem != null
+                ? Column(
+                    children: [
+                      Text(
+                        name!,
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.right,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      TextButton(
+                          child: Text(
+                            "See details",
+                            style: TextStyle(
+                                color: ColorsConstants.darkBrick,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.right,
+                          ),
+                          onPressed: () => {
+                                //TODO see details
+                              }),
+                    ],
+                  )
+                : Column(children: [
+                    const SizedBox(
+                      height: 10,
                     ),
-                    onPressed: () => {
-                          //TODO see details
-                        }),
-              ],
-            ),
-            //in case we'll do removing here
-            // const SizedBox(
-            //   width: 50,
-            // ),
-            // GestureDetector(
-            //     onTap: () {
-            //      //wardrobe item removed
-            //     },
-            //     child: Image.asset(
-            //       "assets/images/trash.png",
-            //       fit: BoxFit.fitWidth,
-            //       height: 40,
-            //     )),
+                    TextButton(
+                        child: Text(
+                          "See details",
+                          style: TextStyle(
+                              color: ColorsConstants.darkBrick,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.right,
+                        ),
+                        onPressed: () => {
+                              //TODO see details
+                            }),
+                    GestureDetector(
+                        onTap: () {
+                          //remove selected outfit
+                          if (event == null) {
+                            Provider.of<CalendarManager>(context, listen: false)
+                                .selectOutfit(outfit, true);
+                            Provider.of<CalendarManager>(context, listen: false)
+                                .removeOutfit(outfit);
+                          } else {
+                            //delete outfit from calendar event
+                            Provider.of<CalendarManager>(context, listen: false)
+                                .removeEvent(event!);
+                            Map<DateTime, List<Event>> events =
+                                Provider.of<CalendarManager>(context,
+                                        listen: false)
+                                    .getEvents;
+                            Provider.of<CalendarManager>(context, listen: false)
+                                .setSelectedEvents(events);
+                            Map<String, String> encodedEvents =
+                                encodeMap(events);
+
+                            Provider.of<AppStateManager>(context, listen: false)
+                                .cacheEvents(encodedEvents);
+                          }
+                        },
+                        child: Image.asset(
+                          "assets/images/trash.png",
+                          fit: BoxFit.fitWidth,
+                          height: 40,
+                        ))
+                  ]),
           ],
         ),
       ),
     );
   }
+}
+
+Map<String, String> encodeMap(Map<DateTime, List<Event>> map) {
+  Map<String, String> newMap = {};
+  List<String> eventList = [];
+  map.forEach((key, value) {
+    for (var element in value) {
+      eventList.add(json.encode(element));
+    }
+    newMap[key.toString()] = json.encode(eventList);
+    eventList = [];
+  });
+  return newMap;
 }

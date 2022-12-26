@@ -4,7 +4,6 @@ import 'package:mokamayu/models/outfit.dart';
 import '../../constants/tags.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
-import 'dart:math';
 
 class OutfitManager extends ChangeNotifier {
   List<Outfit> finalOutfitList = [];
@@ -14,45 +13,10 @@ class OutfitManager extends ChangeNotifier {
   Future<List<Outfit>>? get getOutfitList => futureOutfitList;
   Future<List<Outfit>>? get getOutfitListCopy => futureOutfitListCopy;
   List<Outfit> get getfinalOutfitList => finalOutfitList;
-  List<int> outfitIndexes = [0];
-  int index = 0;
-  bool indexSet = false;
-  int get getMaxOutfitIndexes => outfitIndexes.reduce(max);
-  List<int> get getIndexList => outfitIndexes;
-  int get getIndex => index;
-  bool get getIndexSet => indexSet;
   String? outfitStyle = "";
   String? outfitSeason = "";
-
   List<String>? outfitStyles;
   List<String>? outfitSeasons;
-
-  void removeFromIndexes(int idxToRemove) {
-    outfitIndexes.removeWhere((el) => el == idxToRemove);
-  }
-
-  void addToIndexes(int idxToAdd) {
-    print(outfitIndexes);
-    outfitIndexes.add(idxToAdd);
-  }
-
-  void setIndex(int newIdx) {
-    index = newIdx;
-  }
-
-  void setOutfitIndexesList(List<int> list) {
-    outfitIndexes = list;
-  }
-
-  //for tests
-  void emptyOutfitIndexes() {
-    outfitIndexes.removeWhere((el) => el != 0);
-  }
-
-  void indexIsSet(bool decision) {
-    indexSet = decision;
-    notifyListeners();
-  }
 
   void setOutfits(Future<List<Outfit>> outfitsList) {
     futureOutfitList = outfitsList;

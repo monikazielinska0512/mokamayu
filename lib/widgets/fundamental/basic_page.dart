@@ -18,6 +18,7 @@ class BasicScreen extends StatelessWidget {
   bool? isFullScreen;
   bool? isEdit;
   Color? color;
+  void Function()? onPressed;
 
   BasicScreen({
     Key? key,
@@ -30,6 +31,7 @@ class BasicScreen extends StatelessWidget {
     this.isAppBarVisible = true,
     this.isLeftButtonVisible = true,
     this.isRightButtonVisible = true,
+    this.onPressed,
     this.isNavBarVisible = true,
     this.leftButtonType = "back",
     this.rightButtonType = "bell",
@@ -79,12 +81,14 @@ class BasicScreen extends StatelessWidget {
     return IconButton(
       onPressed: () {
         switch (type) {
-          case "add_photo":
+          case "Add photo":
             context.go("/home/0");
             break;
-          case "wardrobe_item_form":
+          case "Wardrobe Item Form":
             isEdit! ? context.go("/home/0") : context.go("/pick-photo");
-            // context.go("/pick-photo");
+            break;
+          case "Pick outfits":
+            context.go("/home/3");
             break;
           default:
             context.pop();
@@ -116,7 +120,22 @@ class BasicScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
             iconColor: Colors.grey);
       case "go_forward":
-        return CustomIconButton(onPressed: () {}, icon: Icons.arrow_forward);
+        return IconButton(
+          color: Colors.black,
+          onPressed: onPressed,
+          icon: const Icon(
+            Icons.arrow_forward_ios,
+          ),
+        );
+      case "add":
+        return IconButton(
+          color: Colors.black,
+          iconSize: 30,
+          onPressed: onPressed,
+          icon: const Icon(
+            Icons.add,
+          ),
+        );
       case "search":
         return CustomIconButton(onPressed: () {}, icon: Icons.search);
       case "bin":

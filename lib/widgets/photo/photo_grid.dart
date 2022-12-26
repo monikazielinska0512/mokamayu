@@ -5,17 +5,23 @@ import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/calendar_event.dart';
+import '../../services/managers/app_state_manager.dart';
+import '../../services/managers/calendar_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
 
 class PhotoGrid extends StatefulWidget {
   final bool scrollVertically;
   Future<List<WardrobeItem>>? itemList;
   Future<List<Outfit>>? outfitsList;
+  String? type;
 
   PhotoGrid({
     Key? key,
     this.itemList,
     this.outfitsList,
+    this.type,
     this.scrollVertically = true,
   }) : super(key: key);
 

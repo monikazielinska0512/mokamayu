@@ -64,7 +64,8 @@ class OutfitSummaryScreen extends StatelessWidget {
                 }
               });
               return WardrobeItemCard(
-                  object: itemList!.firstWhere(
+                  size: 50,
+                  wardrobItem: itemList!.firstWhere(
                       (item) => item.reference == entry.key[1],
                       orElse: () => WardrobeItem(
                           name: "Photo deleted :(",
@@ -131,7 +132,6 @@ class OutfitSummaryScreen extends StatelessWidget {
       Provider.of<OutfitManager>(context, listen: false).setStyle("");
       Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
       Provider.of<PhotoTapped>(context, listen: false).setObject(null);
-      Provider.of<OutfitManager>(context, listen: false).indexIsSet(false);
       context.go("/home/1");
     });
   }
@@ -148,7 +148,6 @@ class OutfitSummaryScreen extends StatelessWidget {
           style: _style,
           season: _season,
           map: mapToFirestore,
-          index: Provider.of<OutfitManager>(context, listen: false).getIndex,
           createdBy: AuthService().getCurrentUserID());
       Provider.of<OutfitManager>(context, listen: false)
           .addOutfitToFirestore(data);
@@ -160,9 +159,6 @@ class OutfitSummaryScreen extends StatelessWidget {
       Provider.of<OutfitManager>(context, listen: false).setStyle("");
       Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
       Provider.of<PhotoTapped>(context, listen: false).setObject(null);
-      Provider.of<OutfitManager>(context, listen: false).indexIsSet(false);
-      Provider.of<AppStateManager>(context, listen: false).cacheIndexList(
-          Provider.of<OutfitManager>(context, listen: false).getIndexList);
 
       _elements = [];
       context.go("/home/1");
