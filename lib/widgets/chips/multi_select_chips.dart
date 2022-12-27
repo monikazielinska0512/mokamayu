@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/constants.dart';
-
-import '../../constants/colors.dart';
-import '../../models/outfit.dart';
-import '../../models/wardrobe_item.dart';
-import '../../services/managers/outfit_manager.dart';
-import '../../services/managers/wardrobe_manager.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 
 class MultiSelectChip extends StatefulWidget {
   final List<String> chipsList;
+  final List<String> initialValues;
   final Function(List<String>)? onSelectionChanged;
   String? type;
+
   Future<List<WardrobeItem>>? wardrobeItemList;
   Future<List<Outfit>>? outfitList;
   bool isScrollable;
@@ -21,6 +19,7 @@ class MultiSelectChip extends StatefulWidget {
       {super.key,
       required this.onSelectionChanged,
       this.type,
+      this.initialValues = const [],
       this.isScrollable = true,
       required this.chipsColor});
 
@@ -68,7 +67,10 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
       choices.add(Container(
         padding: const EdgeInsets.only(right: 10),
         child: ChoiceChip(
-          label: Text(item),
+          label: selectedChoices.contains(item)
+              ? Text(item,
+                  style: TextStyles.paragraphRegularSemiBold16(Colors.white))
+              : Text(item, style: TextStyles.paragraphRegular16(Colors.white)),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
           selected: selectedChoices.contains(item),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '../../constants/text_styles.dart';
 import '../buttons/icon_button.dart';
@@ -35,13 +36,13 @@ class BasicScreen extends StatelessWidget {
     this.isNavBarVisible = true,
     this.leftButtonType = "back",
     this.rightButtonType = "bell",
-    this.backgroundColor,
+    this.backgroundColor = Colors.white,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor,
         extendBodyBehindAppBar: true,
         appBar: isAppBarVisible!
             ? AppBar(
@@ -81,7 +82,7 @@ class BasicScreen extends StatelessWidget {
     return IconButton(
       onPressed: () {
         switch (type) {
-          case "Add photo":
+          case "add_photo":
             context.go("/home/0");
             break;
           case "Wardrobe Item Form":
@@ -90,9 +91,11 @@ class BasicScreen extends StatelessWidget {
           case "Pick outfits":
             context.go("/home/3");
             break;
+          case "wardrobe-item-search":
+            context.go("/home/0");
+            break;
           default:
             context.pop();
-          //case ...
         }
       },
       icon: const Icon(Icons.arrow_back_ios),
@@ -105,6 +108,12 @@ class BasicScreen extends StatelessWidget {
         return Text("Your Wardrobe", style: TextStyles.appTitle(Colors.black));
       case "outfits":
         return Text("Outfits", style: TextStyles.appTitle(Colors.black));
+      case "add_photo":
+        return Text("", style: TextStyles.appTitle(Colors.black));
+      case "Wardrobe Item Form":
+        return Text("", style: TextStyles.appTitle(Colors.black));
+      case "wardrobe-item-search":
+        return Text("", style: TextStyles.appTitle(Colors.black));
     }
     return Text(type, style: TextStyles.appTitle(Colors.black));
   }
@@ -114,9 +123,9 @@ class BasicScreen extends StatelessWidget {
       case "bell":
         return CustomIconButton(
             onPressed: () => context.push('/notifications'),
-            icon: Icons.notifications,
+            icon: Ionicons.notifications_outline,
             backgroundColor: Colors.transparent,
-            iconColor: Colors.grey);
+            iconColor: Colors.black);
       case "go_forward":
         return IconButton(
           color: Colors.black,

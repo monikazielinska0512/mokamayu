@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/screens/wardrobe/wardrobe_item_search.dart';
+import 'package:mokamayu/widgets/fields/search_text_field.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/constants.dart';
-
-import '../../services/managers/outfit_manager.dart';
-import '../../widgets/modals/filter_modal.dart';
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
@@ -49,11 +46,12 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
     return BasicScreen(
         type: "wardrobe",
         leftButtonType: "dots",
+        backgroundColor: Colors.transparent,
         context: context,
         body: Stack(children: [
           Column(
             children: [
-              Wrap(spacing: 20, runSpacing: 20, children: [
+              Wrap(spacing: 10, runSpacing: 10, children: [
                 buildSearchBarAndFilters(),
                 SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -77,11 +75,22 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   Widget buildSearchBarAndFilters() {
     return SizedBox(
-        width: MediaQuery.of(context).size.width * 0.9,
-        height: MediaQuery.of(context).size.height * 0.075,
-        child: Row(children: [
-          Expanded(child: WardrobeItemSearch(title: "name")),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.045),
+        height: MediaQuery.of(context).size.height * 0.076,
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          SizedBox(
+              width: MediaQuery.of(context).size.width * 0.73,
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: SearchTextField(readOnly: true, onTap: () => context.go("/wardrobe-item-search-screen",
+                        extra: futureItemList),
+                )),
+          // ButtonDarker(
+          //     context,
+          //     "Search",
+          //     () => context.go("/wardrobe-item-search-screen",
+          //         extra: futureItemList),
+          //     shouldExpand: false),
+          const SizedBox(width: 10),
           FilterModal(
               onApplyWardrobe: (selectedList) =>
                   {futureItemListCopy = selectedList})

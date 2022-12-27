@@ -4,28 +4,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/outfits/outfit_form.dart';
-import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../constants/colors.dart';
-import '../../constants/tags.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/widgets/widgets.dart';
+import 'package:mokamayu/services/managers/managers.dart';
+import 'package:mokamayu/constants/constants.dart';
 import '../../models/calendar_event.dart';
-import '../../models/outfit.dart';
-import '../../models/outfit_container.dart';
-import '../../models/wardrobe_item.dart';
-import '../../services/managers/app_state_manager.dart';
-import '../../services/managers/calendar_manager.dart';
-import '../../services/managers/wardrobe_manager.dart';
 import '../../services/storage.dart';
-import '../../widgets/chips/multi_select_chips.dart';
-import '../../widgets/drag_target_container.dart';
-import '../../widgets/fundamental/background_image.dart';
-import '../../widgets/photo/photo_grid.dart';
-import '../../services/managers/photo_tapped_manager.dart';
-import '../../widgets/photo/wardrobe_item_card.dart';
 
 class OutfitsAddAttributesScreen extends StatefulWidget {
   OutfitsAddAttributesScreen({Key? key, required this.map}) : super(key: key);

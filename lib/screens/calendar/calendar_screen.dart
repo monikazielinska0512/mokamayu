@@ -130,7 +130,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               _focusedDay = focusedDay;
             },
             eventLoader: _getEventsfromDay,
-            calendarStyle: CalendarStyle(
+            calendarStyle: const CalendarStyle(
               markersAlignment: Alignment.bottomRight,
               selectedDecoration: BoxDecoration(
                 color: ColorsConstants.peachy,
@@ -147,7 +147,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       width: 24,
                       height: 24,
                       alignment: Alignment.center,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: ColorsConstants.darkBrick,
                       ),
                       child: Text(
