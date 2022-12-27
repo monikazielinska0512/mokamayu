@@ -81,7 +81,7 @@ class BasicScreen extends StatelessWidget {
     return IconButton(
       onPressed: () {
         switch (type) {
-          case "Add photo":
+          case "add_photo":
             context.go("/home/0");
             break;
           case "Wardrobe Item Form":

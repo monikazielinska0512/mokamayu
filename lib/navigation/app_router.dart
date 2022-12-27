@@ -58,7 +58,7 @@ class AppRouter {
           builder: (context, state) {
             String file = state.params['file']!;
             return AddWardrobeItemForm(
-                photo: file, isEdit: false, disableFields: false);
+                photo: file, isEdit: false);
           }),
       GoRoute(
           path: '/wardrobe-item',
@@ -66,8 +66,7 @@ class AppRouter {
           builder: (context, state) {
             return AddWardrobeItemForm(
                 editItem: state.extra as WardrobeItem,
-                isEdit: true,
-                disableFields: true);
+                isEdit: true);
           }),
       GoRoute(
           name: 'create-outfit-page',

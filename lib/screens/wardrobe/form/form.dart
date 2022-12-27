@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
@@ -10,8 +11,13 @@ import 'package:mokamayu/widgets/widgets.dart';
 class WardrobeItemForm extends StatefulWidget {
   final String? photoPath;
   final WardrobeItem? item;
+  final bool showUpdateAndDeleteButtons;
 
-  const WardrobeItemForm({Key? key, this.photoPath, this.item})
+  const WardrobeItemForm(
+      {Key? key,
+      this.photoPath,
+      this.item,
+      this.showUpdateAndDeleteButtons = false})
       : super(key: key);
 
   @override
@@ -40,22 +46,26 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding:
-            const EdgeInsets.only(top: 25, bottom: 10, left: 30, right: 30),
+        padding: widget.item == null
+            ? const EdgeInsets.only(top: 30, bottom: 0, left: 30, right: 30)
+            : const EdgeInsets.only(left: 30, right: 30,  top: 10),
         child: SingleChildScrollView(
             child: Form(
                 key: _formKey,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                child: SingleChildScrollView(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
                       buildNameTextField(),
                       buildTypeChipsField(),
                       buildSizeChipsField(),
                       buildStyleChipsField(),
                       widget.item == null
                           ? buildAddButton()
-                          : buildUpdateButton(),
-                    ]))));
+                          : (widget.showUpdateAndDeleteButtons == true
+                              ? buildUpdateButton()
+                              : Container())
+                    ])))));
   }
 
   Widget buildNameTextField() {
@@ -83,7 +93,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
           enabledBorder: InputBorder.none,
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
-          contentPadding: const EdgeInsets.only(bottom: 0, top: 11, right: 15),
+          contentPadding: const EdgeInsets.only(bottom: 0, right: 0, top: 0),
         ));
   }
 
@@ -92,7 +102,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-              padding: const EdgeInsets.only( top: 10),
+              padding: const EdgeInsets.only(top: 5),
               child: Text("Type",
                   style: TextStyles.paragraphRegularSemiBold18()))),
       Align(
@@ -113,7 +123,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-              padding: const EdgeInsets.only( top: 10),
+              padding: const EdgeInsets.only(top: 5),
               child: Text("Size",
                   style: TextStyles.paragraphRegularSemiBold18()))),
       Align(
@@ -135,7 +145,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-              padding: const EdgeInsets.only( top: 10),
+              padding: const EdgeInsets.only(top: 5),
               child: Text("Style",
                   style: TextStyles.paragraphRegularSemiBold18()))),
       MultiSelectChipsFormField(
@@ -185,11 +195,26 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   }
 
   Widget buildUpdateButton() {
-    return Column(
-      children: [
-        ElevatedButton(
-            child: const Text('Update'),
-            onPressed: () async {
+    return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomIconButton(
+                onPressed: () {
+                  Provider.of<WardrobeManager>(context, listen: false)
+                      .removeWardrobeItem(widget.item?.reference);
+                  reset();
+                  context.go("/home/0");
+                },
+                backgroundColor: ColorsConstants.whiteAccent,
+                iconColor: ColorsConstants.grey,
+                icon: Ionicons.trash_bin_outline,
+                width: 0.15),
+            const SizedBox(width: 10),
+            ButtonDarker(context, 'Update', () async {
               _formKey.currentState!.save();
               if (_formKey.currentState!.validate()) {
                 Provider.of<WardrobeManager>(context, listen: false)
@@ -200,24 +225,15 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                 CustomSnackBar.showSuccessSnackBar(
                     context: context, message: "Updated");
               } else {
-                CustomSnackBar.showSuccessSnackBar(
+                CustomSnackBar.showErrorSnackBar(
                     context: context, message: "Error");
               }
-            }),
-        IconButton(
-            onPressed: () {
-              Provider.of<WardrobeManager>(context, listen: false)
-                  .removeWardrobeItem(widget.item?.reference);
-              reset();
-              context.go("/home/0");
             },
-            icon: Image.asset(
-              "assets/images/trash.png",
-              fit: BoxFit.fitWidth,
-              height: 40,
-            ))
-      ],
-    );
+                shouldExpand: false,
+                width: 0.6,
+                margin: const EdgeInsets.fromLTRB(0, 0, 0, 0)),
+          ],
+        ));
   }
 
   void reset() {
