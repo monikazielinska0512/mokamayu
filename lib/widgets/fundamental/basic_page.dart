@@ -107,6 +107,8 @@ class BasicScreen extends StatelessWidget {
         return Text("Outfits", style: TextStyles.appTitle(Colors.black));
       case "add_photo":
         return Text("", style: TextStyles.appTitle(Colors.black));
+      case "Wardrobe Item Form":
+        return Text("", style: TextStyles.appTitle(Colors.black));
     }
     return Text(type, style: TextStyles.appTitle(Colors.black));
   }

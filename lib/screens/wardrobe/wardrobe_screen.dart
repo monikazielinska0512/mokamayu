@@ -75,10 +75,10 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   Widget buildSearchBarAndFilters() {
     return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.075,
+        height: MediaQuery.of(context).size.height * 0.077,
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Expanded(child: WardrobeItemSearch(title: "name")),
+          const Expanded(child: WardrobeItemSearch(title: "name")),
           const SizedBox(width: 10),
           FilterModal(
               onApplyWardrobe: (selectedList) =>

@@ -31,7 +31,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
               borderRadius: BorderRadius.circular(20),
               child: Image.file(
                 widget.photo!,
-                height: MediaQuery.of(context).size.height * 0.7,
+                height: MediaQuery.of(context).size.height * 0.69,
                 fit: BoxFit.fill,
               ),
             )
@@ -40,7 +40,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                   color: ColorsConstants.whiteAccent,
                   borderRadius: BorderRadius.circular(20)),
               width: double.maxFinite,
-              height: MediaQuery.of(context).size.height * 0.7,
+              height: MediaQuery.of(context).size.height * 0.69,
               child: const Icon(Ionicons.camera_outline,
                   color: ColorsConstants.grey),
             ),

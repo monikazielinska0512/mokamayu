@@ -12,27 +12,52 @@ class StorageService {
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child(uid).child(filePath);
 
-    TaskSnapshot uploadedFile = await ref.putFile(File(filePath));
+    final uploadedFile = ref.putFile(File(filePath));
 
-    switch (uploadedFile.state) {
-      case TaskState.running:
-        final progress =
-            100.0 * (uploadedFile.bytesTransferred / uploadedFile.totalBytes);
-        print("Upload is $progress% complete.");
-        break;
-      case TaskState.paused:
-        print("Upload is paused.");
-        break;
-      case TaskState.canceled:
-        print("Upload was canceled");
-        break;
-      case TaskState.error:
-        print("Error");
-        break;
-      case TaskState.success:
-        downloadUrl = await ref.getDownloadURL();
-        break;
-    }
+    uploadedFile.snapshotEvents.listen((TaskSnapshot taskSnapshot) async {
+      switch (taskSnapshot.state) {
+        case TaskState.running:
+          final progress =
+              100.0 * (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes);
+          print("Upload is $progress% complete.");
+          break;
+        case TaskState.paused:
+          print("Upload is paused.");
+          break;
+        case TaskState.canceled:
+          print("Upload was canceled");
+          break;
+        case TaskState.error:
+        // Handle unsuccessful uploads
+          break;
+        case TaskState.success:
+          // Handle successful uploads on complete
+          // ...
+          break;
+      }
+    });
+
+    // switch (uploadedFile.state) {
+    //   case TaskState.running:
+    //     final progress =
+    //         100.0 * (uploadedFile.bytesTransferred / uploadedFile.totalBytes);
+    //     print("Upload is $progress% complete.");
+    //     break;
+    //   case TaskState.paused:
+    //     print("Upload is paused.");
+    //     break;
+    //   case TaskState.canceled:
+    //     print("Upload was canceled");
+    //     break;
+    //   case TaskState.error:
+    //     print("Error");
+    //     break;
+    //   case TaskState.success:
+    //     downloadUrl = await ref.getDownloadURL();
+    //     break;
+    // }
+
+    downloadUrl = await ref.getDownloadURL();
     return downloadUrl;
   }
 }

@@ -11,7 +11,8 @@ class WardrobeItemForm extends StatefulWidget {
   final String? photoPath;
   final WardrobeItem? item;
 
-  const WardrobeItemForm({Key? key, this.photoPath, this.item}) : super(key: key);
+  const WardrobeItemForm({Key? key, this.photoPath, this.item})
+      : super(key: key);
 
   @override
   State<WardrobeItemForm> createState() => _WardrobeItemFormState();
@@ -40,17 +41,21 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   Widget build(BuildContext context) {
     return Padding(
         padding:
-            const EdgeInsets.only(top: 30, bottom: 10, left: 30, right: 30),
+            const EdgeInsets.only(top: 25, bottom: 10, left: 30, right: 30),
         child: SingleChildScrollView(
             child: Form(
                 key: _formKey,
-                child: Column(children: [
-                  buildNameTextField(),
-                  buildTypeChipsField(),
-                  buildSizeChipsField(),
-                  buildStyleChipsField(),
-                  widget.item == null ? buildAddButton() : buildUpdateButton(),
-                ]))));
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      buildNameTextField(),
+                      buildTypeChipsField(),
+                      buildSizeChipsField(),
+                      buildStyleChipsField(),
+                      widget.item == null
+                          ? buildAddButton()
+                          : buildUpdateButton(),
+                    ]))));
   }
 
   Widget buildNameTextField() {
@@ -84,9 +89,12 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
 
   Widget buildTypeChipsField() {
     return Column(children: [
-      Padding(
-          padding: const EdgeInsets.only(bottom: 10, top: 10),
-          child: Text("Type", style: TextStyles.paragraphRegularSemiBold18())),
+      Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+              padding: const EdgeInsets.only( top: 10),
+              child: Text("Type",
+                  style: TextStyles.paragraphRegularSemiBold18()))),
       Align(
           alignment: Alignment.centerLeft,
           child: SingleSelectChipsFormField(
@@ -95,7 +103,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
               validator: (value) =>
                   Validator.checkIfSingleValueSelected(value!, context),
               onSaved: (value) => _type = value!,
-              color: ColorsConstants.darkMint,
+              color: ColorsConstants.sunflower,
               chipsList: Tags.types))
     ]);
   }
@@ -105,7 +113,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-              padding: const EdgeInsets.only(bottom: 5, top: 10),
+              padding: const EdgeInsets.only( top: 10),
               child: Text("Size",
                   style: TextStyles.paragraphRegularSemiBold18()))),
       Align(
@@ -127,7 +135,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-              padding: const EdgeInsets.only(bottom: 5, top: 10),
+              padding: const EdgeInsets.only( top: 10),
               child: Text("Style",
                   style: TextStyles.paragraphRegularSemiBold18()))),
       MultiSelectChipsFormField(
@@ -141,43 +149,39 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   }
 
   Widget buildAddButton() {
-    return ElevatedButton(
-        child: const Text('Add item'),
-        onPressed: () async {
+    return ButtonDarker(context, 'Add item', () async {
+      _formKey.currentState!.save();
+      if (_formKey.currentState!.validate()) {
+        String url =
+            await StorageService().uploadFile(context, widget.photoPath ?? "");
 
-          _formKey.currentState!.save();
-          if (_formKey.currentState!.validate()) {
+        final item = WardrobeItem(
+            name: _name,
+            type: _type,
+            size: _size,
+            photoURL: url,
+            styles: _styles,
+            created: DateTime.now());
+        if (!mounted) return;
+        Provider.of<WardrobeManager>(context, listen: false)
+            .addWardrobeItem(item);
 
-            String url = await StorageService()
-                .uploadFile(context, widget.photoPath ?? "");
+        _type = "";
+        _size = "";
+        _name = "";
+        _styles = [];
 
-            final item = WardrobeItem(
-                name: _name,
-                type: _type,
-                size: _size,
-                photoURL: url,
-                styles: _styles,
-                created: DateTime.now());
-            if (!mounted) return;
-            Provider.of<WardrobeManager>(context, listen: false)
-                .addWardrobeItem(item);
+        reset();
 
-            _type = "";
-            _size = "";
-            _name = "";
-            _styles = [];
+        context.go("/home/0");
 
-            reset();
-
-            context.go("/home/0");
-
-            CustomSnackBar.showSuccessSnackBar(
-                context: context, message: "Dodano do bazy danych");
-          } else {
-            CustomSnackBar.showErrorSnackBar(
-                context: context, message: "Coś poszło nie tak");
-          }
-        });
+        CustomSnackBar.showSuccessSnackBar(
+            context: context, message: "Dodano do bazy danych");
+      } else {
+        CustomSnackBar.showErrorSnackBar(
+            context: context, message: "Coś poszło nie tak");
+      }
+    }, shouldExpand: false, width: 0.45, height: 0.061);
   }
 
   Widget buildUpdateButton() {
