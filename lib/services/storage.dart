@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:mokamayu/widgets/fundamental/fundamentals.dart';
 import 'authentication/auth.dart';
 
 class StorageService {
@@ -17,27 +18,27 @@ class StorageService {
     uploadedFile.snapshotEvents.listen((TaskSnapshot taskSnapshot) async {
       switch (taskSnapshot.state) {
         case TaskState.running:
-          final progress =
-              100.0 * (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes);
-          print("Upload is $progress% complete.");
+          const CircularProgressIndicator();
           break;
         case TaskState.paused:
-          print("Upload is paused.");
+          CustomSnackBar.showWarningSnackBar(
+              context: context, message: "Upload is paused.");
           break;
         case TaskState.canceled:
-          print("Upload was canceled");
+          CustomSnackBar.showErrorSnackBar(
+              context: context, message: "Upload was canceled");
           break;
         case TaskState.error:
-          // Handle unsuccessful uploads
+          CustomSnackBar.showErrorSnackBar(
+              context: context, message: "Something went wrong");
           break;
         case TaskState.success:
-          // Handle successful uploads on complete
-          // ...
           break;
       }
     });
-    downloadUrl = await ref.getDownloadURL();
-    return downloadUrl;
+    final snapshot = await uploadedFile.whenComplete(() => null);
+    final urlImageUser = await snapshot.ref.getDownloadURL();
+    return urlImageUser;
   }
 
   Future<void> deleteFromStorage(String filePath) async {
