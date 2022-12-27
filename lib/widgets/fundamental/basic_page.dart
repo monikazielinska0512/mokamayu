@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '../../constants/text_styles.dart';
 import '../buttons/icon_button.dart';
@@ -118,9 +119,9 @@ class BasicScreen extends StatelessWidget {
       case "bell":
         return CustomIconButton(
             onPressed: () => context.push('/notifications'),
-            icon: Icons.notifications,
+            icon: Ionicons.notifications_outline,
             backgroundColor: Colors.transparent,
-            iconColor: Colors.grey);
+            iconColor: Colors.black);
       case "go_forward":
         return IconButton(
           color: Colors.black,

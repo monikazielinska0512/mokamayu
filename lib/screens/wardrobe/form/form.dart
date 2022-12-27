@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
@@ -10,6 +11,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 
 class WardrobeItemForm extends StatefulWidget {
   final String? photoPath;
+  final File? editedPhoto;
   final WardrobeItem? item;
   final bool showUpdateAndDeleteButtons;
 
@@ -17,7 +19,8 @@ class WardrobeItemForm extends StatefulWidget {
       {Key? key,
       this.photoPath,
       this.item,
-      this.showUpdateAndDeleteButtons = false})
+      this.showUpdateAndDeleteButtons = false,
+      this.editedPhoto})
       : super(key: key);
 
   @override
@@ -48,7 +51,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
     return Padding(
         padding: widget.item == null
             ? const EdgeInsets.only(top: 30, bottom: 0, left: 30, right: 30)
-            : const EdgeInsets.only(left: 30, right: 30,  top: 10),
+            : const EdgeInsets.only(left: 30, right: 30, top: 10),
         child: SingleChildScrollView(
             child: Form(
                 key: _formKey,
@@ -217,6 +220,16 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             ButtonDarker(context, 'Update', () async {
               _formKey.currentState!.save();
               if (_formKey.currentState!.validate()) {
+                if (widget.editedPhoto != null) {
+                  StorageService().uploadFile(context, widget.photoPath ?? "");
+
+                  String url = await StorageService()
+                      .uploadFile(context, widget.photoPath ?? "");
+                  Provider.of<WardrobeManager>(context, listen: false)
+                      .updateWardrobeItem(widget.item?.reference ?? "", _name,
+                          _type, _size, url, _styles);
+                }
+
                 Provider.of<WardrobeManager>(context, listen: false)
                     .updateWardrobeItem(widget.item?.reference ?? "", _name,
                         _type, _size, widget.item?.photoURL ?? "", _styles);

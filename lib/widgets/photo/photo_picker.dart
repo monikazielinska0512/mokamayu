@@ -5,15 +5,20 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/widgets/buttons/button_darker_orange.dart';
-
-import '../fundamental/background_image.dart';
+import 'package:mokamayu/widgets/fundamental/fundamentals.dart';
 
 class PhotoPicker extends StatefulWidget {
   File? photo;
+  bool isEditPhotoForm;
   String? photoPath;
+  String? photoURL;
   final ImagePicker picker = ImagePicker();
 
-  PhotoPicker({Key? key}) : super(key: key);
+  File? get getPhoto => photo;
+  String? get getPhotoPath => photoPath;
+
+  PhotoPicker({Key? key, this.isEditPhotoForm = false, this.photoURL})
+      : super(key: key);
 
   @override
   State<PhotoPicker> createState() => _PhotoPickerState();
@@ -21,29 +26,41 @@ class PhotoPicker extends StatefulWidget {
 
 class _PhotoPickerState extends State<PhotoPicker> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         _showPicker(context);
       },
-      child: widget.photo != null
-          ? ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.file(
-                widget.photo!,
-                height: MediaQuery.of(context).size.height * 0.69,
-                fit: BoxFit.fill,
-              ),
+      child: widget.isEditPhotoForm
+          ? Image.network(
+              widget.photoURL ?? "",
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.fill,
             )
-          : Container(
-              decoration: BoxDecoration(
-                  color: ColorsConstants.whiteAccent,
-                  borderRadius: BorderRadius.circular(20)),
-              width: double.maxFinite,
-              height: MediaQuery.of(context).size.height * 0.69,
-              child: const Icon(Ionicons.camera_outline,
-                  color: ColorsConstants.grey),
-            ),
+          : widget.photo != null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.file(
+                    widget.photo!,
+                    height: MediaQuery.of(context).size.height * 0.69,
+                    fit: BoxFit.fill,
+                  ),
+                )
+              : Container(
+                  decoration: BoxDecoration(
+                      color: ColorsConstants.whiteAccent,
+                      borderRadius: BorderRadius.circular(20)),
+                  width: double.maxFinite,
+                  height: MediaQuery.of(context).size.height * 0.69,
+                  child: const Icon(Ionicons.camera_outline,
+                      color: ColorsConstants.grey),
+                ),
     );
   }
 
@@ -57,7 +74,8 @@ class _PhotoPickerState extends State<PhotoPicker> {
         widget.photoPath = pickedFile.path;
         widget.photo = File(pickedFile.path);
       } else {
-        //TODO SNACK BAR
+        CustomSnackBar.showErrorSnackBar(
+            context: context, message: "Something went wrong");
       }
     });
   }
@@ -90,7 +108,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                     opacity: 0.5),
               ])),
           Container(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -144,7 +162,6 @@ class _PhotoPickerState extends State<PhotoPicker> {
             title,
             source != null
                 ? () {
-                    print('here');
                     pickImage(source);
                     Navigator.of(context).pop();
                   }
@@ -156,9 +173,5 @@ class _PhotoPickerState extends State<PhotoPicker> {
             height: 0.06,
             width: 0.8,
             margin: const EdgeInsets.all(0)));
-  }
-
-  File? get getPhoto {
-    return widget.photo;
   }
 }

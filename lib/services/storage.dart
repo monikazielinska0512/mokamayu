@@ -28,7 +28,7 @@ class StorageService {
           print("Upload was canceled");
           break;
         case TaskState.error:
-        // Handle unsuccessful uploads
+          // Handle unsuccessful uploads
           break;
         case TaskState.success:
           // Handle successful uploads on complete
@@ -36,28 +36,13 @@ class StorageService {
           break;
       }
     });
-
-    // switch (uploadedFile.state) {
-    //   case TaskState.running:
-    //     final progress =
-    //         100.0 * (uploadedFile.bytesTransferred / uploadedFile.totalBytes);
-    //     print("Upload is $progress% complete.");
-    //     break;
-    //   case TaskState.paused:
-    //     print("Upload is paused.");
-    //     break;
-    //   case TaskState.canceled:
-    //     print("Upload was canceled");
-    //     break;
-    //   case TaskState.error:
-    //     print("Error");
-    //     break;
-    //   case TaskState.success:
-    //     downloadUrl = await ref.getDownloadURL();
-    //     break;
-    // }
-
     downloadUrl = await ref.getDownloadURL();
     return downloadUrl;
+  }
+
+  Future<void> deleteFromStorage(String filePath) async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref = storage.ref().child(uid).child(filePath);
+    await ref.delete();
   }
 }

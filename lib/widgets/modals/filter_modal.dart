@@ -34,6 +34,8 @@ class _FilterModalState extends State<FilterModal> {
   @override
   Widget build(BuildContext context) {
     return CustomIconButton(
+        height: 0.2,
+        width: 0.16,
         icon: Ionicons.filter,
         onPressed: () => showModalBottomSheet<void>(
               backgroundColor: Colors.transparent,
