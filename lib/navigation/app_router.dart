@@ -15,9 +15,10 @@ class AppRouter {
   final ProfileManager profileManager;
   final WardrobeManager wardrobeManager;
   final OutfitManager outfitManager;
+  final UserListManager userListManager;
 
   AppRouter(this.appStateManager, this.profileManager, this.wardrobeManager,
-      this.outfitManager);
+      this.outfitManager, this.userListManager);
 
   late final router = GoRouter(
     debugLogDiagnostics: true,
@@ -90,6 +91,11 @@ class AppRouter {
             return OutfitSummaryScreen(
                 map: state.extra as Map<List<dynamic>, OutfitContainer>?);
           }),
+      GoRoute(
+          name: 'find-users',
+          path: '/find-users',
+          builder: (context, state) => const UsersScreen(),
+      ),
       GoRoute(
           name: 'edit-profile',
           path: '/edit-profile',

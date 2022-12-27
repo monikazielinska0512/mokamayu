@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/screens/screens.dart';
 
 import '../../constants/text_styles.dart';
 import '../buttons/icon_button.dart';
@@ -138,6 +139,24 @@ class BasicScreen extends StatelessWidget {
         return CustomIconButton(onPressed: () {}, icon: Icons.search);
       case "bin":
         return CustomIconButton(onPressed: () {}, icon: Icons.delete);
+      case "search-notif":
+        switch(type){
+          case "social":
+            return Row(
+                children: [
+                  CustomIconButton(
+                      onPressed: () => context.push('/find-users'),
+                      icon: Icons.search,
+                      backgroundColor: Colors.transparent,
+                      iconColor: Colors.grey),
+                  CustomIconButton(
+                      onPressed: () => context.push('/notifications'),
+                      icon: Icons.notifications,
+                      backgroundColor: Colors.transparent,
+                      iconColor: Colors.grey)
+                ]
+            );
+        }
     }
     return Container();
   }
