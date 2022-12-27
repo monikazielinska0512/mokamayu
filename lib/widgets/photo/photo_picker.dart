@@ -17,11 +17,20 @@ class PhotoPicker extends StatefulWidget {
   File? get getPhoto => photo;
   String? get getPhotoPath => photoPath;
 
+  void setPhoto(File? newPhoto) {
+    photo = newPhoto;
+  }
+
+  void setPhotoPath(String? newPath) {
+    photoPath = newPath;
+  }
+
   PhotoPicker({Key? key, this.isEditPhotoForm = false, this.photoURL})
       : super(key: key);
 
   @override
   State<PhotoPicker> createState() => _PhotoPickerState();
+
 }
 
 class _PhotoPickerState extends State<PhotoPicker> {
@@ -67,12 +76,11 @@ class _PhotoPickerState extends State<PhotoPicker> {
   Future pickImage(ImageSource source) async {
     final pickedFile =
         await widget.picker.pickImage(source: source, imageQuality: 50);
-    print(pickedFile);
-
     setState(() {
       if (pickedFile != null) {
         widget.photoPath = pickedFile.path;
         widget.photo = File(pickedFile.path);
+        print('Picked: ' + widget.photoPath.toString());
       } else {
         CustomSnackBar.showErrorSnackBar(
             context: context, message: "Something went wrong");
