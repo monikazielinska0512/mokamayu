@@ -8,6 +8,8 @@ import 'package:mokamayu/services/services.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/validator.dart';
 import 'package:mokamayu/widgets/widgets.dart';
+import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
+
 
 class WardrobeItemForm extends StatefulWidget {
   final String? photoPath;
@@ -169,7 +171,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             await StorageService().uploadFile(context, widget.photoPath ?? "");
 
         final item = WardrobeItem(
-            name: _name,
+            name: toBeginningOfSentenceCase(_name).toString(),
             type: _type,
             size: _size,
             photoURL: url,
