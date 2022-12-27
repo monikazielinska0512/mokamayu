@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/screens/wardrobe/wardrobe_item_search.dart';
+import 'package:mokamayu/widgets/fields/search_text_field.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
@@ -75,10 +75,21 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   Widget buildSearchBarAndFilters() {
     return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.077,
+        height: MediaQuery.of(context).size.height * 0.076,
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          const Expanded(child: WardrobeItemSearch(title: "name")),
+          SizedBox(
+              width: MediaQuery.of(context).size.width * 0.73,
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: SearchTextField(readOnly: true, onTap: () => context.go("/wardrobe-item-search-screen",
+                        extra: futureItemList),
+                )),
+          // ButtonDarker(
+          //     context,
+          //     "Search",
+          //     () => context.go("/wardrobe-item-search-screen",
+          //         extra: futureItemList),
+          //     shouldExpand: false),
           const SizedBox(width: 10),
           FilterModal(
               onApplyWardrobe: (selectedList) =>

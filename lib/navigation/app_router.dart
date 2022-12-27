@@ -4,6 +4,7 @@ import 'package:mokamayu/models/outfit_container.dart';
 import 'package:mokamayu/screens/calendar/pick_outfit_screen.dart';
 import 'package:mokamayu/screens/calendar/summarize_outfits_screen.dart';
 import 'package:mokamayu/screens/screens.dart';
+import 'package:mokamayu/screens/wardrobe/wardrobe_search_screen.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
 import '../models/wardrobe_item.dart';
@@ -81,6 +82,12 @@ class AppRouter {
           builder: (context, state) {
             return OutfitsAddAttributesScreen(
                 map: state.extra as Map<List<dynamic>, OutfitContainer>);
+          }),
+      GoRoute(
+          name: 'wardrobe-item-search-screen',
+          path: '/wardrobe-item-search-screen',
+          builder: (context, state) {
+            return WardrobeItemSearchScreen(items: state.extra as Future<List<WardrobeItem>>);
           }),
       GoRoute(
           name: 'outfit-summary-screen',

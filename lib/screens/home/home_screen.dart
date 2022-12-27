@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       const WardrobeScreen(),
       const OutfitsScreen(),
       const SocialScreen(),
-      // const CalendarScreen(),
+      const CalendarScreen(),
       ProfileScreen(user: user),
     ];
 

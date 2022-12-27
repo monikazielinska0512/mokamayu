@@ -91,9 +91,11 @@ class BasicScreen extends StatelessWidget {
           case "Pick outfits":
             context.go("/home/3");
             break;
+          case "wardrobe-item-search":
+            context.go("/home/0");
+            break;
           default:
             context.pop();
-          //case ...
         }
       },
       icon: const Icon(Icons.arrow_back_ios),
@@ -109,6 +111,8 @@ class BasicScreen extends StatelessWidget {
       case "add_photo":
         return Text("", style: TextStyles.appTitle(Colors.black));
       case "Wardrobe Item Form":
+        return Text("", style: TextStyles.appTitle(Colors.black));
+      case "wardrobe-item-search":
         return Text("", style: TextStyles.appTitle(Colors.black));
     }
     return Text(type, style: TextStyles.appTitle(Colors.black));

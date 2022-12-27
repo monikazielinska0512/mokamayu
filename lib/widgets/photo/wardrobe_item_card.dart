@@ -19,6 +19,7 @@ class WardrobeItemCard extends StatelessWidget {
   String? name = "";
   double size = 50;
   Event? event;
+
   @override
   Widget build(BuildContext context) {
     if (wardrobItem != null) {
@@ -66,7 +67,7 @@ class WardrobeItemCard extends StatelessWidget {
                         height: 15,
                       ),
                       TextButton(
-                          child: Text(
+                          child: const Text(
                             "See details",
                             style: TextStyle(
                                 color: ColorsConstants.darkBrick,
@@ -83,7 +84,7 @@ class WardrobeItemCard extends StatelessWidget {
                       height: 10,
                     ),
                     TextButton(
-                        child: Text(
+                        child: const Text(
                           "See details",
                           style: TextStyle(
                               color: ColorsConstants.darkBrick,
