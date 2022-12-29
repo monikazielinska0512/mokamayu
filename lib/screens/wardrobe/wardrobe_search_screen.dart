@@ -113,7 +113,7 @@ class _WardrobeItemSearchScreenState extends State<WardrobeItemSearchScreen> {
                       alignment: Alignment.centerLeft,
                       child: GestureDetector(
                           onTap: () => {
-                                context.goNamed('wardrobe-item',
+                                context.pushNamed('wardrobe-item',
                                     extra: snapshot.data?[index])
                               },
                           child: const Text(

@@ -85,9 +85,6 @@ class BasicScreen extends StatelessWidget {
           case "add_photo":
             context.go("/home/0");
             break;
-          case "Wardrobe Item Form":
-            isEdit! ? context.go("/home/0") : context.go("/pick-photo");
-            break;
           case "Pick outfits":
             context.go("/home/3");
             break;

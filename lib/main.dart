@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,17 +19,17 @@ void main() async {
   final appStateManager = AppStateManager();
   await appStateManager.initializeApp();
 
-  // if (kDebugMode) {
-  //   try {
-  //     // do testowania na emulatorach lokalnie
-  //     FirebaseFirestore.instance.useFirestoreEmulator('127.0.0.1', 8080);
-  //     FirebaseStorage.instance.useStorageEmulator('127.0.0.1', 9199);
-  //     await FirebaseAuth.instance.useAuthEmulator('127.0.0.1', 9099);
-  //   } catch (e) {
-  //     // ignore: avoids_print
-  //     print(e);
-  //   }
-  // }
+  if (kDebugMode) {
+    try {
+      // do testowania na emulatorach lokalnie
+      FirebaseFirestore.instance.useFirestoreEmulator('127.0.0.1', 8080);
+      FirebaseStorage.instance.useStorageEmulator('127.0.0.1', 9199);
+      await FirebaseAuth.instance.useAuthEmulator('127.0.0.1', 9099);
+    } catch (e) {
+      // ignore: avoids_print
+      print(e);
+    }
+  }
   runApp(MyApp(appStateManager: appStateManager));
 }
 
