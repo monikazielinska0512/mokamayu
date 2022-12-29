@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/outfit_container.dart';
+import 'package:mokamayu/screens/calendar/calendar_screen.dart';
 import 'package:mokamayu/screens/calendar/pick_outfit_screen.dart';
 import 'package:mokamayu/screens/calendar/summarize_outfits_screen.dart';
 import 'package:mokamayu/screens/screens.dart';
@@ -58,16 +59,14 @@ class AppRouter {
           name: 'add-wardrobe-item',
           builder: (context, state) {
             String file = state.params['file']!;
-            return AddWardrobeItemForm(
-                photo: file, isEdit: false);
+            return AddWardrobeItemForm(photo: file, isEdit: false);
           }),
       GoRoute(
           path: '/wardrobe-item',
           name: 'wardrobe-item',
           builder: (context, state) {
             return AddWardrobeItemForm(
-                editItem: state.extra as WardrobeItem,
-                isEdit: true);
+                editItem: state.extra as WardrobeItem, isEdit: true);
           }),
       GoRoute(
           name: 'create-outfit-page',
@@ -87,7 +86,8 @@ class AppRouter {
           name: 'wardrobe-item-search-screen',
           path: '/wardrobe-item-search-screen',
           builder: (context, state) {
-            return WardrobeItemSearchScreen(items: state.extra as Future<List<WardrobeItem>>);
+            return WardrobeItemSearchScreen(
+                items: state.extra as Future<List<WardrobeItem>>);
           }),
       GoRoute(
           name: 'outfit-summary-screen',

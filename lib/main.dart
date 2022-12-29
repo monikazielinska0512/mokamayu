@@ -18,17 +18,17 @@ void main() async {
   final appStateManager = AppStateManager();
   await appStateManager.initializeApp();
 
-  if (kDebugMode) {
-    try {
-      // do testowania na emulatorach lokalnie
-      FirebaseFirestore.instance.useFirestoreEmulator('127.0.0.1', 8080);
-      FirebaseStorage.instance.useStorageEmulator('127.0.0.1', 9199);
-      await FirebaseAuth.instance.useAuthEmulator('127.0.0.1', 9099);
-    } catch (e) {
-      // ignore: avoids_print
-      print(e);
-    }
-  }
+  // if (kDebugMode) {
+  //   try {
+  //     // do testowania na emulatorach lokalnie
+  //     FirebaseFirestore.instance.useFirestoreEmulator('127.0.0.1', 8080);
+  //     FirebaseStorage.instance.useStorageEmulator('127.0.0.1', 9199);
+  //     await FirebaseAuth.instance.useAuthEmulator('127.0.0.1', 9099);
+  //   } catch (e) {
+  //     // ignore: avoids_print
+  //     print(e);
+  //   }
+  // }
   runApp(MyApp(appStateManager: appStateManager));
 }
 

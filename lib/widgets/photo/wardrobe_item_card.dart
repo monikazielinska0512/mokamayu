@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,8 @@ import 'package:provider/provider.dart';
 import '../../models/calendar_event.dart';
 import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/calendar_manager.dart';
+import '../../services/managers/outfit_manager.dart';
+import '../../services/managers/photo_tapped_manager.dart';
 
 class WardrobeItemCard extends StatelessWidget {
   WardrobeItemCard(
@@ -19,6 +22,7 @@ class WardrobeItemCard extends StatelessWidget {
   String? name = "";
   double size = 50;
   Event? event;
+  Map<List<dynamic>, OutfitContainer>? getMap = {};
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +80,11 @@ class WardrobeItemCard extends StatelessWidget {
                           ),
                           onPressed: () => {
                                 //TODO see details
+                                // if (wardrobItem != null)
+                                //   {
+                                //     context.pushNamed('wardrobe-item',
+                                //         extra: wardrobItem)
+                                //   }
                               }),
                     ],
                   )
@@ -92,7 +101,23 @@ class WardrobeItemCard extends StatelessWidget {
                           textAlign: TextAlign.right,
                         ),
                         onPressed: () => {
-                              //TODO see details
+                              Provider.of<PhotoTapped>(context, listen: false)
+                                  .setObject(outfit),
+                              outfit!.map!.forEach((key, value) {
+                                Map<String, dynamic> contList =
+                                    json.decode(value);
+                                OutfitContainer list = OutfitContainer(
+                                    height: contList["height"],
+                                    rotation: contList["rotation"],
+                                    scale: contList["scale"],
+                                    width: contList["width"],
+                                    xPosition: contList["xPosition"],
+                                    yPosition: contList["yPosition"]);
+                                getMap!.addAll({json.decode(key): list});
+                              }),
+                              GoRouter.of(context).goNamed(
+                                  "outfit-add-attributes-screen",
+                                  extra: getMap)
                             }),
                     GestureDetector(
                         onTap: () {
