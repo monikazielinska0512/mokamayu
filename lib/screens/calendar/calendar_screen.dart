@@ -157,6 +157,34 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     )
                   : null,
             )),
+        Row(
+          children: [
+            Expanded(
+                child: Padding(
+              padding: EdgeInsets.only(left: 20, right: 80, top: 10),
+              child: TextField(
+                  decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.find_in_page),
+                  onPressed: () async {
+                    //TODO
+                  },
+                ),
+                labelText: 'Enter City',
+                floatingLabelBehavior: FloatingLabelBehavior.auto,
+              )),
+            )),
+
+            Padding(
+                padding: EdgeInsets.only(right: 20, top: 10),
+                //weather container
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  color: Colors.grey,
+                ))
+          ],
+        ),
         Padding(
             padding: const EdgeInsets.only(top: 20, left: 20, bottom: 10),
             child: Align(

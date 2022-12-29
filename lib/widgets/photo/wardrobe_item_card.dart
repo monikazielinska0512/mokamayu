@@ -115,7 +115,7 @@ class WardrobeItemCard extends StatelessWidget {
                                     yPosition: contList["yPosition"]);
                                 getMap!.addAll({json.decode(key): list});
                               }),
-                              GoRouter.of(context).goNamed(
+                              GoRouter.of(context).pushNamed(
                                   "outfit-add-attributes-screen",
                                   extra: getMap)
                             }),
