@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/widgets/fields/search_text_field.dart';
 import 'package:mokamayu/widgets/widgets.dart';
-import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
-import 'package:mokamayu/constants/constants.dart';
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
@@ -81,9 +81,11 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
           SizedBox(
               width: MediaQuery.of(context).size.width * 0.73,
               height: MediaQuery.of(context).size.height * 0.1,
-              child: SearchTextField(readOnly: true, onTap: () => context.go("/wardrobe-item-search-screen",
-                        extra: futureItemList),
-                )),
+              child: SearchTextField(
+                readOnly: true,
+                onTap: () => context.pushNamed("wardrobe-item-search-screen",
+                    extra: futureItemList),
+              )),
           // ButtonDarker(
           //     context,
           //     "Search",
@@ -100,7 +102,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   Widget buildFloatingButton() {
     return FloatingButton(
         onPressed: () {
-          context.goNamed('pick-photo');
+          context.pushNamed('pick-photo');
         },
         icon: const Icon(Icons.add),
         backgroundColor: ColorsConstants.darkBrick,

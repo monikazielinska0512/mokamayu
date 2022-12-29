@@ -4,9 +4,8 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/managers/wardrobe_manager.dart';
-import '../../widgets/fundamental/background_image.dart';
-import '../../services/managers/photo_tapped_manager.dart';
+import '../../services/managers/managers.dart';
+import '../../widgets/widgets.dart';
 
 class CustomDialogBox extends StatelessWidget {
   CustomDialogBox({Key? key, required this.itemList}) : super(key: key);
@@ -44,7 +43,7 @@ class CustomDialogBox extends StatelessWidget {
                               padding: const EdgeInsets.only(top: 25),
                               child: GestureDetector(
                                   onTap: () {
-                                    Navigator.of(context).pop();
+                                    context.pop();
                                   },
                                   child: const Icon(
                                     Icons.close,
@@ -71,9 +70,9 @@ class CustomDialogBox extends StatelessWidget {
                                   Provider.of<WardrobeManager>(context,
                                           listen: false)
                                       .setStyles([]);
-                                  context.goNamed("create-outfit-page",
+                                  context.pushNamed("create-outfit-page",
                                       extra: itemList!);
-                                  Navigator.of(context).pop();
+                                  context.pop();
                                 }, 18, secondText: "Use your creativity!")),
                             Padding(
                                 padding: const EdgeInsets.only(top: 20),

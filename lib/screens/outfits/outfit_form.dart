@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/models/outfit.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/colors.dart';
-import '../../constants/text_styles.dart';
-import '../../services/managers/outfit_manager.dart';
+import '../../constants/constants.dart';
+import '../../services/managers/managers.dart';
 import '../../utils/validator.dart';
-import '../../widgets/chips/single_select_chips_formfield.dart';
+import '../../widgets/chips/chips.dart';
 
 class OutfitForm extends StatelessWidget {
   OutfitForm({super.key, required this.formKey, this.item});
+
   final Outfit? item;
   final GlobalKey<FormState> formKey;
   String _season = "";
   String _style = "";
+
   @override
   Widget build(BuildContext context) {
     _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;

@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/photo_tapped_manager.dart';
-import 'package:mokamayu/services/managers/wardrobe_manager.dart';
 import 'package:provider/provider.dart';
 
 class PhotoBox extends StatelessWidget {
@@ -39,7 +38,7 @@ class PhotoBox extends StatelessWidget {
               child:
                   Text(name, style: TextStyles.paragraphRegularSemiBold14())),
         ]),
-        onTap: () => {context.goNamed('wardrobe-item', extra: object)});
+        onTap: () => {context.pushNamed('wardrobe-item', extra: object)});
   }
 
   Widget buildPhotoBoxForOutfits(

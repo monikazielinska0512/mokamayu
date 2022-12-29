@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -10,11 +9,10 @@ import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
 import '../../generated/l10n.dart';
 
-
 class ProfileScreen extends StatefulWidget {
-  final User? user;
+  final String? uid;
 
-  const ProfileScreen({Key? key, required this.user}) : super(key: key);
+  const ProfileScreen({Key? key, required this.uid}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -28,13 +26,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     userData = Provider.of<ProfileManager>(context, listen: false)
-        .getUserData(widget.user);
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          itemList = Provider.of<WardrobeManager>(context, listen: false)
-              .getWardrobeItemList;
-          outfitsList =
-              Provider.of<OutfitManager>(context, listen: false).getOutfitList;
-        }));
+        .getUserData(widget.uid);
+
+    if (widget.uid != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+            itemList = Provider.of<WardrobeManager>(context, listen: false)
+                .readWardrobeItemsForUser(widget.uid!);
+            outfitsList = Provider.of<OutfitManager>(context, listen: false)
+                .readOutfitsForUser(widget.uid!);
+          }));
+    }
+
     return BasicScreen(
       type: "",
       leftButtonType: "dots",
@@ -51,17 +53,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                buildUserCard(context, widget.user),
+                buildUserCard(context),
                 buildProfileGallery(context),
               ],
             ),
           ),
         ),
+        if (AuthService().getCurrentUserID() != widget.uid) ...[
+          buildFloatingButton()
+        ],
       ]),
     );
   }
 
-  Widget buildUserCard(BuildContext context, User? user) {
+  Widget buildUserCard(BuildContext context) {
     return Consumer<ProfileManager>(
         builder: (context, manager, _) => (FutureBuilder<UserData?>(
             future: userData,
@@ -85,8 +90,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(width: 10),
                     Container(
-                      width: 237,
-                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                      width: 235,
+                      padding: const EdgeInsets.fromLTRB(15, 15, 5, 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -110,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget buildButtons() {
-    if (AuthService().getCurrentUserID() == widget.user?.uid) {
+    if (AuthService().getCurrentUserID() == widget.uid) {
       return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         IconTextButton(
           onPressed: () {
@@ -172,5 +177,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  Widget buildFloatingButton() {
+    return FloatingButton(
+        onPressed: () {
+          context.pushNamed(
+            "create-outfit-page",
+            extra: itemList!,
+            queryParams: {
+              'uid': widget.uid,
+            },
+          );
+        },
+        icon: const Icon(Ionicons.body),
+        backgroundColor: ColorsConstants.darkBrick,
+        padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
+        alignment: Alignment.bottomRight);
   }
 }

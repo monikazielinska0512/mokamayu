@@ -3,15 +3,16 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/screens/outfits/outfit_form.dart';
+import 'package:mokamayu/services/managers/managers.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:uuid/uuid.dart';
-import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/widgets/widgets.dart';
-import 'package:mokamayu/services/managers/managers.dart';
-import 'package:mokamayu/constants/constants.dart';
+
 import '../../models/calendar_event.dart';
 import '../../services/storage.dart';
 
@@ -62,7 +63,7 @@ class _OutfitsAddAttributesScreenState
           leading: IconButton(
             onPressed: () {
               if (item != null) {
-                context.go("/home/1");
+                context.pop();
                 Provider.of<OutfitManager>(context, listen: false)
                     .setSeason("");
                 Provider.of<OutfitManager>(context, listen: false).setStyle("");
@@ -73,9 +74,7 @@ class _OutfitsAddAttributesScreenState
                 Provider.of<WardrobeManager>(context, listen: false)
                     .setTypes([]);
               } else {
-                context.goNamed("create-outfit-page",
-                    extra: Provider.of<WardrobeManager>(context, listen: false)
-                        .getWardrobeItemList);
+                context.pop();
               }
               Provider.of<OutfitManager>(context, listen: false)
                   .nullListItemCopy();
@@ -125,8 +124,7 @@ class _OutfitsAddAttributesScreenState
                   Provider.of<WardrobeManager>(context, listen: false)
                       .setTypes([]);
                   // ignore: use_build_context_synchronously
-                  GoRouter.of(context)
-                      .goNamed("outfit-summary-screen", extra: widget.map);
+                  context.pushNamed("outfit-summary-screen", extra: widget.map);
                 }).catchError((onError) {
                   if (kDebugMode) {
                     print(onError);
