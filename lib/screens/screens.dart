@@ -1,9 +1,13 @@
 export 'authenticate/login_screen.dart';
 export 'authenticate/register_screen.dart';
 export 'authenticate/reset_password_screen.dart';
+export 'calendar/pick_outfit_screen.dart';
+export 'calendar/summarize_outfits_screen.dart';
 export 'home/home_screen.dart';
 export 'notifications/notifications_screen.dart';
 export 'outfits/create_outfit_dialog.dart';
+export 'outfits/outfit_summary_screen.dart';
+export 'outfits/outfits_add_attributes_screen.dart';
 export 'outfits/outfits_add_screen.dart';
 export 'outfits/outfits_screen.dart';
 export 'profile/edit_profile_screen.dart';

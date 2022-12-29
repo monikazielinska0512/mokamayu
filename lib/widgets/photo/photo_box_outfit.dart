@@ -2,15 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/constants/colors.dart';
-
-import 'package:mokamayu/models/outfit.dart';
-import 'package:mokamayu/services/managers/calendar_manager.dart';
-import 'package:mokamayu/services/managers/photo_tapped_manager.dart';
+import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/outfit_container.dart';
-import '../../services/managers/outfit_manager.dart';
 
 class PhotoCardOutfit extends StatelessWidget {
   PhotoCardOutfit({Key? key, this.object, this.type}) : super(key: key);
@@ -26,9 +21,7 @@ class PhotoCardOutfit extends StatelessWidget {
       outfitsMap =
           Provider.of<CalendarManager>(context, listen: true).getOutfitsMap;
       selected = outfitsMap[object];
-      if (selected == null) {
-        selected = false;
-      }
+      selected ??= false;
       // print(selected);
     }
 
@@ -83,7 +76,7 @@ class PhotoCardOutfit extends StatelessWidget {
     Provider.of<OutfitManager>(context, listen: false)
         .setSeason(object!.season);
     Provider.of<OutfitManager>(context, listen: false).setStyle(object!.style);
-    GoRouter.of(context).goNamed("outfit-add-attributes-screen", extra: getMap);
+    context.pushNamed("outfit-add-attributes-screen", extra: getMap);
   }
 
   void tapOutfitCalendar(BuildContext context) {

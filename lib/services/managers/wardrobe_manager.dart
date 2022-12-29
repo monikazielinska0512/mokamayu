@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mokamayu/models/models.dart';
+
 import '../../constants/tags.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
@@ -12,8 +13,10 @@ class WardrobeManager extends ChangeNotifier {
   Future<List<WardrobeItem>>? futureWardrobeItemListCopy;
 
   Future<List<WardrobeItem>>? get getWardrobeItemList => futureWardrobeItemList;
+
   Future<List<WardrobeItem>>? get getWardrobeItemListCopy =>
       futureWardrobeItemListCopy;
+
   List<WardrobeItem> get getFinalWardrobeItemList => finalWardrobeItemList;
 
   List<String>? itemTypes;
@@ -67,6 +70,15 @@ class WardrobeManager extends ChangeNotifier {
     });
     finalWardrobeItemList = itemList;
     return finalWardrobeItemList;
+  }
+
+  Future<List<WardrobeItem>> readWardrobeItemsForUser(String uid) async {
+    QuerySnapshot snapshot =
+        await db.collection('users').doc(uid).collection('wardrobe').get();
+
+    return snapshot.docs
+        .map((element) => WardrobeItem.fromSnapshot(element))
+        .toList();
   }
 
   Future<List<WardrobeItem>> filterWardrobe(

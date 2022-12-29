@@ -1,12 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/widgets/widgets.dart';
-import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/constants/constants.dart';
-import '../../services/managers/outfit_manager.dart';
-import '../../widgets/modals/filter_modal.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {

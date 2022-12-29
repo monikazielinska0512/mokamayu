@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
-import '../../constants/colors.dart';
-import '../../constants/tags.dart';
-import '../../models/outfit_container.dart';
-import '../../models/wardrobe_item.dart';
-import '../../services/managers/outfit_manager.dart';
-import '../../services/managers/photo_tapped_manager.dart';
-import '../../services/managers/wardrobe_manager.dart';
+import '../../constants/constants.dart';
+import '../../models/models.dart';
+import '../../services/managers/managers.dart';
 
 class CreateOutfitPage extends StatelessWidget {
-  CreateOutfitPage({Key? key, this.itemList}) : super(key: key);
+  CreateOutfitPage({Key? key, this.itemList, this.friendUid}) : super(key: key);
   Future<List<WardrobeItem>>? itemList;
+  String? friendUid;
   Map<List<dynamic>, OutfitContainer> map = {};
   List<String> selectedChips = Tags.types;
   Future<List<WardrobeItem>>? futureItemListCopy;
@@ -24,10 +21,16 @@ class CreateOutfitPage extends StatelessWidget {
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
 
-    futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
-        .getWardrobeItemListCopy;
-    itemList =
-        Provider.of<WardrobeManager>(context, listen: true).getWardrobeItemList;
+    if (friendUid != null) {
+      futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
+          .readWardrobeItemsForUser(friendUid!);
+    } else {
+      futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
+          .getWardrobeItemListCopy;
+      itemList = Provider.of<WardrobeManager>(context, listen: true)
+          .getWardrobeItemList;
+    }
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -45,7 +48,7 @@ class CreateOutfitPage extends StatelessWidget {
             Provider.of<WardrobeManager>(context, listen: false)
                 .nullListItemCopy();
             Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-            context.go("/home/1");
+            context.pop();
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
@@ -60,8 +63,7 @@ class CreateOutfitPage extends StatelessWidget {
               Provider.of<WardrobeManager>(context, listen: false)
                   .nullListItemCopy();
               Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-              GoRouter.of(context)
-                  .goNamed("outfit-add-attributes-screen", extra: map);
+              context.pushNamed("outfit-add-attributes-screen", extra: map);
             },
           )
         ],

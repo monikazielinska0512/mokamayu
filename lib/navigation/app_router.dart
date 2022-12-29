@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/models/outfit_container.dart';
-import 'package:mokamayu/screens/calendar/pick_outfit_screen.dart';
-import 'package:mokamayu/screens/calendar/summarize_outfits_screen.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/screens/wardrobe/wardrobe_search_screen.dart';
 import 'package:mokamayu/services/managers/managers.dart';
-import 'package:mokamayu/services/managers/outfit_manager.dart';
-import '../models/wardrobe_item.dart';
-import '../screens/outfits/outfit_summary_screen.dart';
-import '../screens/outfits/outfits_add_attributes_screen.dart';
+
+import '../models/models.dart';
 
 class AppRouter {
   final AppStateManager appStateManager;
@@ -51,30 +46,29 @@ class AppRouter {
       GoRoute(
         name: 'pick-photo',
         path: '/pick-photo',
-        builder: (context, state) => AddPhotoScreen(),
+        builder: (context, state) => const AddPhotoScreen(),
       ),
       GoRoute(
           path: '/add-wardrobe-item/:file',
           name: 'add-wardrobe-item',
           builder: (context, state) {
             String file = state.params['file']!;
-            return AddWardrobeItemForm(
-                photo: file, isEdit: false);
+            return AddWardrobeItemForm(photo: file, isEdit: false);
           }),
       GoRoute(
           path: '/wardrobe-item',
           name: 'wardrobe-item',
           builder: (context, state) {
             return AddWardrobeItemForm(
-                editItem: state.extra as WardrobeItem,
-                isEdit: true);
+                editItem: state.extra as WardrobeItem, isEdit: true);
           }),
       GoRoute(
           name: 'create-outfit-page',
           path: '/create-outfit-page',
           builder: (context, state) {
             return CreateOutfitPage(
-                itemList: state.extra as Future<List<WardrobeItem>>?);
+                itemList: state.extra as Future<List<WardrobeItem>>?,
+                friendUid: state.queryParams['uid']);
           }),
       GoRoute(
           name: 'outfit-add-attributes-screen',
@@ -87,7 +81,8 @@ class AppRouter {
           name: 'wardrobe-item-search-screen',
           path: '/wardrobe-item-search-screen',
           builder: (context, state) {
-            return WardrobeItemSearchScreen(items: state.extra as Future<List<WardrobeItem>>);
+            return WardrobeItemSearchScreen(
+                items: state.extra as Future<List<WardrobeItem>>);
           }),
       GoRoute(
           name: 'outfit-summary-screen',

@@ -2,22 +2,17 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/models/outfit_container.dart';
-import 'package:mokamayu/services/managers/outfit_manager.dart';
+import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/colors.dart';
-import '../../constants/text_styles.dart';
-import '../../models/outfit.dart';
-import '../../models/wardrobe_item.dart';
-import '../../services/authentication/auth.dart';
-import '../../services/managers/managers.dart';
+import '../../constants/constants.dart';
+import '../../services/services.dart';
 import '../../widgets/buttons/buttons.dart';
-import '../../services/managers/photo_tapped_manager.dart';
-import '../../widgets/photo/wardrobe_item_card.dart';
+import '../../widgets/photo/photo.dart';
 
 class OutfitSummaryScreen extends StatelessWidget {
   OutfitSummaryScreen({super.key, this.map});
+
   Map<List<dynamic>, OutfitContainer>? map = {};
   late String capturedOutfit;
   List<WardrobeItem>? itemList;
@@ -46,7 +41,7 @@ class OutfitSummaryScreen extends StatelessWidget {
                   .setSeason(_season);
               Provider.of<OutfitManager>(context, listen: false)
                   .setStyle(_style);
-              context.goNamed("outfit-add-attributes-screen", extra: map);
+              context.pop();
             },
             icon: const Icon(Icons.arrow_back_ios),
           ),
