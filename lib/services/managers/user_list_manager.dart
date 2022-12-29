@@ -19,9 +19,9 @@ class UserListManager extends ChangeNotifier {
         .get();
     for (var element in snapshot.docs) {
       UserData user = UserData.fromSnapshot(element);
-      if (user.uid != currentAuthUser?.uid) {
+      // if (user.uid != currentAuthUser?.uid) {
         temp.add(user);
-      }
+      // }
     }
     userList = temp;
     return userList;

@@ -26,7 +26,7 @@ class _UsersScreenState extends State<UsersScreen> {
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     Provider.of<UserListManager>(context, listen: false).readUserOnce()
       .then((List<UserData> temp){

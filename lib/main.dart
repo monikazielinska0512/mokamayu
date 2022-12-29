@@ -8,6 +8,7 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/services/authentication/auth.dart';
 import 'package:mokamayu/services/managers/app_state_manager.dart';
 import 'package:mokamayu/services/managers/calendar_manager.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/services/managers/profile_manager.dart';
 import 'package:mokamayu/services/managers/user_list_manager.dart';
 import 'package:mokamayu/services/managers/wardrobe_manager.dart';
@@ -53,10 +54,11 @@ class _MyAppState extends State<MyApp> {
   late final _profileManager = ProfileManager();
   late final _wardrobeManager = WardrobeManager();
   late final _outfitManager = OutfitManager();
-  late final _userListManager= UserListManager();
+  late final _userListManager = UserListManager();
+  late final _postManager = PostManager();
 
   late final _appRouter = AppRouter(widget.appStateManager, _profileManager,
-      _wardrobeManager, _outfitManager, _userListManager);
+      _wardrobeManager, _outfitManager, _userListManager, _postManager);
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => PhotoTapped()),
         ChangeNotifierProvider(create: (_) => UserListManager()),
         ChangeNotifierProvider(create: (_) => CalendarManager()),
+        ChangeNotifierProvider(create: (_) => PostManager()),
       ],
       child: MaterialApp.router(
         routerDelegate: router.routerDelegate,

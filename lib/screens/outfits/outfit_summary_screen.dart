@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/outfit_container.dart';
@@ -9,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../../constants/colors.dart';
 import '../../constants/text_styles.dart';
 import '../../models/outfit.dart';
+import '../../models/post.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/managers.dart';
@@ -25,6 +27,7 @@ class OutfitSummaryScreen extends StatelessWidget {
   late String _style;
   late String _season;
   Future<List<Outfit>>? outfitsList;
+  Future<List<Post>>? postList;
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +164,18 @@ class OutfitSummaryScreen extends StatelessWidget {
       Provider.of<PhotoTapped>(context, listen: false).setObject(null);
 
       _elements = [];
+
+      Post postData = Post(
+        createdBy: AuthService().getCurrentUserID(),
+        cover: capturedOutfit,
+        creationDate: DateTime.now().millisecondsSinceEpoch,
+        likes: [],
+        comments: [],
+      );
+      Provider.of<PostManager>(context, listen: false).addPostToFirestore(postData);
+      postList = Provider.of<PostManager>(context, listen: false).readPostsOnce();
+      Provider.of<PostManager>(context, listen: false).setPosts(postList!);
+
       context.go("/home/1");
     });
   }
