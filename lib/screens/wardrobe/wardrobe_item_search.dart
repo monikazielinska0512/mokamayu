@@ -8,7 +8,7 @@ import '../../models/wardrobe_item.dart';
 import '../../services/managers/wardrobe_manager.dart';
 
 class WardrobeItemSearch extends StatefulWidget {
-  WardrobeItemSearch({Key? key, required this.title}) : super(key: key);
+  const WardrobeItemSearch({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -76,11 +76,11 @@ class _WardrobeItemSearchState extends State<WardrobeItemSearch> {
               fillColor: ColorsConstants.whiteAccent,
               labelStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
               hintStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
               ),
-              focusedBorder: OutlineInputBorder(
+              focusedBorder: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
               ),

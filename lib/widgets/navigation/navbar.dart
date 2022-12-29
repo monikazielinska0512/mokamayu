@@ -24,9 +24,9 @@ class NavBarState extends State<NavBar> {
       itemShape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15))),
       currentIndex: widget.selectedIndex,
-      margin: const EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 5),
+      margin: const EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 15),
       itemPadding:
-          const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+          const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 10),
       onTap: widget.onTabChange,
       items: [
         SalomonBottomBarItem(

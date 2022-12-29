@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../constants/colors.dart';
+import '../../constants/text_styles.dart';
 import '../../services/managers/outfit_manager.dart';
 
 class SingleSelectChipsFormField extends FormField<String> {
@@ -31,18 +30,19 @@ class SingleSelectChipsFormField extends FormField<String> {
                     children:
                         List<Widget>.generate(chipsList.length, (int index) {
                       return ChoiceChip(
-                          label: Text(chipsList[index]),
+                          label: state.value == chipsList[index]
+                              ? Text(chipsList[index],
+                                  style: TextStyles.paragraphRegularSemiBold16(
+                                      Colors.white))
+                              : Text(chipsList[index],
+                                  style: TextStyles.paragraphRegular16(
+                                      Colors.white)),
                           selected: state.value == chipsList[index],
                           shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          backgroundColor: color,
-                          selectedColor: color.withOpacity(0.2),
-                          // labelStyle: state.value == chipsList[index]
-                          //     ? TextStyles.paragraphRegularSemiBold18(
-                          //     ColorsConstants.colorList[index])
-                          //     : TextStyles.paragraphRegular18(
-                          //     ColorsConstants.grey),
+                          backgroundColor: color.withOpacity(0.6),
+                          selectedColor: color,
                           onSelected: (bool selected) {
                             state.didChange(selected ? chipsList[index] : "");
                             if (type == 'season') {

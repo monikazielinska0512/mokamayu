@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
@@ -11,7 +10,6 @@ import '../../models/calendar_event.dart';
 import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/calendar_manager.dart';
 import '../../services/managers/wardrobe_manager.dart';
-import '../modals/delete_wardrobe_item_modal.dart';
 
 class PhotoGrid extends StatefulWidget {
   final bool scrollVertically;
@@ -121,91 +119,90 @@ class _PhotoGridState extends State<PhotoGrid> {
       builder: (context, snapshot) {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
-              child: snapshot.data!.isEmpty
-                  ? Text("You haven't created any outfits yet!",
-                      style: TextStyles.paragraphRegularSemiBold14(Colors.grey))
-                  : GridView.builder(
-                      scrollDirection: widget.getScrollDirection(),
-                      shrinkWrap: false,
-                      itemCount: snapshot.data!.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1.0,
-                        crossAxisSpacing: 1.0,
-                        mainAxisSpacing: 2,
-                        mainAxisExtent: 180,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        var itemInfo = snapshot.data![index];
-                        return widget.type == null
-                            ? DeleteBottomModal(
-                                outfit: itemInfo,
-                                actionFunction: () {
-                                  Provider.of<OutfitManager>(context,
-                                          listen: false)
-                                      .removeOutfit(itemInfo.reference);
-                                  Provider.of<OutfitManager>(context,
-                                          listen: false)
-                                      .nullListItemCopy();
-                                  Provider.of<OutfitManager>(context,
-                                          listen: false)
-                                      .setStyles([]);
-                                  Provider.of<OutfitManager>(context,
-                                          listen: false)
-                                      .setSeasons([]);
-                                  widget.outfitsList =
-                                      Provider.of<OutfitManager>(context,
-                                              listen: false)
-                                          .readOutfitsOnce();
+            child: snapshot.data!.isEmpty
+                ? Text("You haven't created any outfits yet!",
+                    style: TextStyles.paragraphRegularSemiBold14(Colors.grey))
+                : GridView.builder(
+                    scrollDirection: widget.getScrollDirection(),
+                    shrinkWrap: false,
+                    itemCount: snapshot.data!.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.0,
+                      crossAxisSpacing: 1.0,
+                      mainAxisSpacing: 2,
+                      mainAxisExtent: 180,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      var itemInfo = snapshot.data![index];
+                      return widget.type == null
+                          ? DeleteBottomModal(
+                              outfit: itemInfo,
+                              actionFunction: () {
+                                Provider.of<OutfitManager>(context,
+                                        listen: false)
+                                    .removeOutfit(itemInfo.reference);
+                                Provider.of<OutfitManager>(context,
+                                        listen: false)
+                                    .nullListItemCopy();
+                                Provider.of<OutfitManager>(context,
+                                        listen: false)
+                                    .setStyles([]);
+                                Provider.of<OutfitManager>(context,
+                                        listen: false)
+                                    .setSeasons([]);
+                                widget.outfitsList = Provider.of<OutfitManager>(
+                                        context,
+                                        listen: false)
+                                    .readOutfitsOnce();
 
-                                  Provider.of<OutfitManager>(context,
-                                          listen: false)
-                                      .setOutfits(widget.outfitsList!);
+                                Provider.of<OutfitManager>(context,
+                                        listen: false)
+                                    .setOutfits(widget.outfitsList!);
 
-                                  context.pop();
-                                  //checking if outfit was in any event, if so, then delete event from calendar
-                                  Map<DateTime, List<Event>> events =
-                                      Provider.of<CalendarManager>(context,
-                                              listen: false)
-                                          .getEvents;
-
-                                  List<Event> eventsToRemove = [];
-
-                                  events.forEach((key, value) {
-                                    for (var element in value) {
-                                      if (element.outfit == itemInfo) {
-                                        eventsToRemove.add(element);
-                                      }
-                                    }
-                                  });
-
-                                  for (var element in eventsToRemove) {
+                                context.pop();
+                                //checking if outfit was in any event, if so, then delete event from calendar
+                                Map<DateTime, List<Event>> events =
                                     Provider.of<CalendarManager>(context,
                                             listen: false)
-                                        .removeEvent(element);
+                                        .getEvents;
+
+                                List<Event> eventsToRemove = [];
+
+                                events.forEach((key, value) {
+                                  for (var element in value) {
+                                    if (element.outfit == itemInfo) {
+                                      eventsToRemove.add(element);
+                                    }
                                   }
+                                });
 
-                                  events = Provider.of<CalendarManager>(context,
-                                          listen: false)
-                                      .getEvents;
-
+                                for (var element in eventsToRemove) {
                                   Provider.of<CalendarManager>(context,
                                           listen: false)
-                                      .setSelectedEvents(events);
-                                  Map<String, String> encodedEvents =
-                                      encodeMap(events);
+                                      .removeEvent(element);
+                                }
 
-                                  Provider.of<AppStateManager>(context,
-                                          listen: false)
-                                      .cacheEvents(encodedEvents);
+                                events = Provider.of<CalendarManager>(context,
+                                        listen: false)
+                                    .getEvents;
+                                Provider.of<CalendarManager>(context,
+                                        listen: false)
+                                    .setSelectedEvents(events);
+                                Map<String, String> encodedEvents =
+                                    encodeMap(events);
 
-                                },
-                              )
-                            : PhotoCardOutfit(
-                                object: itemInfo, type: "pick_outfits");
-                      },
-                    ));
+                                Provider.of<AppStateManager>(context,
+                                        listen: false)
+                                    .cacheEvents(encodedEvents);
+                              },
+                            )
+                          : PhotoCardOutfit(
+                              object: itemInfo, type: "pick_outfits");
+                    },
+                  ),
+          );
         }
         return Center(
             child: CircularProgressIndicator(

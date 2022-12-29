@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import '../../models/outfit.dart';
@@ -66,8 +67,7 @@ class _DeleteBottomModalState extends State<DeleteBottomModal> {
                                       onTap: () {
                                         Navigator.of(context).pop();
                                       },
-                                      child: const Icon(
-                                        Icons.close,
+                                      child: const Icon(Ionicons.close_outline,
                                         size: 25,
                                         color: Colors.grey,
                                       )),
