@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/outfit_container.dart';
-import 'package:mokamayu/models/post.dart';
 import 'package:mokamayu/screens/calendar/pick_outfit_screen.dart';
 import 'package:mokamayu/screens/calendar/summarize_outfits_screen.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/screens/wardrobe/wardrobe_search_screen.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
-import '../models/user.dart';
 import '../models/wardrobe_item.dart';
 import '../screens/outfits/outfit_summary_screen.dart';
 import '../screens/outfits/outfits_add_attributes_screen.dart';
-import '../screens/social/post_screen.dart';
 
 class AppRouter {
   final AppStateManager appStateManager;
   final ProfileManager profileManager;
   final WardrobeManager wardrobeManager;
   final OutfitManager outfitManager;
-  final UserListManager userListManager;
-  final PostManager postManager;
 
   AppRouter(this.appStateManager, this.profileManager, this.wardrobeManager,
-      this.outfitManager, this.userListManager, this.postManager);
+      this.outfitManager);
 
   late final router = GoRouter(
     debugLogDiagnostics: true,
@@ -102,11 +97,6 @@ class AppRouter {
                 map: state.extra as Map<List<dynamic>, OutfitContainer>?);
           }),
       GoRoute(
-          name: 'find-users',
-          path: '/find-users',
-          builder: (context, state) => const UsersScreen(),
-      ),
-      GoRoute(
           name: 'edit-profile',
           path: '/edit-profile',
           builder: (context, state) {
@@ -126,15 +116,6 @@ class AppRouter {
         name: 'summarize-outfits-screen',
         path: '/summarize-outfits-screen',
         builder: (context, state) => const SummarizeOutfitsScreen(),
-      ),
-      GoRoute(
-        name: 'post-screen',
-        path: '/post-screen',
-        builder: (context, state) => PostScreen(
-            post: state.params['post'] as Post,
-            user: state.params['user'] as UserData,
-            userList: state.params['userList'] as List<UserData>,
-        ),
       ),
     ],
     redirect: (_, GoRouterState state) {
