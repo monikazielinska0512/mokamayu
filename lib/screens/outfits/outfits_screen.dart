@@ -1,10 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/widgets/widgets.dart';
-import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -74,10 +76,9 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.075,
         child: Row(children: [
-          const Spacer(),
-          // Expanded(
-          //     child: SearchBar(title: "Search", hintTitle: "Name of item")),
-          // SizedBox(width: MediaQuery.of(context).size.width * 0.045),
+          Expanded(
+              child: SearchBar(title: "Search", hintTitle: "Name of item")),
+          SizedBox(width: MediaQuery.of(context).size.width * 0.045),
           FilterModal(
               onApplyOutfits: (selectedList) =>
                   {outfitsListCopy = selectedList})

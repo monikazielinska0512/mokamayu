@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mokamayu/models/outfit.dart';
+
 import '../../constants/tags.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
@@ -10,8 +11,11 @@ class OutfitManager extends ChangeNotifier {
   List<Outfit> finalOutfitListCopy = [];
   Future<List<Outfit>>? futureOutfitList;
   Future<List<Outfit>>? futureOutfitListCopy;
+
   Future<List<Outfit>>? get getOutfitList => futureOutfitList;
+
   Future<List<Outfit>>? get getOutfitListCopy => futureOutfitListCopy;
+
   List<Outfit> get getfinalOutfitList => finalOutfitList;
   String? outfitStyle = "";
   String? outfitSeason = "";
@@ -71,6 +75,15 @@ class OutfitManager extends ChangeNotifier {
     });
     finalOutfitList = outfitList;
     return finalOutfitList;
+  }
+
+  Future<List<Outfit>> readOutfitsForUser(String uid) async {
+    QuerySnapshot snapshot =
+        await db.collection('users').doc(uid).collection('outfits').get();
+
+    return snapshot.docs
+        .map((element) => Outfit.fromSnapshot(element))
+        .toList();
   }
 
   Future<void> addOutfitToFirestore(Outfit item) async {

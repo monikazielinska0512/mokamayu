@@ -50,7 +50,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
   Widget buildButton(PhotoPicker picker) {
     return ButtonDarker(context, "Next", () {
       picker.photo != null
-          ? context.goNamed(
+          ? context.pushNamed(
               'add-wardrobe-item',
               params: {
                 'file': picker.photoPath as String,

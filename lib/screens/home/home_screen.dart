@@ -22,14 +22,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<ProfileManager>(context).currentAuthUser;
+    final currentUserUid =
+        Provider.of<ProfileManager>(context).currentAuthUser?.uid;
 
     List<Widget> pages = [
       const WardrobeScreen(),
       const OutfitsScreen(),
       const SocialScreen(),
       const CalendarScreen(),
-      ProfileScreen(user: user),
+      ProfileScreen(uid: currentUserUid),
     ];
 
     return Scaffold(
