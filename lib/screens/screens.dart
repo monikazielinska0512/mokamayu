@@ -9,7 +9,6 @@ export 'outfits/outfits_screen.dart';
 export 'profile/edit_profile_screen.dart';
 export 'profile/profile_screen.dart';
 export 'social/social_screen.dart';
-export 'social/users_screen.dart';
 export 'wardrobe/add_photo_screen.dart';
 export 'wardrobe/wardrobe_item_form_screen.dart';
 export 'wardrobe/wardrobe_screen.dart';
