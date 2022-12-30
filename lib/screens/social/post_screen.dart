@@ -158,7 +158,7 @@ class _PostScreenState extends State<PostScreen>{
                     decoration: const InputDecoration(
                       hintText: "Comment post",
                       filled: true,
-                      fillColor: ColorsConstants.darkBrick,
+                      fillColor: ColorsConstants.white,
                       suffixIcon: Icon(Icons.arrow_forward_ios_rounded, color: ColorsConstants.darkBrick,),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(80)),

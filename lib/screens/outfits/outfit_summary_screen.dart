@@ -169,7 +169,7 @@ class OutfitSummaryScreen extends StatelessWidget {
       postList = Provider.of<PostManager>(context, listen: false).readPostsOnce();
       Provider.of<PostManager>(context, listen: false).setPosts(postList!);
 
-      context.go("/home/1");
+      context.pushReplacement("/home/1");
     });
   }
 }
