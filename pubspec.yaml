@@ -64,6 +64,7 @@ dependencies:
   ionicons: ^0.2.1
   table_calendar: ^3.0.8
   flutter_slidable: ^2.0.0
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:

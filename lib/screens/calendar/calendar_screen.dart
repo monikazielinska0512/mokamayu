@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/outfit.dart';
+import 'package:mokamayu/models/weather.dart';
 import 'package:mokamayu/services/managers/calendar_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +33,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Map<DateTime, List<Event>> selectedEvents = {};
   List<Outfit>? outfitList;
   final AuthService _auth = AuthService();
+  final TextEditingController _cityTextController = TextEditingController();
+  WeatherModel weatherModel = WeatherModel();
+  late int temperature;
+  late int condition;
+  late String cityName;
+  late String weatherIcon;
+  late String tempIcon;
 
   prefsData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -79,6 +87,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   void initState() {
     super.initState();
     selectedEvents = {};
+    updateUI(null);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 2), () => prefsData());
     });
@@ -163,26 +172,44 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 child: Padding(
               padding: EdgeInsets.only(left: 20, right: 80, top: 10),
               child: TextField(
+                  controller: _cityTextController,
                   decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.find_in_page),
-                  onPressed: () async {
-                    //TODO
-                  },
-                ),
-                labelText: 'Enter City',
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
-              )),
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () async {
+                        //TODO
+                        if (_cityTextController != null) {
+                          var weatherData = await weatherModel
+                              .getCityWeather(_cityTextController.toString());
+                          updateUI(weatherData);
+                        }
+                      },
+                    ),
+                    labelText: 'Enter City',
+                    floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  )),
             )),
-
             Padding(
                 padding: EdgeInsets.only(right: 20, top: 10),
                 //weather container
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  color: Colors.grey,
-                ))
+                child: Row(
+                  children: [
+                    Text(
+                      '$temperature°  ',
+                      // style: kTempTextStyle,
+                    ),
+                    Text(
+                      '$weatherIcon',
+                      // style: kConditionTextStyle,
+                    ),
+                  ],
+                )
+                // Container(
+                //   height: 100,
+                //   width: 100,
+                //   color: Colors.grey,
+                // )
+                )
           ],
         ),
         Padding(
@@ -211,6 +238,25 @@ class _CalendarScreenState extends State<CalendarScreen> {
       ]),
       buildFloatingButton()
     ]);
+  }
+
+  void updateUI(dynamic weather) {
+    setState(() {
+      if (weather == null) {
+        temperature = 0;
+        weatherIcon = 'Error';
+        tempIcon = 'Unable to get weather data';
+        cityName = '';
+        return;
+      }
+      var condition = weather['weather'][0]['id'];
+      weatherIcon = weatherModel.getWeatherIcon(condition);
+      double temp = weather['main']['temp'];
+      temperature = temp.toInt();
+      tempIcon = weatherModel.getMessage(temperature);
+
+      cityName = weather['name'];
+    });
   }
 
   Widget buildFloatingButton() {
