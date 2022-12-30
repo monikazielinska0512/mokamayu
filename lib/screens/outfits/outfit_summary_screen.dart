@@ -127,7 +127,7 @@ class OutfitSummaryScreen extends StatelessWidget {
       Provider.of<OutfitManager>(context, listen: false).setStyle("");
       Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
       Provider.of<PhotoTapped>(context, listen: false).setObject(null);
-      context.go("/home/1");
+      context.pushReplacement("/home/1");
     });
   }
 
@@ -156,7 +156,7 @@ class OutfitSummaryScreen extends StatelessWidget {
       Provider.of<PhotoTapped>(context, listen: false).setObject(null);
 
       _elements = [];
-      context.go("/home/1");
+      context.pushReplacement("/home/1");
     });
   }
 }
