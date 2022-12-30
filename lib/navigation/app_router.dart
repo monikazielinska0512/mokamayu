@@ -11,9 +11,11 @@ class AppRouter {
   final ProfileManager profileManager;
   final WardrobeManager wardrobeManager;
   final OutfitManager outfitManager;
+  final UserListManager userListManager;
+  final PostManager postManager;
 
   AppRouter(this.appStateManager, this.profileManager, this.wardrobeManager,
-      this.outfitManager);
+      this.outfitManager, this.userListManager, this.postManager);
 
   late final router = GoRouter(
     debugLogDiagnostics: true,
@@ -111,6 +113,20 @@ class AppRouter {
         name: 'summarize-outfits-screen',
         path: '/summarize-outfits-screen',
         builder: (context, state) => const SummarizeOutfitsScreen(),
+      ),
+      GoRoute(
+        name: 'find-users',
+        path: '/find-users',
+        builder: (context, state) => const UsersScreen(),
+      ),
+      GoRoute(
+        name: 'post-screen',
+        path: '/post-screen',
+        builder: (context, state) => PostScreen(
+          post: state.params['post'] as Post,
+          user: state.params['user'] as UserData,
+          userList: state.params['userList'] as List<UserData>,
+        ),
       ),
     ],
     redirect: (_, GoRouterState state) {

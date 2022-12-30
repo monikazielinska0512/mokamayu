@@ -1,15 +1,16 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
-import 'package:provider/provider.dart';
-import '../../../utils/validator.dart';
 import 'package:mokamayu/widgets/widgets.dart';
-import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
+import 'package:provider/provider.dart';
 
+import '../../../utils/validator.dart';
 
 class WardrobeItemForm extends StatefulWidget {
   final String? photoPath;
@@ -188,7 +189,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
 
         reset();
 
-        context.go("/home/0");
+        context.pushReplacement("/home/0");
 
         CustomSnackBar.showSuccessSnackBar(
             context: context, message: "Dodano do bazy danych");
@@ -212,7 +213,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                   Provider.of<WardrobeManager>(context, listen: false)
                       .removeWardrobeItem(widget.item?.reference);
                   reset();
-                  context.go("/home/0");
+                  context.pushReplacement("/home/0");
                 },
                 backgroundColor: ColorsConstants.whiteAccent,
                 iconColor: ColorsConstants.grey,
@@ -236,7 +237,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                     .updateWardrobeItem(widget.item?.reference ?? "", _name,
                         _type, _size, widget.item?.photoURL ?? "", _styles);
                 reset();
-                context.go("/home/0");
+                context.pushReplacement("/home/0");
                 CustomSnackBar.showSuccessSnackBar(
                     context: context, message: "Updated");
               } else {
