@@ -11,9 +11,10 @@ import '../../widgets/buttons/buttons.dart';
 import '../../widgets/photo/photo.dart';
 
 class OutfitSummaryScreen extends StatelessWidget {
-  OutfitSummaryScreen({super.key, this.map});
+  OutfitSummaryScreen({super.key, this.map, this.friendUid});
 
   Map<List<dynamic>, OutfitContainer>? map = {};
+  final String? friendUid;
   late String capturedOutfit;
   List<WardrobeItem>? itemList;
   List<String> _elements = [];
@@ -23,8 +24,13 @@ class OutfitSummaryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    itemList = Provider.of<WardrobeManager>(context, listen: false)
-        .getFinalWardrobeItemList;
+    if (friendUid != null) {
+      itemList = Provider.of<WardrobeManager>(context, listen: false)
+          .getFriendFinalWardrobeItemList;
+    } else {
+      itemList = Provider.of<WardrobeManager>(context, listen: false)
+          .getFinalWardrobeItemList;
+    }
     capturedOutfit =
         Provider.of<PhotoTapped>(context, listen: false).getScreenshot;
     _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
@@ -123,11 +129,10 @@ class OutfitSummaryScreen extends StatelessWidget {
           capturedOutfit,
           _elements,
           mapToFirestore);
-      Provider.of<OutfitManager>(context, listen: false).setSeason("");
-      Provider.of<OutfitManager>(context, listen: false).setStyle("");
+      Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
       Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
       Provider.of<PhotoTapped>(context, listen: false).setObject(null);
-      context.pushReplacement("/home/1");
+      context.go("/home/1");
     });
   }
 
@@ -150,8 +155,7 @@ class OutfitSummaryScreen extends StatelessWidget {
           Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
       Provider.of<OutfitManager>(context, listen: false)
           .setOutfits(outfitsList!);
-      Provider.of<OutfitManager>(context, listen: false).setSeason("");
-      Provider.of<OutfitManager>(context, listen: false).setStyle("");
+      Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
       Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
       Provider.of<PhotoTapped>(context, listen: false).setObject(null);
 

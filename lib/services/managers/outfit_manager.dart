@@ -16,7 +16,7 @@ class OutfitManager extends ChangeNotifier {
 
   Future<List<Outfit>>? get getOutfitListCopy => futureOutfitListCopy;
 
-  List<Outfit> get getfinalOutfitList => finalOutfitList;
+  List<Outfit> get getFinalOutfitList => finalOutfitList;
   String? outfitStyle = "";
   String? outfitSeason = "";
   List<String>? outfitStyles;
@@ -158,5 +158,15 @@ class OutfitManager extends ChangeNotifier {
         .delete()
         .then((_) => print('Deleted'))
         .catchError((error) => print(' $error'));
+  }
+
+  void resetSingleTags() {
+    setSeason("");
+    setStyle("");
+  }
+
+  void resetTagLists() {
+    setStyles([]);
+    setSeasons([]);
   }
 }

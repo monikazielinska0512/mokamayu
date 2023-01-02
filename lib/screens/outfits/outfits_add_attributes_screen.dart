@@ -17,8 +17,10 @@ import '../../models/calendar_event.dart';
 import '../../services/storage.dart';
 
 class OutfitsAddAttributesScreen extends StatefulWidget {
-  OutfitsAddAttributesScreen({Key? key, required this.map}) : super(key: key);
+  OutfitsAddAttributesScreen({Key? key, required this.map, this.friendUid})
+      : super(key: key);
   Map<List<dynamic>, OutfitContainer> map = {};
+  final String? friendUid;
   Uint8List? capturedOutfit;
 
   @override
@@ -44,10 +46,15 @@ class _OutfitsAddAttributesScreenState
     Provider.of<PhotoTapped>(context, listen: false).setMap(widget.map);
     widget.map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
 
-    futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
-        .getWardrobeItemListCopy;
-    itemList =
-        Provider.of<WardrobeManager>(context, listen: true).getWardrobeItemList;
+    if (widget.friendUid != null) {
+      futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
+          .readWardrobeItemsForUser(widget.friendUid!);
+    } else {
+      futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
+          .getWardrobeItemListCopy;
+      itemList = Provider.of<WardrobeManager>(context, listen: true)
+          .getWardrobeItemList;
+    }
 
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -58,16 +65,16 @@ class _OutfitsAddAttributesScreenState
           title: item != null
               ? const Text("Edit outfit",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))
-              : const Text("Create outfit",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              : Text(
+                  "Create outfit${widget.friendUid != null ? " for ..." : ""}",
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold)),
           leading: IconButton(
             onPressed: () {
               if (item != null) {
                 context.pop();
                 Provider.of<OutfitManager>(context, listen: false)
-                    .setSeason("");
-                Provider.of<OutfitManager>(context, listen: false).setStyle("");
-                Provider.of<PhotoTapped>(context, listen: false).setMap({});
+                    .resetSingleTags();
                 Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
                 Provider.of<WardrobeManager>(context, listen: false)
                     .nullListItemCopy();
@@ -78,8 +85,8 @@ class _OutfitsAddAttributesScreenState
               }
               Provider.of<OutfitManager>(context, listen: false)
                   .nullListItemCopy();
-              Provider.of<OutfitManager>(context, listen: false).setStyles([]);
-              Provider.of<OutfitManager>(context, listen: false).setSeasons([]);
+              Provider.of<OutfitManager>(context, listen: false)
+                  .resetTagLists();
             },
             icon: const Icon(Icons.arrow_back_ios),
           ),
@@ -124,7 +131,14 @@ class _OutfitsAddAttributesScreenState
                   Provider.of<WardrobeManager>(context, listen: false)
                       .setTypes([]);
                   // ignore: use_build_context_synchronously
-                  context.pushNamed("outfit-summary-screen", extra: widget.map);
+                  if (widget.friendUid != null) {
+                    context.pushNamed("outfit-summary-screen",
+                        extra: widget.map,
+                        queryParams: {'friendUid': widget.friendUid});
+                  } else {
+                    context.pushNamed("outfit-summary-screen",
+                        extra: widget.map);
+                  }
                 }).catchError((onError) {
                   if (kDebugMode) {
                     print(onError);
@@ -186,14 +200,11 @@ class _OutfitsAddAttributesScreenState
                     .removeOutfit(item.reference);
                 context.go("/home/1");
                 Provider.of<OutfitManager>(context, listen: false)
-                    .setSeason("");
-                Provider.of<OutfitManager>(context, listen: false).setStyle("");
+                    .resetSingleTags();
                 Provider.of<OutfitManager>(context, listen: false)
                     .nullListItemCopy();
                 Provider.of<OutfitManager>(context, listen: false)
-                    .setStyles([]);
-                Provider.of<OutfitManager>(context, listen: false)
-                    .setSeasons([]);
+                    .resetTagLists();
 
                 //checking if outfit was in any event, if so, then delete event from calendar
                 Map<DateTime, List<Event>> events =

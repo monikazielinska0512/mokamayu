@@ -182,13 +182,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget buildFloatingButton() {
     return FloatingButton(
         onPressed: () {
-          context.pushNamed(
-            "create-outfit-page",
-            extra: itemList!,
-            queryParams: {
-              'uid': widget.uid,
-            },
-          );
+          Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
+          Provider.of<WardrobeManager>(context, listen: false)
+              .resetBeforeCreatingNewOutfit();
+          if (widget.uid != null) {
+            context.pushNamed(
+              "create-outfit-page",
+              extra: itemList!,
+              queryParams: {
+                'friendUid': widget.uid,
+              },
+            );
+          } else {
+            context.pushNamed("create-outfit-page", extra: itemList!);
+          }
         },
         icon: const Icon(Ionicons.body),
         backgroundColor: ColorsConstants.darkBrick,

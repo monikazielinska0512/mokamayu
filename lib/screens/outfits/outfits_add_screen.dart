@@ -41,10 +41,9 @@ class CreateOutfitPage extends StatelessWidget {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         leading: IconButton(
           onPressed: () {
-            Provider.of<PhotoTapped>(context, listen: false).setMap({});
             Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
-            Provider.of<OutfitManager>(context, listen: false).setSeason("");
-            Provider.of<OutfitManager>(context, listen: false).setStyle("");
+            Provider.of<OutfitManager>(context, listen: false)
+                .resetSingleTags();
             Provider.of<WardrobeManager>(context, listen: false)
                 .nullListItemCopy();
             Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
