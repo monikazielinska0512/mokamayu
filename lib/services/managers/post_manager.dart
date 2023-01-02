@@ -23,7 +23,9 @@ class PostManager extends ChangeNotifier {
     List<Post> postList = [];
     for (var element in snapshot.docs) {
       Post item = Post.fromSnapshot(element);
-      postList.add(item);
+      if (item.createdBy != AuthService().getCurrentUserID()) {
+        postList.add(item);
+      }
     }
     finalPostList = postList;
     return finalPostList;
