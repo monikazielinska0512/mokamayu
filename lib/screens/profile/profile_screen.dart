@@ -22,11 +22,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<UserData?>? userData;
   Future<List<WardrobeItem>>? itemList;
   Future<List<Outfit>>? outfitsList;
+  UserData? friendData;
+  Future<UserData?>? currentUser;
+
 
   @override
   Widget build(BuildContext context) {
     userData = Provider.of<ProfileManager>(context, listen: false)
         .getUserData(widget.uid);
+    Provider.of<ProfileManager>(context, listen: true).getUserData(widget.uid)
+        .then((UserData? temp){
+      setState(() => friendData = temp);
+    });
+    currentUser = Provider.of<ProfileManager>(context, listen: false)
+        .getCurrentUserData();
+
 
     if (widget.uid != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
@@ -38,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     return BasicScreen(
-      type: "",
+      type: "profile",
       leftButtonType: "dots",
       context: context,
       isFullScreen: true,
@@ -133,12 +143,77 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ]);
     } else {
-      return IconTextButton(
-        onPressed: () => print('friends list'),
+      return
+      friendData != null
+        ? friendshipButton()
+        : IconTextButton(
+        onPressed: () => print('nie ma danych :c'),
         icon: Icons.person_outline_outlined,
-        text: "Add friend",
+        text: "Nope",
         backgroundColor: ColorsConstants.mint,
       );
+    }
+  }
+
+  Widget friendshipButton(){
+    switch(Provider.of<ProfileManager>(context, listen: true).getFriendshipStatus(friendData!.uid)){
+      case "FriendshipState.FRIENDS": {
+        return IconTextButton(
+            onPressed: (){
+              print("Remove");
+              Provider.of<ProfileManager>(context, listen: false).removeFriend(friendData!);
+            },
+            icon: Icons.check,
+            text: "Friends",
+            backgroundColor: ColorsConstants.mint,
+        );
+      }
+      case "FriendshipState.INVITE_PENDING":{
+        return IconTextButton(
+          onPressed: (){
+            print("cancel");
+            Provider.of<ProfileManager>(context, listen: false).cancelFriendInvite(friendData!);
+          },
+          icon: Icons.outgoing_mail,
+          text: "Sent",
+          backgroundColor: ColorsConstants.mint,
+        );      }
+      case "FriendshipState.RECEIVED_INVITE":{
+        return IconTextButton(
+          onPressed: (){
+            showModalBottomSheet(
+                context: context,
+                builder: (BuildContext buildContext) {
+                  return SafeArea(
+                    child: Wrap(children: [
+                      buildOption(buildContext, const Icon(
+                          Icons.check_circle_outline_rounded),
+                          "Accept invite",
+                          friendData!),
+                      buildOption(buildContext, const Icon(
+                          Icons.highlight_remove_rounded),
+                          "Reject invite",
+                          friendData!),
+                    ]),
+                  );
+                });
+          },
+          icon: Icons.mark_email_unread,
+          text: "Respond",
+          backgroundColor: ColorsConstants.mint,
+        );
+      }
+      default: {
+        return IconTextButton(
+          onPressed: (){
+            print("send");
+            Provider.of<ProfileManager>(context, listen: false).sendFriendInvite(friendData!);
+          },
+          icon: Icons.person_outline_outlined,
+          text: "Add friend",
+          backgroundColor: ColorsConstants.mint,
+        );
+      }
     }
   }
 
@@ -195,4 +270,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
         alignment: Alignment.bottomRight);
   }
+
+  Widget buildOption(BuildContext context, Icon icon, String title, UserData friend) {
+    return ListTile(
+        leading: icon,
+        title: Text(title),
+        onTap: () {
+          if (title == "Reject invite") {
+            print("reject");
+            Provider.of<ProfileManager>(context, listen: false).rejectFriendInvite(friend);
+          } else { //accept
+            print("accept");
+            Provider.of<ProfileManager>(context, listen: false).acceptFriendInvite(friend);
+          }
+          Navigator.of(context).pop();
+        });
+  }
+
 }
