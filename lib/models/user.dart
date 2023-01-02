@@ -30,8 +30,9 @@ class UserData {
         profilePicture: json['profilePicture'] as String?,
         birthdayDate: json['birthdayDate'] as DateTime?,
         privateProfile: json['privateProfile'] as bool,
-        friends: json['friends'] = (json['friends'] as List)
-            .map((e) => Map<String, String>.from(e)).toList(),
+        friends: json['friends'] = (json['friends'] as List?)
+            ?.map((e) => Map<String, String>.from(e))
+            .toList(),
       );
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
@@ -46,9 +47,9 @@ class UserData {
       };
 
   factory UserData.fromSnapshot(DocumentSnapshot snapshot) {
-      final user =
-          UserData.fromFirestore(snapshot.data() as Map<String, dynamic>);
-      user.reference = snapshot.reference.id;
-      return user;
+    final user =
+        UserData.fromFirestore(snapshot.data() as Map<String, dynamic>);
+    user.reference = snapshot.reference.id;
+    return user;
   }
 }
