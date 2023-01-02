@@ -6,3 +6,5 @@ export 'wardrobe_manager.dart';
 export 'photo_tapped_manager.dart';
 export 'outfit_manager.dart';
 export 'calendar_manager.dart';
+export 'post_manager.dart';
+export 'user_list_manager.dart';

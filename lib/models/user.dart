@@ -41,9 +41,9 @@ class UserData {
       };
 
   factory UserData.fromSnapshot(DocumentSnapshot snapshot) {
-    final user =
-        UserData.fromFirestore(snapshot.data() as Map<String, dynamic>);
-    user.reference = snapshot.reference.id;
-    return user;
+      final user =
+          UserData.fromFirestore(snapshot.data() as Map<String, dynamic>);
+      user.reference = snapshot.reference.id;
+      return user;
   }
 }

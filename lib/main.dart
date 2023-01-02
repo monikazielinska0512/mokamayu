@@ -1,8 +1,5 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:firebase_storage/firebase_storage.dart';
-// import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mokamayu/constants/colors.dart';
@@ -49,9 +46,11 @@ class _MyAppState extends State<MyApp> {
   late final _profileManager = ProfileManager();
   late final _wardrobeManager = WardrobeManager();
   late final _outfitManager = OutfitManager();
+  late final _userListManager = UserListManager();
+  late final _postManager = PostManager();
 
   late final _appRouter = AppRouter(widget.appStateManager, _profileManager,
-      _wardrobeManager, _outfitManager);
+      _wardrobeManager, _outfitManager, _userListManager, _postManager);
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +66,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => OutfitManager()),
         ChangeNotifierProvider(create: (_) => PhotoTapped()),
         ChangeNotifierProvider(create: (_) => CalendarManager()),
+        ChangeNotifierProvider(create: (_) => UserListManager()),
+        ChangeNotifierProvider(create: (_) => PostManager()),
       ],
       child: MaterialApp.router(
         routerDelegate: router.routerDelegate,
