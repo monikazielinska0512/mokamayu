@@ -106,7 +106,12 @@ class _UsersScreenState extends State<UsersScreen> {
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
             onTap: () {
-              context.push("/user/${_foundUsers[index].uid}");
+              context.pushNamed(
+                "profile",
+                queryParams: {
+                  'uid': _foundUsers[index].uid,
+                },
+              );
             },
             child: Container(
                 height: MediaQuery.of(context).size.height * 0.13,

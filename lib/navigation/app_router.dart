@@ -128,6 +128,13 @@ class AppRouter {
           userList: state.params['userList'] as List<UserData>,
         ),
       ),
+      GoRoute(
+        name: 'profile',
+        path: '/profile',
+        builder: (context, state) {
+        return ProfileScreen(uid: state.queryParams['uid']);
+        }
+      ),
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;
