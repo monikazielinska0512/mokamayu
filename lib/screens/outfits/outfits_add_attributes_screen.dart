@@ -18,9 +18,13 @@ import '../../services/storage.dart';
 
 class OutfitsAddAttributesScreen extends StatefulWidget {
   OutfitsAddAttributesScreen({Key? key, required this.map, this.friendUid})
-      : super(key: key);
+      : super(key: key) {
+    isCreatingOutfitForFriend = friendUid != null;
+  }
+
   Map<List<dynamic>, OutfitContainer> map = {};
   final String? friendUid;
+  late final bool isCreatingOutfitForFriend;
   Uint8List? capturedOutfit;
 
   @override
@@ -46,15 +50,15 @@ class _OutfitsAddAttributesScreenState
     Provider.of<PhotoTapped>(context, listen: false).setMap(widget.map);
     widget.map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
 
-    if (widget.friendUid != null) {
-      futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
-          .readWardrobeItemsForUser(widget.friendUid!);
-    } else {
-      futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
-          .getWardrobeItemListCopy;
+    if (!widget.isCreatingOutfitForFriend) {
       itemList = Provider.of<WardrobeManager>(context, listen: true)
           .getWardrobeItemList;
     }
+    futureItemListCopy = widget.isCreatingOutfitForFriend
+        ? Provider.of<WardrobeManager>(context, listen: true)
+            .readWardrobeItemsForUser(widget.friendUid!)
+        : Provider.of<WardrobeManager>(context, listen: true)
+            .getWardrobeItemListCopy;
 
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -131,13 +135,15 @@ class _OutfitsAddAttributesScreenState
                   Provider.of<WardrobeManager>(context, listen: false)
                       .setTypes([]);
                   // ignore: use_build_context_synchronously
-                  if (widget.friendUid != null) {
-                    context.pushNamed("outfit-summary-screen",
-                        extra: widget.map,
-                        queryParams: {'friendUid': widget.friendUid});
-                  } else {
-                    context.pushNamed("outfit-summary-screen",
-                        extra: widget.map);
+                  if (mounted) {
+                    if (widget.isCreatingOutfitForFriend) {
+                      context.pushNamed("outfit-summary-screen",
+                          extra: widget.map,
+                          queryParams: {'friendUid': widget.friendUid});
+                    } else {
+                      context.pushNamed("outfit-summary-screen",
+                          extra: widget.map);
+                    }
                   }
                 }).catchError((onError) {
                   if (kDebugMode) {

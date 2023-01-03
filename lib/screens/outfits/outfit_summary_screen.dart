@@ -11,10 +11,13 @@ import '../../widgets/buttons/buttons.dart';
 import '../../widgets/photo/photo.dart';
 
 class OutfitSummaryScreen extends StatelessWidget {
-  OutfitSummaryScreen({super.key, this.map, this.friendUid});
+  OutfitSummaryScreen({super.key, this.map, this.friendUid}) {
+    isCreatingOutfitForFriend = friendUid != null;
+  }
 
   Map<List<dynamic>, OutfitContainer>? map = {};
   final String? friendUid;
+  late final bool isCreatingOutfitForFriend;
   late String capturedOutfit;
   List<WardrobeItem>? itemList;
   List<String> _elements = [];
@@ -25,13 +28,12 @@ class OutfitSummaryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (friendUid != null) {
-      itemList = Provider.of<WardrobeManager>(context, listen: false)
-          .getFriendFinalWardrobeItemList;
-    } else {
-      itemList = Provider.of<WardrobeManager>(context, listen: false)
-          .getFinalWardrobeItemList;
-    }
+    itemList = isCreatingOutfitForFriend
+        ? Provider.of<WardrobeManager>(context, listen: true)
+            .getFriendFinalWardrobeItemList
+        : Provider.of<WardrobeManager>(context, listen: true)
+            .getFinalWardrobeItemList;
+
     capturedOutfit =
         Provider.of<PhotoTapped>(context, listen: false).getScreenshot;
     _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
@@ -138,6 +140,7 @@ class OutfitSummaryScreen extends StatelessWidget {
   }
 
   Widget SaveButton(BuildContext context) {
+    String currentUserUid = AuthService().getCurrentUserID();
     return ButtonDarker(context, "Save", () async {
       Map<String, String> mapToFirestore = {};
       map!.forEach((key, value) {
@@ -149,31 +152,40 @@ class OutfitSummaryScreen extends StatelessWidget {
           style: _style,
           season: _season,
           map: mapToFirestore,
-          createdBy: AuthService().getCurrentUserID());
+          createdBy: currentUserUid);
       Provider.of<OutfitManager>(context, listen: false)
-          .addOutfitToFirestore(data);
-      outfitsList =
-          Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
-      Provider.of<OutfitManager>(context, listen: false)
-          .setOutfits(outfitsList!);
-      Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
-      Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
-      Provider.of<PhotoTapped>(context, listen: false).setObject(null);
+          .addOutfitToFirestore(data, friendUid ?? currentUserUid);
+
+      if (!isCreatingOutfitForFriend) {
+        outfitsList = Provider.of<OutfitManager>(context, listen: false)
+            .readOutfitsOnce();
+        Provider.of<OutfitManager>(context, listen: false)
+            .setOutfits(outfitsList!);
+        Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
+        Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
+        Provider.of<PhotoTapped>(context, listen: false).setObject(null);
+      }
 
       _elements = [];
 
       Post postData = Post(
-        createdBy: AuthService().getCurrentUserID(),
+        createdBy: currentUserUid,
         cover: capturedOutfit,
         creationDate: DateTime.now().millisecondsSinceEpoch,
         likes: [],
         comments: [],
       );
-      Provider.of<PostManager>(context, listen: false).addPostToFirestore(postData);
-      postList = Provider.of<PostManager>(context, listen: false).readPostsOnce();
+      Provider.of<PostManager>(context, listen: false)
+          .addPostToFirestore(postData);
+      postList =
+          Provider.of<PostManager>(context, listen: false).readPostsOnce();
       Provider.of<PostManager>(context, listen: false).setPosts(postList!);
 
-      context.pushReplacement("/home/1");
+      if (isCreatingOutfitForFriend) {
+        context.go("/home/2");
+      } else {
+        context.go("/home/1");
+      }
     });
   }
 }

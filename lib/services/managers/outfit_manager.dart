@@ -86,10 +86,10 @@ class OutfitManager extends ChangeNotifier {
         .toList();
   }
 
-  Future<void> addOutfitToFirestore(Outfit item) async {
+  Future<void> addOutfitToFirestore(Outfit item, String uid) async {
     await db
         .collection('users')
-        .doc(AuthService().getCurrentUserID())
+        .doc(uid)
         .collection('outfits')
         .add(item.toJson());
 

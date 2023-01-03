@@ -8,9 +8,14 @@ import '../../models/models.dart';
 import '../../services/managers/managers.dart';
 
 class CreateOutfitPage extends StatelessWidget {
-  CreateOutfitPage({Key? key, this.itemList, this.friendUid}) : super(key: key);
+  CreateOutfitPage({Key? key, this.itemList, this.friendUid})
+      : super(key: key) {
+    isCreatingOutfitForFriend = friendUid != null;
+  }
+
   Future<List<WardrobeItem>>? itemList;
   String? friendUid;
+  late final bool isCreatingOutfitForFriend;
   Map<List<dynamic>, OutfitContainer> map = {};
   List<String> selectedChips = Tags.types;
   Future<List<WardrobeItem>>? futureItemListCopy;
@@ -21,15 +26,15 @@ class CreateOutfitPage extends StatelessWidget {
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
 
-    if (friendUid != null) {
-      futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
-          .readWardrobeItemsForUser(friendUid!);
-    } else {
-      futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
-          .getWardrobeItemListCopy;
+    if (!isCreatingOutfitForFriend) {
       itemList = Provider.of<WardrobeManager>(context, listen: true)
           .getWardrobeItemList;
     }
+    futureItemListCopy = isCreatingOutfitForFriend
+        ? Provider.of<WardrobeManager>(context, listen: true)
+            .readWardrobeItemsForUser(friendUid!)
+        : Provider.of<WardrobeManager>(context, listen: true)
+            .getWardrobeItemListCopy;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -37,8 +42,8 @@ class CreateOutfitPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         elevation: 0,
-        title: const Text("Create outfit",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        title: Text("Create outfit${friendUid != null ? " for ..." : ""}",
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         leading: IconButton(
           onPressed: () {
             Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
@@ -62,7 +67,12 @@ class CreateOutfitPage extends StatelessWidget {
               Provider.of<WardrobeManager>(context, listen: false)
                   .nullListItemCopy();
               Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-              context.pushNamed("outfit-add-attributes-screen", extra: map);
+              if (isCreatingOutfitForFriend) {
+                context.pushNamed("outfit-add-attributes-screen",
+                    extra: map, queryParams: {'friendUid': friendUid});
+              } else {
+                context.pushNamed("outfit-add-attributes-screen", extra: map);
+              }
             },
           )
         ],
