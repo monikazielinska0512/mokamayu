@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/managers.dart';
+import 'package:provider/provider.dart';
 
 class MultiSelectChip extends StatefulWidget {
   final List<String> chipsList;
@@ -110,7 +110,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
                             selectedChoices,
                             [],
                             Provider.of<OutfitManager>(context, listen: false)
-                                .getfinalOutfitList);
+                                .getFinalOutfitList);
 
                 if (widget.outfitList != null) {
                   Provider.of<OutfitManager>(context, listen: false)

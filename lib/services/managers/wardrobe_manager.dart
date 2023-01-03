@@ -8,6 +8,7 @@ import '../database/database_service.dart';
 
 class WardrobeManager extends ChangeNotifier {
   List<WardrobeItem> finalWardrobeItemList = [];
+  List<WardrobeItem> friendFinalWardrobeItemList = [];
   List<WardrobeItem> finalWardrobeItemListCopy = [];
   Future<List<WardrobeItem>>? futureWardrobeItemList;
   Future<List<WardrobeItem>>? futureWardrobeItemListCopy;
@@ -18,6 +19,9 @@ class WardrobeManager extends ChangeNotifier {
       futureWardrobeItemListCopy;
 
   List<WardrobeItem> get getFinalWardrobeItemList => finalWardrobeItemList;
+
+  List<WardrobeItem> get getFriendFinalWardrobeItemList =>
+      friendFinalWardrobeItemList;
 
   List<String>? itemTypes;
   List<String>? itemSizes;
@@ -76,9 +80,10 @@ class WardrobeManager extends ChangeNotifier {
     QuerySnapshot snapshot =
         await db.collection('users').doc(uid).collection('wardrobe').get();
 
-    return snapshot.docs
+    friendFinalWardrobeItemList = snapshot.docs
         .map((element) => WardrobeItem.fromSnapshot(element))
         .toList();
+    return friendFinalWardrobeItemList;
   }
 
   Future<List<WardrobeItem>> filterWardrobe(
@@ -158,5 +163,12 @@ class WardrobeManager extends ChangeNotifier {
         .then((_) => print('Deleted'))
         .catchError((error) => print(' $error'));
     // notifyListeners();
+  }
+
+  void resetBeforeCreatingNewOutfit() {
+    nullListItemCopy();
+    setTypes([]);
+    setSizes([]);
+    setStyles([]);
   }
 }

@@ -12,12 +12,13 @@ import 'package:mokamayu/services/managers/weather_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 import '../../constants/colors.dart';
+import '../../models/calendar_event.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/outfit_manager.dart';
 import '../../widgets/buttons/floating_button.dart';
 import '../../widgets/fundamental/fundamentals.dart';
-import '../../models/calendar_event.dart';
 import '../../widgets/photo/wardrobe_item_card.dart';
 import 'hourly_weather.dart';
 
@@ -47,7 +48,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (mounted) {
       outfitList =
-          Provider.of<OutfitManager>(context, listen: false).getfinalOutfitList;
+          Provider.of<OutfitManager>(context, listen: false).getFinalOutfitList;
     }
     setState(() {
       String? encodedMap = prefs.getString(_auth.getCurrentUserID());

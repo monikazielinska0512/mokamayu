@@ -219,7 +219,7 @@ class _FilterModalState extends State<FilterModal> {
                             widget.selectedOutfitStyles,
                             widget.selectedOutfitSeasons,
                             Provider.of<OutfitManager>(context, listen: false)
-                                .getfinalOutfitList),
+                                .getFinalOutfitList),
                     if (widget.futureOutfitListCopy != null)
                       {
                         Provider.of<OutfitManager>(context, listen: false)

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
@@ -131,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             _emailTextController.text,
                             _usernameTextController.text,
                             _auth.getCurrentUserID());
-                    // Navigator.pop(context);
+                    context.go("home/0");
                     Provider.of<AppStateManager>(context, listen: false)
                         .login();
                   } else {

@@ -7,6 +7,7 @@ class PhotoTapped extends ChangeNotifier {
   Map<List<dynamic>, OutfitContainer> mapDynamic = {};
   List<String> listOfIds = [];
   late String screenshot;
+
   String get getScreenshot => screenshot;
   Outfit? item;
 
@@ -19,14 +20,14 @@ class PhotoTapped extends ChangeNotifier {
   Outfit? get getObject => item;
 
   void nullMap(List<String> ids) {
-    mapDynamic = {};
+    mapDynamic.clear();
     ids.forEach((element) => listOfIds.removeWhere((el) => el == element));
     notifyListeners();
   }
 
   void nullWholeMap() {
     listOfIds = [];
-    mapDynamic = {};
+    mapDynamic.clear();
     notifyListeners();
   }
 
