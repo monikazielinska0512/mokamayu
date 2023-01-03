@@ -55,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return BasicScreen(
       type: "profile",
-      leftButtonType: "dots",
+      leftButtonType: displaysCurrentUserProfile ? "dots" : "back",
       context: context,
       isFullScreen: true,
       body: Stack(children: [
