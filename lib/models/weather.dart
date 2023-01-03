@@ -4,24 +4,24 @@ import 'package:mokamayu/models/network_data.dart';
 import '../constants/constants.dart';
 
 const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+const forecastApiUrl = 'http://api.openweathermap.org/data/2.5/forecast';
 
 class WeatherModel {
   Future<dynamic> getCityWeather(String cityName) async {
-    var url = '$weatherApiUrl?q=$cityName&APPID=$apiKey&units=metric';
+    var url = '$weatherApiUrl?q=$cityName&appid=$apiKey&units=metric';
     NetworkData networkHelper = NetworkData(url);
     var weatherData = networkHelper.getData();
     return weatherData;
   }
 
-  Future<dynamic> getLocationWeather() async {
-    /// Get location
-    /// await for methods that return future
-    Location location = Location();
-    await location.getCurrentLocation();
+  Future<dynamic> getForecastByCoords(
+      double longtitude, double lattitude) async {
+    // Location location = Location();
+    // await location.getCurrentLocation();
 
     /// Get location data
     NetworkData networkHelper = NetworkData(
-        '$weatherApiUrl?lat=${location.latitude}&lon=${location.longitide}&appid=$apiKey&units=metric');
+        '$forecastApiUrl?lat=${lattitude}&lon=${longtitude}&appid=$apiKey&units=metric');
     var weatherData = await networkHelper.getData();
     return weatherData;
   }

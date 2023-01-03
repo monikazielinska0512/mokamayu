@@ -8,6 +8,7 @@ import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/outfit.dart';
 import 'package:mokamayu/models/weather.dart';
 import 'package:mokamayu/services/managers/calendar_manager.dart';
+import 'package:mokamayu/services/managers/weather_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -18,6 +19,7 @@ import '../../widgets/buttons/floating_button.dart';
 import '../../widgets/fundamental/fundamentals.dart';
 import '../../models/calendar_event.dart';
 import '../../widgets/photo/wardrobe_item_card.dart';
+import 'hourly_weather.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -179,9 +181,54 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       onPressed: () async {
                         //TODO
                         if (_cityTextController != null) {
+                          Provider.of<WeatherManager>(context, listen: false)
+                              .nullDay();
+                          Provider.of<WeatherManager>(context, listen: false)
+                              .nullTemp();
+                          Provider.of<WeatherManager>(context, listen: false)
+                              .nullTime();
                           var weatherData = await weatherModel
-                              .getCityWeather(_cityTextController.toString());
-                          updateUI(weatherData);
+                              .getCityWeather(_cityTextController.text);
+                          double longtitude = weatherData['coord']['lon'];
+                          double lattitude = weatherData['coord']['lat'];
+                          var forecastCoordsData = await weatherModel
+                              .getForecastByCoords(longtitude, lattitude);
+                          for (var i = 0;
+                              i < forecastCoordsData['list'].length;
+                              i++) {
+                            var day = forecastCoordsData['list'][i]['dt_txt']
+                                .split(' ')[0];
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addDay(day);
+                            var hour = forecastCoordsData['list'][i]['dt_txt']
+                                .split(' ')[1];
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addTime(hour);
+                            // print(day);
+                            // print(hour);
+                            //day and time
+                            // print(forecastCoordsData['list'][i]['main']['temp']
+                            //     .runtimeType);
+                            // print(
+                            //     forecastCoordsData['list'][i]['main']['temp']);
+                            //temp (double)
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addTemp(forecastCoordsData['list'][i]['main']
+                                        ['temp']
+                                    .toDouble());
+                            // print(
+                            //     forecastCoordsData['list'][i]['main']['temp']);
+                          }
+                          print(Provider.of<WeatherManager>(context,
+                                  listen: false)
+                              .getDays);
+                          print(Provider.of<WeatherManager>(context,
+                                  listen: false)
+                              .getTime);
+                          print(Provider.of<WeatherManager>(context,
+                                  listen: false)
+                              .getTemps);
+                          // updateUI(weatherData);
                         }
                       },
                     ),
@@ -212,6 +259,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 )
           ],
         ),
+        HourlyWeather(),
         Padding(
             padding: const EdgeInsets.only(top: 20, left: 20, bottom: 10),
             child: Align(
@@ -239,6 +287,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
       buildFloatingButton()
     ]);
   }
+
+  // TimeOfDay stringToTimeOfDay(String tod) {
+  //   final format = DateFormat.jm();
+  //   return TimeOfDay.fromDateTime(format.parse(tod));
+  // }
 
   void updateUI(dynamic weather) {
     setState(() {

@@ -3,15 +3,22 @@ import 'package:geolocator/geolocator.dart';
 class Location {
   late double latitude;
   late double longitide;
-  String apiKey = '2e9714911e1deb0a2ee62104c0b5928b';
+  String apiKey = '9e00a812e596fc76f86b4b2c0bb3faf8';
   late int status;
 
-  /// async and await are used for time consuming tasks
-  /// Get your current loatitude and longitude
-  /// Location accuracy depends on the type of app high,low ,
-  /// high accuracy also result in more power consumed
   Future<void> getCurrentLocation() async {
     try {
+      LocationPermission permission;
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.deniedForever) {
+          return Future.error('Location Not Available');
+        }
+      } else {
+        throw Exception('Error');
+      }
+
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
 
