@@ -48,9 +48,10 @@ class _MyAppState extends State<MyApp> {
   late final _outfitManager = OutfitManager();
   late final _userListManager = UserListManager();
   late final _postManager = PostManager();
+  late final _friendsManager = FriendsManager();
 
   late final _appRouter = AppRouter(widget.appStateManager, _profileManager,
-      _wardrobeManager, _outfitManager, _userListManager, _postManager);
+      _wardrobeManager, _outfitManager, _userListManager, _postManager, _friendsManager);
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +69,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => CalendarManager()),
         ChangeNotifierProvider(create: (_) => UserListManager()),
         ChangeNotifierProvider(create: (_) => PostManager()),
+        ChangeNotifierProvider(create: (_) => FriendsManager()),
       ],
       child: MaterialApp.router(
         routerDelegate: router.routerDelegate,

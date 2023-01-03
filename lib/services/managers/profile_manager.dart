@@ -140,5 +140,11 @@ class ProfileManager extends ChangeNotifier {
     ? friend.first['status']!
     : FriendshipState.STRANGERS.toString();
   }
+  
+  List<UserData> getFriendsList(){
+    List <String> friends = [];
+    for (var element in currentCustomUser!.friends!) {friends.add(element['id']!);}
+    return [];
+  }
 }
 
