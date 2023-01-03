@@ -41,7 +41,10 @@ class CustomDrawer extends StatelessWidget {
                   buildDrawerOption(context, 'Edit profile',
                       () => context.push('/edit-profile')),
                   buildDrawerOption(context, 'Settings', () => {}),
-                  buildDrawerOption(context, 'Friends', () => {}),
+                  buildDrawerOption(context, 'Friends', () => {
+                    context.pushNamed('friends'),
+                  }),
+                  buildDrawerOption(context, 'Friend Requests', () => {context.pushNamed('requests')}),
                   buildDrawerOption(context, 'Wardrobe', () => {}),
                   buildDrawerOption(context, 'Outfits', () => {}),
                 ],

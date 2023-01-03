@@ -136,7 +136,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: ColorsConstants.peachy,
         ),
         IconTextButton(
-          onPressed: () => print('friends list'),
+          onPressed: () => {
+            print('friends list'),
+            context.goNamed('friends')
+            },
           icon: Icons.person_outline_outlined,
           text: "Friends",
           backgroundColor: ColorsConstants.mint,
