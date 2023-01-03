@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/screens.dart';
+import 'package:mokamayu/screens/social/friend_list_screen.dart';
+import 'package:mokamayu/screens/social/request_list_screen.dart';
 import 'package:mokamayu/screens/wardrobe/wardrobe_search_screen.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 
@@ -13,9 +15,10 @@ class AppRouter {
   final OutfitManager outfitManager;
   final UserListManager userListManager;
   final PostManager postManager;
+  final FriendsManager friendsManager;
 
   AppRouter(this.appStateManager, this.profileManager, this.wardrobeManager,
-      this.outfitManager, this.userListManager, this.postManager);
+      this.outfitManager, this.userListManager, this.postManager, this.friendsManager);
 
   late final router = GoRouter(
     debugLogDiagnostics: true,
@@ -127,6 +130,23 @@ class AppRouter {
           user: state.params['user'] as UserData,
           userList: state.params['userList'] as List<UserData>,
         ),
+      ),
+      GoRoute(
+        name: 'profile',
+        path: '/profile',
+        builder: (context, state) {
+        return ProfileScreen(uid: state.queryParams['uid']);
+        }
+      ),
+      GoRoute(
+        name: 'friends',
+        path: '/friends',
+        builder: (context, state) => const FriendsScreen(),
+      ),
+      GoRoute(
+        name: 'requests',
+        path: '/requests',
+        builder: (context, state) => const RequestsScreen(),
       ),
     ],
     redirect: (_, GoRouterState state) {

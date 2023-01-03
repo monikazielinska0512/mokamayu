@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mokamayu/constants/colors.dart';
-import 'package:mokamayu/services/managers/weather_manager.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:provider/provider.dart';
 
@@ -49,9 +48,10 @@ class _MyAppState extends State<MyApp> {
   late final _outfitManager = OutfitManager();
   late final _userListManager = UserListManager();
   late final _postManager = PostManager();
+  late final _friendsManager = FriendsManager();
 
   late final _appRouter = AppRouter(widget.appStateManager, _profileManager,
-      _wardrobeManager, _outfitManager, _userListManager, _postManager);
+      _wardrobeManager, _outfitManager, _userListManager, _postManager, _friendsManager);
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => CalendarManager()),
         ChangeNotifierProvider(create: (_) => UserListManager()),
         ChangeNotifierProvider(create: (_) => PostManager()),
-        ChangeNotifierProvider(create: (_) => WeatherManager())
+        ChangeNotifierProvider(create: (_) => FriendsManager()),
       ],
       child: MaterialApp.router(
         routerDelegate: router.routerDelegate,

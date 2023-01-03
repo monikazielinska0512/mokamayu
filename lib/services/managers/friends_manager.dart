@@ -1,42 +1,58 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/services.dart';
 
-import '../database/database_service.dart';
-
-enum FriendshipState {
-  STRANGERS,
-  // Our invite is waiting for the other person's response.
-  INVITE_PENDING,
-  // We received a friend invite but haven't responded yet.
-  RECEIVED_INVITE,
-  FRIENDS
-}
 
 class FriendsManager extends ChangeNotifier {
-  static FirebaseFirestore db = FirebaseFirestore.instance;
+  List<UserData> friendList = [];
+  List<UserData> get getFriendList => friendList;
+  List<UserData> requestList = [];
+  List<UserData> get getRequestList => requestList;
 
-  final DocumentReference userFriendsCollection =
-      db.collection('friends').doc(DatabaseService.userID);
+  Future<List<UserData>> readFriendsOnce(UserData currentUser) async {
+    List <String> friends = [];
+    for (var element in currentUser.friends!) {
+      if (element['status'] == FriendshipState.FRIENDS.toString()) {
+        friends.add(element['id']!);
+      }
+    }
 
-// TODO(karina): implement the following methods:
-//
-// Stream<DocumentSnapshot<Object?>> getFriendsList() =>
-//     userFriendsCollection.snapshots();
-//
-// Future<void> updateFriendsList(List<String> friendsList) async {
-//   userFriendsCollection.set({'friends': friendsList});
-// }
-//
-// Future<List<String>> get friendsList =>
-//     getFriendsList().first.then((value) => value.get('friends'));
-//
-// Future<FriendshipStatus> getFriendshipStatus(User friend);
-//
-// Future<void> sendFriendInvite(User friend) async {}
-//
-// Future<void> cancelFriendInvite(User friend) async {}
-//
-// Future<void> acceptFriendInvite(User friend) async {}
-//
-// Future<void> rejectFriendInvite(User friend) async {}
+    List<UserData> temp = [];
+    QuerySnapshot snapshot = await db
+        .collection('users')
+        .get();
+    for (var element in snapshot.docs) {
+      UserData user = UserData.fromSnapshot(element);
+      if (friends.contains(user.uid)) {
+        temp.add(user);
+      }
+    }
+    friendList = temp;
+    return friendList;
+  }
+
+  Future<List<UserData>> readRequestsOnce(UserData currentUser) async {
+    List <String> friends = [];
+    for (var element in currentUser.friends!) {
+      if (element['status'] == FriendshipState.RECEIVED_INVITE.toString()) {
+        friends.add(element['id']!);
+      }
+    }
+
+    List<UserData> temp = [];
+    QuerySnapshot snapshot = await db
+        .collection('users')
+        .get();
+    for (var element in snapshot.docs) {
+      UserData user = UserData.fromSnapshot(element);
+      if (friends.contains(user.uid)) {
+        temp.add(user);
+      }
+    }
+    requestList = temp;
+    return requestList;
+  }
+
 }
+
