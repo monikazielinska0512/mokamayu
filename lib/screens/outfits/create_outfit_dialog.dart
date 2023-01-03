@@ -57,19 +57,10 @@ class CustomDialogBox extends StatelessWidget {
                                     () {
                                   Provider.of<PhotoTapped>(context,
                                           listen: false)
-                                      .setMap({});
+                                      .nullWholeMap();
                                   Provider.of<WardrobeManager>(context,
                                           listen: false)
-                                      .nullListItemCopy();
-                                  Provider.of<WardrobeManager>(context,
-                                          listen: false)
-                                      .setTypes([]);
-                                  Provider.of<WardrobeManager>(context,
-                                          listen: false)
-                                      .setSizes([]);
-                                  Provider.of<WardrobeManager>(context,
-                                          listen: false)
-                                      .setStyles([]);
+                                      .resetBeforeCreatingNewOutfit();
                                   context.pushNamed("create-outfit-page",
                                       extra: itemList!);
                                   context.pop();

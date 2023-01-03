@@ -253,9 +253,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   }
 
   void reset() {
-    Provider.of<WardrobeManager>(context, listen: false).nullListItemCopy();
-    Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-    Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
-    Provider.of<WardrobeManager>(context, listen: false).setStyles([]);
+    Provider.of<WardrobeManager>(context, listen: false)
+        .resetBeforeCreatingNewOutfit();
   }
 }

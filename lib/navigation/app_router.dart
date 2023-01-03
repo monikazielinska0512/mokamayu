@@ -73,14 +73,15 @@ class AppRouter {
           builder: (context, state) {
             return CreateOutfitPage(
                 itemList: state.extra as Future<List<WardrobeItem>>?,
-                friendUid: state.queryParams['uid']);
+                friendUid: state.queryParams['friendUid']);
           }),
       GoRoute(
           name: 'outfit-add-attributes-screen',
           path: '/outfit-add-attributes-screen',
           builder: (context, state) {
             return OutfitsAddAttributesScreen(
-                map: state.extra as Map<List<dynamic>, OutfitContainer>);
+                map: state.extra as Map<List<dynamic>, OutfitContainer>,
+                friendUid: state.queryParams['friendUid']);
           }),
       GoRoute(
           name: 'wardrobe-item-search-screen',
@@ -94,7 +95,8 @@ class AppRouter {
           path: '/outfit-summary-screen',
           builder: (context, state) {
             return OutfitSummaryScreen(
-                map: state.extra as Map<List<dynamic>, OutfitContainer>?);
+                map: state.extra as Map<List<dynamic>, OutfitContainer>?,
+                friendUid: state.queryParams['friendUid']);
           }),
       GoRoute(
           name: 'edit-profile',

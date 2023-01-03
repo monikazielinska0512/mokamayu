@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -76,16 +76,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                                       .removeWardrobeItem(itemInfo.reference);
                                   Provider.of<WardrobeManager>(context,
                                           listen: false)
-                                      .nullListItemCopy();
-                                  Provider.of<WardrobeManager>(context,
-                                          listen: false)
-                                      .setTypes([]);
-                                  Provider.of<WardrobeManager>(context,
-                                          listen: false)
-                                      .setSizes([]);
-                                  Provider.of<WardrobeManager>(context,
-                                          listen: false)
-                                      .setStyles([]);
+                                      .resetBeforeCreatingNewOutfit();
                                   widget.itemList =
                                       Provider.of<WardrobeManager>(context,
                                               listen: false)
@@ -148,10 +139,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                                     .nullListItemCopy();
                                 Provider.of<OutfitManager>(context,
                                         listen: false)
-                                    .setStyles([]);
-                                Provider.of<OutfitManager>(context,
-                                        listen: false)
-                                    .setSeasons([]);
+                                    .resetTagLists();
                                 widget.outfitsList = Provider.of<OutfitManager>(
                                         context,
                                         listen: false)

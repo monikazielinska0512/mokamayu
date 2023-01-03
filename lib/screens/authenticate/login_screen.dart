@@ -32,7 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return BasicScreen(
       type: "Sign in",
-      leftButtonType: "back",
+      leftButtonType: null,
+      isLeftButtonVisible: false,
       isRightButtonVisible: false,
       context: context,
       isFullScreen: true,
@@ -136,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           child: Text(
             S.of(context).sign_up,
-            style: TextStyle(
+            style: const TextStyle(
                 color: ColorsConstants.red, fontWeight: FontWeight.bold),
           ),
         )
