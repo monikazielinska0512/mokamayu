@@ -83,6 +83,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
     });
   }
 
+  void updateUI() async {
+    var weatherData = await weatherModel.getWeatherByLocation();
+
+    setState(() {
+      var condition = weatherData['weather'][0]['id'];
+      currentWeatherIcon = weatherModel.getWeatherIcon(condition);
+      double temp = weatherData['main']['temp'];
+      temperature = temp.toInt();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -170,7 +181,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           children: [
             Expanded(
                 child: Padding(
-              padding: EdgeInsets.only(left: 20, right: 70, top: 5),
+              padding: EdgeInsets.only(left: 20, right: 70),
               child: TextField(
                   controller: _cityTextController,
                   decoration: InputDecoration(
@@ -213,15 +224,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         ['temp']
                                     .toDouble());
                           }
-                          // print(Provider.of<WeatherManager>(context,
-                          //         listen: false)
-                          //     .getDays);
-                          // print(Provider.of<WeatherManager>(context,
-                          //         listen: false)
-                          //     .getTime);
-                          // print(Provider.of<WeatherManager>(context,
-                          //         listen: false)
-                          //     .getTemps);
                         }
                       },
                     ),
@@ -230,7 +232,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   )),
             )),
             Padding(
-                padding: EdgeInsets.only(right: 20, top: 5),
+                padding: EdgeInsets.only(right: 20),
                 child: Column(
                   children: [
                     Text(
@@ -246,19 +248,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ],
                     )
                   ],
-                )
-
-                // Container(
-                //   height: 100,
-                //   width: 100,
-                //   color: Colors.grey,
-                // )
-                )
+                ))
           ],
         ),
         HourlyWeather(),
         Padding(
-            padding: const EdgeInsets.only(top: 20, left: 20, bottom: 10),
+            padding: const EdgeInsets.only(top: 15, left: 20, bottom: 10),
             child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -266,7 +261,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   style: TextStyles.h5(ColorsConstants.grey),
                 ))),
         SizedBox(
-            height: 170,
+            height: 140,
             width: MediaQuery.of(context).size.width,
             child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
@@ -276,24 +271,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   children: [
                     ..._getEventsfromDay(_selectedDay)
                         .map((Event event) => WardrobeItemCard(
-                            size: 65, outfit: event.outfit, event: event))
+                            size: 58, outfit: event.outfit, event: event))
                         .toList(),
                   ],
                 )))
       ]),
       buildFloatingButton()
     ]);
-  }
-
-  void updateUI() async {
-    var weatherData = await weatherModel.getWeatherByLocation();
-
-    setState(() {
-      var condition = weatherData['weather'][0]['id'];
-      currentWeatherIcon = weatherModel.getWeatherIcon(condition);
-      double temp = weatherData['main']['temp'];
-      temperature = temp.toInt();
-    });
   }
 
   Widget buildFloatingButton() {

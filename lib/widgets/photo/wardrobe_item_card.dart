@@ -89,9 +89,6 @@ class WardrobeItemCard extends StatelessWidget {
                     ],
                   )
                 : Column(children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
                     TextButton(
                         child: const Text(
                           "See details",
@@ -147,7 +144,7 @@ class WardrobeItemCard extends StatelessWidget {
                         child: Image.asset(
                           "assets/images/trash.png",
                           fit: BoxFit.fitWidth,
-                          height: 40,
+                          height: 35,
                         ))
                   ]),
           ],
