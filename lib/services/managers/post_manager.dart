@@ -32,11 +32,8 @@ class PostManager extends ChangeNotifier {
   }
 
   Future<List<Post>> getUserPosts(String uid) async {
-    QuerySnapshot snapshot = await db
-        .collection('users')
-        .doc(AuthService().getCurrentUserID())
-        .collection('posts')
-        .get();
+    QuerySnapshot snapshot =
+        await db.collection('users').doc(uid).collection('posts').get();
 
     return snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
   }

@@ -260,6 +260,16 @@ class S {
     );
   }
 
+  /// `Posts`
+  String get posts {
+    return Intl.message(
+      'Posts',
+      name: 'posts',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Social`
   String get social {
     return Intl.message(

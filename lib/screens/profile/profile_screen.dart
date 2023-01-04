@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
 import '../../generated/l10n.dart';
+import '../social/post_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String? uid;
@@ -19,9 +21,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Future<UserData?>? userData;
+  Future<UserData?>? userDataFuture;
   Future<List<WardrobeItem>>? itemList;
   Future<List<Outfit>>? outfitsList;
+  UserData? userData;
   UserData? friendData;
   Future<UserData?>? currentUser;
   late final bool displaysCurrentUserProfile;
@@ -34,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    userData = Provider.of<ProfileManager>(context, listen: false)
+    userDataFuture = Provider.of<ProfileManager>(context, listen: false)
         .getUserData(widget.uid);
     Provider.of<ProfileManager>(context, listen: true)
         .getUserData(widget.uid)
@@ -83,8 +86,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget buildUserCard(BuildContext context) {
     return Consumer<ProfileManager>(
         builder: (context, manager, _) => (FutureBuilder<UserData?>(
-            future: userData,
+            future: userDataFuture,
             builder: (context, snapshot) {
+              userData = snapshot.data;
               return Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.fromLTRB(25, 20, 5, 0),
@@ -132,18 +136,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (displaysCurrentUserProfile) {
       return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         IconTextButton(
-          onPressed: () {
-            context.push('/edit-profile');
-          },
+          onPressed: () => context.push('/edit-profile'),
           icon: Icons.edit_outlined,
           text: "Edit",
           backgroundColor: ColorsConstants.peachy,
         ),
         IconTextButton(
-          onPressed: () => {
-            print('friends list'),
-            context.goNamed('friends')
-            },
+          onPressed: () => context.goNamed('friends'),
           icon: Icons.person_outline_outlined,
           text: "Friends",
           backgroundColor: ColorsConstants.mint,
@@ -238,7 +237,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     List<Tab> tabs = <Tab>[
       Tab(text: S.of(context).wardrobe),
       Tab(text: S.of(context).outfits),
+      Tab(text: S.of(context).posts),
     ];
+    Future<List<Post>> userPosts =
+        Provider.of<PostManager>(context, listen: false)
+            .getUserPosts(widget.uid!);
     return Expanded(
       child: DefaultTabController(
         length: tabs.length,
@@ -261,13 +264,168 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: PhotoGrid(itemList: itemList)),
                   Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: PhotoGrid(outfitsList: outfitsList))
+                      child: PhotoGrid(outfitsList: outfitsList)),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: FutureBuilder<List<Post>>(
+                        future: userPosts,
+                        builder: (context, snapshot) {
+                          return buildPosts(snapshot.data!);
+                        },
+                      ))
                 ]),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  // TODO: move it to a separate widget
+  Widget buildPosts(List<Post> postsList) {
+    final commentController = TextEditingController();
+    return ListView.separated(
+      itemCount: postsList.length,
+      separatorBuilder: (context, _) => const SizedBox(height: 20),
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          padding: const EdgeInsets.all(20),
+          width: MediaQuery.of(context).size.width * 0.45,
+          decoration: BoxDecoration(
+              color: ColorsConstants.whiteAccent,
+              borderRadius: BorderRadius.circular(20)),
+          child: FutureBuilder<UserData?>(
+            future: Provider.of<ProfileManager>(context, listen: false)
+                .getUserData(postsList[index].createdBy),
+            builder: (context, snapshot) {
+              UserData? postAuthor = snapshot.data;
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5), // Image border
+                        child: SizedBox.fromSize(
+                          size: const Size.square(50),
+                          child: postAuthor?.profilePicture != null
+                              ? Image.network(postAuthor!.profilePicture!,
+                                  fit: BoxFit.fill)
+                              : Image.asset(Assets.avatarPlaceholder,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              postAuthor?.profileName ??
+                                  postAuthor?.username ??
+                                  "Post author",
+                              style: TextStyles.paragraphRegularSemiBold16()),
+                          Text(
+                              "Posted ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(postsList[index].creationDate))}",
+                              style: TextStyles.paragraphRegular14(
+                                  ColorsConstants.grey)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(postsList[index].likes!.length.toString(),
+                              style: TextStyles.paragraphRegular14(
+                                  ColorsConstants.grey)),
+                          postAuthor?.uid != AuthService().getCurrentUserID()
+                              ? postsList[index].likes!.contains(
+                                      AuthService().getCurrentUserID())
+                                  ? IconButton(
+                                      onPressed: () {
+                                        postsList[index].likes!.remove(
+                                            AuthService().getCurrentUserID());
+                                        Provider.of<PostManager>(context,
+                                                listen: false)
+                                            .likePost(
+                                                postsList[index].reference!,
+                                                postsList[index].createdBy,
+                                                postsList[index].likes!);
+                                        setState(() {});
+                                      },
+                                      icon: const Icon(Icons.favorite,
+                                          color: ColorsConstants.darkBrick))
+                                  : IconButton(
+                                      onPressed: () {
+                                        postsList[index].likes!.add(
+                                            AuthService().getCurrentUserID());
+                                        Provider.of<PostManager>(context,
+                                                listen: false)
+                                            .likePost(
+                                                postsList[index].reference!,
+                                                postsList[index].createdBy,
+                                                postsList[index].likes!);
+                                        setState(() {});
+                                      },
+                                      icon: const Icon(Icons.favorite_border,
+                                          color: ColorsConstants.darkBrick))
+                              : const Icon(Icons.favorite_border,
+                                  color: ColorsConstants.darkBrick),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Image.network(postsList[index].cover, fit: BoxFit.fill),
+                  TextField(
+                    controller: commentController,
+                    onSubmitted: (String comment) {
+                      print("add comment");
+                      postsList[index].comments!.add({
+                        "author": AuthService().getCurrentUserID(),
+                        "content": comment
+                      });
+                      Provider.of<PostManager>(context, listen: false)
+                          .commentPost(
+                              postsList[index].reference!,
+                              postsList[index].createdBy,
+                              postsList[index].comments!);
+                      commentController.clear();
+                      setState(() {});
+                    },
+                    decoration: const InputDecoration(
+                      hintText: "Comment post",
+                      filled: true,
+                      fillColor: Colors.white,
+                      suffixIcon: Icon(Icons.arrow_forward_ios_rounded,
+                          color: ColorsConstants.darkBrick),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(14)),
+                        borderSide:
+                            BorderSide(width: 0, style: BorderStyle.none),
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => PostScreen(
+                                  post: postsList[index],
+                                  user: postAuthor!,
+                                  userList: const [])));
+                    },
+                    child: Text(" View all comments",
+                        style: TextStyles.paragraphRegular12(
+                            ColorsConstants.darkBrick)),
+                  )
+                ],
+              );
+            },
+          ),
+        );
+      },
     );
   }
 

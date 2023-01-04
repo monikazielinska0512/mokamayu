@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Please enter text"),
+        "posts": MessageLookupByLibrary.simpleMessage("Posts"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
