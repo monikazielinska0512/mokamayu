@@ -1,14 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mokamayu/models/post.dart';
+
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
-
 
 class PostManager extends ChangeNotifier {
   List<Post> finalPostList = [];
   Future<List<Post>>? futurePostList;
+
   Future<List<Post>>? get getPostList => futurePostList;
+
   List<Post> get getFinalPostList => finalPostList;
 
   void setPosts(Future<List<Post>> postList) {
@@ -16,9 +18,7 @@ class PostManager extends ChangeNotifier {
   }
 
   Future<List<Post>> readPostsOnce() async {
-    QuerySnapshot snapshot = await db
-        .collectionGroup('posts')
-        .get();
+    QuerySnapshot snapshot = await db.collectionGroup('posts').get();
 
     List<Post> postList = [];
     for (var element in snapshot.docs) {
@@ -31,10 +31,20 @@ class PostManager extends ChangeNotifier {
     return finalPostList;
   }
 
-  Future<void> addPostToFirestore(Post item) async {
-    await db
+  Future<List<Post>> getUserPosts(String uid) async {
+    QuerySnapshot snapshot = await db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
+        .collection('posts')
+        .get();
+
+    return snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
+  }
+
+  Future<void> addPostToFirestore(Post item, String uid) async {
+    await db
+        .collection('users')
+        .doc(uid)
         .collection('posts')
         .add(item.toJson());
 
@@ -47,21 +57,19 @@ class PostManager extends ChangeNotifier {
         .doc(author)
         .collection('posts')
         .doc(reference)
-        .update({
-          "likes": likes
-        })
+        .update({"likes": likes})
         .then((_) => print('Liked'))
         .catchError((error) => print('Update failed: $error'));
   }
-  void commentPost(String reference, String author, List<Map<String, String>> comments) {
+
+  void commentPost(
+      String reference, String author, List<Map<String, String>> comments) {
     db
         .collection('users')
         .doc(author)
         .collection('posts')
         .doc(reference)
-        .update({
-        "comments": comments
-    })
+        .update({"comments": comments})
         .then((_) => print('Commented'))
         .catchError((error) => print('Update failed: $error'));
   }
@@ -73,8 +81,8 @@ class PostManager extends ChangeNotifier {
         .collection('posts')
         .doc(reference)
         .update({
-            "cover": cover,
-          })
+          "cover": cover,
+        })
         .then((_) => print('Updated'))
         .catchError((error) => print('Update failed: $error'));
   }
