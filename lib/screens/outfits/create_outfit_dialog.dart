@@ -32,7 +32,7 @@ class CustomDialogBox extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: SizedBox(
-                    height: 260,
+                    height: 220,
                     width: 310,
                     child: Padding(
                         padding: const EdgeInsets.only(left: 15),
@@ -65,11 +65,6 @@ class CustomDialogBox extends StatelessWidget {
                                       extra: itemList!);
                                   context.pop();
                                 }, 18, secondText: "Use your creativity!")),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: dialogCard("Generate Outfit!", () {
-                                  //TO DO
-                                }, 85))
                           ],
                         ))))
           ],
