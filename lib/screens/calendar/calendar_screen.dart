@@ -190,13 +190,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       onPressed: () async {
                         if (_cityTextController != null) {
                           Provider.of<WeatherManager>(context, listen: false)
-                              .nullDay();
-                          Provider.of<WeatherManager>(context, listen: false)
-                              .nullTemp();
-                          Provider.of<WeatherManager>(context, listen: false)
-                              .nullTime();
-                          Provider.of<WeatherManager>(context, listen: false)
-                              .nullIcons();
+                              .resetLists();
                           var weatherData = await weatherModel
                               .getCityWeather(_cityTextController.text);
                           double longtitude = weatherData['coord']['lon'];

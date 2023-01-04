@@ -9,21 +9,11 @@ class WeatherManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void nullDay() {
-    days = [];
-    notifyListeners();
-  }
-
   List<String> times = [];
   List<String> get getTime => times;
 
   void addTime(String time) {
     times.add(time);
-    notifyListeners();
-  }
-
-  void nullTime() {
-    times = [];
     notifyListeners();
   }
 
@@ -35,11 +25,6 @@ class WeatherManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void nullTemp() {
-    temps = [];
-    notifyListeners();
-  }
-
   List<String> weatherIcons = [];
   List<String> get getIcons => weatherIcons;
 
@@ -48,8 +33,11 @@ class WeatherManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void nullIcons() {
+  void resetLists() {
+    times = [];
     weatherIcons = [];
+    temps = [];
+    days = [];
     notifyListeners();
   }
 }
