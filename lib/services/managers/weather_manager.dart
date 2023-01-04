@@ -39,4 +39,17 @@ class WeatherManager extends ChangeNotifier {
     temps = [];
     notifyListeners();
   }
+
+  List<String> weatherIcons = [];
+  List<String> get getIcons => weatherIcons;
+
+  void addIcon(String icon) {
+    weatherIcons.add(icon);
+    notifyListeners();
+  }
+
+  void nullIcons() {
+    weatherIcons = [];
+    notifyListeners();
+  }
 }

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:mokamayu/models/wardrobe_item.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/weather_data.dart';
@@ -11,38 +9,45 @@ class HourlyWeather extends StatelessWidget {
   List<String> days = [];
   List<String> times = [];
   List<double> temps = [];
+  List<String> icons = [];
 
   @override
   Widget build(BuildContext context) {
-    // final items = [0, 8, 16, 24, 32];
     days = Provider.of<WeatherManager>(context, listen: true).getDays;
     times = Provider.of<WeatherManager>(context, listen: true).getTime;
     temps = Provider.of<WeatherManager>(context, listen: true).getTemps;
+    icons = Provider.of<WeatherManager>(context, listen: true).getIcons;
 
-    return HourlyWeatherRow(days: days, times: times, temps: temps);
+    return HourlyWeatherRow(
+        days: days, times: times, temps: temps, icons: icons);
   }
 }
 
 class HourlyWeatherRow extends StatelessWidget {
   HourlyWeatherRow(
-      {Key? key, required this.days, required this.times, required this.temps})
+      {Key? key,
+      required this.days,
+      required this.times,
+      required this.temps,
+      required this.icons})
       : super(key: key);
   final List<String> days;
   final List<String> times;
   final List<double> temps;
+  final List<String> icons;
   List<WeatherData> weatherDataItems = [];
 
   @override
   Widget build(BuildContext context) {
     for (var i = 0; i < days.length; i++) {
-      WeatherData data =
-          WeatherData(day: days[i], time: times[i], temp: temps[i]);
+      WeatherData data = WeatherData(
+          day: days[i], time: times[i], temp: temps[i], iconUrl: icons[i]);
       weatherDataItems.add(data);
     }
     return Row(children: <Widget>[
       Expanded(
           child: SizedBox(
-              height: 55.0,
+              height: 100.0,
               child: ListView(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
@@ -66,7 +71,7 @@ class HourlyWeatherItem extends StatelessWidget {
     const fontWeight = FontWeight.normal;
     final temp = data.temp;
     return Padding(
-        padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+        padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
         child: Column(
           children: [
             Text(
@@ -77,9 +82,10 @@ class HourlyWeatherItem extends StatelessWidget {
               data.time,
               style: textTheme.caption!.copyWith(fontWeight: fontWeight),
             ),
-            // const SizedBox(height: 8),
-            // WeatherIconImage(iconUrl: data.iconUrl, size: 48),
-            // const SizedBox(height: 8),
+            SizedBox(
+              height: 5,
+            ),
+            Text('${data.iconUrl}', style: TextStyle(fontSize: 25)),
             Text(
               '$temp°',
               style: textTheme.bodyText1!.copyWith(fontWeight: fontWeight),

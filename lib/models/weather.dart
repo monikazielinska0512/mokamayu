@@ -14,12 +14,17 @@ class WeatherModel {
     return weatherData;
   }
 
+  Future<dynamic> getWeatherByLocation() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+    NetworkData networkHelper = NetworkData(
+        '$weatherApiUrl?lat=${location.latitude}&lon=${location.longitide}&appid=$apiKey&units=metric');
+    var weatherData = await networkHelper.getData();
+    return weatherData;
+  }
+
   Future<dynamic> getForecastByCoords(
       double longtitude, double lattitude) async {
-    // Location location = Location();
-    // await location.getCurrentLocation();
-
-    /// Get location data
     NetworkData networkHelper = NetworkData(
         '$forecastApiUrl?lat=${lattitude}&lon=${longtitude}&appid=$apiKey&units=metric');
     var weatherData = await networkHelper.getData();

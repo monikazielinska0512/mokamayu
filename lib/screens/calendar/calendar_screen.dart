@@ -39,10 +39,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   final TextEditingController _cityTextController = TextEditingController();
   WeatherModel weatherModel = WeatherModel();
   late int temperature;
-  late int condition;
-  late String cityName;
-  late String weatherIcon;
-  late String tempIcon;
+  late String currentWeatherIcon;
 
   prefsData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -90,7 +87,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   void initState() {
     super.initState();
     selectedEvents = {};
-    updateUI(null);
+    updateUI();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 2), () => prefsData());
     });
@@ -173,14 +170,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
           children: [
             Expanded(
                 child: Padding(
-              padding: EdgeInsets.only(left: 20, right: 80, top: 10),
+              padding: EdgeInsets.only(left: 20, right: 70, top: 5),
               child: TextField(
                   controller: _cityTextController,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       icon: Icon(Icons.search),
                       onPressed: () async {
-                        //TODO
                         if (_cityTextController != null) {
                           Provider.of<WeatherManager>(context, listen: false)
                               .nullDay();
@@ -188,6 +184,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               .nullTemp();
                           Provider.of<WeatherManager>(context, listen: false)
                               .nullTime();
+                          Provider.of<WeatherManager>(context, listen: false)
+                              .nullIcons();
                           var weatherData = await weatherModel
                               .getCityWeather(_cityTextController.text);
                           double longtitude = weatherData['coord']['lon'];
@@ -197,39 +195,33 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           for (var i = 0;
                               i < forecastCoordsData['list'].length;
                               i++) {
-                            var day = forecastCoordsData['list'][i]['dt_txt']
-                                .split(' ')[0];
+                            var day = DateFormat('EEE').format(DateTime.parse(
+                                forecastCoordsData['list'][i]['dt_txt']));
                             Provider.of<WeatherManager>(context, listen: false)
                                 .addDay(day);
-                            var hour = forecastCoordsData['list'][i]['dt_txt']
-                                .split(' ')[1];
+                            var hour = DateFormat.Hm().format(DateTime.parse(
+                                forecastCoordsData['list'][i]['dt_txt']));
                             Provider.of<WeatherManager>(context, listen: false)
                                 .addTime(hour);
-                            // print(day);
-                            // print(hour);
-                            //day and time
-                            // print(forecastCoordsData['list'][i]['main']['temp']
-                            //     .runtimeType);
-                            // print(
-                            //     forecastCoordsData['list'][i]['main']['temp']);
-                            //temp (double)
+                            var iconUrl = weatherModel.getWeatherIcon(
+                                forecastCoordsData['list'][i]['weather'][0]
+                                    ['id']);
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addIcon(iconUrl);
                             Provider.of<WeatherManager>(context, listen: false)
                                 .addTemp(forecastCoordsData['list'][i]['main']
                                         ['temp']
                                     .toDouble());
-                            // print(
-                            //     forecastCoordsData['list'][i]['main']['temp']);
                           }
-                          print(Provider.of<WeatherManager>(context,
-                                  listen: false)
-                              .getDays);
-                          print(Provider.of<WeatherManager>(context,
-                                  listen: false)
-                              .getTime);
-                          print(Provider.of<WeatherManager>(context,
-                                  listen: false)
-                              .getTemps);
-                          // updateUI(weatherData);
+                          // print(Provider.of<WeatherManager>(context,
+                          //         listen: false)
+                          //     .getDays);
+                          // print(Provider.of<WeatherManager>(context,
+                          //         listen: false)
+                          //     .getTime);
+                          // print(Provider.of<WeatherManager>(context,
+                          //         listen: false)
+                          //     .getTemps);
                         }
                       },
                     ),
@@ -238,20 +230,24 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   )),
             )),
             Padding(
-                padding: EdgeInsets.only(right: 20, top: 10),
-                //weather container
-                child: Row(
+                padding: EdgeInsets.only(right: 20, top: 5),
+                child: Column(
                   children: [
                     Text(
-                      '$temperature°  ',
-                      // style: kTempTextStyle,
+                      "Current weather",
+                      style: TextStyles.paragraphRegular14(),
                     ),
-                    Text(
-                      '$weatherIcon',
-                      // style: kConditionTextStyle,
-                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Text('$temperature°  ', style: TextStyle(fontSize: 18)),
+                        Text('$currentWeatherIcon',
+                            style: TextStyle(fontSize: 25)),
+                      ],
+                    )
                   ],
                 )
+
                 // Container(
                 //   height: 100,
                 //   width: 100,
@@ -289,27 +285,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
     ]);
   }
 
-  // TimeOfDay stringToTimeOfDay(String tod) {
-  //   final format = DateFormat.jm();
-  //   return TimeOfDay.fromDateTime(format.parse(tod));
-  // }
+  void updateUI() async {
+    var weatherData = await weatherModel.getWeatherByLocation();
 
-  void updateUI(dynamic weather) {
     setState(() {
-      if (weather == null) {
-        temperature = 0;
-        weatherIcon = 'Error';
-        tempIcon = 'Unable to get weather data';
-        cityName = '';
-        return;
-      }
-      var condition = weather['weather'][0]['id'];
-      weatherIcon = weatherModel.getWeatherIcon(condition);
-      double temp = weather['main']['temp'];
+      var condition = weatherData['weather'][0]['id'];
+      currentWeatherIcon = weatherModel.getWeatherIcon(condition);
+      double temp = weatherData['main']['temp'];
       temperature = temp.toInt();
-      tempIcon = weatherModel.getMessage(temperature);
-
-      cityName = weather['name'];
     });
   }
 
