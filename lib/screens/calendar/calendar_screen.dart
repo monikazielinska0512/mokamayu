@@ -38,8 +38,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
   final AuthService _auth = AuthService();
   final TextEditingController _cityTextController = TextEditingController();
   WeatherModel weatherModel = WeatherModel();
-  late int temperature;
-  late String currentWeatherIcon;
+  int? temperature;
+  String? currentWeatherIcon;
 
   prefsData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -225,24 +225,25 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                   )),
             )),
-            Padding(
-                padding: EdgeInsets.only(right: 20),
-                child: Column(
-                  children: [
-                    Text(
-                      "Current weather",
-                      style: TextStyles.paragraphRegular14(),
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Text('$temperature°  ', style: TextStyle(fontSize: 18)),
+            if (temperature != null && currentWeatherIcon != null) ...[
+              Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Current weather",
+                        style: TextStyles.paragraphRegular14(),
+                      ),
+                      const SizedBox(height: 5),
+                      Row(children: [
+                        Text('$temperature°  ',
+                            style: const TextStyle(fontSize: 18)),
                         Text('$currentWeatherIcon',
-                            style: TextStyle(fontSize: 25)),
-                      ],
-                    )
-                  ],
-                ))
+                            style: const TextStyle(fontSize: 25)),
+                      ])
+                    ],
+                  ))
+            ],
           ],
         ),
         HourlyWeather(),
