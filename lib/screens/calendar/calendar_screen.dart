@@ -6,7 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/outfit.dart';
+import 'package:mokamayu/models/weather.dart';
 import 'package:mokamayu/services/managers/calendar_manager.dart';
+import 'package:mokamayu/services/managers/weather_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -18,6 +20,7 @@ import '../../services/managers/outfit_manager.dart';
 import '../../widgets/buttons/floating_button.dart';
 import '../../widgets/fundamental/fundamentals.dart';
 import '../../widgets/photo/wardrobe_item_card.dart';
+import 'hourly_weather.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -33,6 +36,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Map<DateTime, List<Event>> selectedEvents = {};
   List<Outfit>? outfitList;
   final AuthService _auth = AuthService();
+  final TextEditingController _cityTextController = TextEditingController();
+  WeatherModel weatherModel = WeatherModel();
+  int? temperature;
+  String? currentWeatherIcon;
 
   prefsData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -76,10 +83,22 @@ class _CalendarScreenState extends State<CalendarScreen> {
     });
   }
 
+  void updateUI() async {
+    var weatherData = await weatherModel.getWeatherByLocation();
+
+    setState(() {
+      var condition = weatherData['weather'][0]['id'];
+      currentWeatherIcon = weatherModel.getWeatherIcon(condition);
+      double temp = weatherData['main']['temp'];
+      temperature = temp.toInt();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     selectedEvents = {};
+    updateUI();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 2), () => prefsData());
     });
@@ -158,8 +177,78 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     )
                   : null,
             )),
+        Row(
+          children: [
+            Expanded(
+                child: Padding(
+              padding: EdgeInsets.only(left: 20, right: 70),
+              child: TextField(
+                  controller: _cityTextController,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () async {
+                        if (_cityTextController != null) {
+                          Provider.of<WeatherManager>(context, listen: false)
+                              .resetLists();
+                          var weatherData = await weatherModel
+                              .getCityWeather(_cityTextController.text);
+                          double longtitude = weatherData['coord']['lon'];
+                          double lattitude = weatherData['coord']['lat'];
+                          var forecastCoordsData = await weatherModel
+                              .getForecastByCoords(longtitude, lattitude);
+                          for (var i = 0;
+                              i < forecastCoordsData['list'].length;
+                              i++) {
+                            var day = DateFormat('EEE').format(DateTime.parse(
+                                forecastCoordsData['list'][i]['dt_txt']));
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addDay(day);
+                            var hour = DateFormat.Hm().format(DateTime.parse(
+                                forecastCoordsData['list'][i]['dt_txt']));
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addTime(hour);
+                            var iconUrl = weatherModel.getWeatherIcon(
+                                forecastCoordsData['list'][i]['weather'][0]
+                                    ['id']);
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addIcon(iconUrl);
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addTemp(forecastCoordsData['list'][i]['main']
+                                        ['temp']
+                                    .toDouble());
+                          }
+                        }
+                      },
+                    ),
+                    labelText: 'Enter City',
+                    floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  )),
+            )),
+            if (temperature != null || currentWeatherIcon != null) ...[
+              Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Current weather",
+                        style: TextStyles.paragraphRegular14(),
+                      ),
+                      const SizedBox(height: 5),
+                      Row(children: [
+                        Text('$temperature°  ',
+                            style: const TextStyle(fontSize: 18)),
+                        Text('$currentWeatherIcon',
+                            style: const TextStyle(fontSize: 25)),
+                      ])
+                    ],
+                  ))
+            ],
+          ],
+        ),
+        HourlyWeather(),
         Padding(
-            padding: const EdgeInsets.only(top: 20, left: 20, bottom: 10),
+            padding: const EdgeInsets.only(top: 15, left: 20, bottom: 10),
             child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -167,7 +256,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   style: TextStyles.h5(ColorsConstants.grey),
                 ))),
         SizedBox(
-            height: 170,
+            height: 140,
             width: MediaQuery.of(context).size.width,
             child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
@@ -177,7 +266,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   children: [
                     ..._getEventsfromDay(_selectedDay)
                         .map((Event event) => WardrobeItemCard(
-                            size: 65, outfit: event.outfit, event: event))
+                            size: 58, outfit: event.outfit, event: event))
                         .toList(),
                   ],
                 )))

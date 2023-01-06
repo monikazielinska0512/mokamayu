@@ -10,6 +10,10 @@
   <true/>
   <key>NSAllowsLocalNetworking</key>
   <true/>
+  <key>NSLocationAlwaysUsageDescription</key>
+	<string>custom message</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>custom message</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires access to the photo library.</string>
 	<key>NSCameraUsageDescription</key>	
