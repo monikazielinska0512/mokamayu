@@ -225,7 +225,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                   )),
             )),
-            if (temperature != null && currentWeatherIcon != null) ...[
+            if (temperature != null || currentWeatherIcon != null) ...[
               Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Column(
