@@ -7,9 +7,13 @@ import '../database/database_service.dart';
 
 class PostManager extends ChangeNotifier {
   List<Post> finalPostList = [];
+  List<Post> finalCurrentUserPostList = [];
   Future<List<Post>>? futurePostList;
 
   Future<List<Post>>? get getPostList => futurePostList;
+
+  Future<List<Post>>? get getFutureCurrentUserPostList async =>
+      finalCurrentUserPostList;
 
   List<Post> get getFinalPostList => finalPostList;
 
@@ -36,6 +40,17 @@ class PostManager extends ChangeNotifier {
         await db.collection('users').doc(uid).collection('posts').get();
 
     return snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
+  }
+
+  Future<List<Post>>? getCurrentUserPosts() async {
+    QuerySnapshot snapshot = await db
+        .collection('users')
+        .doc(AuthService().getCurrentUserID())
+        .collection('posts')
+        .get();
+    finalCurrentUserPostList =
+        snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
+    return finalCurrentUserPostList;
   }
 
   Future<void> addPostToFirestore(Post item, String uid) async {
@@ -69,6 +84,7 @@ class PostManager extends ChangeNotifier {
         .update({"comments": comments})
         .then((_) => print('Commented'))
         .catchError((error) => print('Update failed: $error'));
+    notifyListeners();
   }
 
   void updatePost(String reference, String cover) {

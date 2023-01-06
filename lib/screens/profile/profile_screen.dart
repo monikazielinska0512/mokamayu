@@ -23,6 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<UserData?>? userDataFuture;
   Future<List<WardrobeItem>>? itemList;
   Future<List<Outfit>>? outfitsList;
+  Future<List<Post>>? futureUserPosts;
   UserData? userData;
   UserData? friendData;
   Future<UserData?>? currentUser;
@@ -31,6 +32,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     displaysCurrentUserProfile = AuthService().getCurrentUserID() == widget.uid;
+    futureUserPosts =
+        Provider.of<PostManager>(context, listen: false).getCurrentUserPosts();
     super.initState();
   }
 
@@ -45,6 +48,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
     currentUser = Provider.of<ProfileManager>(context, listen: false)
         .getCurrentUserData();
+
+    if (displaysCurrentUserProfile) {
+      futureUserPosts = Provider.of<PostManager>(context, listen: false)
+          .getFutureCurrentUserPostList;
+    } else {
+      futureUserPosts = Provider.of<PostManager>(context, listen: false)
+          .getUserPosts(widget.uid!);
+    }
 
     if (widget.uid != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
@@ -238,9 +249,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       Tab(text: S.of(context).outfits),
       Tab(text: S.of(context).posts),
     ];
-    Future<List<Post>> userPosts =
-        Provider.of<PostManager>(context, listen: false)
-            .getUserPosts(widget.uid!);
     return Expanded(
       child: DefaultTabController(
         length: tabs.length,
@@ -266,7 +274,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: PhotoGrid(outfitsList: outfitsList)),
                   Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: buildPosts(userPosts)),
+                      child: buildPosts()),
                 ]),
               ),
             ],
@@ -276,21 +284,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget buildPosts(Future<List<Post>> userPostsFuture) {
+  Widget buildPosts() {
     return FutureBuilder<List<Post>>(
-      future: userPostsFuture,
+      future: futureUserPosts,
       builder: (context, postsList) {
-        if (postsList.data == null) {
-          return const Text("This user doesn't have any posts");
-        } else {
-          return ListView.separated(
-            itemCount: postsList.data!.length,
-            separatorBuilder: (context, _) => const SizedBox(height: 20),
-            itemBuilder: (BuildContext context, int index) {
-              return PostTile(post: postsList.data![index]);
-            },
-          );
+        if (postsList.hasData) {
+          if (postsList.data == null || postsList.data!.isNotEmpty) {
+            return ListView.separated(
+              itemCount: postsList.data!.length,
+              separatorBuilder: (context, _) => const SizedBox(height: 20),
+              itemBuilder: (BuildContext context, int index) {
+                return PostTile(post: postsList.data![index]);
+              },
+            );
+          } else {
+            return Center(
+              child: Text("There are no posts to display.",
+                  style: TextStyles.paragraphRegularSemiBold14(Colors.grey),
+                  textAlign: TextAlign.center),
+            );
+          }
         }
+        return const Center(
+            child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(ColorsConstants.darkBrick),
+        ));
       },
     );
   }

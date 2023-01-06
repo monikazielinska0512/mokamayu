@@ -181,6 +181,7 @@ class OutfitSummaryScreen extends StatelessWidget {
           .addPostToFirestore(postData, postOwnerUid);
       postList =
           Provider.of<PostManager>(context, listen: false).readPostsOnce();
+      Provider.of<PostManager>(context, listen: false).getCurrentUserPosts();
       Provider.of<PostManager>(context, listen: false).setPosts(postList!);
 
       if (isCreatingOutfitForFriend) {
