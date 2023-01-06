@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -19,9 +20,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Future<UserData?>? userData;
+  Future<UserData?>? userDataFuture;
   Future<List<WardrobeItem>>? itemList;
   Future<List<Outfit>>? outfitsList;
+  Future<List<Post>>? futureUserPosts;
+  UserData? userData;
   UserData? friendData;
   Future<UserData?>? currentUser;
   late final bool displaysCurrentUserProfile;
@@ -29,12 +32,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     displaysCurrentUserProfile = AuthService().getCurrentUserID() == widget.uid;
+    futureUserPosts =
+        Provider.of<PostManager>(context, listen: false).getCurrentUserPosts();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    userData = Provider.of<ProfileManager>(context, listen: false)
+    userDataFuture = Provider.of<ProfileManager>(context, listen: false)
         .getUserData(widget.uid);
     Provider.of<ProfileManager>(context, listen: true)
         .getUserData(widget.uid)
@@ -43,6 +48,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
     currentUser = Provider.of<ProfileManager>(context, listen: false)
         .getCurrentUserData();
+
+    if (displaysCurrentUserProfile) {
+      futureUserPosts = Provider.of<PostManager>(context, listen: false)
+          .getFutureCurrentUserPostList;
+    } else {
+      futureUserPosts = Provider.of<PostManager>(context, listen: false)
+          .getUserPosts(widget.uid!);
+    }
 
     if (widget.uid != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
@@ -83,8 +96,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget buildUserCard(BuildContext context) {
     return Consumer<ProfileManager>(
         builder: (context, manager, _) => (FutureBuilder<UserData?>(
-            future: userData,
+            future: userDataFuture,
             builder: (context, snapshot) {
+              userData = snapshot.data;
               return Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.fromLTRB(25, 20, 5, 0),
@@ -132,18 +146,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (displaysCurrentUserProfile) {
       return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         IconTextButton(
-          onPressed: () {
-            context.push('/edit-profile');
-          },
+          onPressed: () => context.push('/edit-profile'),
           icon: Icons.edit_outlined,
           text: "Edit",
           backgroundColor: ColorsConstants.peachy,
         ),
         IconTextButton(
-          onPressed: () => {
-            print('friends list'),
-            context.goNamed('friends')
-            },
+          onPressed: () => context.goNamed('friends'),
           icon: Icons.person_outline_outlined,
           text: "Friends",
           backgroundColor: ColorsConstants.mint,
@@ -238,6 +247,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     List<Tab> tabs = <Tab>[
       Tab(text: S.of(context).wardrobe),
       Tab(text: S.of(context).outfits),
+      Tab(text: S.of(context).posts),
     ];
     return Expanded(
       child: DefaultTabController(
@@ -261,13 +271,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: PhotoGrid(itemList: itemList)),
                   Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: PhotoGrid(outfitsList: outfitsList))
+                      child: PhotoGrid(outfitsList: outfitsList)),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: buildPosts()),
                 ]),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildPosts() {
+    return FutureBuilder<List<Post>>(
+      future: futureUserPosts,
+      builder: (context, postsList) {
+        if (postsList.hasData) {
+          if (postsList.data == null || postsList.data!.isNotEmpty) {
+            return ListView.separated(
+              itemCount: postsList.data!.length,
+              separatorBuilder: (context, _) => const SizedBox(height: 20),
+              itemBuilder: (BuildContext context, int index) {
+                return PostTile(post: postsList.data![index]);
+              },
+            );
+          } else {
+            return Center(
+              child: Text("There are no posts to display.",
+                  style: TextStyles.paragraphRegularSemiBold14(Colors.grey),
+                  textAlign: TextAlign.center),
+            );
+          }
+        }
+        return const Center(
+            child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(ColorsConstants.darkBrick),
+        ));
+      },
     );
   }
 

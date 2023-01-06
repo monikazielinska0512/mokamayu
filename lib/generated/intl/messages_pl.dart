@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hasła nie są identyczne"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Proszę wprowadzić tekst"),
+        "posts": MessageLookupByLibrary.simpleMessage("Posty"),
         "profile": MessageLookupByLibrary.simpleMessage("Profil"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Zresetuj hasło"),
