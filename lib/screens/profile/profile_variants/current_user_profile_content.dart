@@ -6,17 +6,18 @@ import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/constants.dart';
-import '../../generated/l10n.dart';
+import '../../../constants/constants.dart';
+import '../../../generated/l10n.dart';
 
-class CurrentUserProfileScreen extends ProfileScreen {
-  const CurrentUserProfileScreen({Key? key, uid}) : super(key: key, uid: uid);
+class CurrentUserProfileContent extends AbstractProfileContent {
+  const CurrentUserProfileContent({Key? key, uid}) : super(key: key, uid: uid);
 
   @override
-  ProfileScreenState createState() => _CurrentUserProfileState();
+  AbstractProfileContentState createState() =>
+      _CurrentUserProfileContentState();
 }
 
-class _CurrentUserProfileState extends ProfileScreenState {
+class _CurrentUserProfileContentState extends AbstractProfileContentState {
   Future<List<Post>>? futureUserPosts;
 
   @override

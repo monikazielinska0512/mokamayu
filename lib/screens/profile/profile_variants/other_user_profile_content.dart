@@ -7,17 +7,17 @@ import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/constants.dart';
-import '../../generated/l10n.dart';
+import '../../../constants/constants.dart';
+import '../../../generated/l10n.dart';
 
-class OtherUserProfileScreen extends ProfileScreen {
-  const OtherUserProfileScreen({Key? key, uid}) : super(key: key, uid: uid);
+class OtherUserProfileContent extends AbstractProfileContent {
+  const OtherUserProfileContent({Key? key, uid}) : super(key: key, uid: uid);
 
   @override
-  ProfileScreenState createState() => _OtherUserProfileState();
+  AbstractProfileContentState createState() => _OtherUserProfileContentState();
 }
 
-class _OtherUserProfileState extends ProfileScreenState {
+class _OtherUserProfileContentState extends AbstractProfileContentState {
   UserData? friendData;
 
   @override

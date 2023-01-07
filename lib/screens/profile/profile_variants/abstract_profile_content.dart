@@ -4,15 +4,16 @@ import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/constants.dart';
+import '../../../constants/constants.dart';
 
-abstract class ProfileScreen extends StatefulWidget {
+abstract class AbstractProfileContent extends StatefulWidget {
   final String? uid;
 
-  const ProfileScreen({Key? key, required this.uid}) : super(key: key);
+  const AbstractProfileContent({Key? key, required this.uid}) : super(key: key);
 }
 
-abstract class ProfileScreenState extends State<ProfileScreen> {
+abstract class AbstractProfileContentState
+    extends State<AbstractProfileContent> {
   Future<UserData?>? userDataFuture;
   Future<List<WardrobeItem>>? itemList;
   Future<List<Outfit>>? outfitsList;
