@@ -160,23 +160,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ]);
     } else {
-      return
-      friendData != null
-        ? friendshipButton()
-        : IconTextButton(
-        onPressed: () => print('nie ma danych :c'),
-        icon: Icons.person_outline_outlined,
-        text: "Nope",
-        backgroundColor: ColorsConstants.mint,
-      );
+      return friendData != null
+          ? friendshipButton()
+          : IconTextButton(
+              onPressed: () => print('nie ma danych :c'),
+              icon: Icons.person_outline_outlined,
+              text: "Nope",
+              backgroundColor: ColorsConstants.mint,
+            );
     }
   }
 
-  Widget friendshipButton(){
-    switch(Provider.of<ProfileManager>(context, listen: true).getFriendshipStatus(friendData!.uid)){
-      case "FriendshipState.FRIENDS": {
-        return IconTextButton(
-            onPressed: (){
+  Widget friendshipButton() {
+    switch (Provider.of<ProfileManager>(context, listen: true)
+        .getFriendshipStatus(friendData!.uid)) {
+      case "FriendshipState.FRIENDS":
+        {
+          return IconTextButton(
+            onPressed: () {
               print("Remove");
               Provider.of<ProfileManager>(context, listen: false)
                   .removeFriend(friendData!);
@@ -184,44 +185,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
             icon: Icons.check,
             text: "Friends",
             backgroundColor: ColorsConstants.mint,
-        );
-      }
-      case "FriendshipState.INVITE_PENDING":{
-        return IconTextButton(
-          onPressed: (){
-            print("cancel");
-            Provider.of<ProfileManager>(context, listen: false).cancelFriendInvite(friendData!);
-          },
-          icon: Icons.outgoing_mail,
-          text: "Sent",
-          backgroundColor: ColorsConstants.mint,
-        );      }
-      case "FriendshipState.RECEIVED_INVITE":{
-        return IconTextButton(
-          onPressed: (){
-            showDialog(
-                context: context,
-                useSafeArea: false,
-                builder: (BuildContext context) {
-                  return FriendDialogBox(friend: friendData!);
-                });
-          },
-          icon: Icons.mark_email_unread,
-          text: "Respond",
-          backgroundColor: ColorsConstants.mint,
-        );
-      }
-      default: {
-        return IconTextButton(
-          onPressed: (){
-            print("send");
-            Provider.of<ProfileManager>(context, listen: false).sendFriendInvite(friendData!);
-          },
-          icon: Icons.person_outline_outlined,
-          text: "Add friend",
-          backgroundColor: ColorsConstants.mint,
-        );
-      }
+          );
+        }
+      case "FriendshipState.INVITE_PENDING":
+        {
+          return IconTextButton(
+            onPressed: () {
+              print("cancel");
+              Provider.of<ProfileManager>(context, listen: false)
+                  .cancelFriendInvite(friendData!);
+            },
+            icon: Icons.outgoing_mail,
+            text: "Sent",
+            backgroundColor: ColorsConstants.mint,
+          );
+        }
+      case "FriendshipState.RECEIVED_INVITE":
+        {
+          return IconTextButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  useSafeArea: false,
+                  builder: (BuildContext context) {
+                    return FriendDialogBox(friend: friendData!);
+                  });
+            },
+            icon: Icons.mark_email_unread,
+            text: "Respond",
+            backgroundColor: ColorsConstants.mint,
+          );
+        }
+      default:
+        {
+          return IconTextButton(
+            onPressed: () {
+              print("send");
+              Provider.of<ProfileManager>(context, listen: false)
+                  .sendFriendInvite(friendData!);
+            },
+            icon: Icons.person_outline_outlined,
+            text: "Add friend",
+            backgroundColor: ColorsConstants.mint,
+          );
+        }
     }
   }
 
@@ -276,7 +283,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               itemCount: postsList.data!.length,
               separatorBuilder: (context, _) => const SizedBox(height: 20),
               itemBuilder: (BuildContext context, int index) {
-                return PostTile(post: postsList.data![index]);
+                return PostSummaryTile(post: postsList.data![index]);
               },
             );
           } else {
@@ -309,5 +316,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
         alignment: Alignment.bottomRight);
   }
-
 }
