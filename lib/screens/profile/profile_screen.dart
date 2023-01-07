@@ -281,7 +281,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if (postsList.data == null || postsList.data!.isNotEmpty) {
             return ListView.separated(
               itemCount: postsList.data!.length,
-              separatorBuilder: (context, _) => const SizedBox(height: 20),
+              separatorBuilder: (context, _) => const SizedBox(height: 3),
               itemBuilder: (BuildContext context, int index) {
                 return PostSummaryTile(post: postsList.data![index]);
               },
