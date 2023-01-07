@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
 import '../../generated/l10n.dart';
 
-class CurrentUserProfile extends ProfileScreen {
-  const CurrentUserProfile({Key? key, uid}) : super(key: key, uid: uid);
+class CurrentUserProfileScreen extends ProfileScreen {
+  const CurrentUserProfileScreen({Key? key, uid}) : super(key: key, uid: uid);
 
   @override
   ProfileScreenState createState() => _CurrentUserProfileState();

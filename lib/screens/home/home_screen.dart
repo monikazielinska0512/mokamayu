@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       const OutfitsScreen(),
       const SocialScreen(),
       const CalendarScreen(),
-      CurrentUserProfile(uid: currentUserUid),
+      CurrentUserProfileScreen(uid: currentUserUid),
     ];
 
     return Scaffold(

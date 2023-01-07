@@ -146,8 +146,8 @@ class AppRouter {
           builder: (context, state) {
             String? uid = state.queryParams['uid'];
             return uid == AuthService().getCurrentUserID()
-                ? CurrentUserProfile(uid: uid)
-                : OtherUserProfile(uid: uid);
+                ? CurrentUserProfileScreen(uid: uid)
+                : OtherUserProfileScreen(uid: uid);
           }),
       GoRoute(
         name: 'friends',
