@@ -29,9 +29,7 @@ class PostManager extends ChangeNotifier {
     List<Post> postList = [];
     for (var element in snapshot.docs) {
       Post item = Post.fromSnapshot(element);
-      if (item.createdBy != AuthService().getCurrentUserID()) {
-        postList.add(item);
-      }
+      postList.add(item);
     }
     finalPostList = postList;
     return finalPostList;
@@ -50,8 +48,9 @@ class PostManager extends ChangeNotifier {
         .doc(AuthService().getCurrentUserID())
         .collection('posts')
         .get();
-    finalCurrentUserPostList =
-        snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
+    var list = snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
+    list.sort((b, a) => a.creationDate.compareTo(b.creationDate));
+    finalCurrentUserPostList = list;
     return finalCurrentUserPostList;
   }
 
@@ -66,13 +65,13 @@ class PostManager extends ChangeNotifier {
   }
 
   List<Post> readFeedPostsOnce(List<String> friendList, List<Post> postList) {
-
     List<Post> list = [];
     for (var element in postList) {
       if (friendList.contains(element.createdBy)) {
         list.add(element);
       }
     }
+    list.sort((b, a) => a.creationDate.compareTo(b.creationDate));
     friendsPostList = list;
     return friendsPostList;
   }
