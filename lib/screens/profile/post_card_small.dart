@@ -8,16 +8,16 @@ import '../../models/models.dart';
 import '../../services/managers/managers.dart';
 import '../../widgets/fundamental/snackbar.dart';
 
-class PostSummaryTile extends StatefulWidget {
+class PostCardSmall extends StatefulWidget {
   final Post post;
 
-  const PostSummaryTile({Key? key, required this.post}) : super(key: key);
+  const PostCardSmall({Key? key, required this.post}) : super(key: key);
 
   @override
-  State<PostSummaryTile> createState() => _PostSummaryTileState();
+  State<PostCardSmall> createState() => _PostCardSmallState();
 }
 
-class _PostSummaryTileState extends State<PostSummaryTile> {
+class _PostCardSmallState extends State<PostCardSmall> {
   final commentController = TextEditingController();
   late final Post post;
 

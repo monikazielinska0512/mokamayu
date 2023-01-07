@@ -7,6 +7,7 @@ import 'package:mokamayu/screens/wardrobe/wardrobe_search_screen.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 
 import '../models/models.dart';
+import '../services/authentication/auth.dart';
 
 class AppRouter {
   final AppStateManager appStateManager;
@@ -17,8 +18,14 @@ class AppRouter {
   final PostManager postManager;
   final FriendsManager friendsManager;
 
-  AppRouter(this.appStateManager, this.profileManager, this.wardrobeManager,
-      this.outfitManager, this.userListManager, this.postManager, this.friendsManager);
+  AppRouter(
+      this.appStateManager,
+      this.profileManager,
+      this.wardrobeManager,
+      this.outfitManager,
+      this.userListManager,
+      this.postManager,
+      this.friendsManager);
 
   late final router = GoRouter(
     debugLogDiagnostics: true,
@@ -134,12 +141,14 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        name: 'profile',
-        path: '/profile',
-        builder: (context, state) {
-        return ProfileScreen(uid: state.queryParams['uid'],);
-        }
-      ),
+          name: 'profile',
+          path: '/profile',
+          builder: (context, state) {
+            String? uid = state.queryParams['uid'];
+            return uid == AuthService().getCurrentUserID()
+                ? CurrentUserProfile(uid: uid)
+                : OtherUserProfile(uid: uid);
+          }),
       GoRoute(
         name: 'friends',
         path: '/friends',
