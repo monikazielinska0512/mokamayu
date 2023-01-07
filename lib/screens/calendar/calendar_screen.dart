@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/outfit.dart';
-import 'package:mokamayu/models/weather.dart';
+import 'package:mokamayu/services/api/weather.dart';
 import 'package:mokamayu/services/managers/calendar_manager.dart';
 import 'package:mokamayu/services/managers/weather_manager.dart';
 import 'package:provider/provider.dart';

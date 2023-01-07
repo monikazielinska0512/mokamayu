@@ -1,7 +1,7 @@
-import 'package:mokamayu/models/location.dart';
-import 'package:mokamayu/models/network_data.dart';
+import 'package:mokamayu/services/api/location.dart';
+import 'package:mokamayu/services/api/network_data.dart';
 
-import '../constants/constants.dart';
+import '../../constants/constants.dart';
 
 const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/weather';
 const forecastApiUrl = 'http://api.openweathermap.org/data/2.5/forecast';
