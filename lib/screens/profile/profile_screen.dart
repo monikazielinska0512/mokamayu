@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
 import '../../generated/l10n.dart';
+import 'friend_invite_dialog.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String? uid;
@@ -152,31 +153,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: ColorsConstants.peachy,
         ),
         IconTextButton(
-          onPressed: () => context.goNamed('friends'),
+          onPressed: () => context.pushNamed('friends'),
           icon: Icons.person_outline_outlined,
           text: "Friends",
           backgroundColor: ColorsConstants.mint,
         ),
       ]);
     } else {
-      return friendData != null
-          ? friendshipButton()
-          : IconTextButton(
-              onPressed: () => print('nie ma danych :c'),
-              icon: Icons.person_outline_outlined,
-              text: "Nope",
-              backgroundColor: ColorsConstants.mint,
-            );
+      return
+      friendData != null
+        ? friendshipButton()
+        : IconTextButton(
+        onPressed: () => print('nie ma danych :c'),
+        icon: Icons.person_outline_outlined,
+        text: "Nope",
+        backgroundColor: ColorsConstants.mint,
+      );
     }
   }
 
-  Widget friendshipButton() {
-    switch (Provider.of<ProfileManager>(context, listen: true)
-        .getFriendshipStatus(friendData!.uid)) {
-      case "FriendshipState.FRIENDS":
-        {
-          return IconTextButton(
-            onPressed: () {
+  Widget friendshipButton(){
+    switch(Provider.of<ProfileManager>(context, listen: true).getFriendshipStatus(friendData!.uid)){
+      case "FriendshipState.FRIENDS": {
+        return IconTextButton(
+            onPressed: (){
               print("Remove");
               Provider.of<ProfileManager>(context, listen: false)
                   .removeFriend(friendData!);
@@ -184,62 +184,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
             icon: Icons.check,
             text: "Friends",
             backgroundColor: ColorsConstants.mint,
-          );
-        }
-      case "FriendshipState.INVITE_PENDING":
-        {
-          return IconTextButton(
-            onPressed: () {
-              print("cancel");
-              Provider.of<ProfileManager>(context, listen: false)
-                  .cancelFriendInvite(friendData!);
-            },
-            icon: Icons.outgoing_mail,
-            text: "Sent",
-            backgroundColor: ColorsConstants.mint,
-          );
-        }
-      case "FriendshipState.RECEIVED_INVITE":
-        {
-          return IconTextButton(
-            onPressed: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext buildContext) {
-                    return SafeArea(
-                      child: Wrap(children: [
-                        buildOption(
-                            buildContext,
-                            const Icon(Icons.check_circle_outline_rounded),
-                            "Accept invite",
-                            friendData!),
-                        buildOption(
-                            buildContext,
-                            const Icon(Icons.highlight_remove_rounded),
-                            "Reject invite",
-                            friendData!),
-                      ]),
-                    );
-                  });
-            },
-            icon: Icons.mark_email_unread,
-            text: "Respond",
-            backgroundColor: ColorsConstants.mint,
-          );
-        }
-      default:
-        {
-          return IconTextButton(
-            onPressed: () {
-              print("send");
-              Provider.of<ProfileManager>(context, listen: false)
-                  .sendFriendInvite(friendData!);
-            },
-            icon: Icons.person_outline_outlined,
-            text: "Add friend",
-            backgroundColor: ColorsConstants.mint,
-          );
-        }
+        );
+      }
+      case "FriendshipState.INVITE_PENDING":{
+        return IconTextButton(
+          onPressed: (){
+            print("cancel");
+            Provider.of<ProfileManager>(context, listen: false).cancelFriendInvite(friendData!);
+          },
+          icon: Icons.outgoing_mail,
+          text: "Sent",
+          backgroundColor: ColorsConstants.mint,
+        );      }
+      case "FriendshipState.RECEIVED_INVITE":{
+        return IconTextButton(
+          onPressed: (){
+            showDialog(
+                context: context,
+                useSafeArea: false,
+                builder: (BuildContext context) {
+                  return FriendDialogBox(friend: friendData!);
+                });
+          },
+          icon: Icons.mark_email_unread,
+          text: "Respond",
+          backgroundColor: ColorsConstants.mint,
+        );
+      }
+      default: {
+        return IconTextButton(
+          onPressed: (){
+            print("send");
+            Provider.of<ProfileManager>(context, listen: false).sendFriendInvite(friendData!);
+          },
+          icon: Icons.person_outline_outlined,
+          text: "Add friend",
+          backgroundColor: ColorsConstants.mint,
+        );
+      }
     }
   }
 
@@ -328,23 +310,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
         alignment: Alignment.bottomRight);
   }
 
-  Widget buildOption(
-      BuildContext context, Icon icon, String title, UserData friend) {
-    return ListTile(
-        leading: icon,
-        title: Text(title),
-        onTap: () {
-          if (title == "Reject invite") {
-            print("reject");
-            Provider.of<ProfileManager>(context, listen: false)
-                .rejectFriendInvite(friend);
-          } else {
-            //accept
-            print("accept");
-            Provider.of<ProfileManager>(context, listen: false)
-                .acceptFriendInvite(friend);
-          }
-          Navigator.of(context).pop();
-        });
-  }
 }

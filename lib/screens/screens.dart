@@ -17,6 +17,7 @@ export 'social/post_screen.dart';
 export 'social/post_tile.dart';
 export 'social/social_screen.dart';
 export 'social/users_screen.dart';
+export 'profile/friend_invite_dialog.dart';
 export 'wardrobe/add_photo_screen.dart';
 export 'wardrobe/wardrobe_item_form_screen.dart';
 export 'wardrobe/wardrobe_screen.dart';

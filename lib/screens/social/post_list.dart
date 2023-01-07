@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/screens/social/post_screen.dart';
+import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/screens/screens.dart';
+import 'package:mokamayu/services/authentication/auth.dart';
 import 'package:provider/provider.dart';
-
-import '../../services/authentication/auth.dart';
-import '../../services/managers/post_manager.dart';
+import '../../services/managers/managers.dart';
 
 class PostList extends StatefulWidget {
   final List<Post> postList;
@@ -22,22 +21,25 @@ class PostList extends StatefulWidget {
   State<PostList> createState() => _PostListState();
 }
 
-class _PostListState extends State<PostList> {
-  final myController = TextEditingController();
-
-  @override
+class _PostListState extends State<PostList>{
+    @override
   Widget build(BuildContext context) {
-    return widget.postList.isNotEmpty ? buildFeed() : buildEmpty();
+   return widget.postList.isNotEmpty
+      ? buildFeed()
+      : buildEmpty();
   }
 
-  Widget buildFeed() {
+  Widget buildFeed(){
+    List<TextEditingController> myController =
+    List.generate(widget.postList.length, (i) => TextEditingController());
     return ListView.separated(
         itemBuilder: (BuildContext context, int index) {
           return Container(
             width: MediaQuery.of(context).size.width * 0.45,
             decoration: BoxDecoration(
-                color: ColorsConstants.whiteAccent,
-                borderRadius: BorderRadius.circular(20)),
+              color: ColorsConstants.whiteAccent,
+              borderRadius: BorderRadius.circular(20)
+            ),
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
             child: GestureDetector(
               onTap: () {},
@@ -67,8 +69,7 @@ class _PostListState extends State<PostList> {
                                       .profilePicture!,
                                   fit: BoxFit.fill)
                               : Image.asset(Assets.avatarPlaceholder,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7),
+                              width: MediaQuery.of(context).size.width * 0.7),
                         ),
                       ),
                       Column(
@@ -153,23 +154,17 @@ class _PostListState extends State<PostList> {
                                 ),
                         ],
                       ),
+
                     ],
                   ),
                   Image.network(widget.postList[index].cover, fit: BoxFit.fill),
                   TextField(
-                    controller: myController,
-                    onSubmitted: (String comment) {
+                    controller: myController[index],
+                    onSubmitted: (String comment){
                       print("add comment");
-                      widget.postList[index].comments!.add({
-                        "author": AuthService().getCurrentUserID(),
-                        "content": comment
-                      });
-                      Provider.of<PostManager>(context, listen: false)
-                          .commentPost(
-                              widget.postList[index].reference!,
-                              widget.postList[index].createdBy,
-                              widget.postList[index].comments!);
-                      myController.clear();
+                      widget.postList[index].comments!.add({"author": AuthService().getCurrentUserID(), "content": comment});
+                      Provider.of<PostManager>(context, listen: false).commentPost(widget.postList[index].reference!, widget.postList[index].createdBy, widget.postList[index].comments!);
+                      myController[index].clear();
                       setState(() {});
                     },
                     decoration: const InputDecoration(

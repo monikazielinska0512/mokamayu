@@ -35,7 +35,11 @@ class ProfileManager extends ChangeNotifier {
   Future<UserData?> getUserData(String? uid) async {
     if (uid != null) {
       DocumentSnapshot? snapshot = await db.collection('users').doc(uid).get();
-      return UserData.fromSnapshot(snapshot);
+      UserData user = UserData.fromSnapshot(snapshot);
+      if (uid == AuthService().getCurrentUserID()){
+        _currentCustomUser = user;
+      }
+      return user;
     }
     return null;
   }

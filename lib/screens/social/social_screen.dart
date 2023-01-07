@@ -6,6 +6,8 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/models/models.dart';
 
+import '../../services/authentication/auth.dart';
+
 
 class SocialScreen extends StatefulWidget {
   const SocialScreen({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class SocialScreen extends StatefulWidget {
 
 class _SocialScreenState extends State<SocialScreen> {
   List<Post> postList = [];
+  List<Post> friendsPostList = [];
   List<UserData> userList = [];
 
   double deviceHeight(BuildContext context) =>
@@ -33,6 +36,10 @@ class _SocialScreenState extends State<SocialScreen> {
         .then((List<UserData> temp){
       setState(() => userList = temp);
     });
+    UserData currentUser = userList.singleWhere((element) => element.uid == AuthService().getCurrentUserID());
+    var friendList = Provider.of<FriendsManager>(context, listen: false).readFriendsIdsOnce(currentUser);
+    friendList.add(currentUser.uid);
+    friendsPostList =  Provider.of<PostManager>(context, listen: false).readFeedPostsOnce(friendList, postList);
 
     return BasicScreen(
       type: 'social',
@@ -45,7 +52,7 @@ class _SocialScreenState extends State<SocialScreen> {
             height: 15,
           ),
           Expanded(
-            child: PostList(postList: postList, userList: userList)
+            child: PostList(postList: friendsPostList, userList: userList)
           ),
         ],
       ),

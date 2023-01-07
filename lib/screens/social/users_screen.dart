@@ -30,6 +30,7 @@ class _UsersScreenState extends State<UsersScreen> {
     super.initState();
     Provider.of<UserListManager>(context, listen: false).readUserOnce()
       .then((List<UserData> temp){
+        temp.removeWhere((element) => element.uid == AuthService().getCurrentUserID());
         setState(() => userList = temp);
         setState(() => _foundUsers = userList );
       });
