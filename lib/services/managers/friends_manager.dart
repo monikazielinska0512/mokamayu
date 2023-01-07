@@ -7,6 +7,8 @@ import 'package:mokamayu/services/services.dart';
 class FriendsManager extends ChangeNotifier {
   List<UserData> friendList = [];
   List<UserData> get getFriendList => friendList;
+  List<String> friendIdsList = [];
+  List<String> get getFriendIdsList => friendIdsList;
   List<UserData> requestList = [];
   List<UserData> get getRequestList => requestList;
 
@@ -31,6 +33,18 @@ class FriendsManager extends ChangeNotifier {
     friendList = temp;
     return friendList;
   }
+
+  List<String> readFriendsIdsOnce(UserData currentUser) {
+    List <String> friends = [];
+    for (var element in currentUser.friends!) {
+      if (element['status'] == FriendshipState.FRIENDS.toString()) {
+        friends.add(element['id']!);
+      }
+    }
+    friendIdsList = friends;
+    return friendIdsList;
+  }
+
 
   Future<List<UserData>> readRequestsOnce(UserData currentUser) async {
     List <String> friends = [];

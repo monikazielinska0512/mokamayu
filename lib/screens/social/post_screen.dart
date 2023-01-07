@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
 import '../../services/authentication/auth.dart';
 import '../../services/managers/managers.dart';
 
@@ -71,22 +70,21 @@ class _PostScreenState extends State<PostScreen> {
                               ? Image.network(widget.user.profilePicture!,
                                   fit: BoxFit.fill)
                               : Image.asset(Assets.avatarPlaceholder,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7),
+                              width: MediaQuery.of(context).size.width * 0.7),
                         ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                              widget.user.profileName != null
-                                  ? widget.user.profileName!
-                                  : widget.user.username,
+                          Text(widget.user.profileName != null
+                              ? widget.user.profileName!
+                              : widget.user.username,
                               style: TextStyles.paragraphRegularSemiBold16()),
-                          Text(
-                              "Posted ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.post.creationDate))}",
-                              style: TextStyles.paragraphRegular14(
-                                  ColorsConstants.grey)),
+                          Text("Posted ${
+                              DateFormat('dd/MM/yyyy HH:mm')
+                                  .format(DateTime.fromMillisecondsSinceEpoch(widget.post.creationDate))}",
+                              style: TextStyles.paragraphRegular14(ColorsConstants.grey)
+                          ),
                         ],
                       ),
                       Row(
@@ -95,130 +93,68 @@ class _PostScreenState extends State<PostScreen> {
                               style: TextStyles.paragraphRegular14(
                                   ColorsConstants.grey)),
                           widget.user.uid != AuthService().getCurrentUserID()
-                              ? widget.post.likes!.contains(
-                                      AuthService().getCurrentUserID())
-                                  ? IconButton(
-                                      onPressed: () {
-                                        widget.post.likes!.remove(
-                                            AuthService().getCurrentUserID());
-                                        Provider.of<PostManager>(context,
-                                                listen: false)
-                                            .likePost(
-                                                widget.post.reference!,
-                                                widget.post.createdBy,
-                                                widget.post.likes!);
-                                        setState(() {});
-                                      },
-                                      icon: Icon(
-                                        Icons.favorite,
-                                        color: ColorsConstants.darkBrick,
-                                      ))
-                                  : IconButton(
-                                      onPressed: () {
-                                        widget.post.likes!.add(
-                                            AuthService().getCurrentUserID());
-                                        Provider.of<PostManager>(context,
-                                                listen: false)
-                                            .likePost(
-                                                widget.post.reference!,
-                                                widget.post.createdBy,
-                                                widget.post.likes!);
-                                        setState(() {});
-                                      },
-                                      icon: Icon(
-                                        Icons.favorite_border,
-                                        color: ColorsConstants.darkBrick,
-                                      ))
-                              : Icon(
-                                  Icons.favorite_border,
-                                  color: ColorsConstants.darkBrick,
-                                ),
+                              ? widget.post.likes!.contains(AuthService().getCurrentUserID())
+                                ? IconButton(
+                                  onPressed: (){
+                                    widget.post.likes!.remove(AuthService().getCurrentUserID());
+                                    Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdBy, widget.post.likes!);
+                                    setState(() {});
+                                    },
+                                  icon: const Icon(Icons.favorite, color: ColorsConstants.darkBrick,))
+                                : IconButton(
+                                  onPressed: (){
+                                    widget.post.likes!.add(AuthService().getCurrentUserID());
+                                    Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdBy, widget.post.likes!);
+                                    setState(() {});
+                                    },
+                                  icon: const Icon(Icons.favorite_border, color: ColorsConstants.darkBrick,))
+                              : const Icon(Icons.favorite_border, color: ColorsConstants.darkBrick,),
                         ],
                       ),
                     ],
                   ),
                   Image.network(widget.post.cover, fit: BoxFit.fill),
                   widget.post.comments != null
-                      ? Expanded(
-                          child: ListView.separated(
-                              itemBuilder: (BuildContext context, int index) {
-                                return Container(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                  widget.userList
-                                                              .singleWhere((element) =>
-                                                                  element.uid ==
-                                                                  widget.post.comments![index][
-                                                                      'author']!)
-                                                              .profileName !=
-                                                          null
-                                                      ? widget.userList
-                                                          .singleWhere((element) =>
-                                                              element.uid ==
-                                                              widget.post.comments![index]
-                                                                  ['author']!)
-                                                          .profileName!
-                                                      : widget.userList
-                                                          .singleWhere((element) =>
-                                                              element.uid ==
-                                                              widget.post.comments![index]
-                                                                  ['author']!)
-                                                          .username,
-                                                  style:
-                                                      TextStyles.paragraphRegularSemiBold16()),
-                                              const SizedBox(
-                                                width: 20,
-                                              ),
-                                              CircleAvatar(
-                                                radius: 10,
-                                                child: widget.userList
-                                                            .singleWhere((element) =>
-                                                                element.uid ==
-                                                                widget.post.comments![index]
-                                                                    ['author']!)
-                                                            .profilePicture !=
-                                                        null
-                                                    ? Image.network(
-                                                        widget.userList
-                                                            .singleWhere((element) =>
-                                                                element.uid ==
-                                                                widget.post.comments![index]
-                                                                    ['author']!)
-                                                            .profilePicture!,
-                                                        fit: BoxFit.fill)
-                                                    : Image.asset(
-                                                        Assets.avatarPlaceholder,
-                                                        width: MediaQuery.of(context).size.width * 0.7),
-                                              ),
-                                            ]),
-                                        Text(
-                                          widget.post.comments![index]
-                                              ['content']!,
-                                          style:
-                                              TextStyles.paragraphRegular14(),
-                                        )
-                                      ],
-                                    ));
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider(),
-                              itemCount: widget.post.comments!.length))
-                      : SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
+                  ? Expanded(
+                      child: ListView.separated(
+                          itemBuilder: (BuildContext context, int index){
+                            return Container(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profileName != null
+                                      ? widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profileName!
+                                          : widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).username,
+                                      style: TextStyles.paragraphRegularSemiBold16()),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profilePicture != null
+                                            ? Image.network(widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profilePicture!,
+                                            height: 20)
+                                            : Image.asset(Assets.avatarPlaceholder,
+                                            height: 20),
+                                      ),
+                                    ]
+                                  ),
+                                  Text(widget.post.comments![index]['content']!, style: TextStyles.paragraphRegular14(),)
+                                ],
+                              )
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) => const Divider(),
+                          itemCount: widget.post.comments!.length))
+                  : SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   TextField(
                     controller: myController,
-                    onSubmitted: (String comment) {
+                    onSubmitted: (String comment){
                       print("add comment");
                       widget.post.comments!.add({
                         "author": AuthService().getCurrentUserID(),

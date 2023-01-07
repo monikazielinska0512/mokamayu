@@ -9,20 +9,22 @@ class PostManager extends ChangeNotifier {
   List<Post> finalPostList = [];
   List<Post> finalCurrentUserPostList = [];
   Future<List<Post>>? futurePostList;
-
   Future<List<Post>>? get getPostList => futurePostList;
 
   Future<List<Post>>? get getFutureCurrentUserPostList async =>
       finalCurrentUserPostList;
 
   List<Post> get getFinalPostList => finalPostList;
+  List<Post> friendsPostList = [];
 
   void setPosts(Future<List<Post>> postList) {
     futurePostList = postList;
   }
 
   Future<List<Post>> readPostsOnce() async {
-    QuerySnapshot snapshot = await db.collectionGroup('posts').get();
+    QuerySnapshot snapshot = await db
+        .collectionGroup('posts')
+        .get();
 
     List<Post> postList = [];
     for (var element in snapshot.docs) {
@@ -63,6 +65,18 @@ class PostManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<Post> readFeedPostsOnce(List<String> friendList, List<Post> postList) {
+
+    List<Post> list = [];
+    for (var element in postList) {
+      if (friendList.contains(element.createdBy)) {
+        list.add(element);
+      }
+    }
+    friendsPostList = list;
+    return friendsPostList;
+  }
+
   void likePost(String reference, String author, List<String> likes) {
     db
         .collection('users')
@@ -73,9 +87,7 @@ class PostManager extends ChangeNotifier {
         .then((_) => print('Liked'))
         .catchError((error) => print('Update failed: $error'));
   }
-
-  void commentPost(
-      String reference, String author, List<Map<String, String>> comments) {
+  void commentPost(String reference, String author, List<Map<String, String>> comments) {
     db
         .collection('users')
         .doc(author)

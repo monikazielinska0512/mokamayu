@@ -32,12 +32,12 @@ class _FriendsScreenState extends State<FriendsScreen> {
     super.initState();
     Provider.of<ProfileManager>(context, listen: false).getCurrentUserData()
         .then((UserData? temp){
-    setState(() => currentUser = temp!);
-    Provider.of<FriendsManager>(context, listen: false).readFriendsOnce(currentUser)
-        .then((List<UserData> temp){
-      setState(() => friendList = temp);
-      setState(() => _foundFriends = friendList );
-    });
+        setState(() => currentUser = temp!);
+        Provider.of<FriendsManager>(context, listen: false).readFriendsOnce(currentUser)
+            .then((List<UserData> temp){
+          setState(() => friendList = temp);
+          setState(() => _foundFriends = friendList );
+        });
     });
   }
 

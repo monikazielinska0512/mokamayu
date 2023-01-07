@@ -137,7 +137,7 @@ class AppRouter {
         name: 'profile',
         path: '/profile',
         builder: (context, state) {
-        return ProfileScreen(uid: state.queryParams['uid']);
+        return ProfileScreen(uid: state.queryParams['uid'],);
         }
       ),
       GoRoute(
