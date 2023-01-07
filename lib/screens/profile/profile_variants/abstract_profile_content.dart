@@ -120,16 +120,21 @@ abstract class AbstractProfileContentState
   }
 
   Widget buildProfileGallery(BuildContext context) {
-    List<Tab> tabs = getTabs().keys.map((label) => Tab(text: label)).toList();
-    return Expanded(
-      child: DefaultTabController(
-        length: tabs.length,
-        child: SafeArea(
-          top: false,
+    List<Tab> tabs = getTabs()
+        .keys
+        .map((label) => Tab(child: Text(label, textAlign: TextAlign.center)))
+        .toList();
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: Expanded(
+        child: DefaultTabController(
+          length: tabs.length,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               TabBar(
+                labelPadding: const EdgeInsets.all(10),
                 indicatorColor: ColorsConstants.darkBrick,
                 labelStyle: TextStyles.paragraphRegular16(),
                 labelColor: ColorsConstants.darkBrick,
@@ -137,8 +142,14 @@ abstract class AbstractProfileContentState
                 tabs: tabs,
               ),
               Expanded(
-                child: TabBarView(children: getTabs().values.toList()),
-              ),
+                child: TabBarView(
+                  children: getTabs()
+                      .values
+                      .map((widget) => Padding(
+                          padding: const EdgeInsets.all(10), child: widget))
+                      .toList(),
+                ),
+              )
             ],
           ),
         ),

@@ -108,12 +108,8 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   @override
   Map<String, Widget> getTabs() {
     return {
-      S.of(context).wardrobe: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: PhotoGrid(itemList: itemList)),
-      S.of(context).outfits: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: PhotoGrid(outfitsList: outfitsList)),
+      S.of(context).wardrobe: PhotoGrid(itemList: itemList),
+      S.of(context).outfits: PhotoGrid(outfitsList: outfitsList),
     };
   }
 

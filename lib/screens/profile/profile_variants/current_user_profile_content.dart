@@ -54,18 +54,30 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
     ]);
   }
 
+  Future<List<Outfit>> getOutfitsCreatedByMe() async {
+    List<Outfit> allOutfits =
+        Provider.of<OutfitManager>(context, listen: false).getFinalOutfitList;
+    return allOutfits
+        .where((outfit) => outfit.createdBy == widget.uid)
+        .toList();
+  }
+
+  Future<List<Outfit>> getOutfitsCreatedByFriends() async {
+    List<Outfit> allOutfits =
+        Provider.of<OutfitManager>(context, listen: false).getFinalOutfitList;
+    return allOutfits
+        .where((outfit) => outfit.createdBy != widget.uid)
+        .toList();
+  }
+
   @override
   Map<String, Widget> getTabs() {
     return {
-      S.of(context).wardrobe: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: PhotoGrid(itemList: itemList)),
-      S.of(context).outfits: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: PhotoGrid(outfitsList: outfitsList)),
-      S.of(context).posts: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: buildPosts()),
+      S.of(context).outfits_by_me:
+          PhotoGrid(outfitsList: getOutfitsCreatedByMe()),
+      S.of(context).outfits_by_friends:
+          PhotoGrid(outfitsList: getOutfitsCreatedByFriends()),
+      S.of(context).posts: buildPosts(),
     };
   }
 
