@@ -15,7 +15,6 @@ export 'profile/current_user_profile_screen.dart';
 export 'profile/edit_profile_screen.dart';
 export 'profile/friend_invite_dialog.dart';
 export 'profile/other_user_profile_screen.dart';
-export 'profile/post_card_small.dart';
 export 'social/post_list.dart';
 export 'social/post_screen.dart';
 export 'social/social_screen.dart';

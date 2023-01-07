@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
 import '../../models/models.dart';
 import '../../services/managers/managers.dart';
-import '../../widgets/fundamental/snackbar.dart';
+import '../fundamental/snackbar.dart';
 
 class PostCardSmall extends StatefulWidget {
   final Post post;
