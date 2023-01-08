@@ -14,6 +14,7 @@ class EmailSentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BasicScreen(
         type: "",
+        leftButtonType: null,
         isLeftButtonVisible: false,
         isRightButtonVisible: false,
         context: context,

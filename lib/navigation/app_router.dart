@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/screens/authenticate/init_screen.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/screens/social/friend_list_screen.dart';
 import 'package:mokamayu/screens/social/request_list_screen.dart';
@@ -32,6 +33,11 @@ class AppRouter {
     refreshListenable: appStateManager,
     initialLocation: '/home/${NavigationBarTab.wardrobe}',
     routes: [
+      GoRoute(
+        name: 'init',
+        path: '/init',
+        builder: (context, state) => const InitScreen(),
+      ),
       GoRoute(
         name: 'login',
         path: '/login',
@@ -163,6 +169,7 @@ class AppRouter {
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;
+      final init = state.subloc == '/init';
       final loggingIn = state.subloc == '/login';
       final registering = state.subloc == '/register';
       final resettingPassword = state.subloc == '/reset-password';
@@ -171,7 +178,8 @@ class AppRouter {
         if (loggingIn || registering || resettingPassword || emailSent) {
           return null;
         }
-        return '/login';
+        // if (init) return '/init';
+        return '/init';
       }
       if (loggingIn) return '/home/${NavigationBarTab.wardrobe}';
       return null;
