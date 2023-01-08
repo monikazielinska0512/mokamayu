@@ -115,17 +115,22 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
 
   @override
   Widget buildFloatingButton() {
-    return FloatingButton(
-        onPressed: () {
-          Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
-          Provider.of<WardrobeManager>(context, listen: false)
-              .resetBeforeCreatingNewOutfit();
-          context.pushNamed("create-outfit-page",
-              extra: itemList!, queryParams: {'friendUid': widget.uid});
-        },
-        icon: const Icon(Ionicons.body),
-        backgroundColor: ColorsConstants.darkBrick,
-        padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
-        alignment: Alignment.bottomRight);
+    if (Provider.of<FriendsManager>(context, listen: false)
+        .isMyFriend(widget.uid!)) {
+      return FloatingButton(
+          onPressed: () {
+            Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
+            Provider.of<WardrobeManager>(context, listen: false)
+                .resetBeforeCreatingNewOutfit();
+            context.pushNamed("create-outfit-page",
+                extra: itemList!, queryParams: {'friendUid': widget.uid});
+          },
+          icon: const Icon(Ionicons.body),
+          backgroundColor: ColorsConstants.darkBrick,
+          padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
+          alignment: Alignment.bottomRight);
+    } else {
+      return Container();
+    }
   }
 }
