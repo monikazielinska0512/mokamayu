@@ -76,6 +76,10 @@ class PhotoCardOutfit extends StatelessWidget {
     Provider.of<OutfitManager>(context, listen: false)
         .setSeason(object!.season);
     Provider.of<OutfitManager>(context, listen: false).setStyle(object!.style);
+    getMap.forEach((key, value) {
+      Provider.of<PhotoTapped>(context, listen: false).addIds(key[1]);
+    });
+
     context.pushNamed("outfit-add-attributes-screen", extra: getMap);
   }
 
