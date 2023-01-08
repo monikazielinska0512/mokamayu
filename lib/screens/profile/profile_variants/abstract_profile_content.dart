@@ -25,7 +25,7 @@ abstract class AbstractProfileContentState
 
   Widget buildButtons();
 
-  Map<String, Widget> getTabs();
+  Map<String, Widget>? getTabs();
 
   Widget buildFloatingButton() => Container();
 
@@ -120,40 +120,43 @@ abstract class AbstractProfileContentState
   }
 
   Widget buildProfileGallery(BuildContext context) {
-    List<Tab> tabs = getTabs()
-        .keys
+    List<Tab>? tabs = getTabs()
+        ?.keys
         .map((label) => Tab(child: Text(label, textAlign: TextAlign.center)))
         .toList();
-    return MediaQuery.removePadding(
-      context: context,
-      removeTop: true,
-      child: Expanded(
-        child: DefaultTabController(
-          length: tabs.length,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              TabBar(
-                labelPadding: const EdgeInsets.all(10),
-                indicatorColor: ColorsConstants.darkBrick,
-                labelStyle: TextStyles.paragraphRegular16(),
-                labelColor: ColorsConstants.darkBrick,
-                unselectedLabelColor: ColorsConstants.grey,
-                tabs: tabs,
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: getTabs()
-                      .values
-                      .map((widget) => Padding(
-                          padding: const EdgeInsets.all(10), child: widget))
-                      .toList(),
+    return tabs == null
+        ? Container()
+        : MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: Expanded(
+              child: DefaultTabController(
+                length: tabs.length,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TabBar(
+                      labelPadding: const EdgeInsets.all(10),
+                      indicatorColor: ColorsConstants.darkBrick,
+                      labelStyle: TextStyles.paragraphRegular16(),
+                      labelColor: ColorsConstants.darkBrick,
+                      unselectedLabelColor: ColorsConstants.grey,
+                      tabs: tabs,
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        children: getTabs()!
+                            .values
+                            .map((widget) => Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: widget))
+                            .toList(),
+                      ),
+                    )
+                  ],
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+              ),
+            ),
+          );
   }
 }

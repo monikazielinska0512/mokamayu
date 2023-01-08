@@ -33,16 +33,14 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   String getLeftButtonType() => "back";
 
   @override
-  Widget buildButtons() {
-    return friendData != null
-        ? friendshipButton()
-        : IconTextButton(
-            onPressed: () => print('nie ma danych :c'),
-            icon: Icons.person_outline_outlined,
-            text: "No data",
-            backgroundColor: ColorsConstants.mint,
-          );
-  }
+  Widget buildButtons() => friendData != null
+      ? friendshipButton()
+      : IconTextButton(
+          onPressed: () => print('nie ma danych :c'),
+          icon: Icons.person_outline_outlined,
+          text: "No data",
+          backgroundColor: ColorsConstants.mint,
+        );
 
   Widget friendshipButton() {
     switch (Provider.of<ProfileManager>(context, listen: true)
@@ -106,31 +104,34 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   }
 
   @override
-  Map<String, Widget> getTabs() {
-    return {
-      S.of(context).wardrobe: PhotoGrid(itemList: itemList),
-      S.of(context).outfits: PhotoGrid(outfitsList: outfitsList),
-    };
+  Map<String, Widget>? getTabs() {
+    bool eligibleToSeeProfile = !(userData?.privateProfile ?? true) ||
+        Provider.of<FriendsManager>(context, listen: false)
+            .isMyFriend(widget.uid!);
+    return eligibleToSeeProfile
+        ? {
+            S.of(context).wardrobe: PhotoGrid(itemList: itemList),
+            S.of(context).outfits: PhotoGrid(outfitsList: outfitsList),
+          }
+        : null;
   }
 
   @override
   Widget buildFloatingButton() {
-    if (Provider.of<FriendsManager>(context, listen: false)
-        .isMyFriend(widget.uid!)) {
-      return FloatingButton(
-          onPressed: () {
-            Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
-            Provider.of<WardrobeManager>(context, listen: false)
-                .resetBeforeCreatingNewOutfit();
-            context.pushNamed("create-outfit-page",
-                extra: itemList!, queryParams: {'friendUid': widget.uid});
-          },
-          icon: const Icon(Ionicons.body),
-          backgroundColor: ColorsConstants.darkBrick,
-          padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
-          alignment: Alignment.bottomRight);
-    } else {
-      return Container();
-    }
+    return Provider.of<FriendsManager>(context, listen: false)
+            .isMyFriend(widget.uid!)
+        ? FloatingButton(
+            onPressed: () {
+              Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .resetBeforeCreatingNewOutfit();
+              context.pushNamed("create-outfit-page",
+                  extra: itemList!, queryParams: {'friendUid': widget.uid});
+            },
+            icon: const Icon(Ionicons.body),
+            backgroundColor: ColorsConstants.darkBrick,
+            padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
+            alignment: Alignment.bottomRight)
+        : Container();
   }
 }

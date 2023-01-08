@@ -71,15 +71,13 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
   }
 
   @override
-  Map<String, Widget> getTabs() {
-    return {
-      S.of(context).outfits_by_me:
-          PhotoGrid(outfitsList: getOutfitsCreatedByMe()),
-      S.of(context).outfits_by_friends:
-          PhotoGrid(outfitsList: getOutfitsCreatedByFriends()),
-      S.of(context).posts: buildPosts(),
-    };
-  }
+  Map<String, Widget>? getTabs() => {
+        S.of(context).outfits_by_me:
+            PhotoGrid(outfitsList: getOutfitsCreatedByMe()),
+        S.of(context).outfits_by_friends:
+            PhotoGrid(outfitsList: getOutfitsCreatedByFriends()),
+        S.of(context).posts: buildPosts(),
+      };
 
   Widget buildPosts() {
     return FutureBuilder<List<Post>>(
