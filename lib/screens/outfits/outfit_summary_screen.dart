@@ -135,6 +135,12 @@ class OutfitSummaryScreen extends StatelessWidget {
       Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
       Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
       Provider.of<PhotoTapped>(context, listen: false).setObject(null);
+
+      outfitsList =
+          Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
+      Provider.of<OutfitManager>(context, listen: false)
+          .setOutfits(outfitsList!);
+
       context.go("/home/1");
     });
   }
