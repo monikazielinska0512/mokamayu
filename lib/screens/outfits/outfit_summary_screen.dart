@@ -120,29 +120,32 @@ class OutfitSummaryScreen extends StatelessWidget {
   }
 
   Widget EditButton(BuildContext context, Outfit item) {
-    return ButtonDarker(context, "Edit", () async {
-      Map<String, String> mapToFirestore = {};
-      map!.forEach((key, value) {
-        mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
-      });
-      Provider.of<OutfitManager>(context, listen: false).updateOutfit(
-          item.reference ?? "",
-          _style,
-          _season,
-          capturedOutfit,
-          _elements,
-          mapToFirestore);
-      Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
-      Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
-      Provider.of<PhotoTapped>(context, listen: false).setObject(null);
+    return isCreatingOutfitForFriend
+        ? Container()
+        : ButtonDarker(context, "Edit", () async {
+            Map<String, String> mapToFirestore = {};
+            map!.forEach((key, value) {
+              mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
+            });
+            Provider.of<OutfitManager>(context, listen: false).updateOutfit(
+                item.reference ?? "",
+                _style,
+                _season,
+                capturedOutfit,
+                _elements,
+                mapToFirestore);
+            Provider.of<OutfitManager>(context, listen: false)
+                .resetSingleTags();
+            Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
+            Provider.of<PhotoTapped>(context, listen: false).setObject(null);
 
-      outfitsList =
-          Provider.of<OutfitManager>(context, listen: false).readOutfitsOnce();
-      Provider.of<OutfitManager>(context, listen: false)
-          .setOutfits(outfitsList!);
+            outfitsList = Provider.of<OutfitManager>(context, listen: false)
+                .readOutfitsOnce();
+            Provider.of<OutfitManager>(context, listen: false)
+                .setOutfits(outfitsList!);
 
-      context.go("/home/1");
-    });
+            context.go("/home/1");
+          });
   }
 
   Widget SaveButton(BuildContext context) {
@@ -153,6 +156,7 @@ class OutfitSummaryScreen extends StatelessWidget {
         mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
       });
       Outfit data = Outfit(
+          owner: friendUid ?? currentUserUid,
           elements: _elements,
           cover: capturedOutfit,
           style: _style,

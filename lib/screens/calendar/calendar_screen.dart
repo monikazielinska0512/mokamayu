@@ -9,7 +9,6 @@ import 'package:mokamayu/models/outfit.dart';
 import 'package:mokamayu/services/api/weather.dart';
 import 'package:mokamayu/services/managers/calendar_manager.dart';
 import 'package:mokamayu/services/managers/weather_manager.dart';
-import 'package:mokamayu/widgets/buttons/button_darker_orange.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -62,6 +61,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           Map<String, dynamic> mapOutfit = map['outfit'];
 
           Outfit outfit = Outfit(
+              owner: mapOutfit['owner'] as String,
               createdBy: mapOutfit['createdBy'] as String,
               style: mapOutfit['style'] as String,
               season: mapOutfit['season'] as String,
