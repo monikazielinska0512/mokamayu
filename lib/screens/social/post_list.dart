@@ -222,7 +222,6 @@ class _PostListState extends State<PostList> {
       children: [
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.15,
-          width: MediaQuery.of(context).size.width,
         ),
         Text(
           "Social feed is empty \n Add some friends",
