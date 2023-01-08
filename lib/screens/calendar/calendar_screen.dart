@@ -9,6 +9,7 @@ import 'package:mokamayu/models/outfit.dart';
 import 'package:mokamayu/services/api/weather.dart';
 import 'package:mokamayu/services/managers/calendar_manager.dart';
 import 'package:mokamayu/services/managers/weather_manager.dart';
+import 'package:mokamayu/widgets/buttons/button_darker_orange.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -18,6 +19,7 @@ import '../../models/calendar_event.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/outfit_manager.dart';
 import '../../widgets/buttons/floating_button.dart';
+import '../../widgets/buttons/icon_text_button.dart';
 import '../../widgets/fundamental/fundamentals.dart';
 import '../../widgets/photo/wardrobe_item_card.dart';
 import 'hourly_weather.dart';
@@ -40,6 +42,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   WeatherModel weatherModel = WeatherModel();
   int? temperature;
   String? currentWeatherIcon;
+  bool showCurrentWeather = false;
 
   prefsData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -98,7 +101,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   void initState() {
     super.initState();
     selectedEvents = {};
-    updateUI();
+    // updateUI();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 2), () => prefsData());
     });
@@ -125,7 +128,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Stack(children: [
       Column(children: [
         const Padding(
-          padding: EdgeInsets.only(top: 80),
+          padding: EdgeInsets.only(top: 75),
         ),
         TableCalendar<Event>(
             firstDay: DateTime.utc(2010, 10, 16),
@@ -225,25 +228,38 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                   )),
             )),
-            if (temperature != null && currentWeatherIcon != null) ...[
-              Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Current weather",
-                        style: TextStyles.paragraphRegular14(),
-                      ),
-                      const SizedBox(height: 5),
-                      Row(children: [
-                        Text('$temperature°  ',
-                            style: const TextStyle(fontSize: 18)),
-                        Text('$currentWeatherIcon',
-                            style: const TextStyle(fontSize: 25)),
-                      ])
-                    ],
-                  ))
-            ],
+            showCurrentWeather
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Current weather",
+                          style: TextStyles.paragraphRegular14(),
+                        ),
+                        const SizedBox(height: 5),
+                        Row(children: [
+                          Text('$temperature°  ',
+                              style: const TextStyle(fontSize: 18)),
+                          Text('$currentWeatherIcon',
+                              style: const TextStyle(fontSize: 25)),
+                        ])
+                      ],
+                    ))
+                : Padding(
+                    padding: EdgeInsets.only(right: 10),
+                    child: IconTextButton(
+                      onPressed: () {
+                        updateUI();
+                        showCurrentWeather = true;
+                      },
+                      icon: Icons.sunny,
+                      text: "Show current weather",
+                      width: 130,
+                      height: 60,
+                      backgroundColor: ColorsConstants.mint,
+                    ),
+                  ),
           ],
         ),
         HourlyWeather(),
