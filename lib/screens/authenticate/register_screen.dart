@@ -132,9 +132,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             _emailTextController.text,
                             _usernameTextController.text,
                             _auth.getCurrentUserID());
-                    context.go("home/0");
+
                     Provider.of<AppStateManager>(context, listen: false)
                         .login();
+                    context.go("/home/0");
                   } else {
                     final error = AuthExceptionHandler.generateErrorMessage(
                         status, context);

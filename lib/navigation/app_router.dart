@@ -6,6 +6,7 @@ import 'package:mokamayu/screens/social/friend_list_screen.dart';
 import 'package:mokamayu/screens/social/request_list_screen.dart';
 import 'package:mokamayu/screens/wardrobe/wardrobe_search_screen.dart';
 import 'package:mokamayu/services/managers/managers.dart';
+import 'package:provider/provider.dart';
 
 import '../models/models.dart';
 import '../screens/authenticate/email_sent_screen.dart';
@@ -178,7 +179,6 @@ class AppRouter {
         if (loggingIn || registering || resettingPassword || emailSent) {
           return null;
         }
-        // if (init) return '/init';
         return '/init';
       }
       if (loggingIn) return '/home/${NavigationBarTab.wardrobe}';
