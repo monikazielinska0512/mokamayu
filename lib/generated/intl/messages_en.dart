@@ -43,6 +43,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "outfits": MessageLookupByLibrary.simpleMessage("Outfits"),
+        "outfits_by_friends":
+            MessageLookupByLibrary.simpleMessage("Outfits by friends"),
+        "outfits_by_me": MessageLookupByLibrary.simpleMessage("Outfits by me"),
         "passwords_dont_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "please_enter_test":

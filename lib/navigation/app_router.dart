@@ -17,8 +17,14 @@ class AppRouter {
   final PostManager postManager;
   final FriendsManager friendsManager;
 
-  AppRouter(this.appStateManager, this.profileManager, this.wardrobeManager,
-      this.outfitManager, this.userListManager, this.postManager, this.friendsManager);
+  AppRouter(
+      this.appStateManager,
+      this.profileManager,
+      this.wardrobeManager,
+      this.outfitManager,
+      this.userListManager,
+      this.postManager,
+      this.friendsManager);
 
   late final router = GoRouter(
     debugLogDiagnostics: true,
@@ -134,12 +140,10 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        name: 'profile',
-        path: '/profile',
-        builder: (context, state) {
-        return ProfileScreen(uid: state.queryParams['uid'],);
-        }
-      ),
+          name: 'profile',
+          path: '/profile',
+          builder: (context, state) =>
+              ProfileScreen(uid: state.queryParams['uid'])),
       GoRoute(
         name: 'friends',
         path: '/friends',

@@ -3,17 +3,19 @@ import 'package:flutter/foundation.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
 
-
 class FriendsManager extends ChangeNotifier {
   List<UserData> friendList = [];
+
   List<UserData> get getFriendList => friendList;
   List<String> friendIdsList = [];
+
   List<String> get getFriendIdsList => friendIdsList;
   List<UserData> requestList = [];
+
   List<UserData> get getRequestList => requestList;
 
   Future<List<UserData>> readFriendsOnce(UserData currentUser) async {
-    List <String> friends = [];
+    List<String> friends = [];
     for (var element in currentUser.friends!) {
       if (element['status'] == FriendshipState.FRIENDS.toString()) {
         friends.add(element['id']!);
@@ -21,9 +23,7 @@ class FriendsManager extends ChangeNotifier {
     }
 
     List<UserData> temp = [];
-    QuerySnapshot snapshot = await db
-        .collection('users')
-        .get();
+    QuerySnapshot snapshot = await db.collection('users').get();
     for (var element in snapshot.docs) {
       UserData user = UserData.fromSnapshot(element);
       if (friends.contains(user.uid)) {
@@ -35,7 +35,7 @@ class FriendsManager extends ChangeNotifier {
   }
 
   List<String> readFriendsIdsOnce(UserData currentUser) {
-    List <String> friends = [];
+    List<String> friends = [];
     for (var element in currentUser.friends!) {
       if (element['status'] == FriendshipState.FRIENDS.toString()) {
         friends.add(element['id']!);
@@ -45,9 +45,8 @@ class FriendsManager extends ChangeNotifier {
     return friendIdsList;
   }
 
-
   Future<List<UserData>> readRequestsOnce(UserData currentUser) async {
-    List <String> friends = [];
+    List<String> friends = [];
     for (var element in currentUser.friends!) {
       if (element['status'] == FriendshipState.RECEIVED_INVITE.toString()) {
         friends.add(element['id']!);
@@ -55,9 +54,7 @@ class FriendsManager extends ChangeNotifier {
     }
 
     List<UserData> temp = [];
-    QuerySnapshot snapshot = await db
-        .collection('users')
-        .get();
+    QuerySnapshot snapshot = await db.collection('users').get();
     for (var element in snapshot.docs) {
       UserData user = UserData.fromSnapshot(element);
       if (friends.contains(user.uid)) {
@@ -68,5 +65,7 @@ class FriendsManager extends ChangeNotifier {
     return requestList;
   }
 
+  bool isMyFriend(String uid) {
+    return getFriendIdsList.contains(uid);
+  }
 }
-

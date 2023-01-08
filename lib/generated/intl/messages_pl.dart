@@ -45,6 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "hat": MessageLookupByLibrary.simpleMessage("Kapelusz"),
         "no_account": MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
         "outfits": MessageLookupByLibrary.simpleMessage("Stylizacje"),
+        "outfits_by_friends":
+            MessageLookupByLibrary.simpleMessage("Stylizacje od znajomych"),
+        "outfits_by_me":
+            MessageLookupByLibrary.simpleMessage("Moje stylizacje"),
         "passwords_dont_match":
             MessageLookupByLibrary.simpleMessage("Hasła nie są identyczne"),
         "please_enter_test":

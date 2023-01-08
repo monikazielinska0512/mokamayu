@@ -260,6 +260,26 @@ class S {
     );
   }
 
+  /// `Outfits by me`
+  String get outfits_by_me {
+    return Intl.message(
+      'Outfits by me',
+      name: 'outfits_by_me',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outfits by friends`
+  String get outfits_by_friends {
+    return Intl.message(
+      'Outfits by friends',
+      name: 'outfits_by_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Posts`
   String get posts {
     return Intl.message(
