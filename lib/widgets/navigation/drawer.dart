@@ -7,7 +7,6 @@ import '../../constants/colors.dart';
 import '../../constants/text_styles.dart';
 import '../fundamental/background_image.dart';
 
-
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
 
@@ -40,13 +39,18 @@ class CustomDrawer extends StatelessWidget {
                                   TextStyles.h3(ColorsConstants.blackAccent)))),
                   buildDrawerOption(context, 'Edit profile',
                       () => context.push('/edit-profile')),
-                  buildDrawerOption(context, 'Settings', () => {}),
-                  buildDrawerOption(context, 'Friends', () => {
-                    context.pushNamed('friends'),
-                  }),
-                  buildDrawerOption(context, 'Friend Requests', () => {context.pushNamed('requests')}),
-                  buildDrawerOption(context, 'Wardrobe', () => {}),
-                  buildDrawerOption(context, 'Outfits', () => {}),
+                  buildDrawerOption(
+                      context,
+                      'Friends',
+                      () => {
+                            context.pushNamed('friends'),
+                          }),
+                  buildDrawerOption(context, 'Friend Requests',
+                      () => {context.pushNamed('requests')}),
+                  buildDrawerOption(
+                      context, 'Wardrobe', () => {context.push('/home/0')}),
+                  buildDrawerOption(
+                      context, 'Outfits', () => {context.push('/home/1')}),
                 ],
               ),
             ),
