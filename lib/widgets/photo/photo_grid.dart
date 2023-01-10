@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
@@ -52,9 +53,22 @@ class _PhotoGridState extends State<PhotoGrid> {
                       height: double.maxFinite,
                       width: double.maxFinite,
                       child: Center(
-                          child: Text(S.of(context).empty_wardrobe,
-                              style:
-                                  TextStyles.paragraphRegular14(Colors.grey))))
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                            const Icon(
+                              Ionicons.sad_outline,
+                              size: 25,
+                              color: Colors.grey,
+                            ),
+                            Padding(
+                                padding: EdgeInsets.all(30),
+                                child: Text(S.of(context).empty_wardrobe,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyles.paragraphRegular14(
+                                        Colors.grey)))
+                          ])))
                   : GridView.builder(
                       scrollDirection: widget.getScrollDirection(),
                       shrinkWrap: false,
@@ -119,14 +133,23 @@ class _PhotoGridState extends State<PhotoGrid> {
             child: snapshot.data!.isEmpty
                 ? Container(
                     decoration: BoxDecoration(
-                        color: ColorsConstants.mint.withOpacity(0.1),
+                        color: ColorsConstants.sunflower.withOpacity(0.1),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20))),
                     height: double.maxFinite,
                     width: double.maxFinite,
                     child: Center(
-                        child: Text(S.of(context).empty_outfits,
-                            style: TextStyles.paragraphRegular14(Colors.grey))))
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                          const Icon(
+                            Ionicons.sad_outline,
+                            size: 25,
+                            color: Colors.grey,
+                          ),
+                          Text(S.of(context).empty_outfits,
+                              style: TextStyles.paragraphRegular14(Colors.grey))
+                        ])))
                 : GridView.builder(
                     scrollDirection: widget.getScrollDirection(),
                     shrinkWrap: false,

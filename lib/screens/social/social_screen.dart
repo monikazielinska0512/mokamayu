@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/social/post_list.dart';
-import 'package:mokamayu/services/managers/managers.dart';
-import 'package:mokamayu/widgets/fundamental/basic_page.dart';
+import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/models/models.dart';
-
-import '../../services/authentication/auth.dart';
 
 class SocialScreen extends StatefulWidget {
   const SocialScreen({Key? key}) : super(key: key);
@@ -46,7 +43,7 @@ class _SocialScreenState extends State<SocialScreen> {
         .readFeedPostsOnce(friendList, postList);
 
     return BasicScreen(
-      type: 'social',
+      type: "social",
       leftButtonType: "dots",
       rightButtonType: "search-notif",
       context: context,

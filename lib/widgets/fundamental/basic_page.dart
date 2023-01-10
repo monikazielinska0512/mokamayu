@@ -113,6 +113,8 @@ class BasicScreen extends StatelessWidget {
         return Text("", style: TextStyles.appTitle(Colors.black));
       case "wardrobe-item-search":
         return Text("", style: TextStyles.appTitle(Colors.black));
+      case "social":
+        return Text(S.of(context).social, style: TextStyles.appTitle(Colors.black));
     }
     return Text(type, style: TextStyles.appTitle(Colors.black));
   }

@@ -589,6 +589,16 @@ class S {
       args: [],
     );
   }
+
+  /// `It seems that you don't have any added friend yet!`
+  String get empty_feed {
+    return Intl.message(
+      'It seems that you don\'t have any added friend yet!',
+      name: 'empty_feed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

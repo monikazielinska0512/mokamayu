@@ -52,5 +52,6 @@
   "size": "Rozmiar",
   "style": "Styl",
   "apply_filters": "Filtruj",
-  "empty_outfits" : "Nie stowrzono jeszcze żadnej stylizacji!"
+  "empty_outfits" : "Nie stowrzono jeszcze żadnej stylizacji!",
+  "empty_feed"  : "Wygląda na to, że nie dodałeś jeszcze żadnych znajomych!"
 }

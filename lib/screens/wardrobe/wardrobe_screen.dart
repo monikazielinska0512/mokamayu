@@ -64,6 +64,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                       }, type: "type_main")
                     ])),
               ]),
+              const SizedBox(height: 10),
               Expanded(
                   child: PhotoGrid(
                       itemList: futureItemListCopy ?? futureItemList)),
@@ -86,12 +87,6 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                 onTap: () => context.pushNamed("wardrobe-item-search-screen",
                     extra: futureItemList),
               )),
-          // ButtonDarker(
-          //     context,
-          //     "Search",
-          //     () => context.go("/wardrobe-item-search-screen",
-          //         extra: futureItemList),
-          //     shouldExpand: false),
           const SizedBox(width: 10),
           FilterModal(
               onApplyWardrobe: (selectedList) =>

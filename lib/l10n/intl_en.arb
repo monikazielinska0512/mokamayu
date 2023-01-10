@@ -52,5 +52,6 @@
   "size": "Size",
   "style": "Style",
   "apply_filters": "Apply filters",
-  "empty_outfits" : "No outfits have been created yet!"
+  "empty_outfits" : "No outfits have been created yet!",
+  "empty_feed"  : "It seems that you don't have any added friend yet!"
 }
