@@ -50,7 +50,7 @@ class _FilterModalState extends State<FilterModal> {
                             color: Colors.white,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(40))),
-                        // height: MediaQuery.of(context).size.height * 0.04,
+                        height: MediaQuery.of(context).size.height * 0.86,
                         // color: Colors.white,
                         child: Column(
                           children: <Widget>[
