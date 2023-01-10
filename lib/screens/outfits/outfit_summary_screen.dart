@@ -30,7 +30,7 @@ class OutfitSummaryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     itemList = isCreatingOutfitForFriend
         ? Provider.of<WardrobeManager>(context, listen: true)
-            .getFriendFinalWardrobeItemList
+            .getFinalFriendWardrobeItemList
         : Provider.of<WardrobeManager>(context, listen: true)
             .getFinalWardrobeItemList;
 

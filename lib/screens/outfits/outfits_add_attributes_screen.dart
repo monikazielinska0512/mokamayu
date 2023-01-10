@@ -50,10 +50,12 @@ class _OutfitsAddAttributesScreenState
     Provider.of<PhotoTapped>(context, listen: false).setMap(widget.map);
     widget.map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
 
-    if (!widget.isCreatingOutfitForFriend) {
-      itemList = Provider.of<WardrobeManager>(context, listen: true)
-          .getWardrobeItemList;
-    }
+    itemList = widget.isCreatingOutfitForFriend
+        ? Provider.of<WardrobeManager>(context, listen: true)
+            .getFriendWardrobeItemList
+        : Provider.of<WardrobeManager>(context, listen: true)
+            .getWardrobeItemList;
+
     futureItemListCopy = widget.isCreatingOutfitForFriend
         ? Provider.of<WardrobeManager>(context, listen: true)
             .readWardrobeItemsForUser(widget.friendUid!)

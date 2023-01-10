@@ -10,7 +10,8 @@ import '../../../constants/constants.dart';
 import '../../../generated/l10n.dart';
 
 class CurrentUserProfileContent extends AbstractProfileContent {
-  const CurrentUserProfileContent({Key? key, uid}) : super(key: key, uid: uid);
+  const CurrentUserProfileContent({Key? key, required String? uid})
+      : super(key: key, uid: uid);
 
   @override
   AbstractProfileContentState createState() =>

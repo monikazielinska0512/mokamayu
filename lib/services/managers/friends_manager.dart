@@ -65,7 +65,7 @@ class FriendsManager extends ChangeNotifier {
     return requestList;
   }
 
-  bool isMyFriend(String uid) {
+  bool isMyFriend(String? uid) {
     return getFriendIdsList.contains(uid);
   }
 }
