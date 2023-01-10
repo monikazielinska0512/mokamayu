@@ -56,7 +56,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                 SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Wrap(spacing: 10, children: [
-                      MultiSelectChip(Tags.types,
+                      MultiSelectChip(Tags.getLanguagesTypes(context),
                           chipsColor: ColorsConstants.darkPeach,
                           onSelectionChanged: (selectedList) {
                         selectedChips =

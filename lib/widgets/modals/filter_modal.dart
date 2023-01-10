@@ -67,7 +67,7 @@ class _FilterModalState extends State<FilterModal> {
           textAlign: TextAlign.start),
       Padding(
           padding: const EdgeInsets.only(bottom: 5, top: 5),
-          child: MultiSelectChip(Tags.types,
+          child: MultiSelectChip(Tags.getLanguagesTypes(context),
               isScrollable: false,
               onSelectionChanged: (selectedList) => {
                     setState(() {

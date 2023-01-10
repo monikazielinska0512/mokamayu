@@ -45,16 +45,16 @@ class _PhotoGridState extends State<PhotoGrid> {
           return Center(
               child: snapshot.data!.isEmpty
                   ? Container(
-                      decoration:  BoxDecoration(
+                      decoration: BoxDecoration(
                           color: ColorsConstants.peachy.withOpacity(0.2),
-                          borderRadius: const BorderRadius.all(Radius.circular(20))),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20))),
                       height: double.maxFinite,
                       width: double.maxFinite,
                       child: Center(
-                          child: Text(
-                              S.of(context).empty_wardrobe,
-                              style: TextStyles.paragraphRegular14(
-                                  Colors.grey))))
+                          child: Text(S.of(context).empty_wardrobe,
+                              style:
+                                  TextStyles.paragraphRegular14(Colors.grey))))
                   : GridView.builder(
                       scrollDirection: widget.getScrollDirection(),
                       shrinkWrap: false,
@@ -118,16 +118,15 @@ class _PhotoGridState extends State<PhotoGrid> {
           return Center(
             child: snapshot.data!.isEmpty
                 ? Container(
-                decoration:  BoxDecoration(
-                    color: ColorsConstants.mint.withOpacity(0.1),
-                    borderRadius: const BorderRadius.all(Radius.circular(20))),
-                height: double.maxFinite,
-                width: double.maxFinite,
-                child: Center(
-                    child: Text(
-                        "No outfits has been created yet!",
-                        style: TextStyles.paragraphRegular14(
-                            Colors.grey))))
+                    decoration: BoxDecoration(
+                        color: ColorsConstants.mint.withOpacity(0.1),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    height: double.maxFinite,
+                    width: double.maxFinite,
+                    child: Center(
+                        child: Text(S.of(context).empty_outfits,
+                            style: TextStyles.paragraphRegular14(Colors.grey))))
                 : GridView.builder(
                     scrollDirection: widget.getScrollDirection(),
                     shrinkWrap: false,

@@ -38,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "dress": MessageLookupByLibrary.simpleMessage("Sukienka"),
         "email_already_used": MessageLookupByLibrary.simpleMessage(
             "Podany adres email jest już zajęty przez innego użytkownika"),
+        "empty_outfits": MessageLookupByLibrary.simpleMessage(
+            "Nie stowrzono jeszcze żadnej stylizacji!"),
         "empty_wardrobe": MessageLookupByLibrary.simpleMessage(
             "Nie masz żadnych elementów w szafie!"),
         "enter_email":

@@ -579,6 +579,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No outfits have been created yet!`
+  String get empty_outfits {
+    return Intl.message(
+      'No outfits have been created yet!',
+      name: 'empty_outfits',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

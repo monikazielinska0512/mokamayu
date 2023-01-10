@@ -41,7 +41,9 @@ class _PhotoPickerState extends State<PhotoPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return
+      Expanded(child:
+      GestureDetector(
       onTap: () {
         _showPicker(context);
       },
@@ -70,7 +72,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                   child: const Icon(Ionicons.camera_outline,
                       color: ColorsConstants.grey),
                 ),
-    );
+    ));
   }
 
   Future pickImage(ImageSource source) async {
