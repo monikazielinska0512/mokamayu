@@ -37,6 +37,10 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
   String getLeftButtonType() => "dots";
 
   @override
+  Color? setBackgroundColor() => Colors.transparent;
+
+
+  @override
   Widget buildButtons() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       IconTextButton(

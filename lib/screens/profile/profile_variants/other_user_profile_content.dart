@@ -17,8 +17,13 @@ class OtherUserProfileContent extends AbstractProfileContent {
   AbstractProfileContentState createState() => _OtherUserProfileContentState();
 }
 
+
+
 class _OtherUserProfileContentState extends AbstractProfileContentState {
   UserData? friendData;
+
+  @override
+  Color? setBackgroundColor() => Colors.transparent;
 
   @override
   void loadData() {
@@ -134,4 +139,5 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
             alignment: Alignment.bottomRight)
         : Container();
   }
+
 }

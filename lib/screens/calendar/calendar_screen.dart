@@ -9,7 +9,6 @@ import 'package:mokamayu/models/outfit.dart';
 import 'package:mokamayu/services/api/weather.dart';
 import 'package:mokamayu/services/managers/calendar_manager.dart';
 import 'package:mokamayu/services/managers/weather_manager.dart';
-import 'package:mokamayu/widgets/buttons/button_darker_orange.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -119,6 +118,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         type: "Calendar",
         leftButtonType: "dots",
         isRightButtonVisible: true,
+        backgroundColor: Colors.transparent,
         context: context,
         isFullScreen: true,
         body: buildCalendar());

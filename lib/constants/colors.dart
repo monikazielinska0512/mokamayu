@@ -19,7 +19,7 @@ class ColorsConstants {
   static Color darkBrick15 = const Color(0xFFB65F56).withOpacity(0.15);
   static const Color brick = Color(0xFFC36A5B);
   static const Color darkPeach = Color(0xFFDB856B);
-  static Color lightPeachy = const Color(0xFFFFC8A3).withOpacity(0.4);
+  static Color lightPeachy =  Color(0xFFFFC8A3).withOpacity(0.4);
   static const Color peachy = Color(0xFFFFC8A3);
   static const Color white = Color(0xFFFFFFFF);
   static const Color whiteAccent = Color(0xFFFAF6F3);

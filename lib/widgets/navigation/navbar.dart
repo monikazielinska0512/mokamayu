@@ -22,11 +22,18 @@ class NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     return SalomonBottomBar(
       itemShape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+          borderRadius: BorderRadius.all(Radius.circular(12))),
       currentIndex: widget.selectedIndex,
-      margin: const EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 15),
-      itemPadding:
-          const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 10),
+      margin: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * 0.04,
+          right: MediaQuery.of(context).size.width * 0.04,
+          top: 0,
+          bottom: 15),
+      itemPadding: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * 0.03,
+          right: MediaQuery.of(context).size.width * 0.03,
+          top: 5,
+          bottom: 10),
       onTap: widget.onTabChange,
       items: [
         SalomonBottomBarItem(

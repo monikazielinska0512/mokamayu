@@ -50,6 +50,7 @@ class _SocialScreenState extends State<SocialScreen> {
       leftButtonType: "dots",
       rightButtonType: "search-notif",
       context: context,
+      backgroundColor: Colors.transparent,
       isFullScreen: true,
       body: Column(
         children: [

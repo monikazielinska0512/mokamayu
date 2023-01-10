@@ -34,7 +34,7 @@ class _FilterModalState extends State<FilterModal> {
   @override
   Widget build(BuildContext context) {
     return CustomIconButton(
-        height: MediaQuery.of(context).size.height * 0.076,
+        height: 0.04,
         width: 0.16,
         icon: Ionicons.filter,
         onPressed: () => showModalBottomSheet<void>(
@@ -50,11 +50,11 @@ class _FilterModalState extends State<FilterModal> {
                             color: Colors.white,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(40))),
-                        height: MediaQuery.of(context).size.height * 0.86,
+                        // height: MediaQuery.of(context).size.height * 0.04,
                         // color: Colors.white,
                         child: Column(
                           children: <Widget>[
-                            buildCLoseButton(),
+                            buildCloseButton(),
                             buildTitle(),
                             buildFiltersSection(),
                             buildApplyButton()
@@ -237,7 +237,7 @@ class _FilterModalState extends State<FilterModal> {
     );
   }
 
-  Widget buildCLoseButton() {
+  Widget buildCloseButton() {
     return Align(
         alignment: Alignment.centerLeft,
         child: Padding(

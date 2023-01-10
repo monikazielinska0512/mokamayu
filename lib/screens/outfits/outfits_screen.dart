@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
@@ -44,29 +43,34 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
     return BasicScreen(
         type: "outfits",
         leftButtonType: "dots",
+        backgroundColor: Colors.transparent,
         context: context,
         body: Stack(children: [
-          Column(
-            children: [
-              Wrap(spacing: 20, runSpacing: 20, children: [
-                buildSearchBarAndFilters(),
-                SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Wrap(spacing: 10, children: [
-                      MultiSelectChip(OutfitTags.styles,
-                          chipsColor: ColorsConstants.darkPeach,
-                          onSelectionChanged: (selectedList) {
-                        selectedChips = selectedList.isEmpty
-                            ? OutfitTags.styles
-                            : selectedList;
-                      }, type: "style_main")
-                    ])),
-              ]),
+          Column(children: [
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      alignment: Alignment.center,
+                      child: FilterModal(
+                      onApplyOutfits: (selectedList) =>
+                      {outfitsListCopy = selectedList})),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.03),
               Expanded(
-                  child:
-                      PhotoGrid(outfitsList: outfitsListCopy ?? outfitsList)),
-            ],
-          ),
+                  child: Wrap(children: [
+                MultiSelectChip(OutfitTags.styles,
+                    chipsColor: ColorsConstants.darkPeach,
+                    onSelectionChanged: (selectedList) {
+                  selectedChips =
+                      selectedList.isEmpty ? OutfitTags.styles : selectedList;
+                }, type: "style_main")
+              ]))
+            ]),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.007),
+            Expanded(
+                child: PhotoGrid(outfitsList: outfitsListCopy ?? outfitsList))
+          ]),
           buildFloatingButton(),
         ]));
   }

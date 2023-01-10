@@ -8,7 +8,6 @@ import '../../../constants/constants.dart';
 
 abstract class AbstractProfileContent extends StatefulWidget {
   final String? uid;
-
   const AbstractProfileContent({Key? key, required this.uid}) : super(key: key);
 }
 
@@ -29,6 +28,10 @@ abstract class AbstractProfileContentState
 
   Widget buildFloatingButton() => Container();
 
+  Color? setBackgroundColor() => Colors.transparent;
+
+
+
   @override
   Widget build(BuildContext context) {
     userDataFuture = Provider.of<ProfileManager>(context, listen: false)
@@ -46,6 +49,7 @@ abstract class AbstractProfileContentState
     return BasicScreen(
       type: "profile",
       leftButtonType: getLeftButtonType(),
+      backgroundColor: setBackgroundColor(),
       context: context,
       isFullScreen: true,
       body: Stack(children: [

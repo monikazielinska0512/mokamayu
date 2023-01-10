@@ -47,8 +47,17 @@ class _PhotoGridState extends State<PhotoGrid> {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
               child: snapshot.data!.isEmpty
-                  ? Text("You don't have any items in your wardrobe!",
-                      style: TextStyles.paragraphRegularSemiBold14(Colors.grey))
+                  ? Container(
+                      decoration:  BoxDecoration(
+                          color: ColorsConstants.peachy.withOpacity(0.2),
+                          borderRadius: const BorderRadius.all(Radius.circular(20))),
+                      height: double.maxFinite,
+                      width: double.maxFinite,
+                      child: Center(
+                          child: Text(
+                              "You don't have any items in your wardrobe!",
+                              style: TextStyles.paragraphRegular14(
+                                  Colors.grey))))
                   : GridView.builder(
                       scrollDirection: widget.getScrollDirection(),
                       shrinkWrap: false,
@@ -111,8 +120,17 @@ class _PhotoGridState extends State<PhotoGrid> {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
             child: snapshot.data!.isEmpty
-                ? Text("No outfits has been created yet!",
-                    style: TextStyles.paragraphRegularSemiBold14(Colors.grey))
+                ? Container(
+                decoration:  BoxDecoration(
+                    color: ColorsConstants.mint.withOpacity(0.1),
+                    borderRadius: const BorderRadius.all(Radius.circular(20))),
+                height: double.maxFinite,
+                width: double.maxFinite,
+                child: Center(
+                    child: Text(
+                        "No outfits has been created yet!",
+                        style: TextStyles.paragraphRegular14(
+                            Colors.grey))))
                 : GridView.builder(
                     scrollDirection: widget.getScrollDirection(),
                     shrinkWrap: false,
