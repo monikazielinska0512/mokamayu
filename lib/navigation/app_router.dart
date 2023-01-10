@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/screens/authenticate/init_screen.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/screens/social/friend_list_screen.dart';
 import 'package:mokamayu/screens/social/request_list_screen.dart';
 import 'package:mokamayu/screens/wardrobe/wardrobe_search_screen.dart';
 import 'package:mokamayu/services/managers/managers.dart';
+import 'package:provider/provider.dart';
 
 import '../models/models.dart';
+import '../screens/authenticate/email_sent_screen.dart';
 
 class AppRouter {
   final AppStateManager appStateManager;
@@ -32,6 +35,11 @@ class AppRouter {
     initialLocation: '/home/${NavigationBarTab.wardrobe}',
     routes: [
       GoRoute(
+        name: 'init',
+        path: '/init',
+        builder: (context, state) => const InitScreen(),
+      ),
+      GoRoute(
         name: 'login',
         path: '/login',
         builder: (context, state) => const LoginScreen(),
@@ -45,6 +53,11 @@ class AppRouter {
         name: 'reset-password',
         path: '/reset-password',
         builder: (context, state) => const ResetPassword(),
+      ),
+      GoRoute(
+        name: 'email-sent',
+        path: '/email-sent',
+        builder: (context, state) => const EmailSentScreen(),
       ),
       GoRoute(
         name: 'home',
@@ -157,14 +170,16 @@ class AppRouter {
     ],
     redirect: (_, GoRouterState state) {
       final loggedIn = appStateManager.isLoggedIn;
+      final init = state.subloc == '/init';
       final loggingIn = state.subloc == '/login';
       final registering = state.subloc == '/register';
       final resettingPassword = state.subloc == '/reset-password';
+      final emailSent = state.subloc == '/email-sent';
       if (!loggedIn) {
-        if (loggingIn || registering || resettingPassword) {
+        if (loggingIn || registering || resettingPassword || emailSent) {
           return null;
         }
-        return '/login';
+        return '/init';
       }
       if (loggingIn) return '/home/${NavigationBarTab.wardrobe}';
       return null;
