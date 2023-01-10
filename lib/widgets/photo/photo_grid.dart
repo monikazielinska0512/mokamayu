@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/services/managers/outfit_manager.dart';
+import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
+import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
-import '../../services/managers/app_state_manager.dart';
-import '../../services/managers/calendar_manager.dart';
-import '../../services/managers/wardrobe_manager.dart';
 
 class PhotoGrid extends StatefulWidget {
   final bool scrollVertically;
@@ -55,7 +52,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                       width: double.maxFinite,
                       child: Center(
                           child: Text(
-                              "You don't have any items in your wardrobe!",
+                              S.of(context).empty_wardrobe,
                               style: TextStyles.paragraphRegular14(
                                   Colors.grey))))
                   : GridView.builder(
@@ -103,7 +100,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                       },
                     ));
         }
-        return Center(
+        return const Center(
             child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(
             ColorsConstants.darkBrick,
@@ -210,7 +207,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                   ),
           );
         }
-        return Center(
+        return const Center(
             child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(
             ColorsConstants.darkBrick,

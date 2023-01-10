@@ -65,7 +65,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
     List<Widget> choices = [];
     for (var item in widget.chipsList) {
       choices.add(Container(
-        padding: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.only(right: 5),
         child: ChoiceChip(
           label: selectedChoices.contains(item)
               ? Text(item,
@@ -149,11 +149,11 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(bottom: 0),
         child: widget.isScrollable
             ? SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Wrap(children: _buildChoiceList()))
-            : Wrap(runSpacing: 7, children: _buildChoiceList()));
+            : Wrap(runSpacing: 1, spacing: 1, children: _buildChoiceList()));
   }
 }

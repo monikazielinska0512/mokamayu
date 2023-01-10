@@ -27,9 +27,34 @@
   "profile": "Profile",
   "wardrobe_page_title": "Your Wardrobe",
   "searchbar_wardrobe_item": "Search by name",
-  "skirt": "Skirt",
-  "tshirt": "T-Shirt",
+
+
   "dress": "Dress",
+  "tshirt": "T-Shirt",
+  "top" : "Top",
+  "trousers" : "Trousers",
+  "jeans" : "Jeans",
+  "sweatshirt" : "Sweatshirt",
+  "hoodie" : "Hoodie",
+  "jacket" : "Jacket",
+  "blazer" : "Blazer",
+  "coat" : "Coat",
+  "sweater" : "Sweater",
+  "cardigan" : "Cardigan",
+  "swimsuit" : "Swimsuit",
+  "sports" : "Sportswear",
+  "skirt": "Skirt",
+  "shorts" : "Shorts",
+  "pyjama" : "Pyjama",
   "shoes": "Shoes",
-  "hat": "Hat"
+  "accessories": "Accessories",
+
+
+
+  "empty_wardrobe": "You don't have any items in your wardrobe!",
+  "filters": "Filters",
+  "clothing_types": "Clothing type",
+  "size": "Size",
+  "style": "Style",
+  "apply_filters" : "Apply filters"
 }

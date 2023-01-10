@@ -22,24 +22,35 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accessories": MessageLookupByLibrary.simpleMessage("Accessories"),
+        "apply_filters": MessageLookupByLibrary.simpleMessage("Apply filters"),
         "bad_email": MessageLookupByLibrary.simpleMessage(
             "The email address is badly formatted"),
         "bad_password": MessageLookupByLibrary.simpleMessage(
             "Password should be at least 6 characters long"),
+        "blazer": MessageLookupByLibrary.simpleMessage("Blazer"),
+        "cardigan": MessageLookupByLibrary.simpleMessage("Cardigan"),
+        "clothing_types": MessageLookupByLibrary.simpleMessage("Clothing type"),
+        "coat": MessageLookupByLibrary.simpleMessage("Coat"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "dismiss": MessageLookupByLibrary.simpleMessage("DISMISS"),
         "dress": MessageLookupByLibrary.simpleMessage("Dress"),
         "email_already_used": MessageLookupByLibrary.simpleMessage(
             "The email address is already in use by another account"),
+        "empty_wardrobe": MessageLookupByLibrary.simpleMessage(
+            "You don\'t have any items in your wardrobe!"),
         "enter_email": MessageLookupByLibrary.simpleMessage("Email"),
         "enter_password": MessageLookupByLibrary.simpleMessage("Password"),
         "enter_username": MessageLookupByLibrary.simpleMessage("Username"),
         "error_message": MessageLookupByLibrary.simpleMessage(
             "An error occurred. Please try again later"),
+        "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
-        "hat": MessageLookupByLibrary.simpleMessage("Hat"),
+        "hoodie": MessageLookupByLibrary.simpleMessage("Hoodie"),
+        "jacket": MessageLookupByLibrary.simpleMessage("Jacket"),
+        "jeans": MessageLookupByLibrary.simpleMessage("Jeans"),
         "no_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "outfits": MessageLookupByLibrary.simpleMessage("Outfits"),
@@ -52,16 +63,26 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter text"),
         "posts": MessageLookupByLibrary.simpleMessage("Posts"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "pyjama": MessageLookupByLibrary.simpleMessage("Pyjama"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "searchbar_wardrobe_item":
             MessageLookupByLibrary.simpleMessage("Search by name"),
         "shoes": MessageLookupByLibrary.simpleMessage("Shoes"),
+        "shorts": MessageLookupByLibrary.simpleMessage("Shorts"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "sign_out": MessageLookupByLibrary.simpleMessage(" Sign out"),
         "sign_up": MessageLookupByLibrary.simpleMessage(" Sign up"),
+        "size": MessageLookupByLibrary.simpleMessage("Size"),
         "skirt": MessageLookupByLibrary.simpleMessage("Skirt"),
         "social": MessageLookupByLibrary.simpleMessage("Social"),
+        "sports": MessageLookupByLibrary.simpleMessage("Sportswear"),
+        "style": MessageLookupByLibrary.simpleMessage("Style"),
+        "sweater": MessageLookupByLibrary.simpleMessage("Sweater"),
+        "sweatshirt": MessageLookupByLibrary.simpleMessage("Sweatshirt"),
+        "swimsuit": MessageLookupByLibrary.simpleMessage("Swimsuit"),
+        "top": MessageLookupByLibrary.simpleMessage("Top"),
+        "trousers": MessageLookupByLibrary.simpleMessage("Trousers"),
         "tshirt": MessageLookupByLibrary.simpleMessage("T-Shirt"),
         "user_not_exist":
             MessageLookupByLibrary.simpleMessage("User does not exist"),

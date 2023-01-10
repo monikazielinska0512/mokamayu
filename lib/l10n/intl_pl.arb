@@ -27,9 +27,32 @@
   "profile": "Profil",
   "wardrobe_page_title": "Twoja szafa",
   "searchbar_wardrobe_item": "Szukaj po nazwie",
-  "skirt": "Spódniczka",
-  "tshirt": "Koszulka",
+
+
   "dress": "Sukienka",
+  "tshirt": "Koszulka",
+  "top" : "Top",
+  "trousers" : "Spodnie",
+  "jeans" : "Dżinsy",
+  "sweatshirt" : "Bluza",
+  "hoodie" : "Bluza z kapturem",
+  "jacket" : "Kurtka",
+  "blazer" : "Marynarka",
+  "coat" : "Płaszcz",
+  "sweater" : "Sweter",
+  "cardigan" : "Kardigan",
+  "swimsuit" : "Strój kąpielowy",
+  "sports" : "Odzież sportowa",
+  "skirt": "Spódniczka",
+  "shorts" : "Spodenki",
+  "pyjama" : "Piżama",
   "shoes": "Buty",
-  "hat": "Kapelusz"
+  "accessories": "Akcesoria",
+
+  "empty_wardrobe": "Nie masz żadnych elementów w szafie!",
+  "filters": "Filtrowanie",
+  "clothing_types": "Rodzaj",
+  "size": "Rozmiar",
+  "style": "Styl",
+  "apply_filters" : "Filtruj"
 }

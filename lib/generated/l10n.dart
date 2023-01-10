@@ -330,11 +330,11 @@ class S {
     );
   }
 
-  /// `Skirt`
-  String get skirt {
+  /// `Dress`
+  String get dress {
     return Intl.message(
-      'Skirt',
-      name: 'skirt',
+      'Dress',
+      name: 'dress',
       desc: '',
       args: [],
     );
@@ -350,11 +350,151 @@ class S {
     );
   }
 
-  /// `Dress`
-  String get dress {
+  /// `Top`
+  String get top {
     return Intl.message(
-      'Dress',
-      name: 'dress',
+      'Top',
+      name: 'top',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trousers`
+  String get trousers {
+    return Intl.message(
+      'Trousers',
+      name: 'trousers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Jeans`
+  String get jeans {
+    return Intl.message(
+      'Jeans',
+      name: 'jeans',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sweatshirt`
+  String get sweatshirt {
+    return Intl.message(
+      'Sweatshirt',
+      name: 'sweatshirt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hoodie`
+  String get hoodie {
+    return Intl.message(
+      'Hoodie',
+      name: 'hoodie',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Jacket`
+  String get jacket {
+    return Intl.message(
+      'Jacket',
+      name: 'jacket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blazer`
+  String get blazer {
+    return Intl.message(
+      'Blazer',
+      name: 'blazer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coat`
+  String get coat {
+    return Intl.message(
+      'Coat',
+      name: 'coat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sweater`
+  String get sweater {
+    return Intl.message(
+      'Sweater',
+      name: 'sweater',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cardigan`
+  String get cardigan {
+    return Intl.message(
+      'Cardigan',
+      name: 'cardigan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Swimsuit`
+  String get swimsuit {
+    return Intl.message(
+      'Swimsuit',
+      name: 'swimsuit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sportswear`
+  String get sports {
+    return Intl.message(
+      'Sportswear',
+      name: 'sports',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skirt`
+  String get skirt {
+    return Intl.message(
+      'Skirt',
+      name: 'skirt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shorts`
+  String get shorts {
+    return Intl.message(
+      'Shorts',
+      name: 'shorts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pyjama`
+  String get pyjama {
+    return Intl.message(
+      'Pyjama',
+      name: 'pyjama',
       desc: '',
       args: [],
     );
@@ -370,11 +510,71 @@ class S {
     );
   }
 
-  /// `Hat`
-  String get hat {
+  /// `Accessories`
+  String get accessories {
     return Intl.message(
-      'Hat',
-      name: 'hat',
+      'Accessories',
+      name: 'accessories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have any items in your wardrobe!`
+  String get empty_wardrobe {
+    return Intl.message(
+      'You don\'t have any items in your wardrobe!',
+      name: 'empty_wardrobe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filters`
+  String get filters {
+    return Intl.message(
+      'Filters',
+      name: 'filters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clothing type`
+  String get clothing_types {
+    return Intl.message(
+      'Clothing type',
+      name: 'clothing_types',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Size`
+  String get size {
+    return Intl.message(
+      'Size',
+      name: 'size',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Style`
+  String get style {
+    return Intl.message(
+      'Style',
+      name: 'style',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apply filters`
+  String get apply_filters {
+    return Intl.message(
+      'Apply filters',
+      name: 'apply_filters',
       desc: '',
       args: [],
     );

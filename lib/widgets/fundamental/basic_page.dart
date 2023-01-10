@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../constants/text_styles.dart';
+import '../../generated/l10n.dart';
 import '../buttons/icon_button.dart';
 
 class BasicScreen extends StatelessWidget {
@@ -102,7 +103,8 @@ class BasicScreen extends StatelessWidget {
   Widget buildPageTitle() {
     switch (type) {
       case "wardrobe":
-        return Text("Your Wardrobe", style: TextStyles.appTitle(Colors.black));
+        return Text(S.of(context).wardrobe_page_title,
+            style: TextStyles.appTitle(Colors.black));
       case "outfits":
         return Text("Outfits", style: TextStyles.appTitle(Colors.black));
       case "add_photo":
@@ -145,22 +147,20 @@ class BasicScreen extends StatelessWidget {
       case "bin":
         return CustomIconButton(onPressed: () {}, icon: Icons.delete);
       case "search-notif":
-        switch(type){
+        switch (type) {
           case "social":
-            return Row(
-                children: [
-                  CustomIconButton(
-                      onPressed: () => context.push('/find-users'),
-                      icon: Icons.search,
-                      backgroundColor: Colors.transparent,
-                      iconColor: Colors.grey),
-                  CustomIconButton(
-                      onPressed: () => context.push('/notifications'),
-                      icon: Icons.notifications,
-                      backgroundColor: Colors.transparent,
-                      iconColor: Colors.grey)
-                ]
-            );
+            return Row(children: [
+              CustomIconButton(
+                  onPressed: () => context.push('/find-users'),
+                  icon: Icons.search,
+                  backgroundColor: Colors.transparent,
+                  iconColor: Colors.grey),
+              CustomIconButton(
+                  onPressed: () => context.push('/notifications'),
+                  icon: Icons.notifications,
+                  backgroundColor: Colors.transparent,
+                  iconColor: Colors.grey)
+            ]);
         }
     }
     return Container();

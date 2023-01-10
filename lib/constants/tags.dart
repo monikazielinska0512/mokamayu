@@ -8,14 +8,33 @@ class Tags {
     'XXL',
   ];
 
-  static const List<String> types = [
-    'Skirt',
-    'T-Shirt',
-    'Dress',
-    "Shoes",
-    "Hat",
-    "Sweater",
+  static List<String> types = [
+    "Sukienka",
+    "Koszulka",
+    "Top",
+    "Spodnie",
+    "Dżinsy",
+    "Bluza",
+    "Bluza z kapturem",
+    "Kurtka",
+    "Marynarka",
+    "Płaszcz",
+    "Sweter",
+    "Kardigan",
+    "Strój kąpielowy",
+    "Odzież sportowa",
+    "Spódniczka",
+    "Spodenki",
+    "Piżama",
+    "Buty",
+    "Akcesoria",
   ];
+
+  static List<String> getTypes(){
+    types.sort();
+    return types;
+  }
+
   static const List<String> styles = [
     "School",
     "Classic",
