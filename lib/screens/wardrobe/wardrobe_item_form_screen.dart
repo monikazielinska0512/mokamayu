@@ -1,9 +1,13 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
+import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+
 import '../../models/wardrobe_item.dart';
 
 class AddWardrobeItemForm extends StatefulWidget {
@@ -27,7 +31,7 @@ class AddWardrobeItemForm extends StatefulWidget {
 class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
   @override
   void initState() {
-    widget.isLocked = widget.isEdit == true ? true : false;
+    widget.isLocked = widget.isEdit;
 
     super.initState();
   }
@@ -77,24 +81,25 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
                                       photoPath: widget.photo ?? "",
                                       item: widget.editItem,
                                       showUpdateAndDeleteButtons:
-                                          widget.isLocked ? false : true))))),
+                                          !widget.isLocked))))),
                   editButton()
                 ]))));
   }
 
+  bool isWardrobeItemMine() =>
+      Provider.of<WardrobeManager>(context, listen: false)
+          .finalWardrobeItemList
+          .contains(widget.editItem);
+
   Widget editButton() {
-    return widget.isLocked
+    return widget.isLocked && isWardrobeItemMine()
         ? Padding(
             padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
             child: Align(
                 alignment: Alignment.topRight,
                 child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        widget.isLocked =
-                            widget.isLocked == true ? false : true;
-                      });
-                    },
+                    onPressed: () =>
+                        setState(() => widget.isLocked = !widget.isLocked),
                     icon: const Icon(Ionicons.create_outline,
                         color: ColorsConstants.grey))))
         : Container();

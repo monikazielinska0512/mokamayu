@@ -80,8 +80,20 @@ class PhotoCardOutfit extends StatelessWidget {
       Provider.of<PhotoTapped>(context, listen: false).addIds(key[1]);
     });
 
-    context.pushNamed("outfit-add-attributes-screen", extra: getMap);
+    if (isOutfitMine(context)) {
+      context.pushNamed("outfit-add-attributes-screen", extra: getMap);
+    } else {
+      Provider.of<PhotoTapped>(context, listen: false)
+          .setScreenshot(object?.cover ?? "");
+      context.pushNamed("outfit-summary-screen",
+          extra: getMap, queryParams: {'friendUid': object?.owner});
+    }
   }
+
+  bool isOutfitMine(BuildContext context) =>
+      Provider.of<OutfitManager>(context, listen: false)
+          .getFinalOutfitList
+          .contains(object);
 
   void tapOutfitCalendar(BuildContext context) {
     if (selected == false) {

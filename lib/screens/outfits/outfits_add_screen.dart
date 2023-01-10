@@ -26,13 +26,15 @@ class CreateOutfitPage extends StatelessWidget {
     double deviceHeight(BuildContext context) =>
         MediaQuery.of(context).size.height;
 
-    if (!isCreatingOutfitForFriend) {
-      itemList = Provider.of<WardrobeManager>(context, listen: true)
-          .getWardrobeItemList;
-    }
+    itemList = isCreatingOutfitForFriend
+        ? Provider.of<WardrobeManager>(context, listen: true)
+            .getFriendWardrobeItemList
+        : Provider.of<WardrobeManager>(context, listen: true)
+            .getWardrobeItemList;
+
     futureItemListCopy = isCreatingOutfitForFriend
         ? Provider.of<WardrobeManager>(context, listen: true)
-            .readWardrobeItemsForUser(friendUid!)
+            .getFriendWardrobeItemListCopy
         : Provider.of<WardrobeManager>(context, listen: true)
             .getWardrobeItemListCopy;
 
@@ -93,11 +95,7 @@ class CreateOutfitPage extends StatelessWidget {
                   ),
             )
           ]),
-          MultiSelectChip(Tags.types,
-              type: "type_main", chipsColor: ColorsConstants.darkPeach,
-              onSelectionChanged: (selectedList) {
-            selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
-          }),
+          buildFilters(),
           SizedBox(
             width: double.infinity,
             height: 200,
@@ -109,6 +107,18 @@ class CreateOutfitPage extends StatelessWidget {
         ],
       ),
       //),
+    );
+  }
+
+  Widget buildFilters() {
+    return MultiSelectChip(
+      Tags.types,
+      type: "type_main",
+      chipsColor: ColorsConstants.darkPeach,
+      usingFriendsWardrobe: isCreatingOutfitForFriend,
+      onSelectionChanged: (selectedList) {
+        selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
+      },
     );
   }
 }
