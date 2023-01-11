@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (displaysCurrentUserProfile) {
       futureUserPosts = Provider.of<PostManager>(context, listen: false)
-          .getFutureCurrentUserPostList;
+          .getFinalCurrentUserPostList;
     } else {
       futureUserPosts = Provider.of<PostManager>(context, listen: false)
           .getUserPosts(widget.uid!);
@@ -177,9 +177,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       case "FriendshipState.FRIENDS": {
         return IconTextButton(
             onPressed: (){
-              print("Remove");
-              Provider.of<ProfileManager>(context, listen: false)
-                  .removeFriend(friendData!);
+              showDialog(
+                  context: context,
+                  useSafeArea: false,
+                  builder: (BuildContext context) {
+                    return FriendDialogBox(friend: friendData!, isResponse: false,);
+                  });
             },
             icon: Icons.check,
             text: "Friends",
@@ -203,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 context: context,
                 useSafeArea: false,
                 builder: (BuildContext context) {
-                  return FriendDialogBox(friend: friendData!);
+                  return FriendDialogBox(friend: friendData!, isResponse: true,);
                 });
           },
           icon: Icons.mark_email_unread,
@@ -216,6 +219,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           onPressed: (){
             print("send");
             Provider.of<ProfileManager>(context, listen: false).sendFriendInvite(friendData!);
+            CustomNotification notif = CustomNotification(
+                sentFrom: AuthService().getCurrentUserID(),
+                type: NotificationType.RECEIVED_INVITE.toString(),
+                creationDate: DateTime.now().millisecondsSinceEpoch
+            );
+            Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, friendData!.uid);
           },
           icon: Icons.person_outline_outlined,
           text: "Add friend",

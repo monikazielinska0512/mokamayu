@@ -11,7 +11,7 @@ class PostManager extends ChangeNotifier {
   Future<List<Post>>? futurePostList;
   Future<List<Post>>? get getPostList => futurePostList;
 
-  Future<List<Post>>? get getFutureCurrentUserPostList async =>
+  Future<List<Post>>? get getFinalCurrentUserPostList async =>
       finalCurrentUserPostList;
 
   List<Post> get getFinalPostList => finalPostList;
@@ -40,6 +40,21 @@ class PostManager extends ChangeNotifier {
         await db.collection('users').doc(uid).collection('posts').get();
 
     return snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
+  }
+
+  Future<Post?> getPostByUid(String uid) async {
+    final docRef = db
+        .collection("users")
+        .doc(AuthService().getCurrentUserID())
+        .collection("posts")
+        .doc(uid);
+    docRef.get().then(
+          (DocumentSnapshot doc) {
+        return doc;
+      },
+      onError: (e) => print("Error getting document: $e"),
+    );
+    return null;
   }
 
   Future<List<Post>>? getCurrentUserPosts() async {

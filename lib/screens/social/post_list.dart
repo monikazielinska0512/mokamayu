@@ -75,24 +75,48 @@ class _PostListState extends State<PostList>{
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                              widget.userList
+                          Row(
+                            children: [
+                              Text(
+                                  widget.userList
+                                              .singleWhere((element) =>
+                                                  element.uid ==
+                                                  widget.postList[index].createdBy)
+                                              .profileName !=
+                                          null
+                                      ? widget.userList
                                           .singleWhere((element) =>
                                               element.uid ==
                                               widget.postList[index].createdBy)
-                                          .profileName !=
-                                      null
-                                  ? widget.userList
-                                      .singleWhere((element) =>
-                                          element.uid ==
-                                          widget.postList[index].createdBy)
-                                      .profileName!
-                                  : widget.userList
-                                      .singleWhere((element) =>
-                                          element.uid ==
-                                          widget.postList[index].createdBy)
-                                      .username,
-                              style: TextStyles.paragraphRegularSemiBold16()),
+                                          .profileName!
+                                      : widget.userList
+                                          .singleWhere((element) =>
+                                              element.uid ==
+                                              widget.postList[index].createdBy)
+                                          .username,
+                                  style: TextStyles.paragraphRegularSemiBold16()),
+
+                            // if(widget.postList[index].createdFor != widget.postList[index].createdBy)
+                            //    Text(
+                            //     widget.userList
+                            //         .singleWhere((element) =>
+                            //     element.uid ==
+                            //         widget.postList[index].createdFor)
+                            //         .profileName !=
+                            //         null
+                            //         ? widget.userList
+                            //         .singleWhere((element) =>
+                            //     element.uid ==
+                            //         widget.postList[index].createdFor)
+                            //         .profileName!
+                            //         : widget.userList
+                            //         .singleWhere((element) =>
+                            //     element.uid ==
+                            //         widget.postList[index].createdFor)
+                            //         .username,
+                            //     style: TextStyles.paragraphRegularSemiBold16()),
+                            ],
+                          ),
                           Text(
                               "Posted ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.postList[index].creationDate))}",
                               style: TextStyles.paragraphRegular14(
@@ -126,7 +150,7 @@ class _PostListState extends State<PostList>{
                                                 widget.postList[index].likes!);
                                         setState(() {});
                                       },
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.favorite,
                                         color: ColorsConstants.darkBrick,
                                       ))
@@ -142,13 +166,19 @@ class _PostListState extends State<PostList>{
                                                 widget
                                                     .postList[index].createdBy,
                                                 widget.postList[index].likes!);
+                                        CustomNotification notif = CustomNotification(
+                                            sentFrom: AuthService().getCurrentUserID(),
+                                            type: NotificationType.LIKE.toString(),
+                                            creationDate: DateTime.now().millisecondsSinceEpoch
+                                        );
+                                        Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, widget.postList[index].createdBy);
                                         setState(() {});
                                       },
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.favorite_border,
                                         color: ColorsConstants.darkBrick,
                                       ))
-                              : Icon(
+                              : const Icon(
                                   Icons.favorite_border,
                                   color: ColorsConstants.darkBrick,
                                 ),
@@ -164,6 +194,12 @@ class _PostListState extends State<PostList>{
                       print("add comment");
                       widget.postList[index].comments!.add({"author": AuthService().getCurrentUserID(), "content": comment});
                       Provider.of<PostManager>(context, listen: false).commentPost(widget.postList[index].reference!, widget.postList[index].createdBy, widget.postList[index].comments!);
+                      CustomNotification notif = CustomNotification(
+                          sentFrom: AuthService().getCurrentUserID(),
+                          type: NotificationType.COMMENT.toString(),
+                          creationDate: DateTime.now().millisecondsSinceEpoch
+                      );
+                      Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, widget.postList[index].createdBy);
                       myController[index].clear();
                       setState(() {});
                     },

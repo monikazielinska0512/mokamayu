@@ -36,9 +36,8 @@ class _SocialScreenState extends State<SocialScreen> {
     Provider.of<UserListManager>(context, listen: false).readUserOnce()
         .then((List<UserData> temp){
       setState(() => userList = temp);
-      setState(() => currentUser = userList.singleWhere((element) => element.uid == AuthService().getCurrentUserID()));
     });
-
+    currentUser = userList.singleWhere((element) => element.uid == AuthService().getCurrentUserID());
     var friendList = Provider.of<FriendsManager>(context, listen: false).readFriendsIdsOnce(currentUser);
     friendList.add(currentUser.uid);
     friendsPostList =  Provider.of<PostManager>(context, listen: false).readFeedPostsOnce(friendList, postList);

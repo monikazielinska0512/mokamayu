@@ -16,9 +16,11 @@ class AppRouter {
   final UserListManager userListManager;
   final PostManager postManager;
   final FriendsManager friendsManager;
+  final NotificationsManager notificationsManager;
 
   AppRouter(this.appStateManager, this.profileManager, this.wardrobeManager,
-      this.outfitManager, this.userListManager, this.postManager, this.friendsManager);
+      this.outfitManager, this.userListManager, this.postManager,
+      this.friendsManager, this.notificationsManager);
 
   late final router = GoRouter(
     debugLogDiagnostics: true,
