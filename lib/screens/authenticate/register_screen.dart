@@ -31,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-      type: "Sign up",
+      type: S.of(context).sign_up,
       leftButtonType: "back",
       isRightButtonVisible: false,
       context: context,

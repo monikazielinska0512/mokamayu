@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Outfit {
+  final String owner;
   final String createdBy;
   final String? style;
   final String? season;
@@ -10,6 +11,7 @@ class Outfit {
   String? reference;
 
   Outfit({
+    required this.owner,
     required this.createdBy,
     this.style,
     this.season,
@@ -20,7 +22,8 @@ class Outfit {
   });
 
   Outfit.init()
-      : createdBy = '',
+      : owner = '',
+        createdBy = '',
         style = '',
         season = '',
         cover = '',
@@ -28,6 +31,7 @@ class Outfit {
         map = {};
 
   factory Outfit.fromJson(Map<dynamic, dynamic> json) => Outfit(
+      owner: json['owner'] ?? json['createdBy'] as String,
       createdBy: json['createdBy'] as String,
       style: json['style'] as String,
       season: json['season'] as String,
@@ -37,6 +41,7 @@ class Outfit {
       reference: json['reference']);
 
   Map<String, dynamic> toJson() => <String, dynamic>{
+        "owner": owner.toString(),
         "createdBy": createdBy.toString(),
         "style": style.toString(),
         "season": season.toString(),

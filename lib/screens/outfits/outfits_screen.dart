@@ -6,6 +6,7 @@ import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
     outfitsListCopy =
         Provider.of<OutfitManager>(context, listen: true).getOutfitListCopy;
     return BasicScreen(
-        type: "outfits",
+        type: S.of(context).outfits,
         leftButtonType: "dots",
         backgroundColor: Colors.transparent,
         context: context,

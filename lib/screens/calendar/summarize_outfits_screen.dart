@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
 import '../../models/outfit.dart';
 import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/calendar_manager.dart';
 import '../../widgets/fundamental/basic_page.dart';
+import '../../widgets/fundamental/snackbar.dart';
 import '../../widgets/photo/wardrobe_item_card.dart';
 
 class SummarizeOutfitsScreen extends StatelessWidget {
@@ -17,7 +19,7 @@ class SummarizeOutfitsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        type: "Summary",
+        type: S.of(context).summary,
         leftButtonType: "back",
         isRightButtonVisible: true,
         rightButtonType: "add",
@@ -30,32 +32,39 @@ class SummarizeOutfitsScreen extends StatelessWidget {
               Provider.of<CalendarManager>(context, listen: false)
                   .getPickedOutfits;
 
-          if (events[day] != null) {
-            for (var element in outfitList) {
-              events[day]!.add(
-                Event(outfit: element!),
-              );
-            }
-          } else {
-            events[day] = [Event(outfit: outfitList[0]!)];
-            if (outfitList.length > 1) {
-              for (var i = 1; i < outfitList.length; i++) {
+          if (outfitList.length > 0) {
+            if (events[day] != null) {
+              for (var element in outfitList) {
                 events[day]!.add(
-                  Event(outfit: outfitList[i]!),
+                  Event(outfit: element!),
                 );
               }
+            } else {
+              events[day] = [Event(outfit: outfitList[0]!)];
+              if (outfitList.length > 1) {
+                for (var i = 1; i < outfitList.length; i++) {
+                  events[day]!.add(
+                    Event(outfit: outfitList[i]!),
+                  );
+                }
+              }
             }
-          }
-          Provider.of<CalendarManager>(context, listen: false)
-              .setSelectedEvents(events);
-          Map<String, String> encodedEvents = encodeMap(events);
+            Provider.of<CalendarManager>(context, listen: false)
+                .setSelectedEvents(events);
+            Map<String, String> encodedEvents = encodeMap(events);
 
-          Provider.of<AppStateManager>(context, listen: false)
-              .cacheEvents(encodedEvents);
-          Provider.of<CalendarManager>(context, listen: false).nullOutfitsMap();
-          Provider.of<CalendarManager>(context, listen: false)
-              .nullPickedOutfits();
-          context.go("/home/3");
+            Provider.of<AppStateManager>(context, listen: false)
+                .cacheEvents(encodedEvents);
+            Provider.of<CalendarManager>(context, listen: false)
+                .nullOutfitsMap();
+            Provider.of<CalendarManager>(context, listen: false)
+                .nullPickedOutfits();
+            context.go("/home/3");
+          } else {
+            //no outfits picked
+            CustomSnackBar.showErrorSnackBar(
+                message: S.of(context).pick_outfits_error, context: context);
+          }
         },
         context: context,
         isFullScreen: false,

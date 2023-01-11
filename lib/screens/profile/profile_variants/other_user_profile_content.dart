@@ -11,7 +11,8 @@ import '../../../constants/constants.dart';
 import '../../../generated/l10n.dart';
 
 class OtherUserProfileContent extends AbstractProfileContent {
-  const OtherUserProfileContent({Key? key, uid}) : super(key: key, uid: uid);
+  const OtherUserProfileContent({Key? key, required String? uid})
+      : super(key: key, uid: uid);
 
   @override
   AbstractProfileContentState createState() => _OtherUserProfileContentState();
@@ -31,6 +32,11 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
         .getUserData(widget.uid)
         .then((UserData? temp) {
       setState(() => friendData = temp);
+    });
+
+    Future.delayed(Duration.zero).then((value) {
+      Provider.of<WardrobeManager>(context, listen: false)
+          .setFriendWardrobeItemList(itemList!);
     });
   }
 
@@ -112,7 +118,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   Map<String, Widget>? getTabs() {
     bool eligibleToSeeProfile = !(userData?.privateProfile ?? true) ||
         Provider.of<FriendsManager>(context, listen: false)
-            .isMyFriend(widget.uid!);
+            .isMyFriend(widget.uid);
     return eligibleToSeeProfile
         ? {
             S.of(context).wardrobe: PhotoGrid(itemList: itemList),
@@ -122,9 +128,9 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   }
 
   @override
-  Widget buildFloatingButton() {
+  Widget buildCreateOutfitForFriendButton() {
     return Provider.of<FriendsManager>(context, listen: false)
-            .isMyFriend(widget.uid!)
+            .isMyFriend(widget.uid)
         ? FloatingButton(
             onPressed: () {
               Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();

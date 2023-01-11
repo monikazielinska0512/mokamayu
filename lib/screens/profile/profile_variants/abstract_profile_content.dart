@@ -5,6 +5,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/constants.dart';
+import '../../../generated/l10n.dart';
 
 abstract class AbstractProfileContent extends StatefulWidget {
   final String? uid;
@@ -26,7 +27,7 @@ abstract class AbstractProfileContentState
 
   Map<String, Widget>? getTabs();
 
-  Widget buildFloatingButton() => Container();
+  Widget buildCreateOutfitForFriendButton() => Container();
 
   Color? setBackgroundColor() => Colors.transparent;
 
@@ -36,18 +37,18 @@ abstract class AbstractProfileContentState
   Widget build(BuildContext context) {
     userDataFuture = Provider.of<ProfileManager>(context, listen: false)
         .getUserData(widget.uid);
-    loadData();
+
     if (widget.uid != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-            itemList = Provider.of<WardrobeManager>(context, listen: false)
-                .readWardrobeItemsForUser(widget.uid!);
-            outfitsList = Provider.of<OutfitManager>(context, listen: false)
-                .readOutfitsForUser(widget.uid!);
-          }));
+      itemList = Provider.of<WardrobeManager>(context, listen: false)
+          .readWardrobeItemsForUser(widget.uid!);
+      outfitsList = Provider.of<OutfitManager>(context, listen: false)
+          .readOutfitsForUser(widget.uid!);
     }
 
+    loadData();
+
     return BasicScreen(
-      type: "profile",
+      type: S.of(context).profile,
       leftButtonType: getLeftButtonType(),
       backgroundColor: setBackgroundColor(),
       context: context,
@@ -69,7 +70,7 @@ abstract class AbstractProfileContentState
             ),
           ),
         ),
-        buildFloatingButton(),
+        buildCreateOutfitForFriendButton(),
       ]),
     );
   }

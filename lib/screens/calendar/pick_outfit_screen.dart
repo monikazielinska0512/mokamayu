@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
 import '../../services/managers/outfit_manager.dart';
 import '../../widgets/fundamental/basic_page.dart';
 import '../../widgets/photo/photo_grid.dart';
@@ -12,7 +13,7 @@ class PickOutfitScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        type: "Pick outfits",
+        type: S.of(context).pick_outfits,
         leftButtonType: "back",
         isRightButtonVisible: true,
         rightButtonType: "go_forward",

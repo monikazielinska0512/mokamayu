@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../constants/colors.dart';
+import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/outfit_manager.dart';
@@ -61,6 +62,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           Map<String, dynamic> mapOutfit = map['outfit'];
 
           Outfit outfit = Outfit(
+              owner: mapOutfit['owner'] as String,
               createdBy: mapOutfit['createdBy'] as String,
               style: mapOutfit['style'] as String,
               season: mapOutfit['season'] as String,
@@ -115,7 +117,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     selectedEvents =
         Provider.of<CalendarManager>(context, listen: true).getEvents;
     return BasicScreen(
-        type: "Calendar",
+        type: S.of(context).calendar,
         leftButtonType: "dots",
         isRightButtonVisible: true,
         backgroundColor: Colors.transparent,
@@ -224,7 +226,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         }
                       },
                     ),
-                    labelText: 'Enter City',
+                    labelText: S.of(context).enter_city,
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                   )),
             )),
@@ -234,7 +236,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     child: Column(
                       children: [
                         Text(
-                          "Current weather",
+                          S.of(context).current_weather,
                           style: TextStyles.paragraphRegular14(),
                         ),
                         const SizedBox(height: 5),
@@ -254,7 +256,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         showCurrentWeather = true;
                       },
                       icon: Icons.sunny,
-                      text: "Show current weather",
+                      text: S.of(context).show_current_weather,
                       width: 130,
                       height: 60,
                       backgroundColor: ColorsConstants.mint,
@@ -268,7 +270,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Looks for ${DateFormat.MMMMd().format(_selectedDay)}:",
+                  "${S.of(context).looks_for} ${DateFormat.MMMMd().format(_selectedDay)}:",
                   style: TextStyles.h5(ColorsConstants.grey),
                 ))),
         SizedBox(
@@ -354,7 +356,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             child: Column(
                               children: [
                                 dialogCardCalendar(
-                                    "Add looks for ${DateFormat.MMMMd().format(_selectedDay)}",
+                                    "${S.of(context).add_looks_for} ${DateFormat.MMMMd().format(_selectedDay)}",
                                     () {
                                   Provider.of<CalendarManager>(context,
                                           listen: false)
@@ -381,9 +383,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
 }
 
 Widget dialogCardCalendar(String text, Function onTap, double pad) {
-  return SizedBox(
-    width: 280,
-    height: 65,
+  return FittedBox(
+    fit: BoxFit.fitWidth,
+    // width: 280,
+    // height: 65,
     child: ElevatedButton(
         onPressed: () {
           onTap();
@@ -405,7 +408,7 @@ Widget dialogCardCalendar(String text, Function onTap, double pad) {
                   Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Padding(
-                          padding: const EdgeInsets.only(top: 13),
+                          padding: const EdgeInsets.only(top: 13, bottom: 15),
                           child: Text(
                             text,
                             textAlign: TextAlign.center,
