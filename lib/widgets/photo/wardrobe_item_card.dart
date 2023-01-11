@@ -79,12 +79,8 @@ class WardrobeItemCard extends StatelessWidget {
                             textAlign: TextAlign.right,
                           ),
                           onPressed: () => {
-                                //TODO see details
-                                // if (wardrobItem != null)
-                                //   {
-                                //     context.pushNamed('wardrobe-item',
-                                //         extra: wardrobItem)
-                                //   }
+                                context.pushNamed('wardrobe-item',
+                                    extra: wardrobItem)
                               }),
                     ],
                   )
