@@ -24,12 +24,6 @@ class AppCache {
     return prefs.getBool(user) ?? false;
   }
 
-  // Future<void> cacheIndexList(List<int> indexList) async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   List<String> strList = indexList.map((i) => i.toString()).toList();
-  //   prefs.setStringList(_auth.getCurrentUserID(), strList);
-  // }
-
   Future<void> cacheEvents(Map<String, String> events) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(_auth.getCurrentUserID(), json.encode(events));

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
+import '../../generated/l10n.dart';
 
 class SearchTextField extends StatefulWidget {
   Function(String)? onChanged;
@@ -43,7 +44,9 @@ class _SearchTextFieldState extends State<SearchTextField> {
       cursorColor: ColorsConstants.darkBrick,
       onChanged: widget.onChanged,
       decoration: InputDecoration(
-          hintText: _focus.hasFocus == true ? "Search by name" : "",
+          hintText: _focus.hasFocus == true
+              ? S.of(context).searchbar_wardrobe_item
+              : "",
           filled: true,
           fillColor: ColorsConstants.whiteAccent,
           labelStyle: const TextStyle(

@@ -5,6 +5,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/constants.dart';
+import '../../../generated/l10n.dart';
 
 abstract class AbstractProfileContent extends StatefulWidget {
   final String? uid;
@@ -44,7 +45,7 @@ abstract class AbstractProfileContentState
     loadData();
 
     return BasicScreen(
-      type: "profile",
+      type: S.of(context).profile,
       leftButtonType: getLeftButtonType(),
       context: context,
       isFullScreen: true,

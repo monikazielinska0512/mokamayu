@@ -6,6 +6,7 @@ import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
 import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/calendar_manager.dart';
@@ -71,8 +72,8 @@ class WardrobeItemCard extends StatelessWidget {
                         height: 15,
                       ),
                       TextButton(
-                          child: const Text(
-                            "See details",
+                          child: Text(
+                            S.of(context).see_details,
                             style: TextStyle(
                                 color: ColorsConstants.darkBrick,
                                 fontWeight: FontWeight.bold),
@@ -86,8 +87,8 @@ class WardrobeItemCard extends StatelessWidget {
                   )
                 : Column(children: [
                     TextButton(
-                        child: const Text(
-                          "See details",
+                        child: Text(
+                          S.of(context).see_details,
                           style: TextStyle(
                               color: ColorsConstants.darkBrick,
                               fontWeight: FontWeight.bold),

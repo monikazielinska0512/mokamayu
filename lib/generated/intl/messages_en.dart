@@ -22,16 +22,22 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "add_looks_for": MessageLookupByLibrary.simpleMessage("Add looks for"),
         "bad_email": MessageLookupByLibrary.simpleMessage(
             "The email address is badly formatted"),
         "bad_password": MessageLookupByLibrary.simpleMessage(
             "Password should be at least 6 characters long"),
+        "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "current_weather":
+            MessageLookupByLibrary.simpleMessage("Current weather"),
         "dismiss": MessageLookupByLibrary.simpleMessage("DISMISS"),
         "dress": MessageLookupByLibrary.simpleMessage("Dress"),
+        "edit_profile": MessageLookupByLibrary.simpleMessage("Edit profile"),
         "email_already_used": MessageLookupByLibrary.simpleMessage(
             "The email address is already in use by another account"),
+        "enter_city": MessageLookupByLibrary.simpleMessage("Enter City"),
         "enter_email": MessageLookupByLibrary.simpleMessage("Email"),
         "enter_password": MessageLookupByLibrary.simpleMessage("Password"),
         "enter_username": MessageLookupByLibrary.simpleMessage("Username"),
@@ -39,7 +45,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "An error occurred. Please try again later"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+        "friend_requests":
+            MessageLookupByLibrary.simpleMessage("Friends requests"),
+        "friends": MessageLookupByLibrary.simpleMessage("Friends"),
         "hat": MessageLookupByLibrary.simpleMessage("Hat"),
+        "looks_for": MessageLookupByLibrary.simpleMessage("Looks for"),
         "no_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "outfits": MessageLookupByLibrary.simpleMessage("Outfits"),
@@ -48,6 +58,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "outfits_by_me": MessageLookupByLibrary.simpleMessage("Outfits by me"),
         "passwords_dont_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+        "pick_outfits": MessageLookupByLibrary.simpleMessage("Pick outfits"),
+        "pick_outfits_error":
+            MessageLookupByLibrary.simpleMessage("Pick some outfits first"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Please enter text"),
         "posts": MessageLookupByLibrary.simpleMessage("Posts"),
@@ -56,12 +69,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "searchbar_wardrobe_item":
             MessageLookupByLibrary.simpleMessage("Search by name"),
+        "see_details": MessageLookupByLibrary.simpleMessage("See details"),
         "shoes": MessageLookupByLibrary.simpleMessage("Shoes"),
+        "show_current_weather":
+            MessageLookupByLibrary.simpleMessage("Show current weather"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "sign_out": MessageLookupByLibrary.simpleMessage(" Sign out"),
         "sign_up": MessageLookupByLibrary.simpleMessage(" Sign up"),
         "skirt": MessageLookupByLibrary.simpleMessage("Skirt"),
         "social": MessageLookupByLibrary.simpleMessage("Social"),
+        "summary": MessageLookupByLibrary.simpleMessage("Summary"),
         "tshirt": MessageLookupByLibrary.simpleMessage("T-Shirt"),
         "user_not_exist":
             MessageLookupByLibrary.simpleMessage("User does not exist"),
