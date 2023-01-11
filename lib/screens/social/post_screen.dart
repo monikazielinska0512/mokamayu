@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../services/authentication/auth.dart';
@@ -36,6 +37,7 @@ class _PostScreenState extends State<PostScreen> {
       context: context,
       type: "post-screen",
       rightButtonType: null,
+      leftButton: BackArrowButton(context),
       isFullScreen: true,
       body: Stack(children: [
         const BackgroundImage(

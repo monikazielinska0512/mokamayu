@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
@@ -14,7 +15,7 @@ class PickOutfitScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BasicScreen(
         type: S.of(context).pick_outfits,
-        leftButtonType: "back",
+        leftButton: BackArrowButton(context),
         isRightButtonVisible: true,
         rightButtonType: "go_forward",
         onPressed: () {

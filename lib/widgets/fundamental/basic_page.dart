@@ -12,13 +12,14 @@ class BasicScreen extends StatelessWidget {
   String type;
   bool? isAppBarVisible;
   bool? isNavBarVisible = true;
-  bool? isLeftButtonVisible = true;
   bool isRightButtonVisible = true;
   String? leftButtonType = "back";
   String? rightButtonType = "bell";
   bool? isFullScreen;
   bool? isEdit;
   Color? color;
+  Widget? leftButton;
+  Widget? rightButton;
   void Function()? onPressed;
 
   BasicScreen({
@@ -30,13 +31,13 @@ class BasicScreen extends StatelessWidget {
     this.color = Colors.black,
     this.isFullScreen = false,
     this.isAppBarVisible = true,
-    this.isLeftButtonVisible = true,
     this.isRightButtonVisible = true,
     this.onPressed,
     this.isNavBarVisible = true,
-    this.leftButtonType = "back",
     this.rightButtonType = "bell",
     this.backgroundColor = Colors.white,
+    this.leftButton,
+    this.rightButton
   }) : super(key: key);
 
   @override
@@ -52,13 +53,14 @@ class BasicScreen extends StatelessWidget {
                 foregroundColor: color,
                 elevation: 0,
                 actions: [
-                  if (isRightButtonVisible) ...[buildRightIconButton()]
+                  // rightButton ?? Container()
+                  isRightButtonVisible
+                          ? buildRightIconButton()
+                          : Container()
                 ],
-                leading: (leftButtonType == "back")
-                    ? buildLeftBackButton()
-                    : (leftButtonType == "dots")
-                        ? buildDotsButton(context)
-                        : null)
+                leading:
+                    leftButton ?? Container()
+        )
             : null,
         body: Center(
             child: isFullScreen!
@@ -67,36 +69,6 @@ class BasicScreen extends StatelessWidget {
                     bottom: false,
                     child: Padding(
                         padding: const EdgeInsets.all(16), child: body))));
-  }
-
-  Widget buildDotsButton(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        Scaffold.of(context).openDrawer();
-      },
-      icon: const Icon(Icons.more_vert),
-    );
-  }
-
-  Widget buildLeftBackButton() {
-    return IconButton(
-      onPressed: () {
-        switch (type) {
-          case "add_photo":
-            context.go("/home/0");
-            break;
-          case "Pick outfits":
-            context.go("/home/3");
-            break;
-          case "wardrobe-item-search":
-            context.go("/home/0");
-            break;
-          default:
-            context.pop();
-        }
-      },
-      icon: const Icon(Icons.arrow_back_ios),
-    );
   }
 
   Widget buildPageTitle() {
@@ -108,20 +80,23 @@ class BasicScreen extends StatelessWidget {
         return Text(S.of(context).wardrobe_page_title,
             style: TextStyles.appTitle(Colors.black));
       case "outfits":
-        return Text(S.of(context).outfits, style: TextStyles.appTitle(Colors.black));
+        return Text(S.of(context).outfits,
+            style: TextStyles.appTitle(Colors.black));
       case "friends":
-        return Text(S.of(context).friends, style: TextStyles.appTitle(Colors.black));
-      case "social":
-        return Text(S.of(context).social,
+        return Text(S.of(context).friends,
             style: TextStyles.appTitle(Colors.black));
       case "add_photo":
         return Text("", style: TextStyles.appTitle(Colors.black));
+      case "outfit-create":
+        return Text(S.of(context).create,
+            style: TextStyles.appTitle(Colors.black));
       case "Wardrobe Item Form":
         return Text("", style: TextStyles.appTitle(Colors.black));
       case "wardrobe-item-search":
         return Text("", style: TextStyles.appTitle(Colors.black));
       case "social":
-        return Text(S.of(context).social, style: TextStyles.appTitle(Colors.black));
+        return Text(S.of(context).social,
+            style: TextStyles.appTitle(Colors.black));
     }
     return Text(type, style: TextStyles.appTitle(Colors.black));
   }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 import 'package:mokamayu/widgets/fundamental/empty_screen.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -85,6 +85,7 @@ class _RequestsScreenState extends State<RequestsScreen> {
       context: context,
       type: 'friend-requests',
       isFullScreen: false,
+      leftButton: BackArrowButton(context),
       isRightButtonVisible: false,
       body: Column(
         children: [

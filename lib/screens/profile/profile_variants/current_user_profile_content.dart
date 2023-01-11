@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/buttons/dots_button.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,7 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
   }
 
   @override
-  String getLeftButtonType() => "dots";
+  Widget getLeftButton() => DotsButton(context);
 
   @override
   Color? setBackgroundColor() => Colors.transparent;

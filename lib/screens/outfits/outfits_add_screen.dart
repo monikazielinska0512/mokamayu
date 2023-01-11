@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
 import '../../models/models.dart';
 import '../../services/managers/managers.dart';
 
-
-//ignore: must_be_immutable
+// ignore: must_be_immutable
 class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.itemList, this.friendUid})
       : super(key: key) {
@@ -24,8 +24,6 @@ class CreateOutfitPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
-    double deviceHeight(BuildContext context) =>
-        MediaQuery.of(context).size.height;
 
     itemList = isCreatingOutfitForFriend
         ? Provider.of<WardrobeManager>(context, listen: true)
@@ -39,76 +37,82 @@ class CreateOutfitPage extends StatelessWidget {
         : Provider.of<WardrobeManager>(context, listen: true)
             .getWardrobeItemListCopy;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        elevation: 0,
-        title: Text("Create outfit${friendUid != null ? " for ..." : ""}",
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        leading: IconButton(
-          onPressed: () {
-            Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
-            Provider.of<OutfitManager>(context, listen: false)
-                .resetSingleTags();
-            Provider.of<WardrobeManager>(context, listen: false)
-                .nullListItemCopy();
-            Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-            context.pop();
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.add,
-              size: 35,
-            ),
-            onPressed: () {
-              Provider.of<PhotoTapped>(context, listen: false).setObject(null);
-              Provider.of<WardrobeManager>(context, listen: false)
-                  .nullListItemCopy();
-              Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-              if (isCreatingOutfitForFriend) {
-                context.pushNamed("outfit-add-attributes-screen",
-                    extra: map, queryParams: {'friendUid': friendUid});
-              } else {
-                context.pushNamed("outfit-add-attributes-screen", extra: map);
-              }
-            },
-          )
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          Stack(children: <Widget>[
-            const BackgroundImage(
+    return BasicScreen(
+        type: "outfit-create",
+        rightButtonType: "",
+        leftButton: BackArrowButton(context),
+        context: context,
+        isFullScreen: true,
+        body: Stack(alignment: AlignmentDirectional.bottomCenter, children: [
+          Stack(children: const [
+            BackgroundImage(
               imagePath: "assets/images/upside_down_background.png",
-              imageShift: -50,
+              imageShift: 150,
             ),
-            Positioned(
-              child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      0, deviceHeight(context) * 0.14, 0, 0),
-                  child: DragTargetContainer(map: map)
-                  // ),
-                  ),
-            )
           ]),
-          buildFilters(context),
-          SizedBox(
-            width: double.infinity,
-            height: 200,
-            child: PhotoGrid(
-              itemList: futureItemListCopy ?? itemList,
-              scrollVertically: false,
-            ),
+          BackgroundCard(
+            context: context,
+            height: 0.87,
+            child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                child: Align(
+                    alignment: AlignmentDirectional.topCenter,
+                    child: SizedBox(
+                        height: double.maxFinite,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                  decoration: BoxDecoration(
+                                    color: ColorsConstants.whiteAccent,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: DragTargetContainer(map: map))),
+                              SingleChildScrollView(
+                                  child: Column(children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: buildFilters(context)),
+                                SizedBox(
+                                    width: double.infinity,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.24,
+                                    child: PhotoGrid(
+                                      itemList: futureItemListCopy ?? itemList,
+                                      scrollVertically: false,
+                                    ))
+                              ])),
+                              ButtonDarker(context, "Next", () {
+                                Provider.of<PhotoTapped>(context, listen: false)
+                                    .setObject(null);
+                                Provider.of<WardrobeManager>(context,
+                                        listen: false)
+                                    .nullListItemCopy();
+                                Provider.of<WardrobeManager>(context,
+                                        listen: false)
+                                    .setTypes([]);
+                                if (isCreatingOutfitForFriend) {
+                                  context.pushNamed(
+                                      "outfit-add-attributes-screen",
+                                      extra: map,
+                                      queryParams: {'friendUid': friendUid});
+                                } else {
+                                  context.pushNamed(
+                                      "outfit-add-attributes-screen",
+                                      extra: map);
+                                }
+                              },
+                                  shouldExpand: false,
+                                  width: 0.31,
+                                  height: 0.05,
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 15, 0, 0))
+                            ])))),
           )
-        ],
-      ),
-      //),
-    );
+        ]));
   }
 
   Widget buildFilters(BuildContext context) {

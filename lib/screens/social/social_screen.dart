@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/social/post_list.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/buttons/dots_button.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/models/models.dart';
@@ -51,7 +52,7 @@ class _SocialScreenState extends State<SocialScreen> {
 
     return BasicScreen(
       type: "social",
-      leftButtonType: "dots",
+      leftButton: DotsButton(context),
       rightButtonType: "search-notif",
       context: context,
       backgroundColor: Colors.transparent,

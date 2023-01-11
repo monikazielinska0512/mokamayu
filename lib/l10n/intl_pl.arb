@@ -77,5 +77,6 @@
   "found": "Znaleziono",
   "results": "wyniki",
   "no_friends": "Nie masz jeszcze żadnych znajomych",
-  "no_found_friends": "Nie znaleziono znajomych o takiej nazwie"
+  "no_found_friends": "Nie znaleziono znajomych o takiej nazwie",
+  "create" : "Stwórz"
 }

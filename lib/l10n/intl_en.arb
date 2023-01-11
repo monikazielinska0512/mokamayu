@@ -76,5 +76,6 @@
   "found": "Found",
   "results": "results",
   "no_friends": "You don't have friends yet",
-  "no_found_friends": "No matched friends"
+  "no_found_friends": "No matched friends",
+  "create" : "Create"
 }

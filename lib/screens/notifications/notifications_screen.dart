@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 
 import '../../constants/constants.dart';
-import '../../widgets/fundamental/background_card.dart';
 import '../../widgets/widgets.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return BasicScreen(
       type: title,
-      leftButtonType: "back",
+      leftButton: BackArrowButton(context),
       isRightButtonVisible: false,
       context: context,
       isFullScreen: true,

@@ -4,6 +4,7 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 import 'package:mokamayu/widgets/fields/search_text_field.dart';
 import 'package:mokamayu/widgets/fundamental/empty_screen.dart';
 import 'package:mokamayu/widgets/widgets.dart';
@@ -94,6 +95,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
     return BasicScreen(
       context: context,
       type: 'friends',
+      leftButton: BackArrowButton(context),
       isFullScreen: false,
       isRightButtonVisible: false,
       body: Column(

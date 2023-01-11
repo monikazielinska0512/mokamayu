@@ -18,6 +18,7 @@ import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/outfit_manager.dart';
+import '../../widgets/buttons/dots_button.dart';
 import '../../widgets/buttons/floating_button.dart';
 import '../../widgets/buttons/icon_text_button.dart';
 import '../../widgets/fundamental/fundamentals.dart';
@@ -118,7 +119,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         Provider.of<CalendarManager>(context, listen: true).getEvents;
     return BasicScreen(
         type: S.of(context).calendar,
-        leftButtonType: "dots",
+        leftButton: DotsButton(context),
         isRightButtonVisible: true,
         backgroundColor: Colors.transparent,
         context: context,

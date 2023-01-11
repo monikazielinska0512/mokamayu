@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
 import '../../constants/colors.dart';
@@ -31,6 +32,7 @@ class _WardrobeItemSearchScreenState extends State<WardrobeItemSearchScreen> {
       context: context,
       type: "wardrobe-item-search",
       rightButtonType: "",
+      leftButton: BackArrowButton(context),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,

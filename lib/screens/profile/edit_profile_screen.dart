@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/utils/validator.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +42,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return BasicScreen(
       type: "My profile",
-      leftButtonType: "back",
+      leftButton: BackArrowButton(context),
       isRightButtonVisible: false,
       context: context,
       isFullScreen: true,

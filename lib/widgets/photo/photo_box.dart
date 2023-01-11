@@ -52,13 +52,13 @@ class PhotoBox extends StatelessWidget {
         elevation: 0,
         color: ColorsConstants.mint.withOpacity(0.2),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(12.0),
         ),
         child: Column(children: [
           Padding(
               padding: const EdgeInsets.all(5),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(15), // Image border
+                borderRadius: BorderRadius.circular(12), // Image border
                 child: SizedBox.fromSize(
                   size: const Size.fromRadius(40), // Image radius
                   child: Image.network(photoURL!, fit: BoxFit.fill),

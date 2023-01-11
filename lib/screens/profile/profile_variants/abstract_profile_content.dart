@@ -21,7 +21,7 @@ abstract class AbstractProfileContentState
 
   void loadData();
 
-  String getLeftButtonType();
+  Widget getLeftButton();
 
   Widget buildButtons();
 
@@ -49,7 +49,7 @@ abstract class AbstractProfileContentState
 
     return BasicScreen(
       type: S.of(context).profile,
-      leftButtonType: getLeftButtonType(),
+      leftButton: getLeftButton(),
       backgroundColor: setBackgroundColor(),
       context: context,
       isFullScreen: true,

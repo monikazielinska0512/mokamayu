@@ -120,7 +120,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                   Validator.checkIfSingleValueSelected(value!, context),
               onSaved: (value) => _type = value!,
               color: ColorsConstants.sunflower,
-              chipsList: Tags.types))
+              chipsList: Tags.getLanguagesTypes(context)))
     ]);
   }
 

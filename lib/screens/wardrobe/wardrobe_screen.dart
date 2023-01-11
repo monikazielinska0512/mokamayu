@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/managers.dart';
+import 'package:mokamayu/widgets/buttons/dots_button.dart';
 import 'package:mokamayu/widgets/fields/search_text_field.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -48,7 +49,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
             .getWardrobeItemList;
     return BasicScreen(
         type: "wardrobe",
-        leftButtonType: "dots",
+        leftButton: DotsButton(context),
         backgroundColor: Colors.transparent,
         context: context,
         body: Stack(children: [

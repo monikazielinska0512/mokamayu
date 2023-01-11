@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
@@ -20,7 +21,7 @@ class SummarizeOutfitsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BasicScreen(
         type: S.of(context).summary,
-        leftButtonType: "back",
+        leftButton: BackArrowButton(context),
         isRightButtonVisible: true,
         rightButtonType: "add",
         onPressed: () {

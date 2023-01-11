@@ -132,24 +132,22 @@ class _PhotoGridState extends State<PhotoGrid> {
           return Center(
             child: snapshot.data!.isEmpty
                 ? Container(
-                decoration: BoxDecoration(
-                    color: ColorsConstants.peachy.withOpacity(0.2),
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(20))),
-                height: double.maxFinite,
-                width: double.maxFinite,
-                child: Center(
-
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                    decoration: BoxDecoration(
+                        color: ColorsConstants.peachy.withOpacity(0.2),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    height: double.maxFinite,
+                    width: double.maxFinite,
+                    child: Center(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
                           const Icon(
                             Ionicons.sad_outline,
                             size: 25,
                             color: Colors.grey,
                           ),
-
                           Padding(
                               padding: EdgeInsets.all(30),
                               child: Text(S.of(context).empty_outfits,

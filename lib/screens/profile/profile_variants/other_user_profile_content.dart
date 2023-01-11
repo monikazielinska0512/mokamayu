@@ -4,6 +4,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +42,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   }
 
   @override
-  String getLeftButtonType() => "back";
+  Widget getLeftButton() => BackArrowButton(context);
 
   @override
   Widget buildButtons() => friendData != null

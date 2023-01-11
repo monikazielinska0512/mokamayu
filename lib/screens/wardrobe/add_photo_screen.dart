@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
 class AddPhotoScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
     return BasicScreen(
         type: "add_photo",
         rightButtonType: "",
+        leftButton: BackArrowButton(context),
         context: context,
         isFullScreen: true,
         body: Stack(alignment: AlignmentDirectional.bottomCenter, children: [

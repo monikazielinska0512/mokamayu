@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "coat": MessageLookupByLibrary.simpleMessage("Coat"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "create": MessageLookupByLibrary.simpleMessage("Create"),
         "current_weather":
             MessageLookupByLibrary.simpleMessage("Current weather"),
         "dismiss": MessageLookupByLibrary.simpleMessage("DISMISS"),

@@ -4,9 +4,9 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/buttons/back_button.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/constants/assets.dart';
 
 class UsersScreen extends StatefulWidget {
@@ -66,6 +66,7 @@ class _UsersScreenState extends State<UsersScreen> {
     return BasicScreen(
       context: context,
       type: 'find-users',
+      leftButton: BackArrowButton(context),
       body: Stack(
         children: [
           Column(
