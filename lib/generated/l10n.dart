@@ -779,6 +779,56 @@ class S {
       args: [],
     );
   }
+
+  /// `All your friends`
+  String get all_friends {
+    return Intl.message(
+      'All your friends',
+      name: 'all_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Found`
+  String get found {
+    return Intl.message(
+      'Found',
+      name: 'found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `results`
+  String get results {
+    return Intl.message(
+      'results',
+      name: 'results',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have friends yet`
+  String get no_friends {
+    return Intl.message(
+      'You don\'t have friends yet',
+      name: 'no_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No matched friends`
+  String get no_found_friends {
+    return Intl.message(
+      'No matched friends',
+      name: 'no_found_friends',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

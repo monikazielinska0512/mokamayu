@@ -109,6 +109,8 @@ class BasicScreen extends StatelessWidget {
             style: TextStyles.appTitle(Colors.black));
       case "outfits":
         return Text(S.of(context).outfits, style: TextStyles.appTitle(Colors.black));
+      case "friends":
+        return Text(S.of(context).friends, style: TextStyles.appTitle(Colors.black));
       case "social":
         return Text(S.of(context).social,
             style: TextStyles.appTitle(Colors.black));

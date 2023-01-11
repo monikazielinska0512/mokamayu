@@ -74,3 +74,33 @@ class _SearchTextFieldState extends State<SearchTextField> {
     );
   }
 }
+
+
+InputDecoration SearchBarStyle(String hintText){
+  return InputDecoration(
+      hintText: hintText,
+      filled: true,
+      fillColor: ColorsConstants.whiteAccent,
+      labelStyle: const TextStyle(
+          fontSize: 18,
+          fontFamily: "Poppins",
+          fontWeight: FontWeight.w400,
+          color: ColorsConstants.turquoise),
+      hintStyle: const TextStyle(
+          fontSize: 18,
+          fontFamily: "Poppins",
+          fontWeight: FontWeight.w400,
+          color: ColorsConstants.turquoise),
+      enabledBorder: const OutlineInputBorder(
+        borderSide:
+        BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide:
+        BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
+      ),
+      border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(14.0))),
+      prefixIcon:
+      const Icon(Icons.search, color: ColorsConstants.darkBrick));
+}

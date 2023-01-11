@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "accessories": MessageLookupByLibrary.simpleMessage("Akcesoria"),
         "add_looks_for":
             MessageLookupByLibrary.simpleMessage("Dodaj stylizacje na"),
+        "all_friends": MessageLookupByLibrary.simpleMessage("Wszyscy znajomi"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Filtruj"),
         "bad_email": MessageLookupByLibrary.simpleMessage(
             "Email został wprowadzony w złym formacie"),
@@ -62,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "filters": MessageLookupByLibrary.simpleMessage("Filtrowanie"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Zapomniałeś hasła?"),
+        "found": MessageLookupByLibrary.simpleMessage("Znaleziono"),
         "friend_requests":
             MessageLookupByLibrary.simpleMessage("Zaproszenia do znajomych"),
         "friends": MessageLookupByLibrary.simpleMessage("Znajomi"),
@@ -72,6 +74,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "jeans": MessageLookupByLibrary.simpleMessage("Dżinsy"),
         "looks_for": MessageLookupByLibrary.simpleMessage("Stylizacje na"),
         "no_account": MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
+        "no_found_friends": MessageLookupByLibrary.simpleMessage(
+            "Nie znaleziono znajomych o takiej nazwie"),
+        "no_friends": MessageLookupByLibrary.simpleMessage(
+            "Nie masz jeszcze żadnych znajomych"),
         "no_pending_invitation":
             MessageLookupByLibrary.simpleMessage("Brak zaproszeń od znajomych"),
         "no_pending_invitation_user": MessageLookupByLibrary.simpleMessage(
@@ -94,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pyjama": MessageLookupByLibrary.simpleMessage("Piżama"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Zresetuj hasło"),
+        "results": MessageLookupByLibrary.simpleMessage("wyniki"),
         "search_friend":
             MessageLookupByLibrary.simpleMessage("Poszukaj znajomego"),
         "searchbar_wardrobe_item":

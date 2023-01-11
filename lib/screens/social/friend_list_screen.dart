@@ -4,10 +4,24 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/fields/search_text_field.dart';
+import 'package:mokamayu/widgets/fundamental/empty_screen.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/constants/assets.dart';
+
+import '../../generated/l10n.dart';
+
+extension StringCasingExtension on String {
+  String toCapitalized() =>
+      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
+      .split(' ')
+      .map((str) => str.toCapitalized())
+      .join(' ');
+}
 
 class FriendsScreen extends StatefulWidget {
   const FriendsScreen({Key? key}) : super(key: key);
@@ -79,28 +93,46 @@ class _FriendsScreenState extends State<FriendsScreen> {
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
-      type: 'your friends',
-      isFullScreen: true,
+      type: 'friends',
+      isFullScreen: false,
+      isRightButtonVisible: false,
       body: Column(
         children: [
-          Padding(
-              padding:
-                  EdgeInsets.fromLTRB(20, deviceHeight(context) * 0.15, 20, 20),
-              child: TextField(
-                  onChanged: (value) {
-                    _runFilter(value);
-                    value.isNotEmpty ? searching = true : searching = false;
-                  },
-                  decoration: const InputDecoration(
-                    hintText: "Find friend",
-                  ))),
-          Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  alignment: Alignment.centerLeft,
-                  child: Text("Found ${_foundFriends.length} results"))),
-          _foundFriends.isNotEmpty ? buildList() : buildEmpty(),
+          TextField(
+              onChanged: (value) {
+                _runFilter(value);
+                value.isNotEmpty ? searching = true : searching = false;
+              },
+              decoration: SearchBarStyle(S.of(context).search_friend)),
+          Container(
+              width: MediaQuery.of(context).size.width,
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 5, left: 2),
+                  child: searching
+                      ? Text(
+                          "${S.of(context).found} ${_foundFriends.length} ${S.of(context).results}",
+                          style: TextStyles.paragraphRegularSemiBold14(
+                              Colors.grey))
+                      : Text(S.of(context).all_friends,
+                          style: TextStyles.paragraphRegularSemiBold14(
+                              Colors.grey)))),
+          _foundFriends.isNotEmpty
+              ? buildList()
+              : EmptyScreen(
+                  context,
+              searching
+                      ? Text(
+                          S.of(context).no_found_friends,
+                          style: TextStyles.paragraphRegular14(Colors.grey),
+                          textAlign: TextAlign.center,
+                        )
+                      : Text(
+                          S.of(context).no_friends,
+                          style: TextStyles.paragraphRegular14(Colors.grey),
+                          textAlign: TextAlign.center,
+                        ),
+                  ColorsConstants.sunflower)
         ],
       ),
     );
@@ -109,7 +141,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
   Widget buildList() {
     return Expanded(
         child: ListView.separated(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(3),
       itemCount: _foundFriends.length,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
@@ -122,68 +154,41 @@ class _FriendsScreenState extends State<FriendsScreen> {
               );
             },
             child: Container(
-                height: MediaQuery.of(context).size.height * 0.13,
+                height: MediaQuery.of(context).size.height * 0.12,
                 decoration: BoxDecoration(
-                    color: ColorsConstants.whiteAccent,
-                    borderRadius: BorderRadius.circular(14)),
+                    color: ColorsConstants.peachy.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(12)),
                 child: Row(children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(14), // Image border
-                    child: SizedBox.fromSize(
-                      size:
-                          Size.square(MediaQuery.of(context).size.height * 0.1),
-                      child: _foundFriends[index].profilePicture != null
-                          ? Image.network(_foundFriends[index].profilePicture!,
-                              fit: BoxFit.fill)
-                          : Image.asset(Assets.avatarPlaceholder,
-                              fit: BoxFit.fill),
-                    ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        // Image border
+                        child: SizedBox.fromSize(
+                          size: Size.square(
+                              MediaQuery.of(context).size.height * 0.1),
+                          child: _foundFriends[index].profilePicture != null
+                              ? Image.network(
+                                  _foundFriends[index].profilePicture!,
+                                  fit: BoxFit.fill)
+                              : Image.asset(Assets.avatarPlaceholder,
+                                  fit: BoxFit.fill),
+                        )),
                   ),
                   _foundFriends[index].profileName != null
                       ? Text(
-                          _foundFriends[index].profileName!,
+                          _foundFriends[index].profileName!.toCapitalized(),
                           style: TextStyles.paragraphRegularSemiBold18(
                               Colors.black),
                         )
-                      : Text("@${_foundFriends[index].username}",
+                      : Text(
+                          "@${_foundFriends[index].username.toCapitalized()}",
                           style: TextStyles.paragraphRegularSemiBold18(
                               Colors.black)),
                 ])));
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     ));
-  }
-
-  Widget buildEmpty() {
-    return Column(
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.07,
-        ),
-        searching
-            ? Text(
-                "It seems user with such \n name isn't your friend",
-                style:
-                    TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
-                textAlign: TextAlign.center,
-              )
-            : Text(
-                "You don't have friends yet",
-                style:
-                    TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
-                textAlign: TextAlign.center,
-              ),
-        SizedBox(
-            height: deviceWidth(context) * 1.3,
-            child: Opacity(
-              opacity: 0.5,
-              child: Image.asset(
-                "assets/images/mountains.png",
-                width: deviceWidth(context),
-                fit: BoxFit.fitWidth,
-              ),
-            ))
-      ],
-    );
   }
 }

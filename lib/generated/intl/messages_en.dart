@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accessories": MessageLookupByLibrary.simpleMessage("Accessories"),
         "add_looks_for": MessageLookupByLibrary.simpleMessage("Add looks for"),
+        "all_friends": MessageLookupByLibrary.simpleMessage("All your friends"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Apply filters"),
         "bad_email": MessageLookupByLibrary.simpleMessage(
             "The email address is badly formatted"),
@@ -58,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+        "found": MessageLookupByLibrary.simpleMessage("Found"),
         "friend_requests":
             MessageLookupByLibrary.simpleMessage("Friends requests"),
         "friends": MessageLookupByLibrary.simpleMessage("Friends"),
@@ -69,6 +71,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "looks_for": MessageLookupByLibrary.simpleMessage("Looks for"),
         "no_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
+        "no_found_friends":
+            MessageLookupByLibrary.simpleMessage("No matched friends"),
+        "no_friends":
+            MessageLookupByLibrary.simpleMessage("You don\'t have friends yet"),
         "no_pending_invitation":
             MessageLookupByLibrary.simpleMessage("No pending invitations"),
         "no_pending_invitation_user": MessageLookupByLibrary.simpleMessage(
@@ -89,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pyjama": MessageLookupByLibrary.simpleMessage("Pyjama"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "results": MessageLookupByLibrary.simpleMessage("results"),
         "search_friend":
             MessageLookupByLibrary.simpleMessage("Find your friend"),
         "searchbar_wardrobe_item":

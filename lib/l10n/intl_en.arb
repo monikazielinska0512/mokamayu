@@ -71,5 +71,10 @@
   "search_friend": "Find your friend",
   "no_pending_invitation": "No pending invitations",
   "no_pending_invitation_user": "No pending invitations from such user",
-  "friends_request": "Requests"
+  "friends_request": "Requests",
+  "all_friends" : "All your friends",
+  "found": "Found",
+  "results": "results",
+  "no_friends": "You don't have friends yet",
+  "no_found_friends": "No matched friends"
 }

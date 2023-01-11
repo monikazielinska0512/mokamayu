@@ -72,5 +72,10 @@
   "search_friend": "Poszukaj znajomego",
   "no_pending_invitation": "Brak zaproszeń od znajomych",
   "no_pending_invitation_user": "Brak zaproszenia od tego użytkownika",
-  "friends_request": "Zaproszenia"
+  "friends_request": "Zaproszenia",
+  "all_friends" : "Wszyscy znajomi",
+  "found": "Znaleziono",
+  "results": "wyniki",
+  "no_friends": "Nie masz jeszcze żadnych znajomych",
+  "no_found_friends": "Nie znaleziono znajomych o takiej nazwie"
 }
