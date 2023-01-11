@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/constants/colors.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
-
+import 'package:mokamayu/widgets/widgets.dart';
 import '../../services/managers/managers.dart';
-import '../../widgets/widgets.dart';
 
 class CustomDialogBox extends StatelessWidget {
   CustomDialogBox({Key? key, required this.itemList}) : super(key: key);
@@ -28,124 +28,80 @@ class CustomDialogBox extends StatelessWidget {
               ]),
             ),
             Dialog(
+                elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: SizedBox(
-                    height: 220,
-                    width: 310,
-                    child: Padding(
-                        padding: const EdgeInsets.only(left: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 25),
-                              child: GestureDetector(
-                                  onTap: () {
-                                    context.pop();
-                                  },
-                                  child: const Icon(
-                                    Icons.close,
-                                    size: 25,
-                                    color: Colors.grey,
-                                  )),
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 25),
-                                child: dialogCard("Create outfit by yourself!",
-                                    () {
-                                  Provider.of<PhotoTapped>(context,
-                                          listen: false)
-                                      .nullWholeMap();
-                                  Provider.of<WardrobeManager>(context,
-                                          listen: false)
-                                      .resetBeforeCreatingNewOutfit();
-                                  context.pushNamed("create-outfit-page",
-                                      extra: itemList!);
-                                  context.pop();
-                                }, 18, secondText: "Use your creativity!")),
-                          ],
-                        ))))
+                    height: MediaQuery.of(context).size.height * 0.18,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        DialogCard(context, "Create outfit", () {
+                          Provider.of<PhotoTapped>(context, listen: false)
+                              .nullWholeMap();
+                          Provider.of<WardrobeManager>(context, listen: false)
+                              .resetBeforeCreatingNewOutfit();
+                          context.pushNamed("create-outfit-page",
+                              extra: itemList!);
+                          context.pop();
+                        }, 18, secondText: "Use your creativity!"),
+                      ],
+                    )))
           ],
         ));
   }
 }
 
-Widget dialogCard(String text, Function onTap, double pad,
+Widget DialogCard(
+    BuildContext context, String text, Function() onTap, double pad,
     {String secondText = ""}) {
-  return SizedBox(
-    width: 280,
-    height: 65,
-    child: ElevatedButton(
-        onPressed: () {
-          onTap();
-        },
-        style: ElevatedButton.styleFrom(
-          elevation: 0.0,
-          shadowColor: Colors.transparent,
-          backgroundColor: ColorsConstants.whiteAccent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-        ),
-        child: Row(
-          children: [
-            Image.asset(
-              "assets/images/empty_dot.png",
-              fit: BoxFit.fitWidth,
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: secondText == ""
-                        ? Padding(
-                            padding: const EdgeInsets.only(top: 13),
-                            child: Text(
-                              text,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
-                            ))
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                text,
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.only(top: 5),
-                                  child: Text(
-                                    secondText,
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                        color: Colors.black, fontSize: 15),
-                                  ))
-                            ],
-                          ),
-                  )
-                ],
+  return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: ColorsConstants.whiteAccent,
               ),
-            ),
-            Padding(
-                padding: EdgeInsets.only(left: pad),
-                child: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                  color: Colors.grey,
-                )),
-          ],
-        )),
-  );
+              height: MediaQuery.of(context).size.height * 0.12,
+              width: double.maxFinite,
+              child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(children: [
+                            const Padding(
+                                padding: EdgeInsets.only(right: 10),
+                                child: Icon(Ionicons.radio_button_off_outline,
+                                    color: ColorsConstants.darkBrick)),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  text,
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      TextStyles.paragraphRegularSemiBold16(),
+                                ),
+                                Text(
+                                  secondText,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyles.paragraphRegular14(
+                                      Colors.grey),
+                                ),
+                              ],
+                            )
+                          ]),
+                          const Icon(Icons.arrow_forward_ios,
+                              color: Colors.grey),
+                        ],
+                      ))))));
 }

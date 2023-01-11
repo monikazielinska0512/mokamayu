@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants/constants.dart';
 import '../../models/models.dart';
 import '../../services/managers/managers.dart';
 
+
+//ignore: must_be_immutable
 class CreateOutfitPage extends StatelessWidget {
   CreateOutfitPage({Key? key, this.itemList, this.friendUid})
       : super(key: key) {
@@ -95,7 +96,7 @@ class CreateOutfitPage extends StatelessWidget {
                   ),
             )
           ]),
-          buildFilters(),
+          buildFilters(context),
           SizedBox(
             width: double.infinity,
             height: 200,
@@ -110,9 +111,9 @@ class CreateOutfitPage extends StatelessWidget {
     );
   }
 
-  Widget buildFilters() {
+  Widget buildFilters(BuildContext context) {
     return MultiSelectChip(
-      Tags.types,
+      Tags.getLanguagesTypes(context),
       type: "type_main",
       chipsColor: ColorsConstants.darkPeach,
       usingFriendsWardrobe: isCreatingOutfitForFriend,

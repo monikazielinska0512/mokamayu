@@ -49,8 +49,8 @@ class PhotoBox extends StatelessWidget {
             .addToMap(photoURL!, id!.toString());
       },
       child: Card(
-        elevation: 4,
-        color: ColorsConstants.whiteAccent,
+        elevation: 0,
+        color: ColorsConstants.mint.withOpacity(0.2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),

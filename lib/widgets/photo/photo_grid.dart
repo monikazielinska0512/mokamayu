@@ -53,7 +53,6 @@ class _PhotoGridState extends State<PhotoGrid> {
                       height: double.maxFinite,
                       width: double.maxFinite,
                       child: Center(
-
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
