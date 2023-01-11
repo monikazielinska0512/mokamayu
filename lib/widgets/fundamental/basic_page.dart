@@ -5,7 +5,7 @@ class BasicScreen extends StatelessWidget {
   BuildContext context;
   Widget body;
   Color? backgroundColor;
-  String? title;
+  String title;
   bool? isAppBarVisible;
   bool? isNavBarVisible = true;
   bool? isFullScreen;
@@ -19,7 +19,7 @@ class BasicScreen extends StatelessWidget {
       {Key? key,
       required this.context,
       required this.body,
-      this.title,
+      this.title="",
       this.isEdit = false,
       this.color = Colors.black,
       this.isFullScreen = false,
