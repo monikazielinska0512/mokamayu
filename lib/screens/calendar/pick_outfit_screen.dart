@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/widgets/buttons/back_button.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
@@ -14,13 +14,11 @@ class PickOutfitScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        type: S.of(context).pick_outfits,
+        title: S.of(context).pick_outfits,
         leftButton: BackArrowButton(context),
-        isRightButtonVisible: true,
-        rightButtonType: "go_forward",
-        onPressed: () {
+        rightButton: GoForwardButton(() {
           context.push('/summarize-outfits-screen');
-        },
+        }),
         context: context,
         isFullScreen: true,
         body: buildBody(context));

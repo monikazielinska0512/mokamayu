@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/widgets/buttons/back_button.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
+import '../../generated/l10n.dart';
 import '../../models/models.dart';
 import '../../services/managers/managers.dart';
 
@@ -38,8 +39,8 @@ class CreateOutfitPage extends StatelessWidget {
             .getWardrobeItemListCopy;
 
     return BasicScreen(
-        type: "outfit-create",
-        rightButtonType: "",
+        title: S.of(context).create,
+        rightButton: null,
         leftButton: BackArrowButton(context),
         context: context,
         isFullScreen: true,

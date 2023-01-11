@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/utils/validator.dart';
-import 'package:mokamayu/widgets/buttons/back_button.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -41,9 +41,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-      type: "My profile",
+      title: "My profile",
       leftButton: BackArrowButton(context),
-      isRightButtonVisible: false,
+      rightButton: null,
       context: context,
       isFullScreen: true,
       body: Stack(children: [
@@ -159,7 +159,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (validatorOutput == null) {
       update(newValue);
     } else {
-      CustomSnackBar.showErrorSnackBar( message: validatorOutput, context: context);
+      CustomSnackBar.showErrorSnackBar(
+          message: validatorOutput, context: context);
       controller.text = previousValue;
     }
   }

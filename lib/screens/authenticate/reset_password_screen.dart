@@ -5,7 +5,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
 
 import '../../utils/validator.dart';
-import '../../widgets/buttons/back_button.dart';
+import '../../widgets/buttons/predefined_buttons.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -27,9 +27,9 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        type: "Reset Password",
+        title: "Reset Password",
         leftButton: BackArrowButton(context),
-        isRightButtonVisible: false,
+        rightButton: null,
         context: context,
         isFullScreen: true,
         body: buildBody(context));

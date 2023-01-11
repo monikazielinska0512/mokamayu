@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/social/post_list.dart';
 import 'package:mokamayu/services/services.dart';
-import 'package:mokamayu/widgets/buttons/dots_button.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/models/models.dart';
+
+import '../../widgets/buttons/predefined_buttons.dart';
 
 class SocialScreen extends StatefulWidget {
   const SocialScreen({Key? key}) : super(key: key);
@@ -51,9 +52,9 @@ class _SocialScreenState extends State<SocialScreen> {
         .readFeedPostsOnce(friendList, postList);
 
     return BasicScreen(
-      type: "social",
+      title: "social",
       leftButton: DotsButton(context),
-      rightButtonType: "search-notif",
+      rightButton: SearchNotificationButton(context),
       context: context,
       backgroundColor: Colors.transparent,
       isFullScreen: false,

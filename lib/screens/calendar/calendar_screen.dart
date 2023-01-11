@@ -12,17 +12,13 @@ import 'package:mokamayu/services/managers/weather_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
-
+import 'package:mokamayu/widgets/widgets.dart';
 import '../../constants/colors.dart';
 import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/outfit_manager.dart';
-import '../../widgets/buttons/dots_button.dart';
-import '../../widgets/buttons/floating_button.dart';
-import '../../widgets/buttons/icon_text_button.dart';
-import '../../widgets/fundamental/fundamentals.dart';
-import '../../widgets/photo/wardrobe_item_card.dart';
+import '../../widgets/buttons/predefined_buttons.dart';
 import 'hourly_weather.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -118,9 +114,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
     selectedEvents =
         Provider.of<CalendarManager>(context, listen: true).getEvents;
     return BasicScreen(
-        type: S.of(context).calendar,
+        title: S.of(context).calendar,
         leftButton: DotsButton(context),
-        isRightButtonVisible: true,
+        rightButton: NotificationsButton(context),
         backgroundColor: Colors.transparent,
         context: context,
         isFullScreen: true,
@@ -170,58 +166,58 @@ class _CalendarScreenState extends State<CalendarScreen> {
             calendarBuilders: CalendarBuilders(
               markerBuilder: (context, day, events) => events.isNotEmpty
                   ? Container(
-                width: 24,
-                height: 24,
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                  color: ColorsConstants.darkBrick,
-                ),
-                child: Text(
-                  '${events.length}',
-                  style: const TextStyle(color: Colors.white),
-                ),
-              )
+                      width: 24,
+                      height: 24,
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        color: ColorsConstants.darkBrick,
+                      ),
+                      child: Text(
+                        '${events.length}',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    )
                   : null,
             )),
         Row(
           children: [
             Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 20, right: 70),
-                  child: TextField(
-                      controller: _cityTextController,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          icon: Icon(Icons.search),
-                          onPressed: () async {
-                            if (_cityTextController != null) {
-                              Provider.of<WeatherManager>(context, listen: false)
-                                  .resetLists();
-                              var weatherData = await weatherModel
-                                  .getCityWeather(_cityTextController.text);
-                              double longtitude = weatherData['coord']['lon'];
-                              double lattitude = weatherData['coord']['lat'];
-                              var forecastCoordsData = await weatherModel
-                                  .getForecastByCoords(longtitude, lattitude);
-                              for (var i = 0;
+              padding: EdgeInsets.only(left: 20, right: 70),
+              child: TextField(
+                  controller: _cityTextController,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () async {
+                        if (_cityTextController != null) {
+                          Provider.of<WeatherManager>(context, listen: false)
+                              .resetLists();
+                          var weatherData = await weatherModel
+                              .getCityWeather(_cityTextController.text);
+                          double longtitude = weatherData['coord']['lon'];
+                          double lattitude = weatherData['coord']['lat'];
+                          var forecastCoordsData = await weatherModel
+                              .getForecastByCoords(longtitude, lattitude);
+                          for (var i = 0;
                               i < forecastCoordsData['list'].length;
                               i++) {
-                                var day = DateFormat('EEE').format(DateTime.parse(
-                                    forecastCoordsData['list'][i]['dt_txt']));
-                                Provider.of<WeatherManager>(context, listen: false)
-                                    .addDay(day);
-                                var hour = DateFormat.Hm().format(DateTime.parse(
-                                    forecastCoordsData['list'][i]['dt_txt']));
-                                Provider.of<WeatherManager>(context, listen: false)
-                                    .addTime(hour);
-                                var iconUrl = weatherModel.getWeatherIcon(
-                                    forecastCoordsData['list'][i]['weather'][0]
+                            var day = DateFormat('EEE').format(DateTime.parse(
+                                forecastCoordsData['list'][i]['dt_txt']));
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addDay(day);
+                            var hour = DateFormat.Hm().format(DateTime.parse(
+                                forecastCoordsData['list'][i]['dt_txt']));
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addTime(hour);
+                            var iconUrl = weatherModel.getWeatherIcon(
+                                forecastCoordsData['list'][i]['weather'][0]
                                     ['id']);
-                                Provider.of<WeatherManager>(context, listen: false)
-                                    .addIcon(iconUrl);
-                                Provider.of<WeatherManager>(context, listen: false)
-                                    .addTemp(forecastCoordsData['list'][i]['main']
-                                ['temp']
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addIcon(iconUrl);
+                            Provider.of<WeatherManager>(context, listen: false)
+                                .addTemp(forecastCoordsData['list'][i]['main']
+                                        ['temp']
                                     .toDouble());
                           }
                         }
@@ -285,7 +281,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   children: [
                     ..._getEventsfromDay(_selectedDay)
                         .map((Event event) => WardrobeItemCard(
-                        size: 58, outfit: event.outfit, event: event))
+                            size: 58, outfit: event.outfit, event: event))
                         .toList(),
                   ],
                 )))
@@ -306,8 +302,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   void _showModal(
-      context,
-      ) {
+    context,
+  ) {
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
@@ -361,15 +357,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     () {
                                   Provider.of<CalendarManager>(context,
                                           listen: false)
-                                          .setSelectedEvents(selectedEvents);
-                                      Provider.of<CalendarManager>(context,
+                                      .setSelectedEvents(selectedEvents);
+                                  Provider.of<CalendarManager>(context,
                                           listen: false)
-                                          .setSelectedDay(_selectedDay);
+                                      .setSelectedDay(_selectedDay);
 
-                                      context.push('/pick-outfits-calendar');
+                                  context.push('/pick-outfits-calendar');
 
-                                      Navigator.of(context).pop();
-                                    }, MediaQuery.of(context).size.width * 0.04)
+                                  Navigator.of(context).pop();
+                                }, MediaQuery.of(context).size.width * 0.04)
                               ],
                             )),
                       ])

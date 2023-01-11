@@ -16,8 +16,7 @@ class InitScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        type: "",
-        isRightButtonVisible: false,
+        rightButton: null,
         leftButton: null,
         context: context,
         isFullScreen: true,

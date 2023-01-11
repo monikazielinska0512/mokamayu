@@ -3,10 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/managers.dart';
-import 'package:mokamayu/widgets/buttons/dots_button.dart';
 import 'package:mokamayu/widgets/fields/search_text_field.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
+import '../../widgets/buttons/predefined_buttons.dart';
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
@@ -48,9 +49,10 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
             .of<WardrobeManager>(context, listen: true)
             .getWardrobeItemList;
     return BasicScreen(
-        type: "wardrobe",
+        title: "wardrobe",
         leftButton: DotsButton(context),
         backgroundColor: Colors.transparent,
+        rightButton: NotificationsButton(context),
         context: context,
         body: Stack(children: [
           Column(

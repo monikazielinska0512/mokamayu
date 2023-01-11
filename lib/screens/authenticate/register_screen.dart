@@ -7,7 +7,7 @@ import 'package:mokamayu/utils/validator.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/buttons/back_button.dart';
+import '../../widgets/buttons/predefined_buttons.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -33,9 +33,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-      type: S.of(context).sign_up,
+      title: S.of(context).sign_up,
       leftButton: BackArrowButton(context),
-      isRightButtonVisible: false,
+      rightButton: null,
       context: context,
       isFullScreen: true,
       body: Stack(children: [

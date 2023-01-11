@@ -6,12 +6,13 @@ import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/screens/outfits/outfit_form.dart';
 import 'package:mokamayu/services/managers/managers.dart';
-import 'package:mokamayu/widgets/buttons/back_button.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:uuid/uuid.dart';
+import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
 import '../../services/storage.dart';
 
@@ -70,8 +71,7 @@ class _OutfitsAddAttributesScreenState
         .getWardrobeItemListCopy;
 
     return BasicScreen(
-        type: "outfit-create",
-        rightButtonType: "",
+        title: S.of(context).create,
         context: context,
         isFullScreen: true,
         rightButton: buildRemoveButton(),

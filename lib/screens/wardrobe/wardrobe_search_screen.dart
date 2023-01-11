@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/widgets/buttons/back_button.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
 import '../../constants/colors.dart';
@@ -30,8 +30,8 @@ class _WardrobeItemSearchScreenState extends State<WardrobeItemSearchScreen> {
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
-      type: "wardrobe-item-search",
-      rightButtonType: "",
+      title: "wardrobe-item-search",
+      rightButton: null,
       leftButton: BackArrowButton(context),
       body: Column(
         mainAxisSize: MainAxisSize.max,

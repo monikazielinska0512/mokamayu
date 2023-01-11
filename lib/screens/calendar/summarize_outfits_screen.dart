@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/widgets/buttons/back_button.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
@@ -20,11 +20,9 @@ class SummarizeOutfitsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        type: S.of(context).summary,
+        title: S.of(context).summary,
         leftButton: BackArrowButton(context),
-        isRightButtonVisible: true,
-        rightButtonType: "add",
-        onPressed: () {
+        rightButton: AddButton(context, () {
           DateTime day =
               Provider.of<CalendarManager>(context, listen: false).getDay;
           Map<DateTime, List<Event>> events =
@@ -66,7 +64,7 @@ class SummarizeOutfitsScreen extends StatelessWidget {
             CustomSnackBar.showErrorSnackBar(
                 message: S.of(context).pick_outfits_error, context: context);
           }
-        },
+        }),
         context: context,
         isFullScreen: false,
         body: buildBody(context));

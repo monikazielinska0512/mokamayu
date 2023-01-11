@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mokamayu/widgets/buttons/back_button.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 
 import '../../constants/constants.dart';
 import '../../widgets/widgets.dart';
@@ -12,14 +12,13 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
-  final title = 'Notifications';
 
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-      type: title,
+      title: 'Notifications',
       leftButton: BackArrowButton(context),
-      isRightButtonVisible: false,
+      rightButton: null,
       context: context,
       isFullScreen: true,
       body: Stack(children: [

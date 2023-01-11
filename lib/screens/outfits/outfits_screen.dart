@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
-import 'package:mokamayu/widgets/buttons/dots_button.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
+import '../../widgets/buttons/predefined_buttons.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -43,8 +43,9 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
     outfitsListCopy =
         Provider.of<OutfitManager>(context, listen: true).getOutfitListCopy;
     return BasicScreen(
-        type: S.of(context).outfits,
+        title: S.of(context).outfits,
         leftButton: DotsButton(context),
+        rightButton: NotificationsButton(context),
         backgroundColor: Colors.transparent,
         context: context,
         body: Stack(children: [

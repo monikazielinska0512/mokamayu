@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/widgets/buttons/back_button.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
 class AddPhotoScreen extends StatefulWidget {
@@ -15,8 +15,8 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
   Widget build(BuildContext context) {
     final PhotoPicker picker = PhotoPicker();
     return BasicScreen(
-        type: "add_photo",
-        rightButtonType: "",
+        title: "add_photo",
+        rightButton: null,
         leftButton: BackArrowButton(context),
         context: context,
         isFullScreen: true,

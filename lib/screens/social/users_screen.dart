@@ -4,7 +4,7 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
-import 'package:mokamayu/widgets/buttons/back_button.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/assets.dart';
@@ -65,8 +65,9 @@ class _UsersScreenState extends State<UsersScreen> {
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
-      type: 'find-users',
+      title: 'find-users',
       leftButton: BackArrowButton(context),
+      rightButton: NotificationsButton(context),
       body: Stack(
         children: [
           Column(

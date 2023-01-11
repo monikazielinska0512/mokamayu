@@ -31,9 +31,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-      type: S.of(context).sign_in,
+      title: S.of(context).sign_in,
       leftButton: null,
-      isRightButtonVisible: false,
+      rightButton: null,
       context: context,
       isFullScreen: true,
       body: Stack(children: [

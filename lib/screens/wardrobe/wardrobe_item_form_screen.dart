@@ -5,7 +5,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
 import 'package:mokamayu/services/managers/managers.dart';
-import 'package:mokamayu/widgets/buttons/back_button.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -44,10 +44,10 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
         isFullScreen: true,
         isEdit: true,
         color: Colors.white,
-        rightButtonType: "",
+        rightButton: null,
         leftButton: BackArrowButton(context),
         body: Stack(children: [buildBackgroundPhoto(), buildForm()]),
-        type: "Wardrobe Item Form");
+        );
   }
 
   Widget buildBackgroundPhoto() {
