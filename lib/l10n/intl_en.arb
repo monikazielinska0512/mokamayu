@@ -31,10 +31,12 @@
   "top": "Top",
   "trousers": "Trousers",
   "jeans": "Jeans",
+  "tshirt": "T-Shirt",
   "sweatshirt": "Sweatshirt",
   "hoodie": "Hoodie",
   "jacket": "Jacket",
   "blazer": "Blazer",
+  "skirt" : "Skirt",
   "coat": "Coat",
   "sweater": "Sweater",
   "cardigan": "Cardigan",
@@ -51,12 +53,12 @@
   "friend_requests": "Friends requests",
   "show_current_weather": "Show current weather",
   "current_weather": "Current weather",
-  "enter_city": "Enter City",
+  "enter_city": "Enter Citys",
   "looks_for": "Looks for",
   "add_looks_for": "Add looks for",
   "pick_outfits": "Pick outfits",
   "summary": "Summary",
-  "pick_outfits_error": "Pick some outfits first"
+  "pick_outfits_error": "Pick some outfits first",
   "accessories": "Accessories",
   "empty_wardrobe": "You don't have any items in your wardrobe!",
   "filters": "Filters",
@@ -65,5 +67,9 @@
   "style": "Style",
   "apply_filters": "Apply filters",
   "empty_outfits" : "No outfits have been created yet!",
-  "empty_feed"  : "It seems that you don't have any added friend yet!"
+  "empty_feed"  : "It seems that you don't have any added friend yet!",
+  "search_friend": "Find your friend",
+  "no_pending_invitation": "No pending invitations",
+  "no_pending_invitation_user": "No pending invitations from such user",
+  "friends_request": "Requests"
 }

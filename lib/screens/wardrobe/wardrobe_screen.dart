@@ -39,10 +39,13 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
+    futureItemListCopy = Provider
+        .of<WardrobeManager>(context, listen: true)
         .getWardrobeItemListCopy;
     futureItemList =
-        Provider.of<WardrobeManager>(context, listen: true).getWardrobeItemList;
+        Provider
+            .of<WardrobeManager>(context, listen: true)
+            .getWardrobeItemList;
     return BasicScreen(
         type: "wardrobe",
         leftButtonType: "dots",
@@ -59,9 +62,9 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                       MultiSelectChip(Tags.getLanguagesTypes(context),
                           chipsColor: ColorsConstants.darkPeach,
                           onSelectionChanged: (selectedList) {
-                        selectedChips =
+                            selectedChips =
                             selectedList.isEmpty ? Tags.types : selectedList;
-                      }, type: "type_main")
+                          }, type: "type_main")
                     ])),
               ]),
               const SizedBox(height: 10),
@@ -76,22 +79,35 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   Widget buildSearchBarAndFilters() {
     return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.076,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height * 0.076,
         child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          SizedBox(
-              width: MediaQuery.of(context).size.width * 0.73,
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: SearchTextField(
-                readOnly: true,
-                onTap: () => context.pushNamed("wardrobe-item-search-screen",
-                    extra: futureItemList),
-              )),
-          const SizedBox(width: 10),
-          FilterModal(
-              onApplyWardrobe: (selectedList) =>
-                  {futureItemListCopy = selectedList})
-        ]));
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        SizedBox(
+        width: MediaQuery.of(context).size.width * 0.73,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height * 0.1,
+        child: SearchTextField(
+            readOnly: true,
+            onTap: () =>
+
+        context.pushNamed("wardrobe-item-search-screen",
+        extra: futureItemList)
+  ,
+    )),
+    const SizedBox(width: 10),
+    FilterModal(
+    width: 0.15,
+    height: 0.1,
+    onApplyWardrobe: (selectedList) =>
+    {futureItemListCopy = selectedList})
+    ]
+    )
+    );
   }
 
   Widget buildFloatingButton() {

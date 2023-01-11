@@ -119,7 +119,7 @@ class _WardrobeItemSearchScreenState extends State<WardrobeItemSearchScreen> {
                               },
                           child: Text(
                             S.of(context).see_details,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: ColorsConstants.darkBrick,
                                 fontWeight: FontWeight.bold),
                           )))

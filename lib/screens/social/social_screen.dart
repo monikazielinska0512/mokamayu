@@ -12,6 +12,8 @@ class SocialScreen extends StatefulWidget {
   State<SocialScreen> createState() => _SocialScreenState();
 }
 
+
+
 class _SocialScreenState extends State<SocialScreen> {
   List<Post> postList = [];
   List<Post> friendsPostList = [];
@@ -24,6 +26,11 @@ class _SocialScreenState extends State<SocialScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (mounted) {
+      setState(() {
+// Your state change code goes here
+      });
+    }
     Provider.of<PostManager>(context, listen: true)
         .readPostsOnce()
         .then((List<Post> temp) {
@@ -48,7 +55,7 @@ class _SocialScreenState extends State<SocialScreen> {
       rightButtonType: "search-notif",
       context: context,
       backgroundColor: Colors.transparent,
-      isFullScreen: true,
+      isFullScreen: false,
       body: Column(
         children: [
           const SizedBox(

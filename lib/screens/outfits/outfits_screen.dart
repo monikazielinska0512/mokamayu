@@ -49,25 +49,28 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
         body: Stack(children: [
           Column(children: [
             Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+
+                  Expanded(
+                      child: Wrap(children: [
+                    MultiSelectChip(OutfitTags.styles,
+                        chipsColor: ColorsConstants.darkPeach,
+                        onSelectionChanged: (selectedList) {
+                      selectedChips = selectedList.isEmpty
+                          ? OutfitTags.styles
+                          : selectedList;
+                    }, type: "style_main")
+                  ])),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                   Container(
                       alignment: Alignment.center,
                       child: FilterModal(
-                      onApplyOutfits: (selectedList) =>
-                      {outfitsListCopy = selectedList})),
-              SizedBox(width: MediaQuery.of(context).size.width * 0.03),
-              Expanded(
-                  child: Wrap(children: [
-                MultiSelectChip(OutfitTags.styles,
-                    chipsColor: ColorsConstants.darkPeach,
-                    onSelectionChanged: (selectedList) {
-                  selectedChips =
-                      selectedList.isEmpty ? OutfitTags.styles : selectedList;
-                }, type: "style_main")
-              ]))
-            ]),
+                          height: 0.038,
+                          onApplyOutfits: (selectedList) =>
+                          {outfitsListCopy = selectedList}))
+                ]),
             SizedBox(height: MediaQuery.of(context).size.height * 0.007),
             Expanded(
                 child: PhotoGrid(outfitsList: outfitsListCopy ?? outfitsList))

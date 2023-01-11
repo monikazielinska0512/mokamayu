@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/screens/screens.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../constants/text_styles.dart';
 import '../../generated/l10n.dart';
@@ -102,13 +101,14 @@ class BasicScreen extends StatelessWidget {
 
   Widget buildPageTitle() {
     switch (type) {
+      case "friend-requests":
+        return Text(S.of(context).friends_request,
+            style: TextStyles.appTitle(Colors.black));
       case "wardrobe":
         return Text(S.of(context).wardrobe_page_title,
             style: TextStyles.appTitle(Colors.black));
       case "outfits":
         return Text(S.of(context).outfits, style: TextStyles.appTitle(Colors.black));
-        return Text(S.of(context).wardrobe_page_title,
-            style: TextStyles.appTitle(Colors.black));
       case "social":
         return Text(S.of(context).social,
             style: TextStyles.appTitle(Colors.black));

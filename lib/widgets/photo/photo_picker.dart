@@ -75,6 +75,12 @@ class _PhotoPickerState extends State<PhotoPicker> {
     ));
   }
 
+
+
+
+
+
+
   Future pickImage(ImageSource source) async {
     final pickedFile =
         await widget.picker.pickImage(source: source, imageQuality: 50);
@@ -82,7 +88,6 @@ class _PhotoPickerState extends State<PhotoPicker> {
       if (pickedFile != null) {
         widget.photoPath = pickedFile.path;
         widget.photo = File(pickedFile.path);
-        print('Picked: ' + widget.photoPath.toString());
       } else {
         CustomSnackBar.showErrorSnackBar(
             context: context, message: "Something went wrong");

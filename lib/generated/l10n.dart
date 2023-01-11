@@ -340,16 +340,6 @@ class S {
     );
   }
 
-  /// `T-Shirt`
-  String get tshirt {
-    return Intl.message(
-      'T-Shirt',
-      name: 'tshirt',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Top`
   String get top {
     return Intl.message(
@@ -375,6 +365,16 @@ class S {
     return Intl.message(
       'Jeans',
       name: 'jeans',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `T-Shirt`
+  String get tshirt {
+    return Intl.message(
+      'T-Shirt',
+      name: 'tshirt',
       desc: '',
       args: [],
     );
@@ -415,6 +415,16 @@ class S {
     return Intl.message(
       'Blazer',
       name: 'blazer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skirt`
+  String get skirt {
+    return Intl.message(
+      'Skirt',
+      name: 'skirt',
       desc: '',
       args: [],
     );
@@ -470,16 +480,6 @@ class S {
     );
   }
 
-  /// `Skirt`
-  String get skirt {
-    return Intl.message(
-      'Skirt',
-      name: 'skirt',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Shorts`
   String get shorts {
     return Intl.message(
@@ -505,6 +505,146 @@ class S {
     return Intl.message(
       'Shoes',
       name: 'shoes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hat`
+  String get hat {
+    return Intl.message(
+      'Hat',
+      name: 'hat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See details`
+  String get see_details {
+    return Intl.message(
+      'See details',
+      name: 'see_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Friends`
+  String get friends {
+    return Intl.message(
+      'Friends',
+      name: 'friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit profile`
+  String get edit_profile {
+    return Intl.message(
+      'Edit profile',
+      name: 'edit_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calendar`
+  String get calendar {
+    return Intl.message(
+      'Calendar',
+      name: 'calendar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Friends requests`
+  String get friend_requests {
+    return Intl.message(
+      'Friends requests',
+      name: 'friend_requests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show current weather`
+  String get show_current_weather {
+    return Intl.message(
+      'Show current weather',
+      name: 'show_current_weather',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current weather`
+  String get current_weather {
+    return Intl.message(
+      'Current weather',
+      name: 'current_weather',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Citys`
+  String get enter_city {
+    return Intl.message(
+      'Enter Citys',
+      name: 'enter_city',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Looks for`
+  String get looks_for {
+    return Intl.message(
+      'Looks for',
+      name: 'looks_for',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add looks for`
+  String get add_looks_for {
+    return Intl.message(
+      'Add looks for',
+      name: 'add_looks_for',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick outfits`
+  String get pick_outfits {
+    return Intl.message(
+      'Pick outfits',
+      name: 'pick_outfits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Summary`
+  String get summary {
+    return Intl.message(
+      'Summary',
+      name: 'summary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick some outfits first`
+  String get pick_outfits_error {
+    return Intl.message(
+      'Pick some outfits first',
+      name: 'pick_outfits_error',
       desc: '',
       args: [],
     );
@@ -600,131 +740,41 @@ class S {
     );
   }
 
-  /// `See details`
-  String get see_details {
+  /// `Find your friend`
+  String get search_friend {
     return Intl.message(
-      'See details',
-      name: 'see_details',
+      'Find your friend',
+      name: 'search_friend',
       desc: '',
       args: [],
     );
   }
 
-  /// `Friends`
-  String get friends {
+  /// `No pending invitations`
+  String get no_pending_invitation {
     return Intl.message(
-      'Friends',
-      name: 'friends',
+      'No pending invitations',
+      name: 'no_pending_invitation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Edit profile`
-  String get edit_profile {
+  /// `No pending invitations from such user`
+  String get no_pending_invitation_user {
     return Intl.message(
-      'Edit profile',
-      name: 'edit_profile',
+      'No pending invitations from such user',
+      name: 'no_pending_invitation_user',
       desc: '',
       args: [],
     );
   }
 
-  /// `Calendar`
-  String get calendar {
+  /// `Requests`
+  String get friends_request {
     return Intl.message(
-      'Calendar',
-      name: 'calendar',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Friends requests`
-  String get friend_requests {
-    return Intl.message(
-      'Friends requests',
-      name: 'friend_requests',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Show current weather`
-  String get show_current_weather {
-    return Intl.message(
-      'Show current weather',
-      name: 'show_current_weather',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Current weather`
-  String get current_weather {
-    return Intl.message(
-      'Current weather',
-      name: 'current_weather',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Enter City`
-  String get enter_city {
-    return Intl.message(
-      'Enter City',
-      name: 'enter_city',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Looks for`
-  String get looks_for {
-    return Intl.message(
-      'Looks for',
-      name: 'looks_for',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Add looks for`
-  String get add_looks_for {
-    return Intl.message(
-      'Add looks for',
-      name: 'add_looks_for',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Pick outfits`
-  String get pick_outfits {
-    return Intl.message(
-      'Pick outfits',
-      name: 'pick_outfits',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Summary`
-  String get summary {
-    return Intl.message(
-      'Summary',
-      name: 'summary',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Pick some outfits first`
-  String get pick_outfits_error {
-    return Intl.message(
-      'Pick some outfits first',
-      name: 'pick_outfits_error',
+      'Requests',
+      name: 'friends_request',
       desc: '',
       args: [],
     );

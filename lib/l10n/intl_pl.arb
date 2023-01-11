@@ -58,14 +58,19 @@
   "add_looks_for": "Dodaj stylizacje na",
   "pick_outfits": "Wybierz stylizacje",
   "summary": "Podsumowanie",
-  "pick_outfits_error": "Wybierz najpierw stylizacje"
+  "pick_outfits_error": "Wybierz najpierw stylizacje",
   "accessories": "Akcesoria",
   "empty_wardrobe": "Nie masz żadnych elementów w szafie!",
   "filters": "Filtrowanie",
   "clothing_types": "Rodzaj",
   "size": "Rozmiar",
+  "t-shirt" : "Koszulka",
   "style": "Styl",
   "apply_filters": "Filtruj",
   "empty_outfits" : "Nie stowrzono jeszcze żadnej stylizacji!",
-  "empty_feed"  : "Wygląda na to, że nie dodałeś jeszcze żadnych znajomych!"
+  "empty_feed"  : "Wygląda na to, że nie dodałeś jeszcze żadnych znajomych!",
+  "search_friend": "Poszukaj znajomego",
+  "no_pending_invitation": "Brak zaproszeń od znajomych",
+  "no_pending_invitation_user": "Brak zaproszenia od tego użytkownika",
+  "friends_request": "Zaproszenia"
 }
