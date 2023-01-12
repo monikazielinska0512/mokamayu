@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Post{
   final String createdBy;
-  // final String createdFor;
+  final String createdFor;
   final String cover;
   final int creationDate;
   final List<String>? likes;
@@ -12,7 +12,7 @@ class Post{
 
   Post({
     required this.createdBy,
-    // required this.createdFor,
+    required this.createdFor,
     required this.cover,
     required this.creationDate,
     this.likes,
@@ -22,7 +22,7 @@ class Post{
 
   factory Post.fromJson(Map<dynamic, dynamic> json) => Post(
     createdBy: json['createdBy'] as String,
-    // createdFor: json['createdBy'] as String,
+    createdFor: json['createdFor'] as String,
     cover: json['cover'] as String,
     creationDate: json['creationDate'] as int,
     likes: List.from(json['likes']),
@@ -32,7 +32,7 @@ class Post{
 
   Map<String, dynamic> toJson() => <String, dynamic>{
     "createdBy": createdBy.toString(),
-    // "createdFor": createdFor.toString(),
+    "createdFor": createdFor.toString(),
     "cover": cover.toString(),
     "creationDate": creationDate,
     "likes": likes,
