@@ -30,13 +30,15 @@ class _RequestsScreenState extends State<RequestsScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ProfileManager>(context, listen: false).getCurrentUserData()
-        .then((UserData? temp){
+    Provider.of<ProfileManager>(context, listen: false)
+        .getCurrentUserData()
+        .then((UserData? temp) {
       setState(() => currentUser = temp!);
-      Provider.of<FriendsManager>(context, listen: false).readRequestsOnce(currentUser)
-          .then((List<UserData> temp){
+      Provider.of<FriendsManager>(context, listen: false)
+          .readRequestsOnce(currentUser)
+          .then((List<UserData> temp) {
         setState(() => requestList = temp);
-        setState(() => _foundRequests = requestList );
+        setState(() => _foundRequests = requestList);
       });
     });
   }
@@ -48,14 +50,22 @@ class _RequestsScreenState extends State<RequestsScreen> {
       results = requestList;
     } else {
       results = requestList
-          .where((user) =>
-      user.profileName != null
-          ? user.username.toLowerCase().contains(enteredKeyword.toLowerCase())
-          || user.email.toLowerCase().contains(enteredKeyword.toLowerCase())
-          || user.profileName!.toLowerCase().contains(enteredKeyword.toLowerCase())
-          : user.username.toLowerCase().contains(enteredKeyword.toLowerCase())
-          || user.email.toLowerCase().contains(enteredKeyword.toLowerCase())
-      )
+          .where((user) => user.profileName != null
+              ? user.username
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()) ||
+                  user.email
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()) ||
+                  user.profileName!
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase())
+              : user.username
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()) ||
+                  user.email
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()))
           .toList();
     }
 
@@ -65,53 +75,40 @@ class _RequestsScreenState extends State<RequestsScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
       type: 'your friend invitations',
-      body: Stack(
+      isFullScreen: true,
+      body: Column(
         children: [
-          Column(
-            children: [
-              Column(children: [
-                SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.07,
-
-                    child: TextField(
-                        onChanged: (value) {
-                          _runFilter(value);
-                          value.isNotEmpty
-                              ? searching = true
-                              : searching = false;
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Find friend",
-                        ))
-                ),
-                const SizedBox(height: 15),
-              ]),
-              Container(
+          Padding(
+              padding:
+                  EdgeInsets.fromLTRB(20, deviceHeight(context) * 0.15, 20, 20),
+              child: TextField(
+                  onChanged: (value) {
+                    _runFilter(value);
+                    value.isNotEmpty ? searching = true : searching = false;
+                  },
+                  decoration: const InputDecoration(
+                    hintText: "Find friend",
+                  ))),
+          Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Container(
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.centerLeft,
-                  child: Text("Found ${_foundRequests.length} results")
-              ),
-              Expanded(
-                child: _foundRequests.isNotEmpty
-                    ? buildList()
-                    : buildEmpty(),
-              ),
-            ],
-          ),
+                  child: Text("Found ${_foundRequests.length} results"))),
+          _foundRequests.isNotEmpty ? buildList() : buildEmpty(),
         ],
       ),
     );
   }
 
   Widget buildList() {
-    return ListView.separated(
+    return Expanded(
+        child: ListView.separated(
       padding: const EdgeInsets.all(8),
       itemCount: _foundRequests.length,
       itemBuilder: (BuildContext context, int index) {
@@ -126,33 +123,38 @@ class _RequestsScreenState extends State<RequestsScreen> {
             },
             child: Container(
                 height: MediaQuery.of(context).size.height * 0.13,
-                decoration: BoxDecoration(color: ColorsConstants.whiteAccent, borderRadius: BorderRadius.circular(14)),
-                child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(14), // Image border
-                        child: SizedBox.fromSize(
-                          size: Size.square(MediaQuery.of(context).size.height*0.1),
-                          child: _foundRequests[index].profilePicture != null
-                              ? Image.network(_foundRequests[index].profilePicture!,
+                decoration: BoxDecoration(
+                    color: ColorsConstants.whiteAccent,
+                    borderRadius: BorderRadius.circular(14)),
+                child: Row(children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(14), // Image border
+                    child: SizedBox.fromSize(
+                      size:
+                          Size.square(MediaQuery.of(context).size.height * 0.1),
+                      child: _foundRequests[index].profilePicture != null
+                          ? Image.network(_foundRequests[index].profilePicture!,
                               fit: BoxFit.fill)
-                              : Image.asset(Assets.avatarPlaceholder,
+                          : Image.asset(Assets.avatarPlaceholder,
                               fit: BoxFit.fill),
-                        ),
-                      ),
-                      _foundRequests[index].profileName != null
-                          ? Text(_foundRequests[index].profileName!, style: TextStyles.paragraphRegularSemiBold18(Colors.black),)
-                          : Text("@${_foundRequests[index].username}", style: TextStyles.paragraphRegularSemiBold18(Colors.black)),
-                    ]
-                )
-            )
-        );
+                    ),
+                  ),
+                  _foundRequests[index].profileName != null
+                      ? Text(
+                          _foundRequests[index].profileName!,
+                          style: TextStyles.paragraphRegularSemiBold18(
+                              Colors.black),
+                        )
+                      : Text("@${_foundRequests[index].username}",
+                          style: TextStyles.paragraphRegularSemiBold18(
+                              Colors.black)),
+                ])));
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
-    );
+    ));
   }
 
-  Widget buildEmpty(){
+  Widget buildEmpty() {
     return Column(
       children: [
         SizedBox(
@@ -160,30 +162,28 @@ class _RequestsScreenState extends State<RequestsScreen> {
         ),
         searching
             ? Text(
-          "No pending invitations \n from such user",
-          style: TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
-          textAlign: TextAlign.center,
-        )
+                "No pending invitations \n from such user",
+                style:
+                    TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
+                textAlign: TextAlign.center,
+              )
             : Text(
-          "No pending invitations",
-          style: TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
-          textAlign: TextAlign.center,
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.75,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/mountains.png"),
+                "No pending invitations",
+                style:
+                    TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
+                textAlign: TextAlign.center,
+              ),
+        SizedBox(
+            height: deviceWidth(context) * 1.3,
+            child: Opacity(
+              opacity: 0.5,
+              child: Image.asset(
+                "assets/images/mountains.png",
+                width: deviceWidth(context),
                 fit: BoxFit.fitWidth,
-                opacity: 0.5
-            ),
-          ),
-        ),
+              ),
+            )),
       ],
     );
   }
 }
-
-
-

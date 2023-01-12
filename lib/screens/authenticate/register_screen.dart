@@ -31,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-      type: "Sign up",
+      type: S.of(context).sign_up,
       leftButtonType: "back",
       isRightButtonVisible: false,
       context: context,
@@ -132,9 +132,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             _emailTextController.text,
                             _usernameTextController.text,
                             _auth.getCurrentUserID());
-                    context.go("home/0");
+
                     Provider.of<AppStateManager>(context, listen: false)
                         .login();
+                    context.go("/home/0");
                   } else {
                     final error = AuthExceptionHandler.generateErrorMessage(
                         status, context);

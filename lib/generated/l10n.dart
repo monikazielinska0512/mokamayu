@@ -260,6 +260,26 @@ class S {
     );
   }
 
+  /// `Outfits by me`
+  String get outfits_by_me {
+    return Intl.message(
+      'Outfits by me',
+      name: 'outfits_by_me',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outfits by friends`
+  String get outfits_by_friends {
+    return Intl.message(
+      'Outfits by friends',
+      name: 'outfits_by_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Posts`
   String get posts {
     return Intl.message(
@@ -355,6 +375,136 @@ class S {
     return Intl.message(
       'Hat',
       name: 'hat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See details`
+  String get see_details {
+    return Intl.message(
+      'See details',
+      name: 'see_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Friends`
+  String get friends {
+    return Intl.message(
+      'Friends',
+      name: 'friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit profile`
+  String get edit_profile {
+    return Intl.message(
+      'Edit profile',
+      name: 'edit_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calendar`
+  String get calendar {
+    return Intl.message(
+      'Calendar',
+      name: 'calendar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Friends requests`
+  String get friend_requests {
+    return Intl.message(
+      'Friends requests',
+      name: 'friend_requests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show current weather`
+  String get show_current_weather {
+    return Intl.message(
+      'Show current weather',
+      name: 'show_current_weather',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current weather`
+  String get current_weather {
+    return Intl.message(
+      'Current weather',
+      name: 'current_weather',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter City`
+  String get enter_city {
+    return Intl.message(
+      'Enter City',
+      name: 'enter_city',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Looks for`
+  String get looks_for {
+    return Intl.message(
+      'Looks for',
+      name: 'looks_for',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add looks for`
+  String get add_looks_for {
+    return Intl.message(
+      'Add looks for',
+      name: 'add_looks_for',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick outfits`
+  String get pick_outfits {
+    return Intl.message(
+      'Pick outfits',
+      name: 'pick_outfits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Summary`
+  String get summary {
+    return Intl.message(
+      'Summary',
+      name: 'summary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick some outfits first`
+  String get pick_outfits_error {
+    return Intl.message(
+      'Pick some outfits first',
+      name: 'pick_outfits_error',
       desc: '',
       args: [],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
@@ -64,6 +65,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       );
                     } else {
                       Navigator.of(context).pop();
+                      GoRouter.of(context).push('/email-sent');
                     }
                   }
                 })

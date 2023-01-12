@@ -8,7 +8,6 @@ import 'package:mokamayu/models/models.dart';
 
 import '../../services/authentication/auth.dart';
 
-
 class SocialScreen extends StatefulWidget {
   const SocialScreen({Key? key}) : super(key: key);
 
@@ -20,7 +19,6 @@ class _SocialScreenState extends State<SocialScreen> {
   List<Post> postList = [];
   List<Post> friendsPostList = [];
   List<UserData> userList = [];
-  late UserData currentUser;
 
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
@@ -29,36 +27,39 @@ class _SocialScreenState extends State<SocialScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<PostManager>(context, listen: true).readPostsOnce()
-        .then((List<Post> temp){
+    Provider.of<PostManager>(context, listen: true)
+        .readPostsOnce()
+        .then((List<Post> temp) {
       setState(() => postList = temp);
     });
-    Provider.of<UserListManager>(context, listen: false).readUserOnce()
-        .then((List<UserData> temp){
+    Provider.of<UserListManager>(context, listen: false)
+        .readUserOnce()
+        .then((List<UserData> temp) {
       setState(() => userList = temp);
     });
-    currentUser = userList.singleWhere((element) => element.uid == AuthService().getCurrentUserID());
-    var friendList = Provider.of<FriendsManager>(context, listen: false).readFriendsIdsOnce(currentUser);
+    UserData currentUser = userList.singleWhere(
+        (element) => element.uid == AuthService().getCurrentUserID());
+    var friendList = Provider.of<FriendsManager>(context, listen: false)
+        .readFriendsIdsOnce(currentUser);
     friendList.add(currentUser.uid);
-    friendsPostList =  Provider.of<PostManager>(context, listen: false).readFeedPostsOnce(friendList, postList);
+    friendsPostList = Provider.of<PostManager>(context, listen: false)
+        .readFeedPostsOnce(friendList, postList);
 
     return BasicScreen(
       type: 'social',
       leftButtonType: "dots",
       rightButtonType: "search-notif",
       context: context,
+      isFullScreen: true,
       body: Column(
         children: [
           const SizedBox(
             height: 15,
           ),
           Expanded(
-            child: PostList(postList: friendsPostList, userList: userList)
-          ),
+              child: PostList(postList: friendsPostList, userList: userList)),
         ],
       ),
     );
   }
-
-
 }

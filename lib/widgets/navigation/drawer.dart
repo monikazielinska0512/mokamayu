@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/text_styles.dart';
+import '../../generated/l10n.dart';
 import '../fundamental/background_image.dart';
-
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -38,15 +38,20 @@ class CustomDrawer extends StatelessWidget {
                           child: Text("Menu",
                               style:
                                   TextStyles.h3(ColorsConstants.blackAccent)))),
-                  buildDrawerOption(context, 'Edit profile',
+                  buildDrawerOption(context, S.of(context).edit_profile,
                       () => context.push('/edit-profile')),
-                  buildDrawerOption(context, 'Settings', () => {}),
-                  buildDrawerOption(context, 'Friends', () => {
-                    context.pushNamed('friends'),
-                  }),
-                  buildDrawerOption(context, 'Friend Requests', () => {context.pushNamed('requests')}),
-                  buildDrawerOption(context, 'Wardrobe', () => {}),
-                  buildDrawerOption(context, 'Outfits', () => {}),
+                  buildDrawerOption(
+                      context,
+                      S.of(context).friends,
+                      () => {
+                            context.pushNamed('friends'),
+                          }),
+                  buildDrawerOption(context, S.of(context).friend_requests,
+                      () => {context.pushNamed('requests')}),
+                  buildDrawerOption(context, S.of(context).wardrobe,
+                      () => {context.push('/home/0')}),
+                  buildDrawerOption(context, S.of(context).outfits,
+                      () => {context.push('/home/1')}),
                 ],
               ),
             ),
@@ -79,7 +84,7 @@ class CustomDrawer extends StatelessWidget {
           Divider(color: ColorsConstants.lightGrey, thickness: 1.5),
           buildDrawerOption(
               context,
-              'Sign out',
+              S.of(context).sign_out,
               () =>
                   Provider.of<AppStateManager>(context, listen: false).logout(),
               TextStyles.paragraphRegularSemiBold16(ColorsConstants.grey)),

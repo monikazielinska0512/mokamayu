@@ -30,14 +30,16 @@ class _FriendsScreenState extends State<FriendsScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ProfileManager>(context, listen: false).getCurrentUserData()
-        .then((UserData? temp){
-        setState(() => currentUser = temp!);
-        Provider.of<FriendsManager>(context, listen: false).readFriendsOnce(currentUser)
-            .then((List<UserData> temp){
-          setState(() => friendList = temp);
-          setState(() => _foundFriends = friendList );
-        });
+    Provider.of<ProfileManager>(context, listen: false)
+        .getCurrentUserData()
+        .then((UserData? temp) {
+      setState(() => currentUser = temp!);
+      Provider.of<FriendsManager>(context, listen: false)
+          .readFriendsOnce(currentUser)
+          .then((List<UserData> temp) {
+        setState(() => friendList = temp);
+        setState(() => _foundFriends = friendList);
+      });
     });
   }
 
@@ -48,14 +50,22 @@ class _FriendsScreenState extends State<FriendsScreen> {
       results = friendList;
     } else {
       results = friendList
-          .where((user) =>
-      user.profileName != null
-          ? user.username.toLowerCase().contains(enteredKeyword.toLowerCase())
-          || user.email.toLowerCase().contains(enteredKeyword.toLowerCase())
-          || user.profileName!.toLowerCase().contains(enteredKeyword.toLowerCase())
-          : user.username.toLowerCase().contains(enteredKeyword.toLowerCase())
-          || user.email.toLowerCase().contains(enteredKeyword.toLowerCase())
-      )
+          .where((user) => user.profileName != null
+              ? user.username
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()) ||
+                  user.email
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()) ||
+                  user.profileName!
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase())
+              : user.username
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()) ||
+                  user.email
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()))
           .toList();
     }
 
@@ -65,53 +75,40 @@ class _FriendsScreenState extends State<FriendsScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
       type: 'your friends',
-      body: Stack(
+      isFullScreen: true,
+      body: Column(
         children: [
-          Column(
-            children: [
-              Column(children: [
-                SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.07,
-
-                    child: TextField(
-                        onChanged: (value) {
-                          _runFilter(value);
-                          value.isNotEmpty
-                              ? searching = true
-                              : searching = false;
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Find friend",
-                        ))
-                ),
-                const SizedBox(height: 15),
-              ]),
-              Container(
+          Padding(
+              padding:
+                  EdgeInsets.fromLTRB(20, deviceHeight(context) * 0.15, 20, 20),
+              child: TextField(
+                  onChanged: (value) {
+                    _runFilter(value);
+                    value.isNotEmpty ? searching = true : searching = false;
+                  },
+                  decoration: const InputDecoration(
+                    hintText: "Find friend",
+                  ))),
+          Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Container(
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.centerLeft,
-                  child: Text("Found ${_foundFriends.length} results")
-              ),
-              Expanded(
-                child: _foundFriends.isNotEmpty
-                    ? buildList()
-                    : buildEmpty(),
-              ),
-            ],
-          ),
+                  child: Text("Found ${_foundFriends.length} results"))),
+          _foundFriends.isNotEmpty ? buildList() : buildEmpty(),
         ],
       ),
     );
   }
 
   Widget buildList() {
-    return ListView.separated(
+    return Expanded(
+        child: ListView.separated(
       padding: const EdgeInsets.all(8),
       itemCount: _foundFriends.length,
       itemBuilder: (BuildContext context, int index) {
@@ -126,33 +123,38 @@ class _FriendsScreenState extends State<FriendsScreen> {
             },
             child: Container(
                 height: MediaQuery.of(context).size.height * 0.13,
-                decoration: BoxDecoration(color: ColorsConstants.whiteAccent, borderRadius: BorderRadius.circular(14)),
-                child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(14), // Image border
-                        child: SizedBox.fromSize(
-                          size: Size.square(MediaQuery.of(context).size.height*0.1),
-                          child: _foundFriends[index].profilePicture != null
-                              ? Image.network(_foundFriends[index].profilePicture!,
+                decoration: BoxDecoration(
+                    color: ColorsConstants.whiteAccent,
+                    borderRadius: BorderRadius.circular(14)),
+                child: Row(children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(14), // Image border
+                    child: SizedBox.fromSize(
+                      size:
+                          Size.square(MediaQuery.of(context).size.height * 0.1),
+                      child: _foundFriends[index].profilePicture != null
+                          ? Image.network(_foundFriends[index].profilePicture!,
                               fit: BoxFit.fill)
-                              : Image.asset(Assets.avatarPlaceholder,
+                          : Image.asset(Assets.avatarPlaceholder,
                               fit: BoxFit.fill),
-                        ),
-                      ),
-                      _foundFriends[index].profileName != null
-                          ? Text(_foundFriends[index].profileName!, style: TextStyles.paragraphRegularSemiBold18(Colors.black),)
-                          : Text("@${_foundFriends[index].username}", style: TextStyles.paragraphRegularSemiBold18(Colors.black)),
-                    ]
-                )
-            )
-        );
+                    ),
+                  ),
+                  _foundFriends[index].profileName != null
+                      ? Text(
+                          _foundFriends[index].profileName!,
+                          style: TextStyles.paragraphRegularSemiBold18(
+                              Colors.black),
+                        )
+                      : Text("@${_foundFriends[index].username}",
+                          style: TextStyles.paragraphRegularSemiBold18(
+                              Colors.black)),
+                ])));
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
-    );
+    ));
   }
 
-  Widget buildEmpty(){
+  Widget buildEmpty() {
     return Column(
       children: [
         SizedBox(
@@ -160,30 +162,28 @@ class _FriendsScreenState extends State<FriendsScreen> {
         ),
         searching
             ? Text(
-              "It seems user with such \n name isn't your friend",
-              style: TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
-              textAlign: TextAlign.center,
-            )
+                "It seems user with such \n name isn't your friend",
+                style:
+                    TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
+                textAlign: TextAlign.center,
+              )
             : Text(
-              "You don't have friends yet",
-              style: TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
-              textAlign: TextAlign.center,
-            ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.75,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/mountains.png"),
+                "You don't have friends yet",
+                style:
+                    TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
+                textAlign: TextAlign.center,
+              ),
+        SizedBox(
+            height: deviceWidth(context) * 1.3,
+            child: Opacity(
+              opacity: 0.5,
+              child: Image.asset(
+                "assets/images/mountains.png",
+                width: deviceWidth(context),
                 fit: BoxFit.fitWidth,
-                opacity: 0.5
-            ),
-          ),
-        ),
+              ),
+            ))
       ],
     );
   }
 }
-
-
-

@@ -20,6 +20,8 @@
   "dismiss": "DISMISS",
   "wardrobe": "Wardrobe",
   "outfits": "Outfits",
+  "outfits_by_me": "Outfits by me",
+  "outfits_by_friends": "Outfits by friends",
   "posts": "Posts",
   "social": "Social",
   "profile": "Profile",
@@ -29,5 +31,18 @@
   "tshirt": "T-Shirt",
   "dress": "Dress",
   "shoes": "Shoes",
-  "hat": "Hat"
+  "hat": "Hat",
+  "see_details": "See details",
+  "friends": "Friends",
+  "edit_profile": "Edit profile",
+  "calendar": "Calendar",
+  "friend_requests": "Friends requests",
+  "show_current_weather": "Show current weather",
+  "current_weather": "Current weather",
+  "enter_city": "Enter City",
+  "looks_for": "Looks for",
+  "add_looks_for": "Add looks for",
+  "pick_outfits": "Pick outfits",
+  "summary": "Summary",
+  "pick_outfits_error": "Pick some outfits first"
 }

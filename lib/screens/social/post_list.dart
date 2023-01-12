@@ -21,15 +21,15 @@ class PostList extends StatefulWidget {
   State<PostList> createState() => _PostListState();
 }
 
-class _PostListState extends State<PostList>{
-    @override
+class _PostListState extends State<PostList> {
+  @override
   Widget build(BuildContext context) {
    return widget.postList.isNotEmpty
       ? buildFeed()
       : buildEmpty();
   }
 
-  Widget buildFeed(){
+  Widget buildFeed() {
     List<TextEditingController> myController =
     List.generate(widget.postList.length, (i) => TextEditingController());
     return ListView.separated(
@@ -184,13 +184,12 @@ class _PostListState extends State<PostList>{
                                 ),
                         ],
                       ),
-
                     ],
                   ),
                   Image.network(widget.postList[index].cover, fit: BoxFit.fill),
                   TextField(
                     controller: myController[index],
-                    onSubmitted: (String comment){
+                    onSubmitted: (String comment) {
                       print("add comment");
                       widget.postList[index].comments!.add({"author": AuthService().getCurrentUserID(), "content": comment});
                       Provider.of<PostManager>(context, listen: false).commentPost(widget.postList[index].reference!, widget.postList[index].createdBy, widget.postList[index].comments!);
@@ -253,7 +252,7 @@ class _PostListState extends State<PostList>{
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.07,
+          height: MediaQuery.of(context).size.height * 0.15,
         ),
         Text(
           "Social feed is empty \n Add some friends",
@@ -262,7 +261,7 @@ class _PostListState extends State<PostList>{
         ),
         Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.7,
+          height: MediaQuery.of(context).size.height * 0.6,
           decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/images/mountains.png"),

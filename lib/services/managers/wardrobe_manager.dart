@@ -8,20 +8,32 @@ import '../database/database_service.dart';
 
 class WardrobeManager extends ChangeNotifier {
   List<WardrobeItem> finalWardrobeItemList = [];
-  List<WardrobeItem> friendFinalWardrobeItemList = [];
   List<WardrobeItem> finalWardrobeItemListCopy = [];
+
+  List<WardrobeItem> finalFriendWardrobeItemList = [];
+  List<WardrobeItem> finalFriendWardrobeItemListCopy = [];
+
   Future<List<WardrobeItem>>? futureWardrobeItemList;
   Future<List<WardrobeItem>>? futureWardrobeItemListCopy;
+
+  Future<List<WardrobeItem>>? futureFriendWardrobeItemList;
+  Future<List<WardrobeItem>>? futureFriendWardrobeItemListCopy;
+
+  List<WardrobeItem> get getFinalWardrobeItemList => finalWardrobeItemList;
+
+  List<WardrobeItem> get getFinalFriendWardrobeItemList =>
+      finalFriendWardrobeItemList;
 
   Future<List<WardrobeItem>>? get getWardrobeItemList => futureWardrobeItemList;
 
   Future<List<WardrobeItem>>? get getWardrobeItemListCopy =>
       futureWardrobeItemListCopy;
 
-  List<WardrobeItem> get getFinalWardrobeItemList => finalWardrobeItemList;
+  Future<List<WardrobeItem>>? get getFriendWardrobeItemList =>
+      futureFriendWardrobeItemList;
 
-  List<WardrobeItem> get getFriendFinalWardrobeItemList =>
-      friendFinalWardrobeItemList;
+  Future<List<WardrobeItem>>? get getFriendWardrobeItemListCopy =>
+      futureFriendWardrobeItemListCopy;
 
   List<String>? itemTypes;
   List<String>? itemSizes;
@@ -37,8 +49,19 @@ class WardrobeManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setFriendWardrobeItemList(Future<List<WardrobeItem>> itemList) {
+    futureFriendWardrobeItemList = itemList;
+    notifyListeners();
+  }
+
+  void setFriendWardrobeItemListCopy(Future<List<WardrobeItem>> itemList) {
+    futureFriendWardrobeItemListCopy = itemList;
+    notifyListeners();
+  }
+
   void nullListItemCopy() {
     futureWardrobeItemListCopy = null;
+    futureFriendWardrobeItemListCopy = null;
     notifyListeners();
   }
 
@@ -80,10 +103,10 @@ class WardrobeManager extends ChangeNotifier {
     QuerySnapshot snapshot =
         await db.collection('users').doc(uid).collection('wardrobe').get();
 
-    friendFinalWardrobeItemList = snapshot.docs
+    finalFriendWardrobeItemList = snapshot.docs
         .map((element) => WardrobeItem.fromSnapshot(element))
         .toList();
-    return friendFinalWardrobeItemList;
+    return finalFriendWardrobeItemList;
   }
 
   Future<List<WardrobeItem>> filterWardrobe(
@@ -124,6 +147,18 @@ class WardrobeManager extends ChangeNotifier {
         : finalWardrobeItemListCopy = itemList;
 
     return finalWardrobeItemListCopy;
+  }
+
+  Future<List<WardrobeItem>> filterFriendWardrobe(BuildContext context,
+      List<String> typesList, List<WardrobeItem> itemList) async {
+    List<WardrobeItem> filteredList = [];
+    typesList = typesList.isNotEmpty ? typesList : Tags.types;
+
+    filteredList =
+        itemList.where((item) => typesList.contains(item.type)).toList();
+
+    finalFriendWardrobeItemListCopy = filteredList;
+    return finalFriendWardrobeItemListCopy;
   }
 
   void addWardrobeItem(WardrobeItem item) {

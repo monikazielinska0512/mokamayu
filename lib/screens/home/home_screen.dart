@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final currentUserUid =
+    String? currentUserUid =
         Provider.of<ProfileManager>(context).currentAuthUser?.uid;
 
     List<Widget> pages = [

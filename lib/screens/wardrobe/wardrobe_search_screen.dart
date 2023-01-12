@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
 import '../../constants/colors.dart';
+import '../../generated/l10n.dart';
 import '../../models/wardrobe_item.dart';
 import '../../widgets/fields/search_text_field.dart';
 
@@ -116,8 +117,8 @@ class _WardrobeItemSearchScreenState extends State<WardrobeItemSearchScreen> {
                                 context.pushNamed('wardrobe-item',
                                     extra: snapshot.data?[index])
                               },
-                          child: const Text(
-                            "See details",
+                          child: Text(
+                            S.of(context).see_details,
                             style: TextStyle(
                                 color: ColorsConstants.darkBrick,
                                 fontWeight: FontWeight.bold),

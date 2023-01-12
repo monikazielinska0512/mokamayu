@@ -14,10 +14,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../constants/colors.dart';
+import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/outfit_manager.dart';
 import '../../widgets/buttons/floating_button.dart';
+import '../../widgets/buttons/icon_text_button.dart';
 import '../../widgets/fundamental/fundamentals.dart';
 import '../../widgets/photo/wardrobe_item_card.dart';
 import 'hourly_weather.dart';
@@ -40,6 +42,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   WeatherModel weatherModel = WeatherModel();
   int? temperature;
   String? currentWeatherIcon;
+  bool showCurrentWeather = false;
 
   prefsData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -59,6 +62,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           Map<String, dynamic> mapOutfit = map['outfit'];
 
           Outfit outfit = Outfit(
+              owner: mapOutfit['owner'] as String,
               createdBy: mapOutfit['createdBy'] as String,
               style: mapOutfit['style'] as String,
               season: mapOutfit['season'] as String,
@@ -98,7 +102,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   void initState() {
     super.initState();
     selectedEvents = {};
-    updateUI();
+    // updateUI();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 2), () => prefsData());
     });
@@ -113,7 +117,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     selectedEvents =
         Provider.of<CalendarManager>(context, listen: true).getEvents;
     return BasicScreen(
-        type: "Calendar",
+        type: S.of(context).calendar,
         leftButtonType: "dots",
         isRightButtonVisible: true,
         context: context,
@@ -125,7 +129,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Stack(children: [
       Column(children: [
         const Padding(
-          padding: EdgeInsets.only(top: 80),
+          padding: EdgeInsets.only(top: 75),
         ),
         TableCalendar<Event>(
             firstDay: DateTime.utc(2010, 10, 16),
@@ -221,29 +225,42 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         }
                       },
                     ),
-                    labelText: 'Enter City',
+                    labelText: S.of(context).enter_city,
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                   )),
             )),
-            if (temperature != null && currentWeatherIcon != null) ...[
-              Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Current weather",
-                        style: TextStyles.paragraphRegular14(),
-                      ),
-                      const SizedBox(height: 5),
-                      Row(children: [
-                        Text('$temperature°  ',
-                            style: const TextStyle(fontSize: 18)),
-                        Text('$currentWeatherIcon',
-                            style: const TextStyle(fontSize: 25)),
-                      ])
-                    ],
-                  ))
-            ],
+            showCurrentWeather
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Column(
+                      children: [
+                        Text(
+                          S.of(context).current_weather,
+                          style: TextStyles.paragraphRegular14(),
+                        ),
+                        const SizedBox(height: 5),
+                        Row(children: [
+                          Text('$temperature°  ',
+                              style: const TextStyle(fontSize: 18)),
+                          Text('$currentWeatherIcon',
+                              style: const TextStyle(fontSize: 25)),
+                        ])
+                      ],
+                    ))
+                : Padding(
+                    padding: EdgeInsets.only(right: 10),
+                    child: IconTextButton(
+                      onPressed: () {
+                        updateUI();
+                        showCurrentWeather = true;
+                      },
+                      icon: Icons.sunny,
+                      text: S.of(context).show_current_weather,
+                      width: 130,
+                      height: 60,
+                      backgroundColor: ColorsConstants.mint,
+                    ),
+                  ),
           ],
         ),
         HourlyWeather(),
@@ -252,7 +269,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Looks for ${DateFormat.MMMMd().format(_selectedDay)}:",
+                  "${S.of(context).looks_for} ${DateFormat.MMMMd().format(_selectedDay)}:",
                   style: TextStyles.h5(ColorsConstants.grey),
                 ))),
         SizedBox(
@@ -338,7 +355,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             child: Column(
                               children: [
                                 dialogCardCalendar(
-                                    "Add looks for ${DateFormat.MMMMd().format(_selectedDay)}",
+                                    "${S.of(context).add_looks_for} ${DateFormat.MMMMd().format(_selectedDay)}",
                                     () {
                                   Provider.of<CalendarManager>(context,
                                           listen: false)
@@ -365,9 +382,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
 }
 
 Widget dialogCardCalendar(String text, Function onTap, double pad) {
-  return SizedBox(
-    width: 280,
-    height: 65,
+  return FittedBox(
+    fit: BoxFit.fitWidth,
+    // width: 280,
+    // height: 65,
     child: ElevatedButton(
         onPressed: () {
           onTap();
@@ -389,7 +407,7 @@ Widget dialogCardCalendar(String text, Function onTap, double pad) {
                   Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Padding(
-                          padding: const EdgeInsets.only(top: 13),
+                          padding: const EdgeInsets.only(top: 13, bottom: 15),
                           child: Text(
                             text,
                             textAlign: TextAlign.center,

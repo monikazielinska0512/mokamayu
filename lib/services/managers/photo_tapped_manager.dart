@@ -25,6 +25,11 @@ class PhotoTapped extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addIds(String id) {
+    listOfIds.add(id);
+    notifyListeners();
+  }
+
   void nullWholeMap() {
     listOfIds = [];
     mapDynamic.clear();

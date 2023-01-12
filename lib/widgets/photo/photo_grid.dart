@@ -111,7 +111,7 @@ class _PhotoGridState extends State<PhotoGrid> {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
             child: snapshot.data!.isEmpty
-                ? Text("You haven't created any outfits yet!",
+                ? Text("No outfits has been created yet!",
                     style: TextStyles.paragraphRegularSemiBold14(Colors.grey))
                 : GridView.builder(
                     scrollDirection: widget.getScrollDirection(),
