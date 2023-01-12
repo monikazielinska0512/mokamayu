@@ -243,6 +243,12 @@ class _OutfitsAddAttributesScreenState
 
                 Provider.of<AppStateManager>(context, listen: false)
                     .cacheEvents(encodedEvents);
+
+                Future<List<Outfit>>? outfitsList =
+                    Provider.of<OutfitManager>(context, listen: false)
+                        .readOutfitsOnce();
+                Provider.of<OutfitManager>(context, listen: false)
+                    .setOutfits(outfitsList!);
               },
               child: Image.asset(
                 "assets/images/trash.png",
