@@ -158,7 +158,7 @@ class BasicScreen extends StatelessWidget {
                   iconColor: Colors.grey),
               CustomIconButton(
                   onPressed: () => context.push('/notifications'),
-                  icon: Icons.notifications,
+                  icon: Icons.notifications_outlined,
                   backgroundColor: Colors.transparent,
                   iconColor: Colors.grey)
             ]);

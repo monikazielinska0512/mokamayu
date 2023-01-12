@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
@@ -25,11 +26,11 @@ class _PostListState extends State<PostList> {
   @override
   Widget build(BuildContext context) {
    return widget.postList.isNotEmpty
-      ? buildFeed()
+      ? buildFeed(context)
       : buildEmpty();
   }
 
-  Widget buildFeed() {
+  Widget buildFeed(BuildContext context) {
     List<TextEditingController> myController =
     List.generate(widget.postList.length, (i) => TextEditingController());
     return ListView.separated(
@@ -75,46 +76,53 @@ class _PostListState extends State<PostList> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          widget.postList[index].createdFor == widget.postList[index].createdBy
+                          ? GestureDetector(
+                            onTap: () {
+                              context.pushNamed(
+                                "profile",
+                                queryParams: {
+                                  'uid': widget.postList[index].createdBy,
+                                },
+                              );
+                              },
+                            child: Text(
+                                widget.userList.singleWhere((element) => element.uid == widget.postList[index].createdBy).profileName != null
+                                    ? widget.userList.singleWhere((element) => element.uid == widget.postList[index].createdBy).profileName!
+                                    : widget.userList.singleWhere((element) => element.uid == widget.postList[index].createdBy).username,
+                                style: TextStyles.paragraphRegularSemiBold16()),
+                          )
+                          : Row(
                             children: [
-                              Text(
-                                  widget.userList
-                                              .singleWhere((element) =>
-                                                  element.uid ==
-                                                  widget.postList[index].createdBy)
-                                              .profileName !=
-                                          null
-                                      ? widget.userList
-                                          .singleWhere((element) =>
-                                              element.uid ==
-                                              widget.postList[index].createdBy)
-                                          .profileName!
-                                      : widget.userList
-                                          .singleWhere((element) =>
-                                              element.uid ==
-                                              widget.postList[index].createdBy)
-                                          .username,
+                              GestureDetector(
+                                onTap: () {
+                                  context.pushNamed(
+                                    "profile",
+                                    queryParams: {
+                                      'uid': widget.postList[index].createdBy,
+                                    },
+                                  );
+                                },
+                                child: Text(widget.userList.singleWhere((element) => element.uid == widget.postList[index].createdBy).profileName != null
+                                  ? widget.userList.singleWhere((element) => element.uid == widget.postList[index].createdBy).profileName!
+                                  : widget.userList.singleWhere((element) => element.uid == widget.postList[index].createdBy).username,
+                                    style: TextStyles.paragraphRegularSemiBold16()),
+                              ),
+                              Text(" for ", style: TextStyles.paragraphRegular16()),
+                              GestureDetector(
+                                  onTap: () {
+                                    context.pushNamed(
+                                      "profile",
+                                      queryParams: {
+                                        'uid': widget.postList[index].createdFor,
+                                      },
+                                    );
+                                  },
+                                  child:Text(widget.userList.singleWhere((element) => element.uid == widget.postList[index].createdFor).profileName != null
+                                      ? widget.userList.singleWhere((element) => element.uid == widget.postList[index].createdFor).profileName!
+                                      : widget.userList.singleWhere((element) => element.uid == widget.postList[index].createdFor).username,
                                   style: TextStyles.paragraphRegularSemiBold16()),
-
-                            // if(widget.postList[index].createdFor != widget.postList[index].createdBy)
-                            //    Text(
-                            //     widget.userList
-                            //         .singleWhere((element) =>
-                            //     element.uid ==
-                            //         widget.postList[index].createdFor)
-                            //         .profileName !=
-                            //         null
-                            //         ? widget.userList
-                            //         .singleWhere((element) =>
-                            //     element.uid ==
-                            //         widget.postList[index].createdFor)
-                            //         .profileName!
-                            //         : widget.userList
-                            //         .singleWhere((element) =>
-                            //     element.uid ==
-                            //         widget.postList[index].createdFor)
-                            //         .username,
-                            //     style: TextStyles.paragraphRegularSemiBold16()),
+                              ),
                             ],
                           ),
                           Text(
@@ -186,7 +194,9 @@ class _PostListState extends State<PostList> {
                       ),
                     ],
                   ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                   Image.network(widget.postList[index].cover, fit: BoxFit.fill),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                   TextField(
                     controller: myController[index],
                     onSubmitted: (String comment) {

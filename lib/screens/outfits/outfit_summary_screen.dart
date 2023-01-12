@@ -180,7 +180,7 @@ class OutfitSummaryScreen extends StatelessWidget {
 
       Post postData = Post(
         createdBy: currentUserUid,
-        // createdFor: friendUid ?? currentUserUid,
+        createdFor: friendUid ?? currentUserUid,
         cover: capturedOutfit,
         creationDate: DateTime.now().millisecondsSinceEpoch,
         likes: [],
