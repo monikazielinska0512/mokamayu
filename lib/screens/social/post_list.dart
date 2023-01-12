@@ -24,19 +24,22 @@ class PostList extends StatefulWidget {
 class _PostListState extends State<PostList> {
   @override
   Widget build(BuildContext context) {
-    return widget.postList.isNotEmpty ? buildFeed() : buildEmpty();
+   return widget.postList.isNotEmpty
+      ? buildFeed()
+      : buildEmpty();
   }
 
   Widget buildFeed() {
     List<TextEditingController> myController =
-        List.generate(widget.postList.length, (i) => TextEditingController());
+    List.generate(widget.postList.length, (i) => TextEditingController());
     return ListView.separated(
         itemBuilder: (BuildContext context, int index) {
           return Container(
             width: MediaQuery.of(context).size.width * 0.45,
             decoration: BoxDecoration(
-                color: ColorsConstants.whiteAccent,
-                borderRadius: BorderRadius.circular(20)),
+              color: ColorsConstants.whiteAccent,
+              borderRadius: BorderRadius.circular(20)
+            ),
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
             child: GestureDetector(
               onTap: () {},
@@ -66,31 +69,54 @@ class _PostListState extends State<PostList> {
                                       .profilePicture!,
                                   fit: BoxFit.fill)
                               : Image.asset(Assets.avatarPlaceholder,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7),
+                              width: MediaQuery.of(context).size.width * 0.7),
                         ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                              widget.userList
+                          Row(
+                            children: [
+                              Text(
+                                  widget.userList
+                                              .singleWhere((element) =>
+                                                  element.uid ==
+                                                  widget.postList[index].createdBy)
+                                              .profileName !=
+                                          null
+                                      ? widget.userList
                                           .singleWhere((element) =>
                                               element.uid ==
                                               widget.postList[index].createdBy)
-                                          .profileName !=
-                                      null
-                                  ? widget.userList
-                                      .singleWhere((element) =>
-                                          element.uid ==
-                                          widget.postList[index].createdBy)
-                                      .profileName!
-                                  : widget.userList
-                                      .singleWhere((element) =>
-                                          element.uid ==
-                                          widget.postList[index].createdBy)
-                                      .username,
-                              style: TextStyles.paragraphRegularSemiBold16()),
+                                          .profileName!
+                                      : widget.userList
+                                          .singleWhere((element) =>
+                                              element.uid ==
+                                              widget.postList[index].createdBy)
+                                          .username,
+                                  style: TextStyles.paragraphRegularSemiBold16()),
+
+                            // if(widget.postList[index].createdFor != widget.postList[index].createdBy)
+                            //    Text(
+                            //     widget.userList
+                            //         .singleWhere((element) =>
+                            //     element.uid ==
+                            //         widget.postList[index].createdFor)
+                            //         .profileName !=
+                            //         null
+                            //         ? widget.userList
+                            //         .singleWhere((element) =>
+                            //     element.uid ==
+                            //         widget.postList[index].createdFor)
+                            //         .profileName!
+                            //         : widget.userList
+                            //         .singleWhere((element) =>
+                            //     element.uid ==
+                            //         widget.postList[index].createdFor)
+                            //         .username,
+                            //     style: TextStyles.paragraphRegularSemiBold16()),
+                            ],
+                          ),
                           Text(
                               "Posted ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.postList[index].creationDate))}",
                               style: TextStyles.paragraphRegular14(
@@ -124,7 +150,7 @@ class _PostListState extends State<PostList> {
                                                 widget.postList[index].likes!);
                                         setState(() {});
                                       },
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.favorite,
                                         color: ColorsConstants.darkBrick,
                                       ))
@@ -140,13 +166,19 @@ class _PostListState extends State<PostList> {
                                                 widget
                                                     .postList[index].createdBy,
                                                 widget.postList[index].likes!);
+                                        CustomNotification notif = CustomNotification(
+                                            sentFrom: AuthService().getCurrentUserID(),
+                                            type: NotificationType.LIKE.toString(),
+                                            creationDate: DateTime.now().millisecondsSinceEpoch
+                                        );
+                                        Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, widget.postList[index].createdBy);
                                         setState(() {});
                                       },
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.favorite_border,
                                         color: ColorsConstants.darkBrick,
                                       ))
-                              : Icon(
+                              : const Icon(
                                   Icons.favorite_border,
                                   color: ColorsConstants.darkBrick,
                                 ),
@@ -159,15 +191,14 @@ class _PostListState extends State<PostList> {
                     controller: myController[index],
                     onSubmitted: (String comment) {
                       print("add comment");
-                      widget.postList[index].comments!.add({
-                        "author": AuthService().getCurrentUserID(),
-                        "content": comment
-                      });
-                      Provider.of<PostManager>(context, listen: false)
-                          .commentPost(
-                              widget.postList[index].reference!,
-                              widget.postList[index].createdBy,
-                              widget.postList[index].comments!);
+                      widget.postList[index].comments!.add({"author": AuthService().getCurrentUserID(), "content": comment});
+                      Provider.of<PostManager>(context, listen: false).commentPost(widget.postList[index].reference!, widget.postList[index].createdBy, widget.postList[index].comments!);
+                      CustomNotification notif = CustomNotification(
+                          sentFrom: AuthService().getCurrentUserID(),
+                          type: NotificationType.COMMENT.toString(),
+                          creationDate: DateTime.now().millisecondsSinceEpoch
+                      );
+                      Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, widget.postList[index].createdBy);
                       myController[index].clear();
                       setState(() {});
                     },

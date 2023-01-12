@@ -106,6 +106,12 @@ class _PostScreenState extends State<PostScreen> {
                                     widget.post.likes!.add(AuthService().getCurrentUserID());
                                     Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdBy, widget.post.likes!);
                                     setState(() {});
+                                    CustomNotification notif = CustomNotification(
+                                        sentFrom: AuthService().getCurrentUserID(),
+                                        type: NotificationType.COMMENT.toString(),
+                                        creationDate: DateTime.now().millisecondsSinceEpoch
+                                    );
+                                    Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, widget.post.createdBy);
                                     },
                                   icon: const Icon(Icons.favorite_border, color: ColorsConstants.darkBrick,))
                               : const Icon(Icons.favorite_border, color: ColorsConstants.darkBrick,),
@@ -163,13 +169,19 @@ class _PostScreenState extends State<PostScreen> {
                       Provider.of<PostManager>(context, listen: false)
                           .commentPost(widget.post.reference!,
                               widget.post.createdBy, widget.post.comments!);
+                      CustomNotification notif = CustomNotification(
+                          sentFrom: AuthService().getCurrentUserID(),
+                          type: NotificationType.COMMENT.toString(),
+                          creationDate: DateTime.now().millisecondsSinceEpoch
+                      );
+                      Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, widget.post.createdBy);
                       myController.clear();
                       setState(() {});
                     },
                     decoration: const InputDecoration(
                       hintText: "Comment post",
                       filled: true,
-                      fillColor: ColorsConstants.white,
+                      fillColor: ColorsConstants.whiteAccent,
                       suffixIcon: Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: ColorsConstants.darkBrick,

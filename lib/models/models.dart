@@ -6,3 +6,4 @@ export 'outfit.dart';
 export 'outfit_container.dart';
 export 'post.dart';
 export 'friendship_status.dart';
+export 'notification.dart';

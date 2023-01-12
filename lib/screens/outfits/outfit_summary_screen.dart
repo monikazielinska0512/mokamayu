@@ -180,15 +180,29 @@ class OutfitSummaryScreen extends StatelessWidget {
 
       Post postData = Post(
         createdBy: currentUserUid,
+        // createdFor: friendUid ?? currentUserUid,
         cover: capturedOutfit,
         creationDate: DateTime.now().millisecondsSinceEpoch,
         likes: [],
         comments: [],
       );
-      String postOwnerUid =
-          isCreatingOutfitForFriend ? friendUid! : currentUserUid;
-      Provider.of<PostManager>(context, listen: false)
-          .addPostToFirestore(postData, postOwnerUid);
+
+      CustomNotification notif = CustomNotification(
+          sentFrom: currentUserUid,
+          type: NotificationType.NEW_OUTFIT.toString(),
+          creationDate: DateTime.now().millisecondsSinceEpoch
+      );
+
+      isCreatingOutfitForFriend
+      ? {
+          Provider.of<PostManager>(context, listen: false)
+              .addPostToFirestore(postData, friendUid!),
+          Provider.of<NotificationsManager>(context, listen: false)
+              .addNotificationToFirestore(notif, friendUid!)
+        }
+      : Provider.of<PostManager>(context, listen: false)
+          .addPostToFirestore(postData, currentUserUid);
+
       postList =
           Provider.of<PostManager>(context, listen: false).readPostsOnce();
       Provider.of<PostManager>(context, listen: false).getCurrentUserPosts();

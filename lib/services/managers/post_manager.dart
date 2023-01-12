@@ -11,7 +11,7 @@ class PostManager extends ChangeNotifier {
   Future<List<Post>>? futurePostList;
   Future<List<Post>>? get getPostList => futurePostList;
 
-  Future<List<Post>>? get getFutureCurrentUserPostList async =>
+  Future<List<Post>>? get getFinalCurrentUserPostList async =>
       finalCurrentUserPostList;
 
   List<Post> get getFinalPostList => finalPostList;
@@ -29,9 +29,7 @@ class PostManager extends ChangeNotifier {
     List<Post> postList = [];
     for (var element in snapshot.docs) {
       Post item = Post.fromSnapshot(element);
-      if (item.createdBy != AuthService().getCurrentUserID()) {
-        postList.add(item);
-      }
+      postList.add(item);
     }
     finalPostList = postList;
     return finalPostList;
@@ -44,14 +42,30 @@ class PostManager extends ChangeNotifier {
     return snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
   }
 
+  Future<Post?> getPostByUid(String uid) async {
+    final docRef = db
+        .collection("users")
+        .doc(AuthService().getCurrentUserID())
+        .collection("posts")
+        .doc(uid);
+    docRef.get().then(
+          (DocumentSnapshot doc) {
+        return doc;
+      },
+      onError: (e) => print("Error getting document: $e"),
+    );
+    return null;
+  }
+
   Future<List<Post>>? getCurrentUserPosts() async {
     QuerySnapshot snapshot = await db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
         .collection('posts')
         .get();
-    finalCurrentUserPostList =
-        snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
+    var list = snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
+    list.sort((b, a) => a.creationDate.compareTo(b.creationDate));
+    finalCurrentUserPostList = list;
     return finalCurrentUserPostList;
   }
 
@@ -66,13 +80,13 @@ class PostManager extends ChangeNotifier {
   }
 
   List<Post> readFeedPostsOnce(List<String> friendList, List<Post> postList) {
-
     List<Post> list = [];
     for (var element in postList) {
       if (friendList.contains(element.createdBy)) {
         list.add(element);
       }
     }
+    list.sort((b, a) => a.creationDate.compareTo(b.creationDate));
     friendsPostList = list;
     return friendsPostList;
   }
