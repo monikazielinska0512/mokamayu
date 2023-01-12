@@ -9,6 +9,19 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/assets.dart';
 
+import '../../generated/l10n.dart';
+import '../../widgets/fields/search_text_field.dart';
+
+extension StringCasingExtension on String {
+  String toCapitalized() =>
+      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
+      .split(' ')
+      .map((str) => str.toCapitalized())
+      .join(' ');
+}
+
 class UsersScreen extends StatefulWidget {
   const UsersScreen({Key? key}) : super(key: key);
 
@@ -28,12 +41,14 @@ class _UsersScreenState extends State<UsersScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<UserListManager>(context, listen: false).readUserOnce()
-      .then((List<UserData> temp){
-        temp.removeWhere((element) => element.uid == AuthService().getCurrentUserID());
-        setState(() => userList = temp);
-        setState(() => _foundUsers = userList );
-      });
+    Provider.of<UserListManager>(context, listen: false)
+        .readUserOnce()
+        .then((List<UserData> temp) {
+      temp.removeWhere(
+          (element) => element.uid == AuthService().getCurrentUserID());
+      setState(() => userList = temp);
+      setState(() => _foundUsers = userList);
+    });
   }
 
   void _runFilter(String enteredKeyword) {
@@ -43,14 +58,22 @@ class _UsersScreenState extends State<UsersScreen> {
       results = userList;
     } else {
       results = userList
-          .where((user) =>
-          user.profileName != null
-          ? user.username.toLowerCase().contains(enteredKeyword.toLowerCase())
-              || user.email.toLowerCase().contains(enteredKeyword.toLowerCase())
-              || user.profileName!.toLowerCase().contains(enteredKeyword.toLowerCase())
-          : user.username.toLowerCase().contains(enteredKeyword.toLowerCase())
-              || user.email.toLowerCase().contains(enteredKeyword.toLowerCase())
-          )
+          .where((user) => user.profileName != null
+              ? user.username
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()) ||
+                  user.email
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()) ||
+                  user.profileName!
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase())
+              : user.username
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()) ||
+                  user.email
+                      .toLowerCase()
+                      .contains(enteredKeyword.toLowerCase()))
           .toList();
     }
 
@@ -60,12 +83,12 @@ class _UsersScreenState extends State<UsersScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
-      title: 'find-users',
+      isFullScreen: false,
+      title: 'Users',
       leftButton: BackArrowButton(context),
       rightButton: NotificationsButton(context),
       body: Stack(
@@ -74,26 +97,23 @@ class _UsersScreenState extends State<UsersScreen> {
             children: [
               Column(children: [
                 SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.07,
-
-                    child: TextField(
-                        onChanged: (value) => _runFilter(value),
-                        decoration: const InputDecoration(
-                          hintText: "Find user",
-                        ))
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: MediaQuery.of(context).size.height * 0.07,
+                  child: TextField(
+                      onChanged: (value) => _runFilter(value),
+                      decoration: SearchBarStyle(S.of(context).search_friend)),
                 ),
                 const SizedBox(height: 15),
               ]),
               Container(
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.centerLeft,
-                  child: Text("Found ${_foundUsers.length} results")
-              ),
+                  child: Text(
+                    "${S.of(context).found} ${_foundUsers.length} ${S.of(context).results}",
+                    style: TextStyles.paragraphRegularSemiBold14(ColorsConstants.darkBrick),
+                  )),
               Expanded(
-                child: _foundUsers.isNotEmpty
-                  ? buildList()
-                : buildEmpty(),
+                child: _foundUsers.isNotEmpty ? buildList() : buildEmpty(),
               ),
             ],
           ),
@@ -104,7 +124,7 @@ class _UsersScreenState extends State<UsersScreen> {
 
   Widget buildList() {
     return ListView.separated(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(4),
       itemCount: _foundUsers.length,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
@@ -118,33 +138,42 @@ class _UsersScreenState extends State<UsersScreen> {
             },
             child: Container(
                 height: MediaQuery.of(context).size.height * 0.13,
-                decoration: BoxDecoration(color: ColorsConstants.whiteAccent, borderRadius: BorderRadius.circular(14)),
-                child: Row(
-                    children: [
-                      ClipRRect(
+                decoration: BoxDecoration(
+                    color: ColorsConstants.whiteAccent,
+                    borderRadius: BorderRadius.circular(14)),
+                child: Row(children: [
+                  Padding(
+                      padding: EdgeInsets.only(right: 10, left: 10),
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(14), // Image border
                         child: SizedBox.fromSize(
-                          size: Size.square(MediaQuery.of(context).size.height*0.1),
+                          size: Size.square(
+                              MediaQuery.of(context).size.height * 0.1),
                           child: _foundUsers[index].profilePicture != null
-                              ? Image.network(_foundUsers[index].profilePicture!,
-                              fit: BoxFit.fill)
+                              ? Image.network(
+                                  _foundUsers[index].profilePicture!,
+                                  fit: BoxFit.fill)
                               : Image.asset(Assets.avatarPlaceholder,
-                              fit: BoxFit.fill),
+                                  fit: BoxFit.fill),
                         ),
-                      ),
-                      _foundUsers[index].profileName != null
-                          ? Text(_foundUsers[index].profileName!, style: TextStyles.paragraphRegularSemiBold18(Colors.black),)
-                          : Text("@${_foundUsers[index].username}", style: TextStyles.paragraphRegularSemiBold18(Colors.black)),
-                    ]
-                )
-            )
-        );
+                      )),
+                  _foundUsers[index].profileName != null
+                      ? Text(
+                          _foundUsers[index].profileName!,
+                          style: TextStyles.paragraphRegularSemiBold18(
+                              Colors.black),
+                        )
+                      : Text(_foundUsers[index].username.toCapitalized(),
+                          style: TextStyles.paragraphRegularSemiBold18(
+                              Colors.black)),
+                ])));
       },
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
+      separatorBuilder: (BuildContext context, int index) =>
+          Container(height: 10),
     );
   }
 
-  Widget buildEmpty(){
+  Widget buildEmpty() {
     return Column(
       children: [
         SizedBox(
@@ -160,16 +189,12 @@ class _UsersScreenState extends State<UsersScreen> {
           height: MediaQuery.of(context).size.height * 0.6,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/mountains.png"),
-              fit: BoxFit.fitWidth,
-              opacity: 0.5
-            ),
+                image: AssetImage("assets/images/mountains.png"),
+                fit: BoxFit.fitWidth,
+                opacity: 0.5),
           ),
         ),
       ],
     );
   }
 }
-
-
-

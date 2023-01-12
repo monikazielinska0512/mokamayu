@@ -63,7 +63,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                               color: Colors.grey,
                             ),
                             Padding(
-                                padding: EdgeInsets.all(30),
+                                padding: const EdgeInsets.all(30),
                                 child: Text(S.of(context).empty_wardrobe,
                                     textAlign: TextAlign.center,
                                     style: TextStyles.paragraphRegular14(
@@ -149,7 +149,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                             color: Colors.grey,
                           ),
                           Padding(
-                              padding: EdgeInsets.all(30),
+                              padding: const EdgeInsets.all(30),
                               child: Text(S.of(context).empty_outfits,
                                   textAlign: TextAlign.center,
                                   style: TextStyles.paragraphRegular14(

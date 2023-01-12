@@ -101,7 +101,7 @@ class _RequestsScreenState extends State<RequestsScreen> {
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.centerLeft,
                   child: _foundRequests.isNotEmpty
-                      ? Text("Found ${_foundRequests.length} results")
+                      ? Text("${S.of(context).found} ${_foundRequests.length} ${S.of(context).results}")
                       : Container())),
           _foundRequests.isNotEmpty
               ? buildList()

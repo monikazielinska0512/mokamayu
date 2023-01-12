@@ -32,11 +32,7 @@ class PhotoCardOutfit extends StatelessWidget {
         type == null ? tapOutfit(context, map) : tapOutfitCalendar(context);
       },
       child: Card(
-        elevation: type != null
-            ? selected == false
-                ? 2
-                : 15
-            : 2,
+        elevation: 0,
         shadowColor: selected == false
             ? ColorsConstants.white
             : ColorsConstants.darkBrick,

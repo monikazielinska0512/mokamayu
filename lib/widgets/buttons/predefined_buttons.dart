@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:unicons/unicons.dart';
 
 import 'icon_button.dart';
 
@@ -23,11 +24,14 @@ IconButton DotsButton(BuildContext context) {
 }
 
 Widget NotificationsButton(BuildContext context) {
-  return CustomIconButton(
-      onPressed: () => context.push('/notifications'),
-      icon: Ionicons.notifications_outline,
-      backgroundColor: Colors.transparent,
-      iconColor: Colors.black);
+  return Padding(
+      padding: const EdgeInsets.only(right: 15),
+      child: CustomIconButton(
+          width: 0.12,
+          onPressed: () => context.push('/notifications'),
+          icon: Ionicons.notifications_outline,
+          backgroundColor: Colors.transparent,
+          iconColor: Colors.black));
 }
 
 Widget AddButton(BuildContext context, Function() onPressed) {
@@ -42,18 +46,20 @@ Widget AddButton(BuildContext context, Function() onPressed) {
 }
 
 Widget SearchNotificationButton(BuildContext context) {
-  return Row(children: [
-    CustomIconButton(
-        onPressed: () => context.push('/find-users'),
-        icon: Icons.search,
-        backgroundColor: Colors.transparent,
-        iconColor: Colors.grey),
-    CustomIconButton(
-        onPressed: () => context.push('/notifications'),
-        icon: Icons.notifications,
-        backgroundColor: Colors.transparent,
-        iconColor: Colors.grey)
-  ]);
+  return Padding(
+      padding: const EdgeInsets.only(right: 15),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomIconButton(
+                width: 0.12,
+                onPressed: () => context.push('/find-users'),
+                icon: Ionicons.search_outline,
+                backgroundColor: Colors.transparent,
+                iconColor: Colors.black),
+            NotificationsButton(context)
+          ]));
 }
 
 Widget GoForwardButton(Function() onPressed) {

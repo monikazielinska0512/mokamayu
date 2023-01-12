@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
@@ -54,7 +55,6 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-
                   Expanded(
                       child: Wrap(children: [
                     MultiSelectChip(OutfitTags.styles,
@@ -71,11 +71,17 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
                       child: FilterModal(
                           height: 0.038,
                           onApplyOutfits: (selectedList) =>
-                          {outfitsListCopy = selectedList}))
+                              {outfitsListCopy = selectedList}))
                 ]),
             SizedBox(height: MediaQuery.of(context).size.height * 0.007),
             Expanded(
-                child: PhotoGrid(outfitsList: outfitsListCopy ?? outfitsList))
+                child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        color: ColorsConstants.darkPeach.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12)),
+                    child:
+                        PhotoGrid(outfitsList: outfitsListCopy ?? outfitsList)))
           ]),
           buildFloatingButton(),
         ]));

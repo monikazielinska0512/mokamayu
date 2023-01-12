@@ -52,7 +52,7 @@ class _SocialScreenState extends State<SocialScreen> {
         .readFeedPostsOnce(friendList, postList);
 
     return BasicScreen(
-      title: "social",
+      title: "Social",
       leftButton: DotsButton(context),
       rightButton: SearchNotificationButton(context),
       context: context,
