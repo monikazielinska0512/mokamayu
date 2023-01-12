@@ -9,7 +9,7 @@ IconButton BackArrowButton(BuildContext context, {String? backPath}) {
     onPressed: () {
       backPath != null ? context.go(backPath) : context.pop();
     },
-    icon: const Icon(Icons.arrow_back_ios),
+    icon: const Icon(Ionicons.chevron_back, size: 35),
   );
 }
 
@@ -36,17 +36,9 @@ Widget AddButton(BuildContext context, Function() onPressed) {
     iconSize: 30,
     onPressed: onPressed,
     icon: const Icon(
-      Icons.add,
+      Ionicons.add,
     ),
   );
-}
-
-Widget SearchButton() {
-  return CustomIconButton(onPressed: () {}, icon: Icons.search);
-}
-
-Widget DeleteButton() {
-  return CustomIconButton(onPressed: () {}, icon: Icons.delete);
 }
 
 Widget SearchNotificationButton(BuildContext context) {
@@ -69,7 +61,7 @@ Widget GoForwardButton(Function() onPressed) {
     color: Colors.black,
     onPressed: onPressed,
     icon: const Icon(
-      Icons.arrow_forward_ios,
+      Icons.arrow_forward,
     ),
   );
 }

@@ -7,6 +7,7 @@ import 'package:mokamayu/widgets/fields/search_text_field.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
 import '../../widgets/buttons/predefined_buttons.dart';
 
 class WardrobeScreen extends StatefulWidget {
@@ -49,7 +50,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
             .of<WardrobeManager>(context, listen: true)
             .getWardrobeItemList;
     return BasicScreen(
-        title: "wardrobe",
+        title: S.of(context).wardrobe,
         leftButton: DotsButton(context),
         backgroundColor: Colors.transparent,
         rightButton: NotificationsButton(context),

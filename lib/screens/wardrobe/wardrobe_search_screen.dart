@@ -30,7 +30,7 @@ class _WardrobeItemSearchScreenState extends State<WardrobeItemSearchScreen> {
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
-      title: "wardrobe-item-search",
+      title: "",
       rightButton: null,
       leftButton: BackArrowButton(context),
       body: Column(

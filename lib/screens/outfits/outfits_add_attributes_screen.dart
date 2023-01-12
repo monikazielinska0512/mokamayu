@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/screens/outfits/outfit_form.dart';
@@ -118,9 +119,17 @@ class _OutfitsAddAttributesScreenState
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          Screenshot(
-                              controller: screenshotController,
-                              child: DragTargetContainer(map: widget.map)),
+                          Container(
+                              decoration: BoxDecoration(
+                                color: ColorsConstants.whiteAccent,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Screenshot(
+                                      controller: screenshotController,
+                                      child: DragTargetContainer(
+                                          map: widget.map)))),
                           Expanded(
                               child: SizedBox(
                                   child: Padding(
@@ -133,105 +142,119 @@ class _OutfitsAddAttributesScreenState
   }
 
   Widget buildAddSaveButton() {
-    return IconButton(
-      icon: const Icon(
-        Icons.add,
-        size: 30,
-      ),
-      onPressed: () {
-        screenshotController.capture().then((capturedImage) async {
-          setState(() {
-            widget.capturedOutfit = capturedImage;
-          });
+    return Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: IconButton(
+          icon: item != null
+              ? const Icon(
+                  Ionicons.arrow_forward,
+                  size: 35,
+                )
+              : const Icon(
+                  Ionicons.add,
+                  size: 35,
+                ),
+          onPressed: () {
+            screenshotController.capture().then((capturedImage) async {
+              setState(() {
+                widget.capturedOutfit = capturedImage;
+              });
 
-          File imagePath;
-          if (item == null) {
-            final directory = await getApplicationDocumentsDirectory();
-            imagePath =
-                await File('${directory.path}/image${const Uuid().v4()}.png')
+              File imagePath;
+              if (item == null) {
+                final directory = await getApplicationDocumentsDirectory();
+                imagePath = await File(
+                        '${directory.path}/image${const Uuid().v4()}.png')
                     .create();
-          } else {
-            final directory = await getApplicationDocumentsDirectory();
-            imagePath =
-                await File('${directory.path}/image${item!.reference}.png')
-                    .create();
-          }
-          Uint8List? capturedOutfit = widget.capturedOutfit;
-          await imagePath.writeAsBytes(capturedOutfit!);
+              } else {
+                final directory = await getApplicationDocumentsDirectory();
+                imagePath =
+                    await File('${directory.path}/image${item!.reference}.png')
+                        .create();
+              }
+              Uint8List? capturedOutfit = widget.capturedOutfit;
+              await imagePath.writeAsBytes(capturedOutfit!);
 
-          // ignore: use_build_context_synchronously
-          String url =
-              await StorageService().uploadFile(context, imagePath.path);
+              // ignore: use_build_context_synchronously
+              String url = await StorageService().uploadFile(context, imagePath.path);
 
-          // ignore: use_build_context_synchronously
-          Provider.of<PhotoTapped>(context, listen: false).setScreenshot(url);
-          // ignore: use_build_context_synchronously
-          Provider.of<WardrobeManager>(context, listen: false)
-              .nullListItemCopy();
-          // ignore: use_build_context_synchronously
-          Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-          // ignore: use_build_context_synchronously
-          if (mounted) {
-            if (widget.isCreatingOutfitForFriend) {
-              context.pushNamed("outfit-summary-screen",
-                  extra: widget.map,
-                  queryParams: {'friendUid': widget.friendUid});
-            } else {
-              context.pushNamed("outfit-summary-screen", extra: widget.map);
-            }
-          }
-        }).catchError((onError) {
-          if (kDebugMode) {
-            print(onError);
-          }
-        });
-      },
-    );
+              // ignore: use_build_context_synchronously
+              Provider.of<PhotoTapped>(context, listen: false)
+                  .setScreenshot(url);
+              // ignore: use_build_context_synchronously
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .nullListItemCopy();
+              // ignore: use_build_context_synchronously
+              Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
+              // ignore: use_build_context_synchronously
+              if (mounted) {
+                if (widget.isCreatingOutfitForFriend) {
+                  context.pushNamed("outfit-summary-screen",
+                      extra: widget.map,
+                      queryParams: {'friendUid': widget.friendUid});
+                } else {
+                  context.pushNamed("outfit-summary-screen", extra: widget.map);
+                }
+              }
+            }).catchError((onError) {
+              if (kDebugMode) {
+                print(onError);
+              }
+            });
+          },
+        ));
   }
 
   Widget buildRemoveButton() {
     return IconButton(
-      icon: const Icon(
-        Icons.delete_outline,
-      ),
-      onPressed: () {
-        //Outfit removed
-        Provider.of<OutfitManager>(context, listen: false)
-            .removeOutfit(item?.reference);
-        context.go("/home/1");
-        Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
-        Provider.of<OutfitManager>(context, listen: false).nullListItemCopy();
-        Provider.of<OutfitManager>(context, listen: false).resetTagLists();
+        icon: const Icon(
+          Ionicons.trash_outline,
+          size: 30,
+        ),
+        onPressed: () {
+          //Outfit removed
+          Provider.of<OutfitManager>(context, listen: false)
+              .removeOutfit(item?.reference);
+          context.go("/home/1");
+          Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
+          Provider.of<OutfitManager>(context, listen: false).nullListItemCopy();
+          Provider.of<OutfitManager>(context, listen: false).resetTagLists();
 
-        //checking if outfit was in any event, if so, then delete event from calendar
-        Map<DateTime, List<Event>> events =
-            Provider.of<CalendarManager>(context, listen: false).getEvents;
+          //checking if outfit was in any event, if so, then delete event from calendar
+          Map<DateTime, List<Event>> events =
+              Provider.of<CalendarManager>(context, listen: false).getEvents;
 
-        List<Event> eventsToRemove = [];
+          List<Event> eventsToRemove = [];
 
-        events.forEach((key, value) {
-          for (var element in value) {
-            if (element.outfit == item) {
-              eventsToRemove.add(element);
+          events.forEach((key, value) {
+            for (var element in value) {
+              if (element.outfit == item) {
+                eventsToRemove.add(element);
+              }
             }
+          });
+
+          for (var element in eventsToRemove) {
+            Provider.of<CalendarManager>(context, listen: false)
+                .removeEvent(element);
           }
-        });
 
-        for (var element in eventsToRemove) {
+          events =
+              Provider.of<CalendarManager>(context, listen: false).getEvents;
+
           Provider.of<CalendarManager>(context, listen: false)
-              .removeEvent(element);
-        }
+              .setSelectedEvents(events);
+          Map<String, String> encodedEvents = encodeMap(events);
 
-        events = Provider.of<CalendarManager>(context, listen: false).getEvents;
+          Provider.of<AppStateManager>(context, listen: false)
+              .cacheEvents(encodedEvents);
 
-        Provider.of<CalendarManager>(context, listen: false)
-            .setSelectedEvents(events);
-        Map<String, String> encodedEvents = encodeMap(events);
-
-        Provider.of<AppStateManager>(context, listen: false)
-            .cacheEvents(encodedEvents);
-      },
-    );
+          Future<List<Outfit>>? outfitsList =
+              Provider.of<OutfitManager>(context, listen: false)
+                  .readOutfitsOnce();
+          Provider.of<OutfitManager>(context, listen: false)
+              .setOutfits(outfitsList);
+        });
   }
 
   Widget buildBackButton() {
@@ -250,7 +273,7 @@ class _OutfitsAddAttributesScreenState
         Provider.of<OutfitManager>(context, listen: false).nullListItemCopy();
         Provider.of<OutfitManager>(context, listen: false).resetTagLists();
       },
-      icon: const Icon(Icons.arrow_back_ios),
+      icon: const Icon(Ionicons.chevron_back, size: 35),
     );
   }
 
@@ -309,20 +332,20 @@ class _OutfitsAddAttributesScreenState
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-      MultiSelectChip(Tags.getLanguagesTypes(context),
-          type: "type_main", chipsColor: ColorsConstants.darkPeach,
-          onSelectionChanged: (selectedList) {
-        selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
-      }),
-      SizedBox(
-        width: double.infinity,
-        height: 200,
-        child: PhotoGrid(
-          itemList: futureItemListCopy ?? itemList,
-          scrollVertically: false,
-        ),
-      ),
-    ]);
+          MultiSelectChip(Tags.getLanguagesTypes(context),
+              type: "type_main", chipsColor: ColorsConstants.darkPeach,
+              onSelectionChanged: (selectedList) {
+            selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
+          }),
+          SizedBox(
+            width: double.infinity,
+            height: 200,
+            child: PhotoGrid(
+              itemList: futureItemListCopy ?? itemList,
+              scrollVertically: false,
+            ),
+          ),
+        ]);
   }
 
   Widget buildCanvas() {
@@ -344,7 +367,7 @@ class _OutfitsAddAttributesScreenState
 
   Widget buildEditButtons() {
     return Padding(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,

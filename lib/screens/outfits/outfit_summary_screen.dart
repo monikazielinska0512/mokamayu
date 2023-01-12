@@ -42,67 +42,76 @@ class OutfitSummaryScreen extends StatelessWidget {
         title: "Summary",
         context: context,
         body: Column(children: [
-          Expanded(
-              child: ListView(
-            padding: const EdgeInsets.all(8),
-            children: map!.entries.map((entry) {
-              for (var element in itemList!) {
-                if (element.reference == entry.key[1]) {
-                  _elements.add(entry.key[1]);
-                }
-              }
-              return WardrobeItemCard(
-                  size: MediaQuery.of(context).size.width * 0.1,
-                  wardrobItem: itemList!.firstWhere(
-                      (item) => item.reference == entry.key[1],
-                      orElse: () => WardrobeItem(
-                          name: "Photo deleted :(",
-                          type: "",
-                          size: "",
-                          photoURL: "Photo deleted",
-                          styles: [],
-                          created: DateTime.now())));
-            }).toList(),
-          )),
-          Padding(
-              padding: const EdgeInsets.fromLTRB(20, 5, 0, 5),
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Tags",
-                    style: TextStyles.paragraphRegularSemiBold18(),
-                  ))),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: ChoiceChip(
-                label: Text(_season),
-                selected: true,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                backgroundColor: ColorsConstants.darkMint,
-                selectedColor: ColorsConstants.darkMint.withOpacity(0.2),
-              ),
-            ),
-          ),
-          Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: ChoiceChip(
-                  label: Text(_style),
-                  selected: true,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  backgroundColor: ColorsConstants.sunflower,
-                  selectedColor: ColorsConstants.sunflower.withOpacity(0.2),
-                ),
-              )),
+          buildList(context),
+          buildTags(),
           item != null ? EditButton(context, item) : SaveButton(context)
         ]),
         leftButton: BackArrowButton(context),
         rightButton: null);
+  }
+
+  Widget buildList(BuildContext context) {
+    return Expanded(
+        child: ListView(
+      padding: const EdgeInsets.all(8),
+      children: map!.entries.map((entry) {
+        for (var element in itemList!) {
+          if (element.reference == entry.key[1]) {
+            _elements.add(entry.key[1]);
+          }
+        }
+        return WardrobeItemCard(
+            size: MediaQuery.of(context).size.width * 0.1,
+            wardrobItem: itemList!.firstWhere(
+                (item) => item.reference == entry.key[1],
+                orElse: () => WardrobeItem(
+                    name: "Photo deleted :(",
+                    type: "",
+                    size: "",
+                    photoURL: "Photo deleted",
+                    styles: [],
+                    created: DateTime.now())));
+      }).toList(),
+    ));
+  }
+
+  Widget buildTags() {
+    return Column(children: [
+      Padding(
+          padding: const EdgeInsets.fromLTRB(20, 5, 0, 5),
+          child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Tags",
+                style: TextStyles.paragraphRegularSemiBold18(),
+              ))),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: ChoiceChip(
+              label: Text(_season, style: TextStyles.paragraphRegularSemiBold14(ColorsConstants.white)),
+              selected: true,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              selectedColor: ColorsConstants.darkMint,
+        )),
+      ),
+      Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: ChoiceChip(
+              label: Text(_style,
+                  style: TextStyles.paragraphRegularSemiBold14(
+                      ColorsConstants.white)),
+              selected: true,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              selectedColor: ColorsConstants.sunflower,
+            ),
+          ))
+    ]);
   }
 
   Widget EditButton(BuildContext context, Outfit item) {
@@ -176,18 +185,17 @@ class OutfitSummaryScreen extends StatelessWidget {
       CustomNotification notif = CustomNotification(
           sentFrom: currentUserUid,
           type: NotificationType.NEW_OUTFIT.toString(),
-          creationDate: DateTime.now().millisecondsSinceEpoch
-      );
+          creationDate: DateTime.now().millisecondsSinceEpoch);
 
       isCreatingOutfitForFriend
-      ? {
-          Provider.of<PostManager>(context, listen: false)
-              .addPostToFirestore(postData, friendUid!),
-          Provider.of<NotificationsManager>(context, listen: false)
-              .addNotificationToFirestore(notif, friendUid!)
-        }
-      : Provider.of<PostManager>(context, listen: false)
-          .addPostToFirestore(postData, currentUserUid);
+          ? {
+              Provider.of<PostManager>(context, listen: false)
+                  .addPostToFirestore(postData, friendUid!),
+              Provider.of<NotificationsManager>(context, listen: false)
+                  .addNotificationToFirestore(notif, friendUid!)
+            }
+          : Provider.of<PostManager>(context, listen: false)
+              .addPostToFirestore(postData, currentUserUid);
 
       postList =
           Provider.of<PostManager>(context, listen: false).readPostsOnce();

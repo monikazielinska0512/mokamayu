@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +57,7 @@ class CreateOutfitPage extends StatelessWidget {
             height: 0.87,
             child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    const EdgeInsets.symmetric(horizontal: 10),
                 child: Align(
                     alignment: AlignmentDirectional.topCenter,
                     child: SizedBox(
@@ -106,9 +107,11 @@ class CreateOutfitPage extends StatelessWidget {
 
 
   Widget buildAddButton(BuildContext context) {
-    return IconButton(
+    return
+      Padding(padding: EdgeInsets.only(right: 10), child:
+      IconButton(
       icon: const Icon(
-        Icons.add,
+        Ionicons.arrow_forward,
         size: 35,
       ),
       onPressed: () {
@@ -122,6 +125,6 @@ class CreateOutfitPage extends StatelessWidget {
           context.pushNamed("outfit-add-attributes-screen", extra: map);
         }
       },
-    );
+    ));
   }
 }

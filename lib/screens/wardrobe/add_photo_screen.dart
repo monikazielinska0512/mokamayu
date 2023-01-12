@@ -15,7 +15,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
   Widget build(BuildContext context) {
     final PhotoPicker picker = PhotoPicker();
     return BasicScreen(
-        title: "add_photo",
+        title: "",
         rightButton: null,
         leftButton: BackArrowButton(context),
         context: context,
