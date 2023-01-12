@@ -53,6 +53,7 @@ class _MyAppState extends State<MyApp> {
   late final _userListManager = UserListManager();
   late final _postManager = PostManager();
   late final _friendsManager = FriendsManager();
+  late final _notificationsManager = NotificationsManager();
 
   late final _appRouter = AppRouter(
       widget.appStateManager,
@@ -61,7 +62,8 @@ class _MyAppState extends State<MyApp> {
       _outfitManager,
       _userListManager,
       _postManager,
-      _friendsManager);
+      _friendsManager,
+      _notificationsManager);
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +83,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => PostManager()),
         ChangeNotifierProvider(create: (_) => FriendsManager()),
         ChangeNotifierProvider(create: (_) => WeatherManager()),
+        ChangeNotifierProvider(create: (_) => NotificationsManager()),
       ],
       child: MaterialApp.router(
         routerDelegate: router.routerDelegate,

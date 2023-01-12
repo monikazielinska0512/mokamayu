@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
@@ -78,10 +79,55 @@ class _PostScreenState extends State<PostScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.user.profileName != null
-                              ? widget.user.profileName!
-                              : widget.user.username,
-                              style: TextStyles.paragraphRegularSemiBold16()),
+                          widget.post.createdFor == widget.post.createdBy
+                              ? GestureDetector(
+                            onTap: () {
+                              context.pushNamed(
+                                "profile",
+                                queryParams: {
+                                  'uid': widget.post.createdBy,
+                                },
+                              );
+                            },
+                            child: Text(
+                                widget.userList.singleWhere((element) => element.uid == widget.post.createdBy).profileName != null
+                                    ? widget.userList.singleWhere((element) => element.uid == widget.post.createdBy).profileName!
+                                    : widget.userList.singleWhere((element) => element.uid == widget.post.createdBy).username,
+                                style: TextStyles.paragraphRegularSemiBold16()),
+                          )
+                              : Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  context.pushNamed(
+                                    "profile",
+                                    queryParams: {
+                                      'uid': widget.post.createdBy,
+                                    },
+                                  );
+                                },
+                                child: Text(widget.userList.singleWhere((element) => element.uid == widget.post.createdBy).profileName != null
+                                    ? widget.userList.singleWhere((element) => element.uid == widget.post.createdBy).profileName!
+                                    : widget.userList.singleWhere((element) => element.uid == widget.post.createdBy).username,
+                                    style: TextStyles.paragraphRegularSemiBold16()),
+                              ),
+                              Text(" for ", style: TextStyles.paragraphRegular16()),
+                              GestureDetector(
+                                onTap: () {
+                                  context.pushNamed(
+                                    "profile",
+                                    queryParams: {
+                                      'uid': widget.post.createdFor,
+                                    },
+                                  );
+                                },
+                                child:Text(widget.userList.singleWhere((element) => element.uid == widget.post.createdFor).profileName != null
+                                    ? widget.userList.singleWhere((element) => element.uid == widget.post.createdFor).profileName!
+                                    : widget.userList.singleWhere((element) => element.uid == widget.post.createdFor).username,
+                                    style: TextStyles.paragraphRegularSemiBold16()),
+                              ),
+                            ],
+                          ),
                           Text("Posted ${
                               DateFormat('dd/MM/yyyy HH:mm')
                                   .format(DateTime.fromMillisecondsSinceEpoch(widget.post.creationDate))}",
@@ -108,6 +154,12 @@ class _PostScreenState extends State<PostScreen> {
                                     widget.post.likes!.add(AuthService().getCurrentUserID());
                                     Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdBy, widget.post.likes!);
                                     setState(() {});
+                                    CustomNotification notif = CustomNotification(
+                                        sentFrom: AuthService().getCurrentUserID(),
+                                        type: NotificationType.COMMENT.toString(),
+                                        creationDate: DateTime.now().millisecondsSinceEpoch
+                                    );
+                                    Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, widget.post.createdBy);
                                     },
                                   icon: const Icon(Icons.favorite_border, color: ColorsConstants.darkBrick,))
                               : const Icon(Icons.favorite_border, color: ColorsConstants.darkBrick,),
@@ -115,6 +167,7 @@ class _PostScreenState extends State<PostScreen> {
                       ),
                     ],
                   ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                   Image.network(widget.post.cover, fit: BoxFit.fill),
                   widget.post.comments != null
                   ? Expanded(
@@ -165,13 +218,19 @@ class _PostScreenState extends State<PostScreen> {
                       Provider.of<PostManager>(context, listen: false)
                           .commentPost(widget.post.reference!,
                               widget.post.createdBy, widget.post.comments!);
+                      CustomNotification notif = CustomNotification(
+                          sentFrom: AuthService().getCurrentUserID(),
+                          type: NotificationType.COMMENT.toString(),
+                          creationDate: DateTime.now().millisecondsSinceEpoch
+                      );
+                      Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, widget.post.createdBy);
                       myController.clear();
                       setState(() {});
                     },
                     decoration: const InputDecoration(
                       hintText: "Comment post",
                       filled: true,
-                      fillColor: ColorsConstants.white,
+                      fillColor: ColorsConstants.whiteAccent,
                       suffixIcon: Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: ColorsConstants.darkBrick,

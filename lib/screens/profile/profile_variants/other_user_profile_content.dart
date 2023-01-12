@@ -64,9 +64,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
         {
           return IconTextButton(
             onPressed: () {
-              print("Remove");
-              Provider.of<ProfileManager>(context, listen: false)
-                  .removeFriend(friendData!);
+              return FriendDialogBox(friend: friendData!, isResponse: false,);
             },
             icon: Icons.check,
             text: "Friends",
@@ -94,7 +92,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   context: context,
                   useSafeArea: false,
                   builder: (BuildContext context) {
-                    return FriendDialogBox(friend: friendData!);
+                    return FriendDialogBox(friend: friendData!, isResponse: true,);
                   });
             },
             icon: Icons.mark_email_unread,

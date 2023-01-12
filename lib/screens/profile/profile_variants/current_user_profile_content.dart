@@ -32,7 +32,7 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
   @override
   void loadData() {
     futureUserPosts = Provider.of<PostManager>(context, listen: false)
-        .getFutureCurrentUserPostList;
+        .getFinalCurrentUserPostList;
   }
 
   @override
