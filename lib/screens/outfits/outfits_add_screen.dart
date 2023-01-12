@@ -40,7 +40,7 @@ class CreateOutfitPage extends StatelessWidget {
 
     return BasicScreen(
         title: S.of(context).create,
-        rightButton: null,
+        rightButton: buildAddButton(context),
         leftButton: BackArrowButton(context),
         context: context,
         isFullScreen: true,
@@ -86,31 +86,6 @@ class CreateOutfitPage extends StatelessWidget {
                                       scrollVertically: false,
                                     ))
                               ])),
-                              ButtonDarker(context, "Next", () {
-                                Provider.of<PhotoTapped>(context, listen: false)
-                                    .setObject(null);
-                                Provider.of<WardrobeManager>(context,
-                                        listen: false)
-                                    .nullListItemCopy();
-                                Provider.of<WardrobeManager>(context,
-                                        listen: false)
-                                    .setTypes([]);
-                                if (isCreatingOutfitForFriend) {
-                                  context.pushNamed(
-                                      "outfit-add-attributes-screen",
-                                      extra: map,
-                                      queryParams: {'friendUid': friendUid});
-                                } else {
-                                  context.pushNamed(
-                                      "outfit-add-attributes-screen",
-                                      extra: map);
-                                }
-                              },
-                                  shouldExpand: false,
-                                  width: 0.31,
-                                  height: 0.05,
-                                  margin:
-                                      const EdgeInsets.fromLTRB(0, 15, 0, 0))
                             ])))),
           )
         ]));
@@ -124,6 +99,28 @@ class CreateOutfitPage extends StatelessWidget {
       usingFriendsWardrobe: isCreatingOutfitForFriend,
       onSelectionChanged: (selectedList) {
         selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
+      },
+    );
+  }
+
+
+
+  Widget buildAddButton(BuildContext context) {
+    return IconButton(
+      icon: const Icon(
+        Icons.add,
+        size: 35,
+      ),
+      onPressed: () {
+        Provider.of<PhotoTapped>(context, listen: false).setObject(null);
+        Provider.of<WardrobeManager>(context, listen: false).nullListItemCopy();
+        Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
+        if (isCreatingOutfitForFriend) {
+          context.pushNamed("outfit-add-attributes-screen",
+              extra: map, queryParams: {'friendUid': friendUid});
+        } else {
+          context.pushNamed("outfit-add-attributes-screen", extra: map);
+        }
       },
     );
   }

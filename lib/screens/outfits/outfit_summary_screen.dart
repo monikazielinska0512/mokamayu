@@ -3,12 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:provider/provider.dart';
-
+import 'package:mokamayu/widgets/widgets.dart';
 import '../../constants/constants.dart';
 import '../../services/services.dart';
-import '../../widgets/buttons/buttons.dart';
-import '../../widgets/photo/photo.dart';
 
 class OutfitSummaryScreen extends StatelessWidget {
   OutfitSummaryScreen({super.key, this.map, this.friendUid}) {
@@ -39,36 +38,21 @@ class OutfitSummaryScreen extends StatelessWidget {
     _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
     _style = Provider.of<OutfitManager>(context, listen: false).getStyle!;
     Outfit? item = Provider.of<PhotoTapped>(context, listen: false).getObject;
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () {
-              Provider.of<OutfitManager>(context, listen: false)
-                  .setSeason(_season);
-              Provider.of<OutfitManager>(context, listen: false)
-                  .setStyle(_style);
-              context.pop();
-            },
-            icon: const Icon(Icons.arrow_back_ios),
-          ),
-          title: const Text("Outfit Summary",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        ),
+    return BasicScreen(
+        title: "Summary",
+        context: context,
         body: Column(children: [
           Expanded(
               child: ListView(
             padding: const EdgeInsets.all(8),
             children: map!.entries.map((entry) {
-              itemList!.forEach((element) {
+              for (var element in itemList!) {
                 if (element.reference == entry.key[1]) {
                   _elements.add(entry.key[1]);
                 }
-              });
+              }
               return WardrobeItemCard(
-                  size: 50,
+                  size: MediaQuery.of(context).size.width * 0.1,
                   wardrobItem: itemList!.firstWhere(
                       (item) => item.reference == entry.key[1],
                       orElse: () => WardrobeItem(
@@ -81,7 +65,7 @@ class OutfitSummaryScreen extends StatelessWidget {
             }).toList(),
           )),
           Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+              padding: const EdgeInsets.fromLTRB(20, 5, 0, 5),
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -89,7 +73,7 @@ class OutfitSummaryScreen extends StatelessWidget {
                     style: TextStyles.paragraphRegularSemiBold18(),
                   ))),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+            padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
             child: Align(
               alignment: Alignment.centerLeft,
               child: ChoiceChip(
@@ -103,7 +87,7 @@ class OutfitSummaryScreen extends StatelessWidget {
             ),
           ),
           Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: ChoiceChip(
@@ -116,7 +100,9 @@ class OutfitSummaryScreen extends StatelessWidget {
                 ),
               )),
           item != null ? EditButton(context, item) : SaveButton(context)
-        ]));
+        ]),
+        leftButton: BackArrowButton(context),
+        rightButton: null);
   }
 
   Widget EditButton(BuildContext context, Outfit item) {

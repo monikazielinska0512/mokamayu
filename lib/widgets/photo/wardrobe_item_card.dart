@@ -10,7 +10,6 @@ import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
 import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/calendar_manager.dart';
-import '../../services/managers/outfit_manager.dart';
 import '../../services/managers/photo_tapped_manager.dart';
 
 class WardrobeItemCard extends StatelessWidget {
@@ -53,97 +52,90 @@ class WardrobeItemCard extends StatelessWidget {
                       : Image.network(outfit!.cover, fit: BoxFit.fill)),
             ),
             wardrobItem != null
-                ? const SizedBox(
-                    width: 30,
-                  )
-                : const SizedBox(
-                    width: 20,
-                  ),
-            wardrobItem != null
                 ? Column(
-                    children: [
-                      Text(
-                        name!,
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.right,
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextButton(
-                          child: Text(
-                            S.of(context).see_details,
-                            style: TextStyle(
-                                color: ColorsConstants.darkBrick,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.right,
-                          ),
-                          onPressed: () => {
-                                context.pushNamed('wardrobe-item',
-                                    extra: wardrobItem)
-                              }),
-                    ],
-                  )
+              children: [
+                Text(
+                  name!,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.right,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextButton(
+                    child: Text(
+                      S.of(context).see_details,
+                      style: const TextStyle(
+                          color: ColorsConstants.darkBrick,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.right,
+                    ),
+                    onPressed: () => {
+                      context.pushNamed('wardrobe-item',
+                          extra: wardrobItem)
+                    }),
+              ],
+            )
                 : Column(children: [
-                    TextButton(
-                        child: Text(
-                          S.of(context).see_details,
-                          style: TextStyle(
-                              color: ColorsConstants.darkBrick,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.right,
-                        ),
-                        onPressed: () => {
-                              Provider.of<PhotoTapped>(context, listen: false)
-                                  .setObject(outfit),
-                              outfit!.map!.forEach((key, value) {
-                                Map<String, dynamic> contList =
-                                    json.decode(value);
-                                OutfitContainer list = OutfitContainer(
-                                    height: contList["height"],
-                                    rotation: contList["rotation"],
-                                    scale: contList["scale"],
-                                    width: contList["width"],
-                                    xPosition: contList["xPosition"],
-                                    yPosition: contList["yPosition"]);
-                                getMap!.addAll({json.decode(key): list});
-                              }),
-                              GoRouter.of(context).pushNamed(
-                                  "outfit-add-attributes-screen",
-                                  extra: getMap)
-                            }),
-                    GestureDetector(
-                        onTap: () {
-                          //remove selected outfit
-                          if (event == null) {
-                            Provider.of<CalendarManager>(context, listen: false)
-                                .selectOutfit(outfit, true);
-                            Provider.of<CalendarManager>(context, listen: false)
-                                .removeOutfit(outfit);
-                          } else {
-                            //delete outfit from calendar event
-                            Provider.of<CalendarManager>(context, listen: false)
-                                .removeEvent(event!);
-                            Map<DateTime, List<Event>> events =
-                                Provider.of<CalendarManager>(context,
-                                        listen: false)
-                                    .getEvents;
-                            Provider.of<CalendarManager>(context, listen: false)
-                                .setSelectedEvents(events);
-                            Map<String, String> encodedEvents =
-                                encodeMap(events);
+              TextButton(
+                  child: Text(
+                    S.of(context).see_details,
+                    style: TextStyle(
+                        color: ColorsConstants.darkBrick,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.right,
+                  ),
+                  onPressed: () => {
+                    Provider.of<PhotoTapped>(context, listen: false)
+                        .setObject(outfit),
+                    outfit!.map!.forEach((key, value) {
+                      Map<String, dynamic> contList =
+                      json.decode(value);
+                      OutfitContainer list = OutfitContainer(
+                          height: contList["height"],
+                          rotation: contList["rotation"],
+                          scale: contList["scale"],
+                          width: contList["width"],
+                          xPosition: contList["xPosition"],
+                          yPosition: contList["yPosition"]);
+                      getMap!.addAll({json.decode(key): list});
+                    }),
+                    GoRouter.of(context).pushNamed(
+                        "outfit-add-attributes-screen",
+                        extra: getMap)
+                  }),
+              GestureDetector(
+                  onTap: () {
+                    //remove selected outfit
+                    if (event == null) {
+                      Provider.of<CalendarManager>(context, listen: false)
+                          .selectOutfit(outfit, true);
+                      Provider.of<CalendarManager>(context, listen: false)
+                          .removeOutfit(outfit);
+                    } else {
+                      //delete outfit from calendar event
+                      Provider.of<CalendarManager>(context, listen: false)
+                          .removeEvent(event!);
+                      Map<DateTime, List<Event>> events =
+                          Provider.of<CalendarManager>(context,
+                              listen: false)
+                              .getEvents;
+                      Provider.of<CalendarManager>(context, listen: false)
+                          .setSelectedEvents(events);
+                      Map<String, String> encodedEvents =
+                      encodeMap(events);
 
-                            Provider.of<AppStateManager>(context, listen: false)
-                                .cacheEvents(encodedEvents);
-                          }
-                        },
-                        child: Image.asset(
-                          "assets/images/trash.png",
-                          fit: BoxFit.fitWidth,
-                          height: 35,
-                        ))
-                  ]),
+                      Provider.of<AppStateManager>(context, listen: false)
+                          .cacheEvents(encodedEvents);
+                    }
+                  },
+                  child: Image.asset(
+                    "assets/images/trash.png",
+                    fit: BoxFit.fitWidth,
+                    height: 35,
+                  ))
+            ]),
           ],
         ),
       ),

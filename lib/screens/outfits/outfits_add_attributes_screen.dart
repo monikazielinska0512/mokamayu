@@ -63,7 +63,7 @@ class _OutfitsAddAttributesScreenState
     return BasicScreen(
         isFullScreen: true,
         title: item != null
-            ? "Edit outfit"
+            ? "Edit"
             : "Create outfit${widget.friendUid != null ? " for ..." : ""}",
         context: context,
         body: item != null
@@ -136,7 +136,7 @@ class _OutfitsAddAttributesScreenState
     return IconButton(
       icon: const Icon(
         Icons.add,
-        size: 35,
+        size: 30,
       ),
       onPressed: () {
         screenshotController.capture().then((capturedImage) async {
@@ -190,50 +190,48 @@ class _OutfitsAddAttributesScreenState
   }
 
   Widget buildRemoveButton() {
-    return GestureDetector(
-        onTap: () {
-          //Outfit removed
-          Provider.of<OutfitManager>(context, listen: false)
-              .removeOutfit(item?.reference);
-          context.go("/home/1");
-          Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
-          Provider.of<OutfitManager>(context, listen: false).nullListItemCopy();
-          Provider.of<OutfitManager>(context, listen: false).resetTagLists();
+    return IconButton(
+      icon: const Icon(
+        Icons.delete_outline,
+      ),
+      onPressed: () {
+        //Outfit removed
+        Provider.of<OutfitManager>(context, listen: false)
+            .removeOutfit(item?.reference);
+        context.go("/home/1");
+        Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
+        Provider.of<OutfitManager>(context, listen: false).nullListItemCopy();
+        Provider.of<OutfitManager>(context, listen: false).resetTagLists();
 
-          //checking if outfit was in any event, if so, then delete event from calendar
-          Map<DateTime, List<Event>> events =
-              Provider.of<CalendarManager>(context, listen: false).getEvents;
+        //checking if outfit was in any event, if so, then delete event from calendar
+        Map<DateTime, List<Event>> events =
+            Provider.of<CalendarManager>(context, listen: false).getEvents;
 
-          List<Event> eventsToRemove = [];
+        List<Event> eventsToRemove = [];
 
-          events.forEach((key, value) {
-            for (var element in value) {
-              if (element.outfit == item) {
-                eventsToRemove.add(element);
-              }
+        events.forEach((key, value) {
+          for (var element in value) {
+            if (element.outfit == item) {
+              eventsToRemove.add(element);
             }
-          });
-
-          for (var element in eventsToRemove) {
-            Provider.of<CalendarManager>(context, listen: false)
-                .removeEvent(element);
           }
+        });
 
-          events =
-              Provider.of<CalendarManager>(context, listen: false).getEvents;
-
+        for (var element in eventsToRemove) {
           Provider.of<CalendarManager>(context, listen: false)
-              .setSelectedEvents(events);
-          Map<String, String> encodedEvents = encodeMap(events);
+              .removeEvent(element);
+        }
 
-          Provider.of<AppStateManager>(context, listen: false)
-              .cacheEvents(encodedEvents);
-        },
-        child: Image.asset(
-          "assets/images/trash.png",
-          fit: BoxFit.fitWidth,
-          height: 40,
-        ));
+        events = Provider.of<CalendarManager>(context, listen: false).getEvents;
+
+        Provider.of<CalendarManager>(context, listen: false)
+            .setSelectedEvents(events);
+        Map<String, String> encodedEvents = encodeMap(events);
+
+        Provider.of<AppStateManager>(context, listen: false)
+            .cacheEvents(encodedEvents);
+      },
+    );
   }
 
   Widget buildBackButton() {
@@ -262,7 +260,10 @@ class _OutfitsAddAttributesScreenState
   Widget buildProfileGallery(BuildContext context) {
     List<Tab>? tabs = getTabs()
         ?.keys
-        .map((label) => Tab(child: Text(label, textAlign: TextAlign.center)))
+        .map((label) => Tab(
+            child: Text(label,
+                style: TextStyles.paragraphRegularSemiBold14(),
+                textAlign: TextAlign.center)))
         .toList();
     return tabs == null
         ? Container()
@@ -276,7 +277,10 @@ class _OutfitsAddAttributesScreenState
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TabBar(
-                      labelPadding: const EdgeInsets.all(0),
+                      padding: const EdgeInsets.only(top: 10, bottom: 5),
+                      indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: ColorsConstants.peachy.withOpacity(0.3)),
                       indicatorColor: ColorsConstants.darkBrick,
                       labelStyle: TextStyles.paragraphRegular16(),
                       labelColor: ColorsConstants.darkBrick,
@@ -288,7 +292,7 @@ class _OutfitsAddAttributesScreenState
                         children: getTabs()!
                             .values
                             .map((widget) => Padding(
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(5),
                                 child: widget))
                             .toList(),
                       ),
@@ -301,8 +305,11 @@ class _OutfitsAddAttributesScreenState
   }
 
   Widget buildEditPhoto() {
-    return Column(children: <Widget>[
-      MultiSelectChip(Tags.types,
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+      MultiSelectChip(Tags.getLanguagesTypes(context),
           type: "type_main", chipsColor: ColorsConstants.darkPeach,
           onSelectionChanged: (selectedList) {
         selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
@@ -321,7 +328,14 @@ class _OutfitsAddAttributesScreenState
   Widget buildCanvas() {
     return Screenshot(
         controller: screenshotController,
-        child: DragTargetContainer(map: widget.map));
+        child: Container(
+            decoration: BoxDecoration(
+              color: ColorsConstants.whiteAccent,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: DragTargetContainer(map: widget.map))));
   }
 
   Widget buildFormEdit() {
@@ -329,6 +343,11 @@ class _OutfitsAddAttributesScreenState
   }
 
   Widget buildEditButtons() {
-    return Row(children: [buildRemoveButton(), buildAddSaveButton()]);
+    return Padding(
+        padding: EdgeInsets.all(5),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [buildRemoveButton(), buildAddSaveButton()]));
   }
 }
