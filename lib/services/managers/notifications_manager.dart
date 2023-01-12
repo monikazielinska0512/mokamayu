@@ -23,6 +23,7 @@ class NotificationsManager extends ChangeNotifier {
         temp.add(notif);
       }
     }
+    print("readNotificationsOnce");
     notificationList = temp;
     return notificationList;
   }

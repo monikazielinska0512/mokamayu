@@ -76,7 +76,7 @@ class FriendDialogBox extends StatelessWidget {
                                       Provider.of<ProfileManager>(context, listen: false).acceptFriendInvite(friend);
                                       CustomNotification notif = CustomNotification(
                                           sentFrom: AuthService().getCurrentUserID(),
-                                          type: NotificationType.RECEIVED_INVITE.toString(),
+                                          type: NotificationType.ACCEPTED_INVITE.toString(),
                                           creationDate: DateTime.now().millisecondsSinceEpoch
                                       );
                                       Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, friend.uid);

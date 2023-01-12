@@ -90,161 +90,142 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   padding: const EdgeInsets.all(10),
                   color: ColorsConstants.whiteAccent,
                   height: MediaQuery.of(context).size.height * 0.1,
-                  child: GestureDetector(
-                    onTap: () {
-                      switch (notificationList[index].type) {
-                        case "NotificationType.LIKE":
-                          {
-                            late Post post;
-                            late UserData user;
-                            Provider.of<PostManager>(context, listen: true)
-                                .getPostByUid(
-                                    notificationList[index].additionalData!)
-                                .then((Post? temp) {
-                              setState(() => post = temp!);
-                              user = userList.singleWhere(
-                                  (element) => element.uid == temp!.createdBy);
-                            });
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        PostScreen(
-                                          post: post,
-                                          user: user,
-                                          userList: userList,
-                                        )));
-                            Provider.of<NotificationsManager>(context,
-                                    listen: false)
-                                .notificationRead(
-                                    notificationList[index].reference!);
-                            break;
-                          }
-                        case "NotificationType.COMMENT":
-                          {
-                            late Post post;
-                            late UserData user;
-                            Provider.of<PostManager>(context, listen: true)
-                                .getPostByUid(
-                                    notificationList[index].additionalData!)
-                                .then((Post? temp) {
-                              setState(() => post = temp!);
-                              user = userList.singleWhere(
-                                  (element) => element.uid == temp!.createdBy);
-                            });
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        PostScreen(
-                                          post: post,
-                                          user: user,
-                                          userList: userList,
-                                        )));
-                            Provider.of<NotificationsManager>(context,
-                                    listen: false)
-                                .notificationRead(
-                                    notificationList[index].reference!);
-                            break;
-                          }
-                        case "NotificationType.NEW_OUTFIT":
-                          {
-                            Provider.of<NotificationsManager>(context,
-                                    listen: false)
-                                .notificationRead(
-                                    notificationList[index].reference!);
-                            return context.go('/home/2');
-                          }
-                        case "NotificationType.ACCEPTED_INVITE":
-                          {
-                            Provider.of<NotificationsManager>(context,
-                                    listen: false)
-                                .notificationRead(
-                                    notificationList[index].reference!);
-                            return context.pushNamed(
-                              "profile",
-                              queryParams: {
-                                'uid': notificationList[index].sentFrom,
-                              },
-                            );
-                          }
-                        case "NotificationType.RECEIVED_INVITE":
-                          {
-                            Provider.of<NotificationsManager>(context,
-                                    listen: false)
-                                .notificationRead(
-                                    notificationList[index].reference!);
-                            return context.pushNamed(
-                              "profile",
-                              queryParams: {
-                                'uid': notificationList[index].sentFrom,
-                              },
-                            );
-                          }
-                        default:
-                          {}
-                      }
-                    },
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        const Icon(
-                          Icons.notifications_none_outlined,
-                          color: ColorsConstants.darkBrick,
-                        ),
-                        buildNotifText(notificationList[index].type,
-                            notificationList[index].sentFrom),
-                      ],
-                    ),
-                  ));
+                  child: buildNotifications(context, notificationList[index], userList),
+                  );
             },
             separatorBuilder: (BuildContext context, int index) =>
                 const Divider(),
             itemCount: notificationList.length));
   }
 
-  Widget buildNotifText(String type, String data) {
-    switch (type) {
+  Widget buildNotifications(BuildContext context, CustomNotification notif, List<UserData> userList){
+    UserData user = userList.singleWhere((element) => element.uid == notif.sentFrom);
+    String name = user.profileName != null ? user.profileName! : user.username;
+    switch (notif.type) {
       case "NotificationType.LIKE":
         {
-          UserData user =
-              userList.singleWhere((element) => element.uid == data);
-          String name =
-              user.profileName != null ? user.profileName! : user.username;
-          return Text("$name liked your post!", style: TextStyles.paragraphRegularSemiBold14(),);
+          return GestureDetector(
+              onTap: () {
+                Provider.of<NotificationsManager>(context,
+                    listen: false)
+                    .notificationRead(
+                    notif.reference!);
+                context.go('/home/4');
+              },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                const Icon(
+                  Icons.notifications_none_outlined,
+                  color: ColorsConstants.darkBrick,
+                ),
+                Text("$name liked your post!", style: TextStyles.paragraphRegularSemiBold14()),
+                ],
+              )
+          );
         }
       case "NotificationType.COMMENT":
         {
-          UserData user =
-              userList.singleWhere((element) => element.uid == data);
-          String name =
-              user.profileName != null ? user.profileName! : user.username;
-          return Text("$name commented on your post!", style: TextStyles.paragraphRegularSemiBold14());
+        return GestureDetector(
+          onTap: () {
+            Provider.of<NotificationsManager>(context,
+                listen: false)
+                .notificationRead(
+                notif.reference!);
+            context.go('/home/4');
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const Icon(
+                Icons.notifications_none_outlined,
+                color: ColorsConstants.darkBrick,
+              ),
+              Text("$name commented on your post!", style: TextStyles.paragraphRegularSemiBold14()),
+            ],
+          )
+        );
         }
       case "NotificationType.NEW_OUTFIT":
         {
-          UserData user =
-              userList.singleWhere((element) => element.uid == data);
-          String name =
-              user.profileName != null ? user.profileName! : user.username;
-          return Text("$name created an outfit for you!", style: TextStyles.paragraphRegularSemiBold14());
+        return GestureDetector(
+          onTap: () {
+            Provider.of<NotificationsManager>(context,
+                listen: false)
+                .notificationRead(
+                notif.reference!);
+            context.go('/home/1');
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const Icon(
+                Icons.notifications_none_outlined,
+                color: ColorsConstants.darkBrick,
+              ),
+            Text("$name created an outfit for you!", style: TextStyles.paragraphRegularSemiBold14()),
+            ],
+          )
+        );
         }
       case "NotificationType.ACCEPTED_INVITE":
         {
-          UserData user =
-              userList.singleWhere((element) => element.uid == data);
-          String name =
-              user.profileName != null ? user.profileName! : user.username;
-          return Text("You and $name are now friends!", style: TextStyles.paragraphRegularSemiBold14());
+        return GestureDetector(
+          onTap: () {
+            Provider.of<NotificationsManager>(context,
+                listen: false)
+                .notificationRead(
+                notif.reference!);
+            context.pushNamed(
+              "profile",
+              queryParams: {
+                'uid': notif.sentFrom,
+              },
+            );
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const Icon(
+                Icons.notifications_none_outlined,
+                color: ColorsConstants.darkBrick,
+              ),
+              Text("You and $name are now friends!", style: TextStyles.paragraphRegularSemiBold14()),
+              ],
+            )
+          );
         }
       case "NotificationType.RECEIVED_INVITE":
         {
-          UserData user =
-              userList.singleWhere((element) => element.uid == data);
-          String name =
-              user.profileName != null ? user.profileName! : user.username;
-          return Text("New friend invite from $name!", style: TextStyles.paragraphRegularSemiBold14());
+        return GestureDetector(
+          onTap: () {
+            Provider.of<NotificationsManager>(context,
+                listen: false)
+                .notificationRead(
+                notif.reference!);
+            context.pushNamed(
+              "profile",
+              queryParams: {
+                'uid': notif.sentFrom,
+              },
+            );
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const Icon(
+                Icons.notifications_none_outlined,
+                color: ColorsConstants.darkBrick,
+              ),
+              Text("New friend invite from $name!", style: TextStyles.paragraphRegularSemiBold14()),
+            ],
+          )
+        );
         }
       default:
         {

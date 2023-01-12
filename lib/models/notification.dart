@@ -15,7 +15,6 @@ class CustomNotification {
   final bool read;
   final String type;
   final int creationDate;
-  final String? additionalData;
   String? reference;
 
   CustomNotification({
@@ -23,7 +22,6 @@ class CustomNotification {
     this.read = false,
     required this.type,
     required this.creationDate,
-    this.additionalData
   });
 
   factory CustomNotification.fromJson(Map<dynamic, dynamic> json) => CustomNotification(
@@ -31,7 +29,6 @@ class CustomNotification {
     read: json['read'] as bool,
     creationDate: json['creationDate'] as int,
     type: json['type'] as String,
-    additionalData: json['additionalData'] as String?
   );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -39,7 +36,6 @@ class CustomNotification {
     "read": read,
     "creationDate": creationDate,
     "type": type,
-    "additionalData": additionalData
   };
 
   factory CustomNotification.fromSnapshot(DocumentSnapshot snapshot){
