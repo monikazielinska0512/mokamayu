@@ -349,16 +349,16 @@ class _OutfitsAddAttributesScreenState
   }
 
   Widget buildCanvas() {
-    return Screenshot(
-        controller: screenshotController,
-        child: Container(
+    return  Container(
             decoration: BoxDecoration(
               color: ColorsConstants.whiteAccent,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Padding(
                 padding: const EdgeInsets.all(8),
-                child: DragTargetContainer(map: widget.map))));
+                child: Screenshot(
+                    controller: screenshotController,
+                    child:DragTargetContainer(map: widget.map))));
   }
 
   Widget buildFormEdit() {
