@@ -260,14 +260,9 @@ class _PostListState extends State<PostList> {
         itemCount: widget.postList.length);
   }
 
+
   Widget buildEmpty() {
-    return Padding(
-        padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.width * 0.3,
-            right: 20,
-            left: 20,
-            bottom: 20),
-        child: Container(
+    return  Container(
             decoration: BoxDecoration(
                 color: ColorsConstants.mint.withOpacity(0.2),
                 borderRadius: const BorderRadius.all(Radius.circular(20))),
@@ -289,6 +284,6 @@ class _PostListState extends State<PostList> {
                       child: Text(S.of(context).empty_feed,
                           textAlign: TextAlign.center,
                           style: TextStyles.paragraphRegular14(Colors.grey)))
-                ]))));
+                ])));
   }
 }

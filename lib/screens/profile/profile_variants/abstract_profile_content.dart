@@ -9,6 +9,7 @@ import '../../../generated/l10n.dart';
 
 abstract class AbstractProfileContent extends StatefulWidget {
   final String? uid;
+
   const AbstractProfileContent({Key? key, required this.uid}) : super(key: key);
 }
 
@@ -22,6 +23,7 @@ abstract class AbstractProfileContentState
   void loadData();
 
   Widget getLeftButton();
+
   Widget getRightButton();
 
   Widget buildButtons();
@@ -31,8 +33,6 @@ abstract class AbstractProfileContentState
   Widget buildCreateOutfitForFriendButton() => Container();
 
   Color? setBackgroundColor() => Colors.transparent;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,19 +57,23 @@ abstract class AbstractProfileContentState
       isFullScreen: true,
       body: Stack(children: [
         const BackgroundImage(
-            imagePath: "assets/images/mountains.png", imageShift: 160),
+            opacity: 0.4,
+            imagePath: "assets/images/mountains.png",
+            imageShift: 390),
         Positioned(
           bottom: 0,
           child: BackgroundCard(
             context: context,
-            height: 0.75,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                buildUserCard(context),
-                buildProfileGallery(context),
-              ],
-            ),
+            height: 0.79,
+            child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    buildUserCard(context),
+                    buildProfileGallery(context),
+                  ],
+                )),
           ),
         ),
         buildCreateOutfitForFriendButton(),
@@ -84,10 +88,12 @@ abstract class AbstractProfileContentState
             builder: (context, snapshot) {
               userData = snapshot.data;
               return Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.fromLTRB(25, 20, 5, 0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                width: MediaQuery.of(context).size.width * 0.95,
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child:
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(20), // Image border
@@ -100,14 +106,12 @@ abstract class AbstractProfileContentState
                                 fit: BoxFit.fill),
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    Container(
-                      width: 235,
-                      padding: const EdgeInsets.fromLTRB(15, 15, 5, 0),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 10),
                           Text(
                               snapshot.data?.profileName ??
                                   snapshot.data?.username ??
@@ -119,7 +123,7 @@ abstract class AbstractProfileContentState
                           buildButtons(),
                         ],
                       ),
-                    ),
+                    )
                   ],
                 ),
               );
@@ -140,22 +144,25 @@ abstract class AbstractProfileContentState
               child: DefaultTabController(
                 length: tabs.length,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    TabBar(
-                      labelPadding: const EdgeInsets.all(10),
-                      indicatorColor: ColorsConstants.darkBrick,
-                      labelStyle: TextStyles.paragraphRegular16(),
-                      labelColor: ColorsConstants.darkBrick,
-                      unselectedLabelColor: ColorsConstants.grey,
-                      tabs: tabs,
-                    ),
+                    Padding(
+                        padding: EdgeInsets.only(top:10, bottom: 10),
+                        child: TabBar(
+                          indicatorPadding: EdgeInsets.symmetric(vertical: 0),
+                          indicator: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: ColorsConstants.turquoise.withOpacity(0.3)),
+                          labelStyle: TextStyles.paragraphRegularSemiBold14(),
+                          labelColor: ColorsConstants.turquoise,
+                          unselectedLabelColor: ColorsConstants.grey,
+                          tabs: tabs,
+                        )),
                     Expanded(
                       child: TabBarView(
                         children: getTabs()!
                             .values
                             .map((widget) => Padding(
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(1),
                                 child: widget))
                             .toList(),
                       ),

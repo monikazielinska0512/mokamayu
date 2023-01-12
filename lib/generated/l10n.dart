@@ -260,20 +260,20 @@ class S {
     );
   }
 
-  /// `Outfits by me`
+  /// `Outfits`
   String get outfits_by_me {
     return Intl.message(
-      'Outfits by me',
+      'Outfits',
       name: 'outfits_by_me',
       desc: '',
       args: [],
     );
   }
 
-  /// `Outfits by friends`
+  /// `By friends`
   String get outfits_by_friends {
     return Intl.message(
-      'Outfits by friends',
+      'By friends',
       name: 'outfits_by_friends',
       desc: '',
       args: [],

@@ -82,8 +82,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No pending invitations from such user"),
         "outfits": MessageLookupByLibrary.simpleMessage("Outfits"),
         "outfits_by_friends":
-            MessageLookupByLibrary.simpleMessage("Outfits by friends"),
-        "outfits_by_me": MessageLookupByLibrary.simpleMessage("Outfits by me"),
+            MessageLookupByLibrary.simpleMessage("By friends"),
+        "outfits_by_me": MessageLookupByLibrary.simpleMessage("Outfits"),
         "passwords_dont_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "pick_outfits": MessageLookupByLibrary.simpleMessage("Pick outfits"),
