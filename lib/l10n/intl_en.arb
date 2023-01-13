@@ -44,5 +44,6 @@
   "add_looks_for": "Add looks for",
   "pick_outfits": "Pick outfits",
   "summary": "Summary",
-  "pick_outfits_error": "Pick some outfits first"
+  "pick_outfits_error": "Pick some outfits first",
+  "pick_clothes_error": "Pick some wardrobe items first"
 }

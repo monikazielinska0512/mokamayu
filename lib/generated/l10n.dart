@@ -509,6 +509,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Pick some wardrobe items first`
+  String get pick_clothes_error {
+    return Intl.message(
+      'Pick some wardrobe items first',
+      name: 'pick_clothes_error',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
