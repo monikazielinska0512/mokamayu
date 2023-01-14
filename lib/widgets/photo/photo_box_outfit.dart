@@ -32,10 +32,10 @@ class PhotoCardOutfit extends StatelessWidget {
         type == null ? tapOutfit(context, map) : tapOutfitCalendar(context);
       },
       child: Card(
-        elevation: 0,
+        elevation: selected == false ? 0 : 15,
         shadowColor: selected == false
-            ? ColorsConstants.white
-            : ColorsConstants.darkBrick,
+            ? ColorsConstants.peachy.withOpacity(0.1)
+            : ColorsConstants.peachy,
         color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
@@ -92,6 +92,7 @@ class PhotoCardOutfit extends StatelessWidget {
           .contains(object);
 
   void tapOutfitCalendar(BuildContext context) {
+    print(selected);
     if (selected == false) {
       Provider.of<CalendarManager>(context, listen: false)
           .selectOutfit(object, selected);

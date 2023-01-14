@@ -590,10 +590,10 @@ class S {
     );
   }
 
-  /// `Add looks for`
+  /// `Plan outfits for`
   String get add_looks_for {
     return Intl.message(
-      'Add looks for',
+      'Plan outfits for',
       name: 'add_looks_for',
       desc: '',
       args: [],

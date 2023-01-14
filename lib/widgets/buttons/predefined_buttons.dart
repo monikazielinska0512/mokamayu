@@ -61,11 +61,14 @@ Widget SearchNotificationButton(BuildContext context) {
 }
 
 Widget GoForwardButton(Function() onPressed) {
-  return IconButton(
-    color: Colors.black,
-    onPressed: onPressed,
-    icon: const Icon(
-      Icons.arrow_forward,
-    ),
-  );
+  return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: IconButton(
+        color: Colors.black,
+        onPressed: onPressed,
+        icon: const Icon(
+          size: 35,
+          Icons.arrow_forward,
+        ),
+      ));
 }
