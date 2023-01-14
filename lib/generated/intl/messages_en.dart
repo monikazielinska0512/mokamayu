@@ -113,7 +113,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_out": MessageLookupByLibrary.simpleMessage(" Sign out"),
         "sign_up": MessageLookupByLibrary.simpleMessage(" Sign up"),
         "size": MessageLookupByLibrary.simpleMessage("Size"),
-        "skirt": MessageLookupByLibrary.simpleMessage("Skirt"),
         "social": MessageLookupByLibrary.simpleMessage("Social"),
         "sports": MessageLookupByLibrary.simpleMessage("Sportswear"),
         "style": MessageLookupByLibrary.simpleMessage("Style"),
@@ -123,7 +122,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "swimsuit": MessageLookupByLibrary.simpleMessage("Swimsuit"),
         "top": MessageLookupByLibrary.simpleMessage("Top"),
         "trousers": MessageLookupByLibrary.simpleMessage("Trousers"),
-        "tshirt": MessageLookupByLibrary.simpleMessage("T-Shirt"),
         "user_not_exist":
             MessageLookupByLibrary.simpleMessage("User does not exist"),
         "wardrobe": MessageLookupByLibrary.simpleMessage("Wardrobe"),

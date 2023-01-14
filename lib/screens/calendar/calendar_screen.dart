@@ -42,6 +42,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
   String? currentWeatherIcon;
   bool showCurrentWeather = false;
   bool showHourlyWeather = false;
+  FocusNode myFocusNode = FocusNode();
+
 
   prefsData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -85,7 +87,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
       });
     });
   }
-
   void updateUI() async {
     var weatherData = await weatherModel.getWeatherByLocation();
 
@@ -100,11 +101,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   void initState() {
     super.initState();
+    myFocusNode = FocusNode();
     selectedEvents = {};
     // updateUI();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 2), () => prefsData());
     });
+  }
+
+  @override
+  void dispose(){
+    myFocusNode.dispose();
+    super.dispose();
   }
 
   List<Event> _getEventsfromDay(DateTime day) {
@@ -113,8 +121,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    selectedEvents =
-        Provider.of<CalendarManager>(context, listen: true).getEvents;
+    selectedEvents = Provider.of<CalendarManager>(context, listen: true).getEvents;
     return BasicScreen(
         title: S.of(context).calendar,
         leftButton: DotsButton(context),
@@ -123,12 +130,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
         context: context,
         isFullScreen: false,
         body: Stack(children: [
-          Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            buildWeather(),
-            SingleChildScrollView(
-                child:
-                    Column(children: [buildCalendar(), buildPlannedOutfits()]))
-          ]),
+          Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [buildWeather(), buildProfileGallery(context)]),
           buildFloatingButton()
         ]));
   }
@@ -141,6 +145,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         children: [
           Expanded(
             child: TextField(
+              focusNode: myFocusNode,
               controller: _cityTextController,
               decoration: SearchBarStyle(
                 "Enter city",
@@ -150,6 +155,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       color: ColorsConstants.darkBrick),
                   onPressed: () async {
                     showHourlyWeather = true;
+                    myFocusNode.unfocus();
                     updateUI();
                     Provider.of<WeatherManager>(context, listen: false)
                         .resetLists();
@@ -232,11 +238,61 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ],
       ),
       showHourlyWeather == true
-          ? Padding(padding: const EdgeInsets.all(10), child: HourlyWeather())
+          ? Padding(padding: const EdgeInsets.all(0), child: HourlyWeather())
           : Padding(
               padding: const EdgeInsets.only(bottom: 15),
               child: Container(width: 0)),
     ]);
+  }
+
+  Map<String, Widget>? getTabs() =>
+      {"Calendar": buildCalendar(), "Planned outfits": buildPlannedOutfits()};
+
+  Widget buildProfileGallery(BuildContext context) {
+    List<Tab>? tabs = getTabs()
+        ?.keys
+        .map((label) => Tab(
+            child: Text(label,
+                style: TextStyles.paragraphRegularSemiBold14(),
+                textAlign: TextAlign.center)))
+        .toList();
+    return tabs == null
+        ? Container()
+        : MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: Expanded(
+              child: DefaultTabController(
+                length: tabs.length,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TabBar(
+                      padding: const EdgeInsets.only(top: 10, bottom: 5),
+                      indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: ColorsConstants.peachy.withOpacity(0.3)),
+                      indicatorColor: ColorsConstants.darkBrick,
+                      labelStyle: TextStyles.paragraphRegular16(),
+                      labelColor: ColorsConstants.darkBrick,
+                      unselectedLabelColor: ColorsConstants.grey,
+                      tabs: tabs,
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        children: getTabs()!
+                            .values
+                            .map((widget) => Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: widget))
+                            .toList(),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
   }
 
   Widget buildCalendar() {
@@ -251,15 +307,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 borderRadius: BorderRadius.circular(12),
                 color: ColorsConstants.white),
             child: TableCalendar<Event>(
-                availableCalendarFormats: const {
-                  CalendarFormat.twoWeeks: '2 weeks',
-                  CalendarFormat.week: 'Week'
-                },
+                calendarFormat: _calendarFormat,
                 headerStyle: HeaderStyle(
                     titleCentered: true,
                     formatButtonShowsNext: false,
                     formatButtonPadding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     formatButtonDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: ColorsConstants.sunflower.withOpacity(0.2)),
@@ -293,10 +346,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     _focusedDay = focusedDay;
                   });
                 },
-                calendarFormat: _calendarFormat,
                 onFormatChanged: (format) {
+                  format = myFocusNode.hasFocus == true ? CalendarFormat.week : _calendarFormat;
                   setState(() {
                     _calendarFormat = format;
+
                   });
                 },
                 onPageChanged: (focusedDay) {
@@ -351,21 +405,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 style:
                     TextStyles.paragraphRegularSemiBold16(ColorsConstants.grey),
               ))),
-      SizedBox(
-          height: MediaQuery.of(context).size.height * 0.2,
+
+      Expanded(child: SizedBox(
+          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Padding(
               padding: const EdgeInsets.only(left: 0, right: 15),
               child: ListView(
                 shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
                 children: [
                   ..._getEventsfromDay(_selectedDay)
                       .map((Event event) => WardrobeItemCard(
-                          size: 80, outfit: event.outfit, event: event))
+                          size: 50, outfit: event.outfit, event: event))
                       .toList(),
                 ],
-              )))
+              ))))
     ]);
   }
 

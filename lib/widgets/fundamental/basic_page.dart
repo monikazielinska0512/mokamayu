@@ -35,6 +35,7 @@ class BasicScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: backgroundColor,
+        resizeToAvoidBottomInset : false,
         extendBodyBehindAppBar: true,
         appBar: isAppBarVisible!
             ? AppBar(

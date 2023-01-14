@@ -26,7 +26,6 @@ class Tags {
   static List<String> getLanguagesTypes(BuildContext context) {
     List<String> list = [
       S.of(context).dress,
-      S.of(context).tshirt,
       S.of(context).top,
       S.of(context).trousers,
       S.of(context).jeans,
@@ -39,7 +38,6 @@ class Tags {
       S.of(context).cardigan,
       S.of(context).swimsuit,
       S.of(context).sports,
-      S.of(context).skirt,
       S.of(context).shorts,
       S.of(context).pyjama,
       S.of(context).shoes,
