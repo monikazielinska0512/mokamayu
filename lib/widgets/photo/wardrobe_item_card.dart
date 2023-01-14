@@ -14,9 +14,9 @@ import '../../services/managers/photo_tapped_manager.dart';
 
 class WardrobeItemCard extends StatelessWidget {
   WardrobeItemCard(
-      {Key? key, this.wardrobItem, this.outfit, required this.size, this.event})
+      {Key? key, this.wardrobeItem, this.outfit, required this.size, this.event})
       : super(key: key);
-  final WardrobeItem? wardrobItem;
+  final WardrobeItem? wardrobeItem;
   final Outfit? outfit;
   String? photoUrl = "";
   String? name = "";
@@ -26,9 +26,9 @@ class WardrobeItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (wardrobItem != null) {
-      photoUrl = wardrobItem!.photoURL;
-      name = wardrobItem!.name;
+    if (wardrobeItem != null) {
+      photoUrl = wardrobeItem!.photoURL;
+      name = wardrobeItem!.name;
     }
 
     return Card(
@@ -40,11 +40,11 @@ class WardrobeItemCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
         child: Row(
           children: [
             buildPhoto(),
-            wardrobItem != null
+            wardrobeItem != null
                 ? buildEditCard(context)
                 : buildAddCard(context),
           ],
@@ -132,7 +132,7 @@ class WardrobeItemCard extends StatelessWidget {
                       textAlign: TextAlign.right,
                     ),
                     onPressed: () => {
-                          context.pushNamed('wardrobe-item', extra: wardrobItem)
+                          context.pushNamed('wardrobe-item', extra: wardrobeItem)
                         }),
               ],
             )));
@@ -143,12 +143,13 @@ class WardrobeItemCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
       child: SizedBox.fromSize(
           size: Size.fromRadius(size),
-          child: wardrobItem != null
+          child: wardrobeItem != null
               ? Image.network(photoUrl!, fit: BoxFit.fill)
               : Image.network(outfit!.cover, fit: BoxFit.fill)),
     );
   }
 }
+
 
 Map<String, String> encodeMap(Map<DateTime, List<Event>> map) {
   Map<String, String> newMap = {};

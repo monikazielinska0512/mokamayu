@@ -570,20 +570,20 @@ class S {
     );
   }
 
-  /// `Show current weather`
+  /// `Current weather`
   String get show_current_weather {
     return Intl.message(
-      'Show current weather',
+      'Current weather',
       name: 'show_current_weather',
       desc: '',
       args: [],
     );
   }
 
-  /// `Current weather`
+  /// `Current`
   String get current_weather {
     return Intl.message(
-      'Current weather',
+      'Current',
       name: 'current_weather',
       desc: '',
       args: [],

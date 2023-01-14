@@ -38,8 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
-        "current_weather":
-            MessageLookupByLibrary.simpleMessage("Current weather"),
+        "current_weather": MessageLookupByLibrary.simpleMessage("Current"),
         "dismiss": MessageLookupByLibrary.simpleMessage("DISMISS"),
         "dress": MessageLookupByLibrary.simpleMessage("Dress"),
         "edit_profile": MessageLookupByLibrary.simpleMessage("Edit profile"),
@@ -107,7 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shoes": MessageLookupByLibrary.simpleMessage("Shoes"),
         "shorts": MessageLookupByLibrary.simpleMessage("Shorts"),
         "show_current_weather":
-            MessageLookupByLibrary.simpleMessage("Show current weather"),
+            MessageLookupByLibrary.simpleMessage("Current weather"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "sign_out": MessageLookupByLibrary.simpleMessage(" Sign out"),
         "sign_up": MessageLookupByLibrary.simpleMessage(" Sign up"),

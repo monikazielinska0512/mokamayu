@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/text_styles.dart';
 import '../../models/weather_data.dart';
 import '../../services/managers/weather_manager.dart';
 
 class HourlyWeather extends StatelessWidget {
   HourlyWeather({super.key});
+
   List<String> days = [];
   List<String> times = [];
   List<double> temps = [];
@@ -47,7 +49,7 @@ class HourlyWeatherRow extends StatelessWidget {
     return Row(children: <Widget>[
       Expanded(
           child: SizedBox(
-              height: 100.0,
+              height: 80.0,
               child: ListView(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
@@ -67,29 +69,31 @@ class HourlyWeatherItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    const fontWeight = FontWeight.normal;
     final temp = data.temp;
     return Padding(
-        padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
+        padding: const EdgeInsets.only(top: 0, left: 0, right: 30),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              data.day,
-              style: textTheme.caption!.copyWith(fontWeight: fontWeight),
+              '${data.day} ${data.time}',
+              style: TextStyles.paragraphRegularSemiBold12(),
             ),
-            Text(
-              data.time,
-              style: textTheme.caption!.copyWith(fontWeight: fontWeight),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text('${data.iconUrl}', style: TextStyle(fontSize: 25)),
-            Text(
-              '$temp°',
-              style: textTheme.bodyText1!.copyWith(fontWeight: fontWeight),
-            ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(data.iconUrl,
+                          style: const TextStyle(fontSize: 25))),
+                  Text(
+                    '${temp.round()} °',
+                    style: TextStyles.paragraphRegularSemiBold14(),
+                    textAlign: TextAlign.center,
+                  )
+                ]),
           ],
         ));
   }

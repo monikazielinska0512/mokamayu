@@ -36,10 +36,10 @@ class IconTextButton extends StatelessWidget {
         ),
         label: Text(
           text ?? '',
-          style: TextStyles.paragraphRegularSemiBold14(textColor),
+          style: TextStyles.paragraphRegularSemiBold12(textColor),
         ),
         style: ButtonStyle(
-          elevation: MaterialStateProperty.all(0),
+            elevation: MaterialStateProperty.all(0),
             backgroundColor: MaterialStateProperty.all<Color>(
                 backgroundColor ?? ColorsConstants.brick),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
