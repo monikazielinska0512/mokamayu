@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Podany adres email jest już zajęty przez innego użytkownika"),
         "empty_feed": MessageLookupByLibrary.simpleMessage(
             "Wygląda na to, że nie dodałeś jeszcze żadnych znajomych!"),
+        "empty_notifications": MessageLookupByLibrary.simpleMessage(
+            "Nie otrzymałeś żadnych powiadomień"),
         "empty_outfits": MessageLookupByLibrary.simpleMessage(
             "Nie stowrzono jeszcze żadnej stylizacji!"),
         "empty_wardrobe": MessageLookupByLibrary.simpleMessage(

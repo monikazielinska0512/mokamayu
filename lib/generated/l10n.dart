@@ -820,6 +820,16 @@ class S {
     );
   }
 
+  /// `Create`
+  String get create {
+    return Intl.message(
+      'Create',
+      name: 'create',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No matched friends`
   String get no_found_friends {
     return Intl.message(
@@ -830,11 +840,11 @@ class S {
     );
   }
 
-  /// `Create`
-  String get create {
+  /// `You haven't gotten any notification yet!`
+  String get empty_notifications {
     return Intl.message(
-      'Create',
-      name: 'create',
+      'You haven\'t gotten any notification yet!',
+      name: 'empty_notifications',
       desc: '',
       args: [],
     );

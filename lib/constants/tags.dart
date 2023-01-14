@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
 
+
 class Tags {
   static const List<String> sizes = [
     'XS',

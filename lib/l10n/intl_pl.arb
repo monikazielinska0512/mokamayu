@@ -34,7 +34,6 @@
   "jeans": "Dżinsy",
   "sweatshirt": "Bluza",
   "hoodie": "Bluza z kapturem",
-  "jacket": "Kurtka",
   "blazer": "Marynarka",
   "coat": "Płaszcz",
   "sweater": "Sweter",
@@ -78,5 +77,7 @@
   "results": "wyniki",
   "no_friends": "Nie masz jeszcze żadnych znajomych",
   "no_found_friends": "Nie znaleziono znajomych o takiej nazwie",
-  "create" : "Stwórz"
+  "jacket": "Kurtka",
+  "create" : "Stwórz",
+  "empty_notifications": "Nie otrzymałeś żadnych powiadomień"
 }

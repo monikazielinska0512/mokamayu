@@ -47,6 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "The email address is already in use by another account"),
         "empty_feed": MessageLookupByLibrary.simpleMessage(
             "It seems that you don\'t have any added friend yet!"),
+        "empty_notifications": MessageLookupByLibrary.simpleMessage(
+            "You haven\'t gotten any notification yet!"),
         "empty_outfits": MessageLookupByLibrary.simpleMessage(
             "No outfits have been created yet!"),
         "empty_wardrobe": MessageLookupByLibrary.simpleMessage(
