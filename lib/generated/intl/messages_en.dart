@@ -87,6 +87,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "outfits_by_me": MessageLookupByLibrary.simpleMessage("Outfits"),
         "passwords_dont_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+        "pick_clothes_error": MessageLookupByLibrary.simpleMessage(
+            "Pick some wardrobe items first"),
         "pick_outfits": MessageLookupByLibrary.simpleMessage("Pick outfits"),
         "pick_outfits_error":
             MessageLookupByLibrary.simpleMessage("Pick some outfits first"),

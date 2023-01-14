@@ -92,6 +92,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Moje stylizacje"),
         "passwords_dont_match":
             MessageLookupByLibrary.simpleMessage("Hasła nie są identyczne"),
+        "pick_clothes_error": MessageLookupByLibrary.simpleMessage(
+            "Wybierz najpierw elementy ubrania"),
         "pick_outfits":
             MessageLookupByLibrary.simpleMessage("Wybierz stylizacje"),
         "pick_outfits_error":

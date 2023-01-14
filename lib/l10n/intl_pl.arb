@@ -58,6 +58,8 @@
   "pick_outfits": "Wybierz stylizacje",
   "summary": "Podsumowanie",
   "pick_outfits_error": "Wybierz najpierw stylizacje",
+  "pick_clothes_error": "Wybierz najpierw elementy ubrania"
+  "pick_outfits_error": "Wybierz najpierw stylizacje",
   "accessories": "Akcesoria",
   "empty_wardrobe": "Nie masz żadnych elementów w szafie!",
   "filters": "Filtrowanie",

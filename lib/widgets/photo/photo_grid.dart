@@ -8,6 +8,10 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
+import '../../services/managers/app_state_manager.dart';
+import '../../services/managers/calendar_manager.dart';
+import '../../services/managers/post_manager.dart';
+import '../../services/managers/wardrobe_manager.dart';
 
 class PhotoGrid extends StatefulWidget {
   final bool scrollVertically;
@@ -192,6 +196,20 @@ class _PhotoGridState extends State<PhotoGrid> {
                                     .setOutfits(widget.outfitsList!);
 
                                 context.pop();
+
+                                List<Post> postList = Provider.of<PostManager>(
+                                        context,
+                                        listen: false)
+                                    .getFinalCurrentPostList;
+
+                                postList.forEach((element) {
+                                  if (element.cover == itemInfo.cover) {
+                                    Provider.of<PostManager>(context,
+                                            listen: false)
+                                        .removePost(element.reference);
+                                  }
+                                });
+
                                 //checking if outfit was in any event, if so, then delete event from calendar
                                 Map<DateTime, List<Event>> events =
                                     Provider.of<CalendarManager>(context,
