@@ -15,22 +15,23 @@ class PostManager extends ChangeNotifier {
       finalCurrentUserPostList;
 
   List<Post> get getFinalPostList => finalPostList;
+  List<Post> get getFinalCurrentPostList => finalCurrentUserPostList;
   List<Post> friendsPostList = [];
 
   void setPosts(Future<List<Post>> postList) {
     futurePostList = postList;
+    notifyListeners();
   }
 
   Future<List<Post>> readPostsOnce() async {
-    QuerySnapshot snapshot = await db
-        .collectionGroup('posts')
-        .get();
+    QuerySnapshot snapshot = await db.collectionGroup('posts').get();
 
     List<Post> postList = [];
     for (var element in snapshot.docs) {
       Post item = Post.fromSnapshot(element);
       postList.add(item);
     }
+
     finalPostList = postList;
     return finalPostList;
   }
@@ -49,7 +50,7 @@ class PostManager extends ChangeNotifier {
         .collection("posts")
         .doc(uid);
     docRef.get().then(
-          (DocumentSnapshot doc) {
+      (DocumentSnapshot doc) {
         return doc;
       },
       onError: (e) => print("Error getting document: $e"),
@@ -63,7 +64,8 @@ class PostManager extends ChangeNotifier {
         .doc(AuthService().getCurrentUserID())
         .collection('posts')
         .get();
-    var list = snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
+    var list =
+        snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
     list.sort((b, a) => a.creationDate.compareTo(b.creationDate));
     finalCurrentUserPostList = list;
     return finalCurrentUserPostList;

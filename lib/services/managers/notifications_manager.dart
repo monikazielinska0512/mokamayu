@@ -9,7 +9,6 @@ class NotificationsManager extends ChangeNotifier {
   late List<CustomNotification> notificationList;
   List<CustomNotification> get getNotificationList => notificationList;
 
-
   Future<List<CustomNotification>> readNotificationsOnce() async {
     List<CustomNotification> temp = [];
     QuerySnapshot snapshot = await db
@@ -26,7 +25,8 @@ class NotificationsManager extends ChangeNotifier {
     return notificationList;
   }
 
-  Future<void> addNotificationToFirestore(CustomNotification item, String uid) async {
+  Future<void> addNotificationToFirestore(
+      CustomNotification item, String uid) async {
     await db
         .collection('users')
         .doc(uid)
@@ -45,5 +45,4 @@ class NotificationsManager extends ChangeNotifier {
         .delete().then((_) => print('Deleted'))
         .catchError((error) => print(' $error'));
   }
-
 }

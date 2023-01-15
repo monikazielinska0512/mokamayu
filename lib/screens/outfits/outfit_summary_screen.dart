@@ -6,8 +6,10 @@ import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
+import '../../generated/l10n.dart';
 import '../../services/services.dart';
 import '../../widgets/buttons/buttons.dart';
+import '../../widgets/fundamental/snackbar.dart';
 import '../../widgets/photo/photo.dart';
 
 class OutfitSummaryScreen extends StatelessWidget {
@@ -151,67 +153,71 @@ class OutfitSummaryScreen extends StatelessWidget {
   Widget SaveButton(BuildContext context) {
     String currentUserUid = AuthService().getCurrentUserID();
     return ButtonDarker(context, "Save", () async {
-      Map<String, String> mapToFirestore = {};
-      map!.forEach((key, value) {
-        mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
-      });
-      Outfit data = Outfit(
-          owner: friendUid ?? currentUserUid,
-          elements: _elements,
-          cover: capturedOutfit,
-          style: _style,
-          season: _season,
-          map: mapToFirestore,
-          createdBy: currentUserUid);
-      Provider.of<OutfitManager>(context, listen: false)
-          .addOutfitToFirestore(data, friendUid ?? currentUserUid);
-
-      if (!isCreatingOutfitForFriend) {
-        outfitsList = Provider.of<OutfitManager>(context, listen: false)
-            .readOutfitsOnce();
+      if (_elements.length > 0) {
+        Map<String, String> mapToFirestore = {};
+        map!.forEach((key, value) {
+          mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
+        });
+        Outfit data = Outfit(
+            owner: friendUid ?? currentUserUid,
+            elements: _elements,
+            cover: capturedOutfit,
+            style: _style,
+            season: _season,
+            map: mapToFirestore,
+            createdBy: currentUserUid);
         Provider.of<OutfitManager>(context, listen: false)
-            .setOutfits(outfitsList!);
-        Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
-        Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
-        Provider.of<PhotoTapped>(context, listen: false).setObject(null);
-      }
+            .addOutfitToFirestore(data, friendUid ?? currentUserUid);
 
-      _elements = [];
-
-      Post postData = Post(
-        createdBy: currentUserUid,
-        createdFor: friendUid ?? currentUserUid,
-        cover: capturedOutfit,
-        creationDate: DateTime.now().millisecondsSinceEpoch,
-        likes: [],
-        comments: [],
-      );
-
-      CustomNotification notif = CustomNotification(
-          sentFrom: currentUserUid,
-          type: NotificationType.NEW_OUTFIT.toString(),
-          creationDate: DateTime.now().millisecondsSinceEpoch
-      );
-
-      isCreatingOutfitForFriend
-      ? {
-          Provider.of<PostManager>(context, listen: false)
-              .addPostToFirestore(postData, friendUid!),
-          Provider.of<NotificationsManager>(context, listen: false)
-              .addNotificationToFirestore(notif, friendUid!)
+        if (!isCreatingOutfitForFriend) {
+          outfitsList = Provider.of<OutfitManager>(context, listen: false)
+              .readOutfitsOnce();
+          Provider.of<OutfitManager>(context, listen: false)
+              .setOutfits(outfitsList!);
+          Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
+          Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
+          Provider.of<PhotoTapped>(context, listen: false).setObject(null);
         }
-      : Provider.of<PostManager>(context, listen: false)
-          .addPostToFirestore(postData, currentUserUid);
 
-      postList =
-          Provider.of<PostManager>(context, listen: false).readPostsOnce();
-      Provider.of<PostManager>(context, listen: false).getCurrentUserPosts();
-      Provider.of<PostManager>(context, listen: false).setPosts(postList!);
+        _elements = [];
 
-      if (isCreatingOutfitForFriend) {
-        context.go("/home/2");
+        Post postData = Post(
+          createdBy: currentUserUid,
+          createdFor: friendUid ?? currentUserUid,
+          cover: capturedOutfit,
+          creationDate: DateTime.now().millisecondsSinceEpoch,
+          likes: [],
+          comments: [],
+        );
+
+        CustomNotification notif = CustomNotification(
+            sentFrom: currentUserUid,
+            type: NotificationType.NEW_OUTFIT.toString(),
+            creationDate: DateTime.now().millisecondsSinceEpoch);
+
+        isCreatingOutfitForFriend
+            ? {
+                Provider.of<PostManager>(context, listen: false)
+                    .addPostToFirestore(postData, friendUid!),
+                Provider.of<NotificationsManager>(context, listen: false)
+                    .addNotificationToFirestore(notif, friendUid!)
+              }
+            : Provider.of<PostManager>(context, listen: false)
+                .addPostToFirestore(postData, currentUserUid);
+
+        postList =
+            Provider.of<PostManager>(context, listen: false).readPostsOnce();
+        Provider.of<PostManager>(context, listen: false).getCurrentUserPosts();
+        Provider.of<PostManager>(context, listen: false).setPosts(postList!);
+
+        if (isCreatingOutfitForFriend) {
+          context.go("/home/2");
+        } else {
+          context.go("/home/1");
+        }
       } else {
-        context.go("/home/1");
+        CustomSnackBar.showErrorSnackBar(
+            message: S.of(context).pick_clothes_error, context: context);
       }
     });
   }

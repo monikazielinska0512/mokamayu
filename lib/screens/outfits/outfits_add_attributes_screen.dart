@@ -214,6 +214,17 @@ class _OutfitsAddAttributesScreenState
                 Provider.of<OutfitManager>(context, listen: false)
                     .resetTagLists();
 
+                List<Post> postList =
+                    Provider.of<PostManager>(context, listen: false)
+                        .getFinalCurrentPostList;
+
+                postList.forEach((element) {
+                  if (element.cover == item.cover) {
+                    Provider.of<PostManager>(context, listen: false)
+                        .removePost(element.reference);
+                  }
+                });
+
                 //checking if outfit was in any event, if so, then delete event from calendar
                 Map<DateTime, List<Event>> events =
                     Provider.of<CalendarManager>(context, listen: false)
@@ -243,6 +254,12 @@ class _OutfitsAddAttributesScreenState
 
                 Provider.of<AppStateManager>(context, listen: false)
                     .cacheEvents(encodedEvents);
+
+                Future<List<Outfit>>? outfitsList =
+                    Provider.of<OutfitManager>(context, listen: false)
+                        .readOutfitsOnce();
+                Provider.of<OutfitManager>(context, listen: false)
+                    .setOutfits(outfitsList);
               },
               child: Image.asset(
                 "assets/images/trash.png",

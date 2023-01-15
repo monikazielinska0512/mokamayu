@@ -122,7 +122,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     listen: false)
                     .deleteNotification(
                     notif.reference!);
-                context.go('/home/4');
+                context.push('/home/4');
               },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,7 +145,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 listen: false)
                 .deleteNotification(
                 notif.reference!);
-            context.go('/home/4');
+            context.push('/home/4');
           },
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -168,7 +168,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 listen: false)
                 .deleteNotification(
                 notif.reference!);
-            context.go('/home/1');
+            context.push('/home/1');
           },
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
