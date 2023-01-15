@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import '../../constants/colors.dart';
 import '../../generated/l10n.dart';
 
@@ -73,4 +74,33 @@ class _SearchTextFieldState extends State<SearchTextField> {
               const Icon(Icons.search, color: ColorsConstants.darkBrick)),
     );
   }
+}
+
+InputDecoration SearchBarStyle(String hintText,
+    {Icon? icon = const Icon(Ionicons.search_outline, color: ColorsConstants.darkBrick),
+    Widget? suffixIcon}) {
+  return InputDecoration(
+      suffixIcon: suffixIcon,
+      hintText: hintText,
+      filled: true,
+      fillColor: ColorsConstants.whiteAccent,
+      labelStyle: const TextStyle(
+          fontSize: 18,
+          fontFamily: "Poppins",
+          fontWeight: FontWeight.w400,
+          color: ColorsConstants.turquoise),
+      hintStyle: const TextStyle(
+          fontSize: 18,
+          fontFamily: "Poppins",
+          fontWeight: FontWeight.w400,
+          color: ColorsConstants.turquoise),
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
+      ),
+      border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(14.0))),
+      prefixIcon: icon);
 }

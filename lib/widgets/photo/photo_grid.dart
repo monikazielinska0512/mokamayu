@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/services/managers/outfit_manager.dart';
+import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
+import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
 import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/calendar_manager.dart';
@@ -48,8 +49,30 @@ class _PhotoGridState extends State<PhotoGrid> {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
               child: snapshot.data!.isEmpty
-                  ? Text("You don't have any items in your wardrobe!",
-                      style: TextStyles.paragraphRegularSemiBold14(Colors.grey))
+                  ? Container(
+                      decoration: BoxDecoration(
+                          color: ColorsConstants.peachy.withOpacity(0.2),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20))),
+                      height: double.maxFinite,
+                      width: double.maxFinite,
+                      child: Center(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                            const Icon(
+                              Ionicons.sad_outline,
+                              size: 25,
+                              color: Colors.grey,
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(30),
+                                child: Text(S.of(context).empty_wardrobe,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyles.paragraphRegular14(
+                                        Colors.grey)))
+                          ])))
                   : GridView.builder(
                       scrollDirection: widget.getScrollDirection(),
                       shrinkWrap: false,
@@ -95,7 +118,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                       },
                     ));
         }
-        return Center(
+        return const Center(
             child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(
             ColorsConstants.darkBrick,
@@ -112,8 +135,30 @@ class _PhotoGridState extends State<PhotoGrid> {
         if (snapshot.hasData || snapshot.data != null) {
           return Center(
             child: snapshot.data!.isEmpty
-                ? Text("No outfits has been created yet!",
-                    style: TextStyles.paragraphRegularSemiBold14(Colors.grey))
+                ? Container(
+                    decoration: BoxDecoration(
+                        color: ColorsConstants.peachy.withOpacity(0.2),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    height: double.maxFinite,
+                    width: double.maxFinite,
+                    child: Center(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                          const Icon(
+                            Ionicons.sad_outline,
+                            size: 25,
+                            color: Colors.grey,
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.all(30),
+                              child: Text(S.of(context).empty_outfits,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyles.paragraphRegular14(
+                                      Colors.grey)))
+                        ])))
                 : GridView.builder(
                     scrollDirection: widget.getScrollDirection(),
                     shrinkWrap: false,
@@ -207,7 +252,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                   ),
           );
         }
-        return Center(
+        return const Center(
             child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(
             ColorsConstants.darkBrick,

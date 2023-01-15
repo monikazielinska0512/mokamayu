@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
 import '../../constants/colors.dart';
@@ -29,8 +30,9 @@ class _WardrobeItemSearchScreenState extends State<WardrobeItemSearchScreen> {
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
-      type: "wardrobe-item-search",
-      rightButtonType: "",
+      title: "",
+      rightButton: null,
+      leftButton: BackArrowButton(context),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -119,7 +121,7 @@ class _WardrobeItemSearchScreenState extends State<WardrobeItemSearchScreen> {
                               },
                           child: Text(
                             S.of(context).see_details,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: ColorsConstants.darkBrick,
                                 fontWeight: FontWeight.bold),
                           )))

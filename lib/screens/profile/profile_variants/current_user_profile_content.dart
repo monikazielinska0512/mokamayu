@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../../constants/constants.dart';
 import '../../../generated/l10n.dart';
+import '../../../widgets/buttons/predefined_buttons.dart';
 
 class CurrentUserProfileContent extends AbstractProfileContent {
   const CurrentUserProfileContent({Key? key, required String? uid})
@@ -35,23 +36,31 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
   }
 
   @override
-  String getLeftButtonType() => "dots";
+  Widget getLeftButton() => DotsButton(context);
+
+  @override
+  Widget getRightButton() => NotificationsButton(context);
+
+  @override
+  Color? setBackgroundColor() => Colors.transparent;
 
   @override
   Widget buildButtons() {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+    return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       IconTextButton(
         onPressed: () => context.push('/edit-profile'),
         icon: Icons.edit_outlined,
         text: "Edit",
         backgroundColor: ColorsConstants.peachy,
       ),
-      IconTextButton(
-        onPressed: () => context.pushNamed('friends'),
-        icon: Icons.person_outline_outlined,
-        text: "Friends",
-        backgroundColor: ColorsConstants.mint,
-      ),
+      Padding(
+          padding: EdgeInsets.only(left: 5),
+          child: IconTextButton(
+            onPressed: () => context.pushNamed('friends'),
+            icon: Icons.person_outline_outlined,
+            text: "Friends",
+            backgroundColor: ColorsConstants.mint,
+          )),
     ]);
   }
 
@@ -73,8 +82,12 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
 
   @override
   Map<String, Widget>? getTabs() => {
-        S.of(context).outfits_by_me:
-            PhotoGrid(outfitsList: getOutfitsCreatedByMe()),
+        S.of(context).outfits_by_me: Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: ColorsConstants.peachy.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(15)),
+            child: PhotoGrid(outfitsList: getOutfitsCreatedByMe())),
         S.of(context).outfits_by_friends:
             PhotoGrid(outfitsList: getOutfitsCreatedByFriends()),
         S.of(context).posts: buildPosts(),

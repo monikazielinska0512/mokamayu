@@ -4,6 +4,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +19,13 @@ class OtherUserProfileContent extends AbstractProfileContent {
   AbstractProfileContentState createState() => _OtherUserProfileContentState();
 }
 
+
+
 class _OtherUserProfileContentState extends AbstractProfileContentState {
   UserData? friendData;
+
+  @override
+  Color? setBackgroundColor() => Colors.transparent;
 
   @override
   void loadData() {
@@ -36,7 +42,10 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   }
 
   @override
-  String getLeftButtonType() => "back";
+  Widget getLeftButton() => BackArrowButton(context);
+
+  @override
+  Widget getRightButton() => NotificationsButton(context);
 
   @override
   Widget buildButtons() => friendData != null
@@ -138,4 +147,5 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
             alignment: Alignment.bottomRight)
         : Container();
   }
+
 }

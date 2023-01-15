@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../services/authentication/auth.dart';
@@ -35,8 +36,9 @@ class _PostScreenState extends State<PostScreen> {
     }
     return BasicScreen(
       context: context,
-      type: "post-screen",
-      rightButtonType: null,
+      title: "post-screen",
+      rightButton: null,
+      leftButton: BackArrowButton(context),
       isFullScreen: true,
       body: Stack(children: [
         const BackgroundImage(

@@ -7,6 +7,9 @@ import 'package:mokamayu/widgets/fields/search_text_field.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
+import '../../widgets/buttons/predefined_buttons.dart';
+
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
 
@@ -39,14 +42,18 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
+    futureItemListCopy = Provider
+        .of<WardrobeManager>(context, listen: true)
         .getWardrobeItemListCopy;
     futureItemList =
-        Provider.of<WardrobeManager>(context, listen: true).getWardrobeItemList;
+        Provider
+            .of<WardrobeManager>(context, listen: true)
+            .getWardrobeItemList;
     return BasicScreen(
-        type: "wardrobe",
-        leftButtonType: "dots",
+        title: S.of(context).wardrobe,
+        leftButton: DotsButton(context),
         backgroundColor: Colors.transparent,
+        rightButton: NotificationsButton(context),
         context: context,
         body: Stack(children: [
           Column(
@@ -56,14 +63,15 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                 SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Wrap(spacing: 10, children: [
-                      MultiSelectChip(Tags.types,
+                      MultiSelectChip(Tags.getLanguagesTypes(context),
                           chipsColor: ColorsConstants.darkPeach,
                           onSelectionChanged: (selectedList) {
-                        selectedChips =
+                            selectedChips =
                             selectedList.isEmpty ? Tags.types : selectedList;
-                      }, type: "type_main")
+                          }, type: "type_main")
                     ])),
               ]),
+              const SizedBox(height: 10),
               Expanded(
                   child: PhotoGrid(
                       itemList: futureItemListCopy ?? futureItemList)),
@@ -75,28 +83,35 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   Widget buildSearchBarAndFilters() {
     return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.076,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height * 0.076,
         child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          SizedBox(
-              width: MediaQuery.of(context).size.width * 0.73,
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: SearchTextField(
-                readOnly: true,
-                onTap: () => context.pushNamed("wardrobe-item-search-screen",
-                    extra: futureItemList),
-              )),
-          // ButtonDarker(
-          //     context,
-          //     "Search",
-          //     () => context.go("/wardrobe-item-search-screen",
-          //         extra: futureItemList),
-          //     shouldExpand: false),
-          const SizedBox(width: 10),
-          FilterModal(
-              onApplyWardrobe: (selectedList) =>
-                  {futureItemListCopy = selectedList})
-        ]));
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        SizedBox(
+        width: MediaQuery.of(context).size.width * 0.73,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height * 0.1,
+        child: SearchTextField(
+            readOnly: true,
+            onTap: () =>
+
+        context.pushNamed("wardrobe-item-search-screen",
+        extra: futureItemList)
+  ,
+    )),
+    const SizedBox(width: 10),
+    FilterModal(
+    width: 0.15,
+    height: 0.1,
+    onApplyWardrobe: (selectedList) =>
+    {futureItemListCopy = selectedList})
+    ]
+    )
+    );
   }
 
   Widget buildFloatingButton() {

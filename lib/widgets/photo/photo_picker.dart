@@ -41,7 +41,9 @@ class _PhotoPickerState extends State<PhotoPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return
+      Expanded(child:
+      GestureDetector(
       onTap: () {
         _showPicker(context);
       },
@@ -70,8 +72,14 @@ class _PhotoPickerState extends State<PhotoPicker> {
                   child: const Icon(Ionicons.camera_outline,
                       color: ColorsConstants.grey),
                 ),
-    );
+    ));
   }
+
+
+
+
+
+
 
   Future pickImage(ImageSource source) async {
     final pickedFile =
@@ -80,7 +88,6 @@ class _PhotoPickerState extends State<PhotoPicker> {
       if (pickedFile != null) {
         widget.photoPath = pickedFile.path;
         widget.photo = File(pickedFile.path);
-        print('Picked: ' + widget.photoPath.toString());
       } else {
         CustomSnackBar.showErrorSnackBar(
             context: context, message: "Something went wrong");

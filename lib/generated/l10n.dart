@@ -260,20 +260,20 @@ class S {
     );
   }
 
-  /// `Outfits by me`
+  /// `Outfits`
   String get outfits_by_me {
     return Intl.message(
-      'Outfits by me',
+      'Outfits',
       name: 'outfits_by_me',
       desc: '',
       args: [],
     );
   }
 
-  /// `Outfits by friends`
+  /// `By friends`
   String get outfits_by_friends {
     return Intl.message(
-      'Outfits by friends',
+      'By friends',
       name: 'outfits_by_friends',
       desc: '',
       args: [],
@@ -330,31 +330,151 @@ class S {
     );
   }
 
-  /// `Skirt`
-  String get skirt {
-    return Intl.message(
-      'Skirt',
-      name: 'skirt',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `T-Shirt`
-  String get tshirt {
-    return Intl.message(
-      'T-Shirt',
-      name: 'tshirt',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Dress`
   String get dress {
     return Intl.message(
       'Dress',
       name: 'dress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Top`
+  String get top {
+    return Intl.message(
+      'Top',
+      name: 'top',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trousers`
+  String get trousers {
+    return Intl.message(
+      'Trousers',
+      name: 'trousers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Jeans`
+  String get jeans {
+    return Intl.message(
+      'Jeans',
+      name: 'jeans',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sweatshirt`
+  String get sweatshirt {
+    return Intl.message(
+      'Sweatshirt',
+      name: 'sweatshirt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hoodie`
+  String get hoodie {
+    return Intl.message(
+      'Hoodie',
+      name: 'hoodie',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Jacket`
+  String get jacket {
+    return Intl.message(
+      'Jacket',
+      name: 'jacket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blazer`
+  String get blazer {
+    return Intl.message(
+      'Blazer',
+      name: 'blazer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coat`
+  String get coat {
+    return Intl.message(
+      'Coat',
+      name: 'coat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sweater`
+  String get sweater {
+    return Intl.message(
+      'Sweater',
+      name: 'sweater',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cardigan`
+  String get cardigan {
+    return Intl.message(
+      'Cardigan',
+      name: 'cardigan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Swimsuit`
+  String get swimsuit {
+    return Intl.message(
+      'Swimsuit',
+      name: 'swimsuit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sportswear`
+  String get sports {
+    return Intl.message(
+      'Sportswear',
+      name: 'sports',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shorts`
+  String get shorts {
+    return Intl.message(
+      'Shorts',
+      name: 'shorts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pyjama`
+  String get pyjama {
+    return Intl.message(
+      'Pyjama',
+      name: 'pyjama',
       desc: '',
       args: [],
     );
@@ -430,30 +550,30 @@ class S {
     );
   }
 
-  /// `Show current weather`
+  /// `Current weather`
   String get show_current_weather {
     return Intl.message(
-      'Show current weather',
+      'Current weather',
       name: 'show_current_weather',
       desc: '',
       args: [],
     );
   }
 
-  /// `Current weather`
+  /// `Current`
   String get current_weather {
     return Intl.message(
-      'Current weather',
+      'Current',
       name: 'current_weather',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enter City`
+  /// `Enter Citys`
   String get enter_city {
     return Intl.message(
-      'Enter City',
+      'Enter Citys',
       name: 'enter_city',
       desc: '',
       args: [],
@@ -470,10 +590,10 @@ class S {
     );
   }
 
-  /// `Add looks for`
+  /// `Plan outfits for`
   String get add_looks_for {
     return Intl.message(
-      'Add looks for',
+      'Plan outfits for',
       name: 'add_looks_for',
       desc: '',
       args: [],
@@ -500,6 +620,16 @@ class S {
     );
   }
 
+  /// `Pick some wardrobe items first`
+  String get pick_clothes_error {
+    return Intl.message(
+      'Pick some wardrobe items first',
+      name: 'pick_clothes_error',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Pick some outfits first`
   String get pick_outfits_error {
     return Intl.message(
@@ -510,11 +640,201 @@ class S {
     );
   }
 
-  /// `Pick some wardrobe items first`
-  String get pick_clothes_error {
+  /// `Accessories`
+  String get accessories {
     return Intl.message(
-      'Pick some wardrobe items first',
-      name: 'pick_clothes_error',
+      'Accessories',
+      name: 'accessories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have any items in your wardrobe!`
+  String get empty_wardrobe {
+    return Intl.message(
+      'You don\'t have any items in your wardrobe!',
+      name: 'empty_wardrobe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filters`
+  String get filters {
+    return Intl.message(
+      'Filters',
+      name: 'filters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clothing type`
+  String get clothing_types {
+    return Intl.message(
+      'Clothing type',
+      name: 'clothing_types',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Size`
+  String get size {
+    return Intl.message(
+      'Size',
+      name: 'size',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Style`
+  String get style {
+    return Intl.message(
+      'Style',
+      name: 'style',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apply filters`
+  String get apply_filters {
+    return Intl.message(
+      'Apply filters',
+      name: 'apply_filters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No outfits have been created yet!`
+  String get empty_outfits {
+    return Intl.message(
+      'No outfits have been created yet!',
+      name: 'empty_outfits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It seems that you don't have any added friend yet!`
+  String get empty_feed {
+    return Intl.message(
+      'It seems that you don\'t have any added friend yet!',
+      name: 'empty_feed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Find your friend`
+  String get search_friend {
+    return Intl.message(
+      'Find your friend',
+      name: 'search_friend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No pending invitations`
+  String get no_pending_invitation {
+    return Intl.message(
+      'No pending invitations',
+      name: 'no_pending_invitation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No pending invitations from such user`
+  String get no_pending_invitation_user {
+    return Intl.message(
+      'No pending invitations from such user',
+      name: 'no_pending_invitation_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Requests`
+  String get friends_request {
+    return Intl.message(
+      'Requests',
+      name: 'friends_request',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All your friends`
+  String get all_friends {
+    return Intl.message(
+      'All your friends',
+      name: 'all_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Found`
+  String get found {
+    return Intl.message(
+      'Found',
+      name: 'found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `results`
+  String get results {
+    return Intl.message(
+      'results',
+      name: 'results',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have friends yet`
+  String get no_friends {
+    return Intl.message(
+      'You don\'t have friends yet',
+      name: 'no_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create`
+  String get create {
+    return Intl.message(
+      'Create',
+      name: 'create',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No matched friends`
+  String get no_found_friends {
+    return Intl.message(
+      'No matched friends',
+      name: 'no_found_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You haven't gotten any notification yet!`
+  String get empty_notifications {
+    return Intl.message(
+      'You haven\'t gotten any notification yet!',
+      name: 'empty_notifications',
       desc: '',
       args: [],
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
 import '../../services/managers/managers.dart';
@@ -32,9 +33,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-      type: title,
-      leftButtonType: "back",
-      isRightButtonVisible: false,
+      title: title,
+      leftButton: BackArrowButton(context),
+      rightButton: null,
       context: context,
       isFullScreen: true,
       body: Stack(children: [

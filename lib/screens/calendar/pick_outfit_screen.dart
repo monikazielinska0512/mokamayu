@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/constants/colors.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
@@ -13,25 +15,29 @@ class PickOutfitScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        type: S.of(context).pick_outfits,
-        leftButtonType: "back",
-        isRightButtonVisible: true,
-        rightButtonType: "go_forward",
-        onPressed: () {
+        title: S.of(context).pick_outfits,
+        leftButton: BackArrowButton(context),
+        rightButton: GoForwardButton(() {
           context.push('/summarize-outfits-screen');
-        },
+        }),
         context: context,
-        isFullScreen: true,
+        isFullScreen: false,
         body: buildBody(context));
   }
 
   Widget buildBody(BuildContext context) {
-    return Column(children: [
-      Expanded(
-          child: PhotoGrid(
-              type: "pick_outfits",
-              outfitsList: Provider.of<OutfitManager>(context, listen: false)
-                  .getOutfitList))
-    ]);
+    return Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            color: ColorsConstants.whiteAccent,
+            borderRadius: BorderRadius.circular(12)),
+        child: Column(children: [
+          Expanded(
+              child: PhotoGrid(
+                  type: "pick_outfits",
+                  outfitsList:
+                      Provider.of<OutfitManager>(context, listen: false)
+                          .getOutfitList))
+        ]));
   }
 }

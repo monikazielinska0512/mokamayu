@@ -4,10 +4,15 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
+import 'package:mokamayu/widgets/fundamental/empty_screen.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/constants/assets.dart';
+
+import '../../generated/l10n.dart';
+import '../../widgets/fields/search_text_field.dart';
 
 class RequestsScreen extends StatefulWidget {
   const RequestsScreen({Key? key}) : super(key: key);
@@ -69,7 +74,6 @@ class _RequestsScreenState extends State<RequestsScreen> {
           .toList();
     }
 
-    // Refresh the UI
     setState(() {
       _foundRequests = results;
     });
@@ -79,28 +83,44 @@ class _RequestsScreenState extends State<RequestsScreen> {
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
-      type: 'your friend invitations',
-      isFullScreen: true,
+      title: 'friend-requests',
+      isFullScreen: false,
+      leftButton: BackArrowButton(context),
+      rightButton: null,
       body: Column(
         children: [
+          TextField(
+              onChanged: (value) {
+                _runFilter(value);
+                value.isNotEmpty ? searching = true : searching = false;
+              },
+              decoration: SearchBarStyle(S.of(context).search_friend)),
           Padding(
-              padding:
-                  EdgeInsets.fromLTRB(20, deviceHeight(context) * 0.15, 20, 20),
-              child: TextField(
-                  onChanged: (value) {
-                    _runFilter(value);
-                    value.isNotEmpty ? searching = true : searching = false;
-                  },
-                  decoration: const InputDecoration(
-                    hintText: "Find friend",
-                  ))),
-          Padding(
-              padding: const EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.only(top: 10, left: 20, bottom: 10),
               child: Container(
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.centerLeft,
-                  child: Text("Found ${_foundRequests.length} results"))),
-          _foundRequests.isNotEmpty ? buildList() : buildEmpty(),
+                  child: _foundRequests.isNotEmpty
+                      ? Text("${S.of(context).found} ${_foundRequests.length} ${S.of(context).results}")
+                      : Container())),
+          _foundRequests.isNotEmpty
+              ? buildList()
+              : EmptyScreen(
+                  context,
+                  searching
+                      ? Text(
+                          S.of(context).no_pending_invitation_user,
+                          style: TextStyles.paragraphRegular14(
+                              ColorsConstants.grey),
+                          textAlign: TextAlign.center,
+                        )
+                      : Text(
+                          S.of(context).no_pending_invitation,
+                          style: TextStyles.paragraphRegular14(
+                              ColorsConstants.grey),
+                          textAlign: TextAlign.center,
+                        ),
+                  ColorsConstants.mint),
         ],
       ),
     );
@@ -152,38 +172,5 @@ class _RequestsScreenState extends State<RequestsScreen> {
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     ));
-  }
-
-  Widget buildEmpty() {
-    return Column(
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.07,
-        ),
-        searching
-            ? Text(
-                "No pending invitations \n from such user",
-                style:
-                    TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
-                textAlign: TextAlign.center,
-              )
-            : Text(
-                "No pending invitations",
-                style:
-                    TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
-                textAlign: TextAlign.center,
-              ),
-        SizedBox(
-            height: deviceWidth(context) * 1.3,
-            child: Opacity(
-              opacity: 0.5,
-              child: Image.asset(
-                "assets/images/mountains.png",
-                width: deviceWidth(context),
-                fit: BoxFit.fitWidth,
-              ),
-            )),
-      ],
-    );
   }
 }

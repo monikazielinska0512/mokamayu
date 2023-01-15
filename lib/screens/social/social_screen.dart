@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/screens/social/post_list.dart';
-import 'package:mokamayu/services/managers/managers.dart';
-import 'package:mokamayu/widgets/fundamental/basic_page.dart';
+import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/models/models.dart';
 
-import '../../services/authentication/auth.dart';
+import '../../widgets/buttons/predefined_buttons.dart';
 
 class SocialScreen extends StatefulWidget {
   const SocialScreen({Key? key}) : super(key: key);
@@ -14,6 +13,8 @@ class SocialScreen extends StatefulWidget {
   @override
   State<SocialScreen> createState() => _SocialScreenState();
 }
+
+
 
 class _SocialScreenState extends State<SocialScreen> {
   List<Post> postList = [];
@@ -27,6 +28,11 @@ class _SocialScreenState extends State<SocialScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (mounted) {
+      setState(() {
+// Your state change code goes here
+      });
+    }
     Provider.of<PostManager>(context, listen: true)
         .readPostsOnce()
         .then((List<Post> temp) {
@@ -46,11 +52,12 @@ class _SocialScreenState extends State<SocialScreen> {
         .readFeedPostsOnce(friendList, postList);
 
     return BasicScreen(
-      type: 'social',
-      leftButtonType: "dots",
-      rightButtonType: "search-notif",
+      title: "Social",
+      leftButton: DotsButton(context),
+      rightButton: SearchNotificationButton(context),
       context: context,
-      isFullScreen: true,
+      backgroundColor: Colors.transparent,
+      isFullScreen: false,
       body: Column(
         children: [
           const SizedBox(

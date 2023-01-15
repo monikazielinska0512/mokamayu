@@ -19,9 +19,10 @@ class OutfitForm extends StatelessWidget {
   Widget build(BuildContext context) {
     _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
     _style = Provider.of<OutfitManager>(context, listen: false).getStyle!;
-    return Padding(
-        padding:
-            const EdgeInsets.only(top: 30, bottom: 10, left: 30, right: 30),
+    return Scrollbar(
+        thickness: 2,
+        radius: const Radius.circular(10),
+        scrollbarOrientation: ScrollbarOrientation.right,
         child: SingleChildScrollView(
             child: Form(
                 key: formKey,
@@ -36,7 +37,7 @@ class OutfitForm extends StatelessWidget {
       Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-              padding: const EdgeInsets.only(bottom: 5, top: 10),
+              padding: const EdgeInsets.only(bottom: 5, top: 10, right: 5),
               child: Text("Season",
                   style: TextStyles.paragraphRegularSemiBold18()))),
       Align(
@@ -52,7 +53,7 @@ class OutfitForm extends StatelessWidget {
               _season = value!;
             },
             color: ColorsConstants.darkMint,
-            chipsList: const ["Spring", "Summer", "Fall", "Winter"],
+            chipsList: OutfitTags.seasons,
           ))
     ]);
   }
@@ -78,7 +79,7 @@ class OutfitForm extends StatelessWidget {
               _style = value!;
             },
             color: ColorsConstants.sunflower,
-            chipsList: const ["Party", "Work", "Active", "Casual", "Wedding"],
+            chipsList: OutfitTags.styles,
           )),
     ]);
   }

@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
@@ -8,6 +8,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
+import '../../widgets/buttons/predefined_buttons.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -43,31 +44,45 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
     outfitsListCopy =
         Provider.of<OutfitManager>(context, listen: true).getOutfitListCopy;
     return BasicScreen(
-        type: S.of(context).outfits,
-        leftButtonType: "dots",
+        title: S.of(context).outfits,
+        leftButton: DotsButton(context),
+        rightButton: NotificationsButton(context),
+        backgroundColor: Colors.transparent,
         context: context,
         body: Stack(children: [
-          Column(
-            children: [
-              Wrap(spacing: 20, runSpacing: 20, children: [
-                buildSearchBarAndFilters(),
-                SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Wrap(spacing: 10, children: [
-                      MultiSelectChip(OutfitTags.styles,
-                          chipsColor: ColorsConstants.darkPeach,
-                          onSelectionChanged: (selectedList) {
-                        selectedChips = selectedList.isEmpty
-                            ? OutfitTags.styles
-                            : selectedList;
-                      }, type: "style_main")
-                    ])),
-              ]),
-              Expanded(
-                  child:
-                      PhotoGrid(outfitsList: outfitsListCopy ?? outfitsList)),
-            ],
-          ),
+          Column(children: [
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                      child: Wrap(children: [
+                    MultiSelectChip(OutfitTags.styles,
+                        chipsColor: ColorsConstants.darkPeach,
+                        onSelectionChanged: (selectedList) {
+                      selectedChips = selectedList.isEmpty
+                          ? OutfitTags.styles
+                          : selectedList;
+                    }, type: "style_main")
+                  ])),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.03),
+                  Container(
+                      alignment: Alignment.center,
+                      child: FilterModal(
+                          height: 0.038,
+                          onApplyOutfits: (selectedList) =>
+                              {outfitsListCopy = selectedList}))
+                ]),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.007),
+            Expanded(
+                child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        color: ColorsConstants.darkPeach.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12)),
+                    child:
+                        PhotoGrid(outfitsList: outfitsListCopy ?? outfitsList)))
+          ]),
           buildFloatingButton(),
         ]));
   }

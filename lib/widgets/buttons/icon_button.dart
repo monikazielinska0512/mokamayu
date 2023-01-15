@@ -31,7 +31,7 @@ class CustomIconButton extends StatelessWidget {
             elevation: 0,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
           ),
-          child: Center(child: Icon(icon, color: iconColor)),
+          child: Center(child: Icon(icon, color: iconColor, size: 30)),
         ));
   }
 }

@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:provider/provider.dart';
-
+import 'package:mokamayu/widgets/widgets.dart';
 import '../../constants/constants.dart';
 import '../../generated/l10n.dart';
 import '../../services/services.dart';
@@ -31,123 +32,134 @@ class OutfitSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     itemList = isCreatingOutfitForFriend
-        ? Provider.of<WardrobeManager>(context, listen: true)
-            .getFinalFriendWardrobeItemList
-        : Provider.of<WardrobeManager>(context, listen: true)
-            .getFinalWardrobeItemList;
+        ? Provider
+        .of<WardrobeManager>(context, listen: true)
+        .getFinalFriendWardrobeItemList
+        : Provider
+        .of<WardrobeManager>(context, listen: true)
+        .getFinalWardrobeItemList;
 
     capturedOutfit =
-        Provider.of<PhotoTapped>(context, listen: false).getScreenshot;
-    _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
-    _style = Provider.of<OutfitManager>(context, listen: false).getStyle!;
-    Outfit? item = Provider.of<PhotoTapped>(context, listen: false).getObject;
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () {
-              Provider.of<OutfitManager>(context, listen: false)
-                  .setSeason(_season);
-              Provider.of<OutfitManager>(context, listen: false)
-                  .setStyle(_style);
-              context.pop();
-            },
-            icon: const Icon(Icons.arrow_back_ios),
-          ),
-          title: const Text("Outfit Summary",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        ),
+        Provider
+            .of<PhotoTapped>(context, listen: false)
+            .getScreenshot;
+    _season = Provider
+        .of<OutfitManager>(context, listen: false)
+        .getSeason!;
+    _style = Provider
+        .of<OutfitManager>(context, listen: false)
+        .getStyle!;
+    Outfit? item = Provider
+        .of<PhotoTapped>(context, listen: false)
+        .getObject;
+    return BasicScreen(
+        title: "Summary",
+        context: context,
         body: Column(children: [
-          Expanded(
-              child: ListView(
-            padding: const EdgeInsets.all(8),
-            children: map!.entries.map((entry) {
-              itemList!.forEach((element) {
-                if (element.reference == entry.key[1]) {
-                  _elements.add(entry.key[1]);
-                }
-              });
-              return WardrobeItemCard(
-                  size: 50,
-                  wardrobItem: itemList!.firstWhere(
-                      (item) => item.reference == entry.key[1],
-                      orElse: () => WardrobeItem(
-                          name: "Photo deleted :(",
-                          type: "",
-                          size: "",
-                          photoURL: "Photo deleted",
-                          styles: [],
-                          created: DateTime.now())));
-            }).toList(),
-          )),
-          Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Tags",
-                    style: TextStyles.paragraphRegularSemiBold18(),
-                  ))),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: ChoiceChip(
-                label: Text(_season),
-                selected: true,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                backgroundColor: ColorsConstants.darkMint,
-                selectedColor: ColorsConstants.darkMint.withOpacity(0.2),
-              ),
-            ),
-          ),
-          Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: ChoiceChip(
-                  label: Text(_style),
-                  selected: true,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  backgroundColor: ColorsConstants.sunflower,
-                  selectedColor: ColorsConstants.sunflower.withOpacity(0.2),
-                ),
-              )),
+          buildList(context),
+          buildTags(),
           item != null ? EditButton(context, item) : SaveButton(context)
-        ]));
+        ]),
+        leftButton: BackArrowButton(context),
+        rightButton: null);
+  }
+
+  Widget buildList(BuildContext context) {
+    return Expanded(
+        child: ListView(
+          padding: const EdgeInsets.all(8),
+          children: map!.entries.map((entry) {
+            for (var element in itemList!) {
+              if (element.reference == entry.key[1]) {
+                _elements.add(entry.key[1]);
+              }
+            }
+            return WardrobeItemCard(
+                size: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.1,
+                wardrobeItem: itemList!.firstWhere(
+                        (item) => item.reference == entry.key[1],
+                    orElse: () =>
+                        WardrobeItem(
+                            name: "Photo deleted :(",
+                            type: "",
+                            size: "",
+                            photoURL: "Photo deleted",
+                            styles: [],
+                            created: DateTime.now())));
+          }).toList(),
+        ));
+  }
+
+  Widget buildTags() {
+    return Column(children: [
+      Padding(
+          padding: const EdgeInsets.fromLTRB(20, 5, 0, 5),
+          child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Tags",
+                style: TextStyles.paragraphRegularSemiBold18(),
+              ))),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
+        child: Align(
+            alignment: Alignment.centerLeft,
+            child: ChoiceChip(
+              label: Text(_season, style: TextStyles.paragraphRegularSemiBold14(
+                  ColorsConstants.white)),
+              selected: true,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              selectedColor: ColorsConstants.darkMint,
+            )),
+      ),
+      Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: ChoiceChip(
+              label: Text(_style,
+                  style: TextStyles.paragraphRegularSemiBold14(
+                      ColorsConstants.white)),
+              selected: true,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              selectedColor: ColorsConstants.sunflower,
+            ),
+          ))
+    ]);
   }
 
   Widget EditButton(BuildContext context, Outfit item) {
     return isCreatingOutfitForFriend
         ? Container()
         : ButtonDarker(context, "Edit", () async {
-            Map<String, String> mapToFirestore = {};
-            map!.forEach((key, value) {
-              mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
-            });
-            Provider.of<OutfitManager>(context, listen: false).updateOutfit(
-                item.reference ?? "",
-                _style,
-                _season,
-                capturedOutfit,
-                _elements,
-                mapToFirestore);
-            Provider.of<OutfitManager>(context, listen: false)
-                .resetSingleTags();
-            Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
-            Provider.of<PhotoTapped>(context, listen: false).setObject(null);
+      Map<String, String> mapToFirestore = {};
+      map!.forEach((key, value) {
+        mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
+      });
+      Provider.of<OutfitManager>(context, listen: false).updateOutfit(
+          item.reference ?? "",
+          _style,
+          _season,
+          capturedOutfit,
+          _elements,
+          mapToFirestore);
+      Provider.of<OutfitManager>(context, listen: false)
+          .resetSingleTags();
+      Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
+      Provider.of<PhotoTapped>(context, listen: false).setObject(null);
 
-            outfitsList = Provider.of<OutfitManager>(context, listen: false)
-                .readOutfitsOnce();
-            Provider.of<OutfitManager>(context, listen: false)
-                .setOutfits(outfitsList!);
+      outfitsList = Provider.of<OutfitManager>(context, listen: false)
+          .readOutfitsOnce();
+      Provider.of<OutfitManager>(context, listen: false)
+          .setOutfits(outfitsList!);
 
-            context.go("/home/1");
-          });
+      context.go("/home/1");
+    });
   }
 
   Widget SaveButton(BuildContext context) {
@@ -222,3 +234,4 @@ class OutfitSummaryScreen extends StatelessWidget {
     });
   }
 }
+

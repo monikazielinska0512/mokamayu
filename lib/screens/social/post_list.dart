@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/authentication/auth.dart';
 import 'package:provider/provider.dart';
+import '../../generated/l10n.dart';
 import '../../services/managers/managers.dart';
 
 class PostList extends StatefulWidget {
@@ -259,28 +261,30 @@ class _PostListState extends State<PostList> {
         itemCount: widget.postList.length);
   }
 
+
   Widget buildEmpty() {
-    return Column(
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.15,
-        ),
-        Text(
-          "Social feed is empty \n Add some friends",
-          style: TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
-          textAlign: TextAlign.center,
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.6,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/mountains.png"),
-                fit: BoxFit.fitWidth,
-                opacity: 0.5),
-          ),
-        ),
-      ],
-    );
+    return  Container(
+            decoration: BoxDecoration(
+                color: ColorsConstants.mint.withOpacity(0.2),
+                borderRadius: const BorderRadius.all(Radius.circular(20))),
+            height: double.maxFinite,
+            width: double.maxFinite,
+            child: Center(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  const Icon(
+                    Ionicons.sad_outline,
+                    size: 25,
+                    color: Colors.grey,
+                  ),
+                  Padding(
+                      padding:
+                          const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                      child: Text(S.of(context).empty_feed,
+                          textAlign: TextAlign.center,
+                          style: TextStyles.paragraphRegular14(Colors.grey)))
+                ])));
   }
 }

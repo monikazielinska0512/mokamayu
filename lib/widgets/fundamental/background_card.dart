@@ -19,9 +19,7 @@ class BackgroundCard extends StatelessWidget {
     return SizedBox(
         height: MediaQuery.of(context).size.height * (height ?? 1.0),
         width: MediaQuery.of(context).size.width * (width ?? 1.0),
-        child: Padding(
-            padding: const EdgeInsets.all(0.0),
-            child: Card(
+        child: Card(
                 margin: EdgeInsets.zero,
                 elevation: 10,
                 semanticContainer: true,
@@ -31,6 +29,6 @@ class BackgroundCard extends StatelessWidget {
                       topRight: Radius.circular(40),
                       topLeft: Radius.circular(40)),
                 ),
-                child: child)));
+                child: child));
   }
 }

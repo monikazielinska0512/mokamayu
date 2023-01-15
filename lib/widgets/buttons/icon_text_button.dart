@@ -27,18 +27,19 @@ class IconTextButton extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      margin: const EdgeInsets.fromLTRB(2, 5, 2, 2),
+      margin: const EdgeInsets.fromLTRB(1, 1, 1, 1),
       child: ElevatedButton.icon(
         onPressed: onPressed,
         icon: Icon(
           icon,
-          size: 24.0,
+          size: 20.0,
         ),
         label: Text(
           text ?? '',
-          style: TextStyles.paragraphRegularSemiBold14(textColor),
+          style: TextStyles.paragraphRegularSemiBold12(textColor),
         ),
         style: ButtonStyle(
+            elevation: MaterialStateProperty.all(0),
             backgroundColor: MaterialStateProperty.all<Color>(
                 backgroundColor ?? ColorsConstants.brick),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(

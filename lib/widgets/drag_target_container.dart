@@ -30,13 +30,9 @@ class _DragTargetState extends State<DragTargetContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: ColorsConstants.whiteAccent,
-        borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(40.0),
-            bottomRight: Radius.circular(40.0),
-            topLeft: Radius.circular(40.0),
-            bottomLeft: Radius.circular(40.0)),
+      decoration:  BoxDecoration(
+        color: ColorsConstants.white,
+          borderRadius: BorderRadius.circular(12),
       ),
       // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       width: MediaQuery.of(context).size.width,
