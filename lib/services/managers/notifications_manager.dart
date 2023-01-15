@@ -18,6 +18,7 @@ class NotificationsManager extends ChangeNotifier {
         .get();
     for (var element in snapshot.docs) {
       CustomNotification notif = CustomNotification.fromSnapshot(element);
+
       temp.add(notif);
     }
     print("readNotificationsOnce");

@@ -103,6 +103,7 @@ class PostManager extends ChangeNotifier {
         .then((_) => print('Liked'))
         .catchError((error) => print('Update failed: $error'));
   }
+
   void commentPost(String reference, String owner, List<Map<String, String>> comments) {
     db
         .collection('users')
