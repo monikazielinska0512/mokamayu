@@ -112,6 +112,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     notif.reference!);
                 context.go('/home/4');
               },
+              onPanUpdate: (details){
+                Provider.of<NotificationsManager>(context,
+                    listen: false)
+                    .notificationRead(
+                    notif.reference!);
+                notificationList.remove(notif);
+                setState(() {});
+              },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,

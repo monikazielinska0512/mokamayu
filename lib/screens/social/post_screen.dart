@@ -78,7 +78,7 @@ class _PostScreenState extends State<PostScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           widget.post.createdFor == widget.post.createdBy
-                              ? GestureDetector(
+                          ? GestureDetector(
                             onTap: () {
                               context.pushNamed(
                                 "profile",
@@ -93,7 +93,7 @@ class _PostScreenState extends State<PostScreen> {
                                     : widget.userList.singleWhere((element) => element.uid == widget.post.createdBy).username,
                                 style: TextStyles.paragraphRegularSemiBold16()),
                           )
-                              : Row(
+                          : Row(
                             children: [
                               GestureDetector(
                                 onTap: () {
@@ -138,29 +138,33 @@ class _PostScreenState extends State<PostScreen> {
                           Text(widget.post.likes!.length.toString(),
                               style: TextStyles.paragraphRegular14(
                                   ColorsConstants.grey)),
-                          widget.user.uid != AuthService().getCurrentUserID()
-                              ? widget.post.likes!.contains(AuthService().getCurrentUserID())
-                                ? IconButton(
-                                  onPressed: (){
-                                    widget.post.likes!.remove(AuthService().getCurrentUserID());
-                                    Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdBy, widget.post.likes!);
-                                    setState(() {});
-                                    },
-                                  icon: const Icon(Icons.favorite, color: ColorsConstants.darkBrick,))
-                                : IconButton(
-                                  onPressed: (){
-                                    widget.post.likes!.add(AuthService().getCurrentUserID());
-                                    Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdBy, widget.post.likes!);
-                                    setState(() {});
-                                    CustomNotification notif = CustomNotification(
-                                        sentFrom: AuthService().getCurrentUserID(),
-                                        type: NotificationType.COMMENT.toString(),
-                                        creationDate: DateTime.now().millisecondsSinceEpoch
-                                    );
-                                    Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, widget.post.createdBy);
-                                    },
-                                  icon: const Icon(Icons.favorite_border, color: ColorsConstants.darkBrick,))
-                              : const Icon(Icons.favorite_border, color: ColorsConstants.darkBrick,),
+                          widget.post.likes!.contains(AuthService().getCurrentUserID())
+                          ? IconButton(
+                            onPressed: (){
+                              widget.post.likes!.remove(AuthService().getCurrentUserID());
+                              Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdFor, widget.post.likes!);
+                              setState(() {});
+                              },
+                            icon: const Icon(Icons.favorite, color: ColorsConstants.darkBrick,))
+                          : IconButton(
+                            onPressed: (){
+                              widget.post.likes!.add(AuthService().getCurrentUserID());
+                              Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdFor, widget.post.likes!);
+                              setState(() {});
+                              if(AuthService().getCurrentUserID() != widget.post.createdBy) {
+                                  CustomNotification notif =
+                                      CustomNotification(
+                                          sentFrom: AuthService().getCurrentUserID(),
+                                          type: NotificationType.COMMENT.toString(),
+                                          creationDate: DateTime.now()
+                                              .millisecondsSinceEpoch);
+                                  Provider.of<NotificationsManager>(context,
+                                          listen: false)
+                                      .addNotificationToFirestore(
+                                          notif, widget.post.createdBy);
+                                }
+                              },
+                            icon: const Icon(Icons.favorite_border, color: ColorsConstants.darkBrick,))
                         ],
                       ),
                     ],
@@ -215,15 +219,21 @@ class _PostScreenState extends State<PostScreen> {
                       });
                       Provider.of<PostManager>(context, listen: false)
                           .commentPost(widget.post.reference!,
-                              widget.post.createdBy, widget.post.comments!);
-                      CustomNotification notif = CustomNotification(
-                          sentFrom: AuthService().getCurrentUserID(),
-                          type: NotificationType.COMMENT.toString(),
-                          creationDate: DateTime.now().millisecondsSinceEpoch
-                      );
-                      Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, widget.post.createdBy);
+                              widget.post.createdFor, widget.post.comments!);
                       myController.clear();
                       setState(() {});
+
+                      if(AuthService().getCurrentUserID() != widget.post.createdBy){
+                        CustomNotification notif = CustomNotification(
+                            sentFrom: AuthService().getCurrentUserID(),
+                            type: NotificationType.COMMENT.toString(),
+                            creationDate:
+                                DateTime.now().millisecondsSinceEpoch);
+                        Provider.of<NotificationsManager>(context,
+                                listen: false)
+                            .addNotificationToFirestore(
+                                notif, widget.post.createdBy);
+                      }
                     },
                     decoration: const InputDecoration(
                       hintText: "Comment post",
