@@ -19,9 +19,7 @@ class NotificationsManager extends ChangeNotifier {
         .get();
     for (var element in snapshot.docs) {
       CustomNotification notif = CustomNotification.fromSnapshot(element);
-      if(!notif.read) {
-        temp.add(notif);
-      }
+      temp.add(notif);
     }
     print("readNotificationsOnce");
     notificationList = temp;
@@ -38,15 +36,14 @@ class NotificationsManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void notificationRead(String reference) {
+  void deleteNotification(String reference) {
     db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
         .collection('notifications')
         .doc(reference)
-        .update({"read": true})
-        .then((_) => print('Read'))
-        .catchError((error) => print('Update failed: $error'));
+        .delete().then((_) => print('Deleted'))
+        .catchError((error) => print(' $error'));
   }
 
 }

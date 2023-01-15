@@ -4,7 +4,6 @@ import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
 import '../../services/managers/managers.dart';
-import 'package:mokamayu/screens/screens.dart';
 import '../../widgets/widgets.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -46,7 +45,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           child: BackgroundCard(
             context: context,
             height: 0.8,
-            child: Padding(
+            child: Container(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
               child: notificationList.isEmpty
                   ? buildEmptyScreen(context)
@@ -86,12 +85,25 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Expanded(
         child: ListView.separated(
             itemBuilder: (BuildContext context, int index) {
-              return Container(
+              return Dismissible(
+                key: Key(notificationList[index].reference!),
+                onDismissed: (direction) {
+                  Provider.of<NotificationsManager>(context,
+                      listen: false)
+                      .deleteNotification(
+                      notificationList[index].reference!);
+                  setState(() {
+                    notificationList.removeAt(index);
+                  });
+                },
+                background: Container(color: ColorsConstants.darkBrick),
+                child: Container(
                   padding: const EdgeInsets.all(10),
                   color: ColorsConstants.whiteAccent,
                   height: MediaQuery.of(context).size.height * 0.1,
-                  child: buildNotifications(context, notificationList[index], userList),
-                  );
+                  child: buildNotifications(context, notificationList[index], userList)
+                  ),
+              );
             },
             separatorBuilder: (BuildContext context, int index) =>
                 const Divider(),
@@ -108,17 +120,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               onTap: () {
                 Provider.of<NotificationsManager>(context,
                     listen: false)
-                    .notificationRead(
+                    .deleteNotification(
                     notif.reference!);
                 context.go('/home/4');
-              },
-              onPanUpdate: (details){
-                Provider.of<NotificationsManager>(context,
-                    listen: false)
-                    .notificationRead(
-                    notif.reference!);
-                notificationList.remove(notif);
-                setState(() {});
               },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -139,7 +143,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           onTap: () {
             Provider.of<NotificationsManager>(context,
                 listen: false)
-                .notificationRead(
+                .deleteNotification(
                 notif.reference!);
             context.go('/home/4');
           },
@@ -162,7 +166,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           onTap: () {
             Provider.of<NotificationsManager>(context,
                 listen: false)
-                .notificationRead(
+                .deleteNotification(
                 notif.reference!);
             context.go('/home/1');
           },
@@ -185,7 +189,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           onTap: () {
             Provider.of<NotificationsManager>(context,
                 listen: false)
-                .notificationRead(
+                .deleteNotification(
                 notif.reference!);
             context.pushNamed(
               "profile",
@@ -213,7 +217,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           onTap: () {
             Provider.of<NotificationsManager>(context,
                 listen: false)
-                .notificationRead(
+                .deleteNotification(
                 notif.reference!);
             context.pushNamed(
               "profile",
