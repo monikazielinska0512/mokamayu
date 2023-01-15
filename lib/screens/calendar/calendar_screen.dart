@@ -416,7 +416,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ? ListView(shrinkWrap: true, children: [
                       ..._getEventsfromDay(_selectedDay)
                           .map((Event event) => WardrobeItemCard(
-                              size: 50, outfit: event.outfit, event: event))
+                              size: 60, outfit: event.outfit, event: event))
                           .toList(),
                     ])
                   : Container(
