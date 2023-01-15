@@ -93,7 +93,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     setState(() {
       var condition = weatherData['weather'][0]['id'];
       currentWeatherIcon = weatherModel.getWeatherIcon(condition);
-      int temp = weatherData['main']['temp'];
+      double temp = weatherData['main']['temp'];
       temperature = temp.toInt();
     });
   }
