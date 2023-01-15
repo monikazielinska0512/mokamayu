@@ -44,8 +44,7 @@ class CreateOutfitPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         elevation: 0,
-        title: Text("Create outfit${friendUid != null ? " for ..." : ""}",
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        title: buildTitle(context),
         leading: IconButton(
           onPressed: () {
             Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
@@ -108,6 +107,21 @@ class CreateOutfitPage extends StatelessWidget {
       ),
       //),
     );
+  }
+
+  Widget buildTitle(BuildContext context) {
+    return isCreatingOutfitForFriend
+        ? FutureBuilder<UserData?>(
+            future: Provider.of<ProfileManager>(context, listen: false)
+                .getUserData(friendUid),
+            builder: (context, snapshot) => Text(
+                "Create outfit for ${snapshot.data?.username}",
+                overflow: TextOverflow.visible,
+                softWrap: true,
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)))
+        : const Text("Create outfit",
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold));
   }
 
   Widget buildFilters() {

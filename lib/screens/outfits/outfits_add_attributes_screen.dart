@@ -68,13 +68,7 @@ class _OutfitsAddAttributesScreenState
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.black,
           elevation: 0,
-          title: item != null
-              ? const Text("Edit outfit",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))
-              : Text(
-                  "Create outfit${widget.friendUid != null ? " for ..." : ""}",
-                  style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.bold)),
+          title: buildTitle(context),
           leading: IconButton(
             onPressed: () {
               if (item != null) {
@@ -159,6 +153,24 @@ class _OutfitsAddAttributesScreenState
         body: item != null
             ? bodyEdit(screenshotController, formKey, item!, context)
             : bodyAdd(screenshotController, formKey, item, context));
+  }
+
+  Widget buildTitle(BuildContext context) {
+    return item != null
+        ? const Text("Edit outfit",
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))
+        : widget.isCreatingOutfitForFriend
+            ? FutureBuilder<UserData?>(
+                future: Provider.of<ProfileManager>(context, listen: false)
+                    .getUserData(widget.friendUid),
+                builder: (context, snapshot) => Text(
+                    "Create outfit for ${snapshot.data?.username}",
+                    overflow: TextOverflow.visible,
+                    softWrap: true,
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold)))
+            : const Text("Create outfit",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold));
   }
 
   Widget bodyEdit(ScreenshotController screenshotController,

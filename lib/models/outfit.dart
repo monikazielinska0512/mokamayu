@@ -31,7 +31,7 @@ class Outfit {
         map = {};
 
   factory Outfit.fromJson(Map<dynamic, dynamic> json) => Outfit(
-      owner: json['owner'] ?? json['owner'] as String,
+      owner: json['owner'] ?? json['createdBy'] as String,
       createdBy: json['createdBy'] as String,
       style: json['style'] as String,
       season: json['season'] as String,
