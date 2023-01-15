@@ -3,7 +3,13 @@ import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/authentication/authentication.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late final FirebaseAuth auth;
+
+  AuthService() {
+    auth = FirebaseAuth.instance;
+  }
+
+  AuthService.withAuth({required this.auth});
 
   late AuthStatus _status;
 
@@ -12,27 +18,27 @@ class AuthService {
   }
 
   Stream<FirebaseUser?> get user {
-    return _auth.authStateChanges().map(_firebaseUser);
+    return auth.authStateChanges().map(_firebaseUser);
   }
 
-  User? get currentUser => _auth.currentUser;
+  User? get currentUser => auth.currentUser;
 
-  Future signInEmailPassword(LoginUser _login) async {
-    await _auth
+  AuthStatus? get status => _status;
+
+  Future<AuthStatus> signInEmailPassword(LoginUser login) async {
+    await auth
         .signInWithEmailAndPassword(
-            email: _login.email.toString(),
-            password: _login.password.toString())
+            email: login.email.toString(), password: login.password.toString())
         .then((value) => _status = AuthStatus.successful)
         .catchError(
             (e) => _status = AuthExceptionHandler.handleAuthException(e));
     return _status;
   }
 
-  Future register(LoginUser _login) async {
-    await _auth
+  Future register(LoginUser login) async {
+    await auth
         .createUserWithEmailAndPassword(
-            email: _login.email.toString(),
-            password: _login.password.toString())
+            email: login.email.toString(), password: login.password.toString())
         .then((value) => _status = AuthStatus.successful)
         .catchError(
             (e) => _status = AuthExceptionHandler.handleAuthException(e));
@@ -40,7 +46,7 @@ class AuthService {
   }
 
   Future resetPassword(String email) async {
-    await _auth
+    await auth
         .sendPasswordResetEmail(email: email)
         .then((value) => _status = AuthStatus.successful)
         .catchError(
@@ -50,14 +56,15 @@ class AuthService {
 
   Future signOut() async {
     try {
-      return await _auth.signOut();
+      _status = AuthStatus.unknown;
+      return await auth.signOut();
     } catch (e) {
       return null;
     }
   }
 
   String getCurrentUserID() {
-    final User? user = _auth.currentUser;
+    final User? user = auth.currentUser;
     final uid = user?.uid;
     return uid.toString();
   }
