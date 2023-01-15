@@ -12,28 +12,24 @@ enum NotificationType {
 
 class CustomNotification {
   final String sentFrom;
-  final bool read;
   final String type;
   final int creationDate;
   String? reference;
 
   CustomNotification({
     required this.sentFrom,
-    this.read = false,
     required this.type,
     required this.creationDate,
   });
 
   factory CustomNotification.fromJson(Map<dynamic, dynamic> json) => CustomNotification(
     sentFrom: json['sentFrom'] as String,
-    read: json['read'] as bool,
     creationDate: json['creationDate'] as int,
     type: json['type'] as String,
   );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
     "sentFrom": sentFrom.toString(),
-    "read": read,
     "creationDate": creationDate,
     "type": type,
   };

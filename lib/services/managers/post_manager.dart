@@ -93,10 +93,10 @@ class PostManager extends ChangeNotifier {
     return friendsPostList;
   }
 
-  void likePost(String reference, String author, List<String> likes) {
+  void likePost(String reference, String owner, List<String> likes) {
     db
         .collection('users')
-        .doc(author)
+        .doc(owner)
         .collection('posts')
         .doc(reference)
         .update({"likes": likes})
@@ -104,11 +104,10 @@ class PostManager extends ChangeNotifier {
         .catchError((error) => print('Update failed: $error'));
   }
 
-  void commentPost(
-      String reference, String author, List<Map<String, String>> comments) {
+  void commentPost(String reference, String owner, List<Map<String, String>> comments) {
     db
         .collection('users')
-        .doc(author)
+        .doc(owner)
         .collection('posts')
         .doc(reference)
         .update({"comments": comments})
