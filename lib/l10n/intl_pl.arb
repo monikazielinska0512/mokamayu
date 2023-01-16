@@ -52,7 +52,7 @@
   "friend_requests": "Zaproszenia do znajomych",
   "show_current_weather": "Aktualna pogoda",
   "current_weather": "Aktualnie",
-  "enter_city": "Wpisz miasto",
+  "enter_city": "Nazwa miasta",
   "looks_for": "Stylizacje na",
   "add_looks_for": "Dodaj stylizacje na",
   "pick_outfits": "Wybierz stylizacje",
@@ -85,5 +85,9 @@
   "get_started": "Zaczynamy",
   "check_inbox": "Sprawdź skrzynkę pocztową!",
   "email_sent" : "Wiadomość resetująca hasło została wysłana na twój adres email",
-  "back" : "Wróć"
+  "back" : "Wróć",
+  "planned_outfits": "Zaplanowane",
+  "empty_planned_outfits": "Brak zaplanowanych stylizacji na ten dzień",
+  "type": "Rodzaj",
+  "enter_name": "Wprowadź nazwę"
 }

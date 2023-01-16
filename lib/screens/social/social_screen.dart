@@ -28,6 +28,7 @@ class _SocialScreenState extends State<SocialScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     if (mounted) {
       setState(() {
 // Your state change code goes here
@@ -36,7 +37,11 @@ class _SocialScreenState extends State<SocialScreen> {
     Provider.of<PostManager>(context, listen: true)
         .readPostsOnce()
         .then((List<Post> temp) {
-      setState(() => postList = temp);
+      if (mounted) {
+        setState(() => postList = temp);
+      }
+
+
     });
     Provider.of<UserListManager>(context, listen: false)
         .readUserOnce()

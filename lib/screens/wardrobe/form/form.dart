@@ -10,19 +10,19 @@ import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../utils/validator.dart';
+import '../../../widgets/fundamental/gallery.dart';
 
 class WardrobeItemForm extends StatefulWidget {
   final String? photoPath;
   final File? editedPhoto;
   final WardrobeItem? item;
-  final bool showUpdateAndDeleteButtons;
 
   const WardrobeItemForm(
       {Key? key,
       this.photoPath,
       this.item,
-      this.showUpdateAndDeleteButtons = false,
       this.editedPhoto})
       : super(key: key);
 
@@ -55,23 +55,19 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
         padding: widget.item == null
             ? const EdgeInsets.only(top: 30, bottom: 0, left: 30, right: 30)
             : const EdgeInsets.only(left: 30, right: 30, top: 10),
-        child: SingleChildScrollView(
-            child: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                      buildNameTextField(),
-                      buildTypeChipsField(),
-                      buildSizeChipsField(),
-                      buildStyleChipsField(),
-                      widget.item == null
-                          ? buildAddButton()
-                          : (widget.showUpdateAndDeleteButtons == true
-                              ? buildUpdateButton()
-                              : Container())
-                    ])))));
+        child: Form(
+            key: _formKey,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(padding: EdgeInsets.only(bottom: 15), child:
+                  buildNameTextField()),
+                  Gallery(context, getTabs()),
+                  widget.item == null
+                      ? buildAddButton()
+                      :  buildUpdateButton()
+                ])));
   }
 
   Widget buildNameTextField() {
@@ -88,29 +84,34 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
           }
           return null;
         },
-        style: const TextStyle(
-            fontSize: 26, fontFamily: "Poppins", fontWeight: FontWeight.w600),
+        style: TextStyles.paragraphRegularSemiBold16(),
         decoration: InputDecoration(
-          border: InputBorder.none,
-          labelText: 'Enter your item name',
-          labelStyle: TextStyles.h4(),
-          focusedBorder: InputBorder.none,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
-          contentPadding: const EdgeInsets.only(bottom: 0, right: 0, top: 0),
-        ));
+            hintText: S.of(context).enter_name,
+            prefixIcon: const Icon(Ionicons.pencil_outline, color: ColorsConstants.darkBrick),
+            filled: true,
+            fillColor: ColorsConstants.whiteAccent,
+            labelStyle: TextStyles.paragraphRegularSemiBold16(),
+            hintStyle: TextStyles.paragraphRegular16(),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
+            ),
+            border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(14.0))))
+    );
   }
+
+  Map<String, Widget>? getTabs() => {
+        S.of(context).type: SingleChildScrollView(child: buildTypeChipsField()),
+        S.of(context).style: buildStyleChipsField(),
+        S.of(context).size: buildSizeChipsField()
+      };
+
 
   Widget buildTypeChipsField() {
     return Column(children: [
-      Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Text("Type",
-                  style: TextStyles.paragraphRegularSemiBold18()))),
       Align(
           alignment: Alignment.centerLeft,
           child: SingleSelectChipsFormField(
@@ -128,12 +129,6 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
     return Column(children: [
       Align(
           alignment: Alignment.centerLeft,
-          child: Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Text("Size",
-                  style: TextStyles.paragraphRegularSemiBold18()))),
-      Align(
-          alignment: Alignment.centerLeft,
           child: SingleSelectChipsFormField(
             initialValue: _size,
             autoValidate: true,
@@ -148,12 +143,6 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
 
   Widget buildStyleChipsField() {
     return Column(children: [
-      Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Text("Style",
-                  style: TextStyles.paragraphRegularSemiBold18()))),
       MultiSelectChipsFormField(
           isScroll: false,
           initialValue: _styles,
@@ -201,10 +190,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   }
 
   Widget buildUpdateButton() {
-    return Padding(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+    return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -246,10 +232,10 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
               }
             },
                 shouldExpand: false,
-                width: 0.6,
+                width: 0.65,
                 margin: const EdgeInsets.fromLTRB(0, 0, 0, 0)),
           ],
-        ));
+        );
   }
 
   void reset() {

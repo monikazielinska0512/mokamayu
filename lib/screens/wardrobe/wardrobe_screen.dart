@@ -73,8 +73,12 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
               ]),
               const SizedBox(height: 10),
               Expanded(
-                  child: PhotoGrid(
-                      itemList: futureItemListCopy ?? futureItemList)),
+                  child: 
+                  Container( 
+                    padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(color: ColorsConstants.mint.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
+                      child: PhotoGrid(
+                      itemList: futureItemListCopy ?? futureItemList))),
             ],
           ),
           buildFloatingButton(),

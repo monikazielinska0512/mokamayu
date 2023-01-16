@@ -56,11 +56,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Nie otrzymałeś żadnych powiadomień"),
         "empty_outfits": MessageLookupByLibrary.simpleMessage(
             "Nie stowrzono jeszcze żadnej stylizacji!"),
+        "empty_planned_outfits": MessageLookupByLibrary.simpleMessage(
+            "Brak zaplanowanych stylizacji na ten dzień"),
         "empty_wardrobe": MessageLookupByLibrary.simpleMessage(
             "Nie masz żadnych elementów w szafie!"),
-        "enter_city": MessageLookupByLibrary.simpleMessage("Wpisz miasto"),
+        "enter_city": MessageLookupByLibrary.simpleMessage("Nazwa miasta"),
         "enter_email":
             MessageLookupByLibrary.simpleMessage("Wprowadź adres email"),
+        "enter_name": MessageLookupByLibrary.simpleMessage("Wprowadź nazwę"),
         "enter_password":
             MessageLookupByLibrary.simpleMessage("Wprowadź hasło"),
         "enter_username":
@@ -103,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Wybierz stylizacje"),
         "pick_outfits_error":
             MessageLookupByLibrary.simpleMessage("Wybierz najpierw stylizacje"),
+        "planned_outfits": MessageLookupByLibrary.simpleMessage("Zaplanowane"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Proszę wprowadzić tekst"),
         "posts": MessageLookupByLibrary.simpleMessage("Posty"),
@@ -133,6 +137,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "swimsuit": MessageLookupByLibrary.simpleMessage("Strój kąpielowy"),
         "top": MessageLookupByLibrary.simpleMessage("Top"),
         "trousers": MessageLookupByLibrary.simpleMessage("Spodnie"),
+        "type": MessageLookupByLibrary.simpleMessage("Rodzaj"),
         "user_not_exist": MessageLookupByLibrary.simpleMessage(
             "Podany użytkownik nie istnieje"),
         "wardrobe": MessageLookupByLibrary.simpleMessage("Szafa"),

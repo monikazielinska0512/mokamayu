@@ -48,7 +48,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (mounted) {
       outfitList =
-          Provider.of<OutfitManager>(context, listen: false).getFinalOutfitList;
+          Provider
+              .of<OutfitManager>(context, listen: false)
+              .getFinalOutfitList;
     }
     setState(() {
       String? encodedMap = prefs.getString(_auth.getCurrentUserID());
@@ -122,9 +124,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
     selectedEvents =
-        Provider.of<CalendarManager>(context, listen: true).getEvents;
+        Provider
+            .of<CalendarManager>(context, listen: true)
+            .getEvents;
     return BasicScreen(
-        title: S.of(context).calendar,
+        title: S
+            .of(context)
+            .calendar,
         leftButton: DotsButton(context),
         rightButton: NotificationsButton(context),
         backgroundColor: Colors.transparent,
@@ -149,7 +155,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
               focusNode: myFocusNode,
               controller: _cityTextController,
               decoration: SearchBarStyle(
-                "Enter city",
+                S
+                    .of(context)
+                    .enter_city,
                 icon: null,
                 suffixIcon: IconButton(
                   icon: const Icon(Ionicons.search_outline,
@@ -167,8 +175,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     var forecastCoordsData = await weatherModel
                         .getForecastByCoords(longtitude, lattitude);
                     for (var i = 0;
-                        i < forecastCoordsData['list'].length;
-                        i++) {
+                    i < forecastCoordsData['list'].length;
+                    i++) {
                       var day = DateFormat('EEE').format(DateTime.parse(
                           forecastCoordsData['list'][i]['dt_txt']));
                       Provider.of<WeatherManager>(context, listen: false)
@@ -183,7 +191,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           .addIcon(iconUrl);
                       Provider.of<WeatherManager>(context, listen: false)
                           .addTemp(forecastCoordsData['list'][i]['main']['temp']
-                              .toDouble());
+                          .toDouble());
                     }
                   },
                 ),
@@ -196,65 +204,86 @@ class _CalendarScreenState extends State<CalendarScreen> {
       showHourlyWeather == true
           ? HourlyWeather()
           : Padding(
-              padding: const EdgeInsets.only(bottom: 15),
-              child: Container(width: 0)),
+          padding: const EdgeInsets.only(bottom: 15),
+          child: Container(width: 0)),
     ]);
   }
 
   Widget buildCurrentWeatherWidget() {
     return showCurrentWeather
         ? Padding(
-            padding: const EdgeInsets.only(left: 15, right: 5),
-            child: Container(
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: MediaQuery.of(context).size.height * 0.08,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: ColorsConstants.sunflower.withOpacity(0.1)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      S.of(context).current_weather,
-                      style: TextStyles.paragraphRegular14(),
-                    ),
-                    // const SizedBox(height: 5),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text('$currentWeatherIcon',
-                              style: TextStyles.paragraphRegularSemiBold20()),
-                          const SizedBox(width: 5),
-                          Text('$temperature°  ',
-                              style: TextStyles.paragraphRegularSemiBold18()),
-                        ])
-                  ],
-                )))
+        padding: const EdgeInsets.only(left: 15, right: 5),
+        child: Container(
+            width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.3,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * 0.08,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: ColorsConstants.sunflower.withOpacity(0.1)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  S
+                      .of(context)
+                      .current_weather,
+                  style: TextStyles.paragraphRegular14(),
+                ),
+                // const SizedBox(height: 5),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('$currentWeatherIcon',
+                          style: TextStyles.paragraphRegularSemiBold20()),
+                      const SizedBox(width: 5),
+                      Text('$temperature°  ',
+                          style: TextStyles.paragraphRegularSemiBold18()),
+                    ])
+              ],
+            )))
         : Padding(
-            padding: const EdgeInsets.only(left: 15, right: 5),
-            child: IconTextButton(
-              onPressed: () {
-                updateUI();
-                showCurrentWeather = true;
-              },
-              icon: Ionicons.sunny_outline,
-              text: S.of(context).show_current_weather,
-              width: MediaQuery.of(context).size.width * 0.3,
-              height: MediaQuery.of(context).size.height * 0.08,
-              backgroundColor: ColorsConstants.mint.withOpacity(0.6),
-            ),
-          );
+      padding: const EdgeInsets.only(left: 15, right: 5),
+      child: IconTextButton(
+        onPressed: () {
+          updateUI();
+          showCurrentWeather = true;
+        },
+        icon: Ionicons.sunny_outline,
+        text: S
+            .of(context)
+            .show_current_weather,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width * 0.3,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height * 0.08,
+        backgroundColor: ColorsConstants.mint.withOpacity(0.6),
+      ),
+    );
   }
 
   Map<String, Widget>? getTabs() =>
-      {"Calendar": buildCalendar(), "Planned outfits": buildPlannedOutfits()};
+      {S
+          .of(context)
+          .calendar: buildCalendar(), S
+          .of(context)
+          .planned_outfits: buildPlannedOutfits()};
 
   Widget buildProfileGallery(BuildContext context) {
     List<Tab>? tabs = getTabs()
         ?.keys
-        .map((label) => Tab(
+        .map((label) =>
+        Tab(
             child: Text(label,
                 style: TextStyles.paragraphRegularSemiBold14(),
                 textAlign: TextAlign.center)))
@@ -262,40 +291,41 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return tabs == null
         ? Container()
         : MediaQuery.removePadding(
-            context: context,
-            removeTop: true,
-            child: Expanded(
-              child: DefaultTabController(
-                length: tabs.length,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    TabBar(
-                      padding: const EdgeInsets.only(top: 0, bottom: 5),
-                      indicator: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: ColorsConstants.peachy.withOpacity(0.3)),
-                      indicatorColor: ColorsConstants.darkBrick,
-                      labelStyle: TextStyles.paragraphRegular16(),
-                      labelColor: ColorsConstants.darkBrick,
-                      unselectedLabelColor: ColorsConstants.grey,
-                      tabs: tabs,
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        children: getTabs()!
-                            .values
-                            .map((widget) => Padding(
-                                padding: const EdgeInsets.only(top: 5),
-                                child: widget))
-                            .toList(),
-                      ),
-                    )
-                  ],
-                ),
+      context: context,
+      removeTop: true,
+      child: Expanded(
+        child: DefaultTabController(
+          length: tabs.length,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TabBar(
+                padding: const EdgeInsets.only(top: 0, bottom: 5),
+                indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: ColorsConstants.peachy.withOpacity(0.3)),
+                indicatorColor: ColorsConstants.darkBrick,
+                labelStyle: TextStyles.paragraphRegular16(),
+                labelColor: ColorsConstants.darkBrick,
+                unselectedLabelColor: ColorsConstants.grey,
+                tabs: tabs,
               ),
-            ),
-          );
+              Expanded(
+                child: TabBarView(
+                  children: getTabs()!
+                      .values
+                      .map((widget) =>
+                      Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: widget))
+                      .toList(),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget buildCalendar() {
@@ -321,8 +351,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             borderRadius: BorderRadius.circular(10),
                             color: ColorsConstants.sunflower.withOpacity(0.2)),
                         formatButtonTextStyle:
-                            TextStyles.paragraphRegularSemiBold14(
-                                ColorsConstants.sunflower),
+                        TextStyles.paragraphRegularSemiBold14(
+                            ColorsConstants.sunflower),
                         leftChevronIcon: const Icon(Ionicons.chevron_back,
                             color: Colors.black),
                         leftChevronPadding: const EdgeInsets.all(0),
@@ -362,11 +392,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     calendarStyle: CalendarStyle(
                       cellMargin: const EdgeInsets.all(5),
                       todayTextStyle:
-                          TextStyles.paragraphRegular12(Colors.white),
+                      TextStyles.paragraphRegular12(Colors.white),
                       defaultTextStyle: TextStyles.paragraphRegular12(),
                       weekendTextStyle: TextStyles.paragraphRegularSemiBold12(),
                       selectedTextStyle:
-                          TextStyles.paragraphRegularSemiBold12(Colors.white),
+                      TextStyles.paragraphRegularSemiBold12(Colors.white),
                       markersAlignment: Alignment.bottomRight,
                       selectedDecoration: const BoxDecoration(
                         color: ColorsConstants.peachy,
@@ -378,21 +408,22 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                     ),
                     calendarBuilders: CalendarBuilders(
-                      markerBuilder: (context, day, events) => events.isNotEmpty
+                      markerBuilder: (context, day, events) =>
+                      events.isNotEmpty
                           ? Container(
-                              width: 20,
-                              height: 20,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: ColorsConstants.darkBrick,
-                              ),
-                              child: Text(
-                                '${events.length}',
-                                style: TextStyles.paragraphRegularSemiBold12(
-                                    ColorsConstants.white),
-                              ),
-                            )
+                        width: 20,
+                        height: 20,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: ColorsConstants.darkBrick,
+                        ),
+                        child: Text(
+                          '${events.length}',
+                          style: TextStyles.paragraphRegularSemiBold12(
+                              ColorsConstants.white),
+                        ),
+                      )
                           : null,
                     )))));
   }
@@ -404,33 +435,42 @@ class _CalendarScreenState extends State<CalendarScreen> {
           child: Align(
               alignment: Alignment.topLeft,
               child: Text(
-                "${S.of(context).looks_for} ${DateFormat.MMMMd().format(_selectedDay)}:",
+                "${S
+                    .of(context)
+                    .looks_for} ${DateFormat.MMMMd().format(_selectedDay)}:",
                 style:
-                    TextStyles.paragraphRegularSemiBold16(ColorsConstants.grey),
+                TextStyles.paragraphRegularSemiBold16(ColorsConstants.grey),
               ))),
       Expanded(
           child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
               child: _getEventsfromDay(_selectedDay).isNotEmpty
                   ? ListView(shrinkWrap: true, children: [
-                      ..._getEventsfromDay(_selectedDay)
-                          .map((Event event) => WardrobeItemCard(
-                              size: 60, outfit: event.outfit, event: event))
-                          .toList(),
-                    ])
+                ..._getEventsfromDay(_selectedDay)
+                    .map((Event event) =>
+                    WardrobeItemCard(
+                        size: 60, outfit: event.outfit, event: event))
+                    .toList(),
+              ])
                   : Container(
-                      decoration: BoxDecoration(
-                          color: ColorsConstants.sunflower.withOpacity(0.1),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20))),
-                      height: double.maxFinite,
-                      width: double.maxFinite,
-                      child: Center(
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                  decoration: BoxDecoration(
+                      color: ColorsConstants.sunflower.withOpacity(0.1),
+                      borderRadius:
+                      const BorderRadius.all(Radius.circular(20))),
+                  height: double.maxFinite,
+                  width: double.maxFinite,
+                  child: Center(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
                             const Icon(
                               Ionicons.sad_outline,
                               size: 25,
@@ -439,7 +479,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             Padding(
                                 padding: const EdgeInsets.all(30),
                                 child: Text(
-                                    "Brak zaplanowanych stylizaci na ten dzień",
+                                    S.of(context).empty_planned_outfits,
                                     textAlign: TextAlign.center,
                                     style: TextStyles.paragraphRegular14(
                                         Colors.grey)))
@@ -458,9 +498,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         alignment: Alignment.bottomRight);
   }
 
-  void _showModal(
-    context,
-  ) {
+  void _showModal(context,) {
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
@@ -484,7 +522,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
             decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(30))),
-            height: MediaQuery.of(context).size.height * 0.25,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * 0.25,
             child: Center(
               child: Column(
                 children: <Widget>[
@@ -498,10 +539,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 GestureDetector(
                                     onTap: () {
                                       Provider.of<CalendarManager>(context,
-                                              listen: false)
+                                          listen: false)
                                           .setSelectedEvents(selectedEvents);
                                       Provider.of<CalendarManager>(context,
-                                              listen: false)
+                                          listen: false)
                                           .setSelectedDay(_selectedDay);
 
                                       context.push('/pick-outfits-calendar');
@@ -513,36 +554,37 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         child: Container(
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(12),
+                                              BorderRadius.circular(12),
                                               color:
-                                                  ColorsConstants.whiteAccent,
+                                              ColorsConstants.whiteAccent,
                                             ),
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                                            height: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
                                                 0.12,
                                             width: double.maxFinite,
                                             child: Padding(
                                                 padding:
-                                                    const EdgeInsets.all(10),
+                                                const EdgeInsets.all(10),
                                                 child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            10),
+                                                    const EdgeInsets.all(
+                                                        10),
                                                     child: Row(
                                                       mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                       crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
+                                                      CrossAxisAlignment
+                                                          .center,
                                                       children: [
                                                         Row(children: [
                                                           const Padding(
                                                               padding: EdgeInsets
                                                                   .only(
-                                                                      right:
-                                                                          10),
+                                                                  right:
+                                                                  10),
                                                               child: Icon(
                                                                   Ionicons
                                                                       .radio_button_off_outline,
@@ -550,19 +592,24 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                                       .darkBrick)),
                                                           Column(
                                                             mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
+                                                            MainAxisAlignment
+                                                                .center,
                                                             crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
+                                                            CrossAxisAlignment
+                                                                .start,
                                                             children: [
                                                               Text(
-                                                                "${S.of(context).add_looks_for} ${DateFormat.MMMMd().format(_selectedDay)}",
+                                                                "${S
+                                                                    .of(context)
+                                                                    .add_looks_for} ${DateFormat
+                                                                    .MMMMd()
+                                                                    .format(
+                                                                    _selectedDay)}",
                                                                 textAlign:
-                                                                    TextAlign
-                                                                        .center,
+                                                                TextAlign
+                                                                    .center,
                                                                 style: TextStyles
-                                                                    .paragraphRegularSemiBold16(),
+                                                                    .paragraphRegularSemiBold14(),
                                                               ),
                                                             ],
                                                           )
@@ -616,10 +663,7 @@ Widget dialogCardCalendar(String text, Function onTap, double pad) {
                           child: Text(
                             text,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                            style: TextStyles.paragraphRegular12(),
                           )))
                 ],
               ),

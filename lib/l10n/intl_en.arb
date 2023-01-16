@@ -51,7 +51,7 @@
   "friend_requests": "Friends requests",
   "show_current_weather": "Current weather",
   "current_weather": "Current",
-  "enter_city": "Enter Citys",
+  "enter_city": "Enter city",
   "looks_for": "Looks for",
   "add_looks_for": "Plan outfits for",
   "pick_outfits": "Pick outfits",
@@ -82,6 +82,10 @@
   "get_started": "Get Started",
   "check_inbox": "Check your inbox!",
   "email_sent" : "Email for reset password has been sent, please check your email.",
-  "back" : "Back"
+  "back" : "Back",
+  "planned_outfits": "Planned outfits",
+  "empty_planned_outfits": "There's no planned outfits for this day",
+  "type": "Type",
+  "enter_name": "Enter your item name"
 
 }

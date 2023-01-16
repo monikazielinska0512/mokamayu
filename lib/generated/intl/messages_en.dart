@@ -56,10 +56,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "You haven\'t gotten any notification yet!"),
         "empty_outfits": MessageLookupByLibrary.simpleMessage(
             "No outfits have been created yet!"),
+        "empty_planned_outfits": MessageLookupByLibrary.simpleMessage(
+            "There\'s no planned outfits for this day"),
         "empty_wardrobe": MessageLookupByLibrary.simpleMessage(
             "You don\'t have any items in your wardrobe!"),
-        "enter_city": MessageLookupByLibrary.simpleMessage("Enter Citys"),
+        "enter_city": MessageLookupByLibrary.simpleMessage("Enter city"),
         "enter_email": MessageLookupByLibrary.simpleMessage("Email"),
+        "enter_name":
+            MessageLookupByLibrary.simpleMessage("Enter your item name"),
         "enter_password": MessageLookupByLibrary.simpleMessage("Password"),
         "enter_username": MessageLookupByLibrary.simpleMessage("Username"),
         "error_message": MessageLookupByLibrary.simpleMessage(
@@ -101,6 +105,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pick_outfits": MessageLookupByLibrary.simpleMessage("Pick outfits"),
         "pick_outfits_error":
             MessageLookupByLibrary.simpleMessage("Pick some outfits first"),
+        "planned_outfits":
+            MessageLookupByLibrary.simpleMessage("Planned outfits"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Please enter text"),
         "posts": MessageLookupByLibrary.simpleMessage("Posts"),
@@ -131,6 +137,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "swimsuit": MessageLookupByLibrary.simpleMessage("Swimsuit"),
         "top": MessageLookupByLibrary.simpleMessage("Top"),
         "trousers": MessageLookupByLibrary.simpleMessage("Trousers"),
+        "type": MessageLookupByLibrary.simpleMessage("Type"),
         "user_not_exist":
             MessageLookupByLibrary.simpleMessage("User does not exist"),
         "wardrobe": MessageLookupByLibrary.simpleMessage("Wardrobe"),

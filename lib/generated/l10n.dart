@@ -570,10 +570,10 @@ class S {
     );
   }
 
-  /// `Enter Citys`
+  /// `Enter city`
   String get enter_city {
     return Intl.message(
-      'Enter Citys',
+      'Enter city',
       name: 'enter_city',
       desc: '',
       args: [],
@@ -885,6 +885,46 @@ class S {
     return Intl.message(
       'Back',
       name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Planned outfits`
+  String get planned_outfits {
+    return Intl.message(
+      'Planned outfits',
+      name: 'planned_outfits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There's no planned outfits for this day`
+  String get empty_planned_outfits {
+    return Intl.message(
+      'There\'s no planned outfits for this day',
+      name: 'empty_planned_outfits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type`
+  String get type {
+    return Intl.message(
+      'Type',
+      name: 'type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your item name`
+  String get enter_name {
+    return Intl.message(
+      'Enter your item name',
+      name: 'enter_name',
       desc: '',
       args: [],
     );

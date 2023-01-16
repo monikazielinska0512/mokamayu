@@ -13,7 +13,6 @@ import '../../models/wardrobe_item.dart';
 
 class AddWardrobeItemForm extends StatefulWidget {
   bool isEdit;
-  bool isLocked;
   final String? photo;
   WardrobeItem? editItem;
 
@@ -21,8 +20,7 @@ class AddWardrobeItemForm extends StatefulWidget {
       {Key? key,
       this.photo,
       this.editItem,
-      required this.isEdit,
-      this.isLocked = false})
+      required this.isEdit})
       : super(key: key);
 
   @override
@@ -32,7 +30,6 @@ class AddWardrobeItemForm extends StatefulWidget {
 class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
   @override
   void initState() {
-    widget.isLocked = widget.isEdit;
 
     super.initState();
   }
@@ -66,26 +63,17 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
         alignment: Alignment.bottomLeft,
         child: BackgroundCard(
             context: context,
-            height: widget.isLocked ? 0.5 : 0.55,
-            child: Padding(
-                padding: widget.isLocked
-                    ? const EdgeInsets.all(5)
-                    : const EdgeInsets.all(5),
-                child: Stack(children: [
-                  Positioned.fill(
-                      child: Align(
+            height: 0.7,
+            child: Stack(children: [
+                   Align(
                           alignment: Alignment.center,
-                          child: AbsorbPointer(
-                              absorbing: widget.isLocked,
-                              child: Align(
-                                  alignment: Alignment.center,
-                                  child: WardrobeItemForm(
+                          child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              child:
+                          WardrobeItemForm(
                                       photoPath: widget.photo ?? "",
-                                      item: widget.editItem,
-                                      showUpdateAndDeleteButtons:
-                                          !widget.isLocked))))),
-                  editButton()
-                ]))));
+                                      item: widget.editItem))),
+                ])));
   }
 
   bool isWardrobeItemMine() =>
@@ -93,19 +81,19 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
           .finalWardrobeItemList
           .contains(widget.editItem);
 
-  Widget editButton() {
-    return widget.isLocked && isWardrobeItemMine()
-        ? Padding(
-            padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
-            child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                    onPressed: () =>
-                        setState(() => widget.isLocked = !widget.isLocked),
-                    icon: const Icon(Ionicons.create_outline,
-                        color: ColorsConstants.grey))))
-        : Container();
-  }
+  // Widget editButton() {
+  //   return isWardrobeItemMine()
+  //       ? Padding(
+  //           padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
+  //           child: Align(
+  //               alignment: Alignment.topRight,
+  //               child: IconButton(
+  //                   onPressed: () =>
+  //                       setState(() => widget.isLocked = !widget.isLocked),
+  //                   icon: const Icon(Ionicons.create_outline,
+  //                       color: Colors.black))))
+  //       : Container();
+  // }
 
   Widget buildBackgroundImageForAddForm() {
     return Image.file(
@@ -117,13 +105,11 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
   }
 
   Widget buildBackgroundImageForEditForm(Widget picker) {
-    return (!widget.isLocked
-        ? picker
-        : Image.network(
+    return Image.network(
             widget.editItem!.photoURL,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             fit: BoxFit.fill,
-          ));
+          );
   }
 }

@@ -22,12 +22,13 @@ class MultiSelectChipsFormField extends FormField<List<String>> {
             initialValue: initialValue,
             autovalidateMode: AutovalidateMode.disabled,
             builder: (FormFieldState<List<String>> state) {
-              return Column(children: [
+              return
                 isScroll
                     ? SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: Wrap(spacing: 10, children: <Widget>[
+                        child: Wrap(spacing: 20, children: <Widget>[
                           MultiSelectChip(chipsList,
+                              isScrollable: isScroll,
                               chipsColor: ColorsConstants.darkPeach,
                               onSelectionChanged: (selectedList) {
                             state.didChange(selectedList);
@@ -35,11 +36,11 @@ class MultiSelectChipsFormField extends FormField<List<String>> {
                         ]))
                     : Wrap(spacing: 10, children: <Widget>[
                         MultiSelectChip(chipsList,
+                            isScrollable: isScroll,
                             chipsColor: ColorsConstants.darkPeach,
                             onSelectionChanged: (selectedList) {
                           state.didChange(selectedList);
                         })
-                      ])
-              ]);
+                      ]);
             });
 }
