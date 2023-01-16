@@ -1,27 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:mokamayu/models/firebase_user.dart';
 import 'package:mokamayu/models/login_user.dart';
 import 'package:mokamayu/services/authentication/auth.dart';
 import 'package:mokamayu/services/authentication/auth_exception_handler.dart';
 
-class MockFirebaseAuth extends Mock implements FirebaseAuth {
-  @override
-  Future<UserCredential> signInWithEmailAndPassword(
-          {required String? email, required String? password}) async =>
-      MockUserCredential();
+import 'authentication_test.mocks.dart';
 
-  @override
-  Future<UserCredential> createUserWithEmailAndPassword(
-          {required String? email, required String? password}) async =>
-      MockUserCredential();
-}
-
-class MockFirebaseUser extends Mock implements FirebaseUser {}
-
-class MockUserCredential extends Mock implements UserCredential {}
-
+@GenerateMocks([FirebaseAuth, UserCredential])
 void main() {
   late MockFirebaseAuth auth;
   late AuthService authService;
@@ -32,6 +19,13 @@ void main() {
     setUp(() {
       auth = MockFirebaseAuth();
       authService = AuthService.withAuth(auth: auth);
+
+      when(auth.signInWithEmailAndPassword(
+              email: 'test@test.com', password: 'password'))
+          .thenAnswer((_) async => MockUserCredential());
+      when(auth.createUserWithEmailAndPassword(
+              email: 'test@test.com', password: 'password'))
+          .thenAnswer((_) async => MockUserCredential());
     });
 
     test("sign in with email and password", () async {

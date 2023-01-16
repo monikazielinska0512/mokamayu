@@ -27,21 +27,21 @@ void main() {
   late ProfileManager profileManager;
   late FakeFirebaseFirestore firestore;
 
-  group('profile manager test', () {
-    setUp(() async {
-      firestore = FakeFirebaseFirestore();
-      profileManager = ProfileManager.withParameters(
-          authService: AuthService.withAuth(auth: MockFirebaseAuth()),
-          firestore: firestore);
-      profileManager.createUser('bob@test.com', 'bob', 'current_user_uid');
-      await firestore.collection('users').doc('other_user_uid').set({
-        'uid': 'other_user_uid',
-        'username': 'ana',
-        'email': 'ana@test.com',
-        'privateProfile': true,
-      });
+  setUp(() async {
+    firestore = FakeFirebaseFirestore();
+    profileManager = ProfileManager.withParameters(
+        authService: AuthService.withAuth(auth: MockFirebaseAuth()),
+        firestore: firestore);
+    profileManager.createUser('bob@test.com', 'bob', 'current_user_uid');
+    await firestore.collection('users').doc('other_user_uid').set({
+      'uid': 'other_user_uid',
+      'username': 'ana',
+      'email': 'ana@test.com',
+      'privateProfile': true
     });
+  });
 
+  group('user data test', () {
     test("get current user data", () async {
       UserData? obtainedCurrentUserData =
           await profileManager.getCurrentUserData();
@@ -75,48 +75,34 @@ void main() {
   });
 
   group('friend invite test', () {
-    setUp(() async {
-      firestore = FakeFirebaseFirestore();
-      profileManager = ProfileManager.withParameters(
-          authService: AuthService.withAuth(auth: MockFirebaseAuth()),
-          firestore: firestore);
-      profileManager.createUser('bob@test.com', 'bob', 'current_user_uid');
-      await firestore.collection('users').doc('other_user_uid').set({
-        'uid': 'other_user_uid',
-        'username': 'ana',
-        'email': 'ana@test.com',
-        'privateProfile': true
+    group('send invites', () {
+      late UserData? currentUser;
+      late UserData? invitedFriend;
+
+      setUp(() async {
+        await profileManager.sendFriendInvite(UserData(
+            uid: 'other_user_uid', username: 'ana', email: 'ana@test.com'));
+        invitedFriend = await profileManager.getUserData('other_user_uid');
+        currentUser = await profileManager.getCurrentUserData();
       });
-    });
 
-    test('send a friend request', () async {
-      await profileManager.sendFriendInvite(UserData(
-          uid: 'other_user_uid', username: 'ana', email: 'ana@test.com'));
-      UserData? invitedFriend =
-          await profileManager.getUserData('other_user_uid');
-      UserData? currentUser = await profileManager.getCurrentUserData();
-
-      expect(currentUser?.friends?.first, {
-        "id": invitedFriend?.uid,
-        "status": FriendshipState.INVITE_PENDING.toString()
+      test('sent a friend request', () async {
+        expect(currentUser?.friends?.first, {
+          "id": invitedFriend?.uid,
+          "status": FriendshipState.INVITE_PENDING.toString()
+        });
+        expect(invitedFriend?.friends?.first, {
+          "id": currentUser?.uid,
+          "status": FriendshipState.RECEIVED_INVITE.toString()
+        });
       });
-      expect(invitedFriend?.friends?.first, {
-        "id": currentUser?.uid,
-        "status": FriendshipState.RECEIVED_INVITE.toString()
+
+      test('cancel sending friend request', () async {
+        profileManager.cancelFriendInvite(invitedFriend!);
+
+        expect(currentUser?.friends, List.empty());
+        expect(invitedFriend?.friends, List.empty());
       });
-    });
-
-    test('cancel sending friend request', () async {
-      await profileManager.sendFriendInvite(UserData(
-          uid: 'other_user_uid', username: 'ana', email: 'ana@test.com'));
-      UserData? invitedFriend =
-          await profileManager.getUserData('other_user_uid');
-      UserData? currentUser = await profileManager.getCurrentUserData();
-
-      profileManager.cancelFriendInvite(invitedFriend!);
-
-      expect(currentUser?.friends, List.empty());
-      expect(invitedFriend.friends, List.empty());
     });
 
     group('handle received invites', () {
