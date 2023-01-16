@@ -29,7 +29,7 @@ class UserData {
         profileName: json['profileName'] as String?,
         profilePicture: json['profilePicture'] as String?,
         birthdayDate: json['birthdayDate'] as DateTime?,
-        privateProfile: json['privateProfile'] as bool,
+        privateProfile: json['privateProfile'] ?? false as bool,
         friends: json['friends'] = (json['friends'] as List?)
             ?.map((e) => Map<String, String>.from(e))
             .toList(),
