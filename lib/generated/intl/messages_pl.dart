@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dodaj stylizacje na"),
         "all_friends": MessageLookupByLibrary.simpleMessage("Wszyscy znajomi"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Filtruj"),
+        "back": MessageLookupByLibrary.simpleMessage("Wróć"),
         "bad_email": MessageLookupByLibrary.simpleMessage(
             "Email został wprowadzony w złym formacie"),
         "bad_password": MessageLookupByLibrary.simpleMessage(
@@ -34,18 +35,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "blazer": MessageLookupByLibrary.simpleMessage("Marynarka"),
         "calendar": MessageLookupByLibrary.simpleMessage("Kalendarz"),
         "cardigan": MessageLookupByLibrary.simpleMessage("Kardigan"),
+        "check_inbox":
+            MessageLookupByLibrary.simpleMessage("Sprawdź skrzynkę pocztową!"),
         "clothing_types": MessageLookupByLibrary.simpleMessage("Rodzaj"),
         "coat": MessageLookupByLibrary.simpleMessage("Płaszcz"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Potwierdź hasło"),
         "create": MessageLookupByLibrary.simpleMessage("Stwórz"),
-        "current_weather":
-            MessageLookupByLibrary.simpleMessage("Aktualna pogoda"),
+        "current_weather": MessageLookupByLibrary.simpleMessage("Aktualnie"),
         "dismiss": MessageLookupByLibrary.simpleMessage("ZAMKNIJ"),
         "dress": MessageLookupByLibrary.simpleMessage("Sukienka"),
         "edit_profile": MessageLookupByLibrary.simpleMessage("Edytuj profil"),
         "email_already_used": MessageLookupByLibrary.simpleMessage(
             "Podany adres email jest już zajęty przez innego użytkownika"),
+        "email_sent": MessageLookupByLibrary.simpleMessage(
+            "Wiadomość resetująca hasło została wysłana na twój adres email"),
         "empty_feed": MessageLookupByLibrary.simpleMessage(
             "Wygląda na to, że nie dodałeś jeszcze żadnych znajomych!"),
         "empty_notifications": MessageLookupByLibrary.simpleMessage(
@@ -71,8 +75,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Zaproszenia do znajomych"),
         "friends": MessageLookupByLibrary.simpleMessage("Znajomi"),
         "friends_request": MessageLookupByLibrary.simpleMessage("Zaproszenia"),
+        "get_started": MessageLookupByLibrary.simpleMessage("Zaczynamy"),
         "hat": MessageLookupByLibrary.simpleMessage("Kapelusz"),
         "hoodie": MessageLookupByLibrary.simpleMessage("Bluza z kapturem"),
+        "initial_title": MessageLookupByLibrary.simpleMessage(
+            "Stwórz swoją\n wirtualną szafę!"),
         "jacket": MessageLookupByLibrary.simpleMessage("Kurtka"),
         "jeans": MessageLookupByLibrary.simpleMessage("Dżinsy"),
         "looks_for": MessageLookupByLibrary.simpleMessage("Stylizacje na"),
@@ -86,10 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_pending_invitation_user": MessageLookupByLibrary.simpleMessage(
             "Brak zaproszenia od tego użytkownika"),
         "outfits": MessageLookupByLibrary.simpleMessage("Stylizacje"),
-        "outfits_by_friends":
-            MessageLookupByLibrary.simpleMessage("Stylizacje od znajomych"),
-        "outfits_by_me":
-            MessageLookupByLibrary.simpleMessage("Moje stylizacje"),
+        "outfits_by_friends": MessageLookupByLibrary.simpleMessage("Dla mnie"),
+        "outfits_by_me": MessageLookupByLibrary.simpleMessage("Stylizacje"),
         "passwords_dont_match":
             MessageLookupByLibrary.simpleMessage("Hasła nie są identyczne"),
         "pick_clothes_error": MessageLookupByLibrary.simpleMessage(
@@ -114,7 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shoes": MessageLookupByLibrary.simpleMessage("Buty"),
         "shorts": MessageLookupByLibrary.simpleMessage("Spodenki"),
         "show_current_weather":
-            MessageLookupByLibrary.simpleMessage("Pokaż aktualną pogodę"),
+            MessageLookupByLibrary.simpleMessage("Aktualna pogoda"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Zaloguj się"),
         "sign_out": MessageLookupByLibrary.simpleMessage("Wyloguj się"),
         "sign_up": MessageLookupByLibrary.simpleMessage(" Zarejestruj się"),

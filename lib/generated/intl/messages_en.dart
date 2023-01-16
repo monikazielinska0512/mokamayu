@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Plan outfits for"),
         "all_friends": MessageLookupByLibrary.simpleMessage("All your friends"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Apply filters"),
+        "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bad_email": MessageLookupByLibrary.simpleMessage(
             "The email address is badly formatted"),
         "bad_password": MessageLookupByLibrary.simpleMessage(
@@ -34,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "blazer": MessageLookupByLibrary.simpleMessage("Blazer"),
         "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
         "cardigan": MessageLookupByLibrary.simpleMessage("Cardigan"),
+        "check_inbox":
+            MessageLookupByLibrary.simpleMessage("Check your inbox!"),
         "clothing_types": MessageLookupByLibrary.simpleMessage("Clothing type"),
         "coat": MessageLookupByLibrary.simpleMessage("Coat"),
         "confirm_password":
@@ -45,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_profile": MessageLookupByLibrary.simpleMessage("Edit profile"),
         "email_already_used": MessageLookupByLibrary.simpleMessage(
             "The email address is already in use by another account"),
+        "email_sent": MessageLookupByLibrary.simpleMessage(
+            "Email for reset password has been sent, please check your email."),
         "empty_feed": MessageLookupByLibrary.simpleMessage(
             "It seems that you don\'t have any added friend yet!"),
         "empty_notifications": MessageLookupByLibrary.simpleMessage(
@@ -67,8 +72,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Friends requests"),
         "friends": MessageLookupByLibrary.simpleMessage("Friends"),
         "friends_request": MessageLookupByLibrary.simpleMessage("Requests"),
+        "get_started": MessageLookupByLibrary.simpleMessage("Get Started"),
         "hat": MessageLookupByLibrary.simpleMessage("Hat"),
         "hoodie": MessageLookupByLibrary.simpleMessage("Hoodie"),
+        "initial_title": MessageLookupByLibrary.simpleMessage(
+            "Create your virtual wardrobe!"),
         "jacket": MessageLookupByLibrary.simpleMessage("Jacket"),
         "jeans": MessageLookupByLibrary.simpleMessage("Jeans"),
         "looks_for": MessageLookupByLibrary.simpleMessage("Looks for"),

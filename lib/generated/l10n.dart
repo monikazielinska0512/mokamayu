@@ -839,6 +839,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Create your virtual wardrobe!`
+  String get initial_title {
+    return Intl.message(
+      'Create your virtual wardrobe!',
+      name: 'initial_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get Started`
+  String get get_started {
+    return Intl.message(
+      'Get Started',
+      name: 'get_started',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check your inbox!`
+  String get check_inbox {
+    return Intl.message(
+      'Check your inbox!',
+      name: 'check_inbox',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email for reset password has been sent, please check your email.`
+  String get email_sent {
+    return Intl.message(
+      'Email for reset password has been sent, please check your email.',
+      name: 'email_sent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message(
+      'Back',
+      name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

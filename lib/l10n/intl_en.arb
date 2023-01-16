@@ -77,5 +77,11 @@
   "no_friends": "You don't have friends yet",
   "create" : "Create",
   "no_found_friends": "No matched friends",
-  "empty_notifications": "You haven't gotten any notification yet!"
+  "empty_notifications": "You haven't gotten any notification yet!",
+  "initial_title" : "Create your virtual wardrobe!",
+  "get_started": "Get Started",
+  "check_inbox": "Check your inbox!",
+  "email_sent" : "Email for reset password has been sent, please check your email.",
+  "back" : "Back"
+
 }

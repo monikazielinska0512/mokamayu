@@ -27,7 +27,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        title: "Reset Password",
+        title: S.of(context).reset_password,
         leftButton: BackArrowButton(context),
         rightButton: null,
         context: context,
@@ -71,7 +71,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   }
                 })
               ]))),
-      Container(
+      Expanded(child: Container(
           height: deviceWidth(context) * 1.295,
           child: Opacity(
             opacity: 0.9,
@@ -80,7 +80,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               width: deviceWidth(context),
               fit: BoxFit.fitWidth,
             ),
-          ))
+          )))
     ]);
   }
 }

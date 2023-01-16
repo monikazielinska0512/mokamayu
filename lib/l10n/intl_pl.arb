@@ -20,8 +20,8 @@
   "dismiss": "ZAMKNIJ",
   "wardrobe": "Szafa",
   "outfits": "Stylizacje",
-  "outfits_by_me": "Moje stylizacje",
-  "outfits_by_friends": "Stylizacje od znajomych",
+  "outfits_by_me": "Stylizacje",
+  "outfits_by_friends": "Dla mnie",
   "posts": "Posty",
   "social": "Społeczność",
   "profile": "Profil",
@@ -50,8 +50,8 @@
   "edit_profile": "Edytuj profil",
   "calendar": "Kalendarz",
   "friend_requests": "Zaproszenia do znajomych",
-  "show_current_weather": "Pokaż aktualną pogodę",
-  "current_weather": "Aktualna pogoda",
+  "show_current_weather": "Aktualna pogoda",
+  "current_weather": "Aktualnie",
   "enter_city": "Wpisz miasto",
   "looks_for": "Stylizacje na",
   "add_looks_for": "Dodaj stylizacje na",
@@ -80,5 +80,10 @@
   "no_found_friends": "Nie znaleziono znajomych o takiej nazwie",
   "jacket": "Kurtka",
   "create" : "Stwórz",
-  "empty_notifications": "Nie otrzymałeś żadnych powiadomień"
+  "empty_notifications": "Nie otrzymałeś żadnych powiadomień",
+  "initial_title" : "Stwórz swoją\n wirtualną szafę!",
+  "get_started": "Zaczynamy",
+  "check_inbox": "Sprawdź skrzynkę pocztową!",
+  "email_sent" : "Wiadomość resetująca hasło została wysłana na twój adres email",
+  "back" : "Wróć"
 }

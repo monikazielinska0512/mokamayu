@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
+import '../../generated/l10n.dart';
 import '../../widgets/buttons/button_darker_orange.dart';
 import '../../widgets/fundamental/basic_page.dart';
 
@@ -32,16 +33,16 @@ class EmailSentScreen extends StatelessWidget {
                 fit: BoxFit.fitWidth,
               ),
             )),
-        Text("The email has been sent", style: TextStyles.h4()),
+        Text(S.of(context).check_inbox, style: TextStyles.h4()),
         Padding(
             padding:
                 const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
             child: Text(
-              "Email for reset password has been sent, please check your email.",
+              S.of(context).email_sent,
               style: TextStyles.paragraphRegular16(Colors.grey),
               textAlign: TextAlign.center,
             )),
-        ButtonDarker(context, "Back", () {
+        ButtonDarker(context, S.of(context).back, () {
           Navigator.of(context).pop();
         })
       ],

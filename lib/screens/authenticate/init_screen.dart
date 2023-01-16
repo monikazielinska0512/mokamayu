@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 
 import '../../constants/text_styles.dart';
+import '../../generated/l10n.dart';
 import '../../widgets/buttons/button_darker_orange.dart';
 import '../../widgets/fundamental/basic_page.dart';
 
@@ -36,11 +37,11 @@ class InitScreen extends StatelessWidget {
           padding:
               EdgeInsets.only(top: deviceHeight(context) * 0.05, bottom: 20),
           child: Text(
-            "Create your virtual wardrobe!",
+            S.of(context).initial_title,
             style: TextStyles.h3(),
             textAlign: TextAlign.center,
           )),
-      ButtonDarker(context, "Get Started", () {
+      ButtonDarker(context, S.of(context).get_started, () {
         GoRouter.of(context).push('/login');
       }, shouldExpand: false),
       Stack(children: [
