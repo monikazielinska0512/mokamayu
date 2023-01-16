@@ -5,9 +5,7 @@ import 'package:mokamayu/services/authentication/authentication.dart';
 class AuthService {
   late final FirebaseAuth auth;
 
-  AuthService() {
-    auth = FirebaseAuth.instance;
-  }
+  AuthService() : auth = FirebaseAuth.instance;
 
   AuthService.withAuth({required this.auth});
 
