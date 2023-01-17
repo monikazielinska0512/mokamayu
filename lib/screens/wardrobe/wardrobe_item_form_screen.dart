@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:ui';
 
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/colors.dart';
@@ -40,14 +42,14 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        context: context,
-        isFullScreen: true,
-        isEdit: true,
-        color: Colors.white,
-        rightButton: null,
-        leftButton: BackArrowButton(context),
-        body: Stack(children: [buildBackgroundPhoto(), buildForm()]),
-        );
+      context: context,
+      isFullScreen: true,
+      isEdit: true,
+      color: Colors.white,
+      rightButton: null,
+      leftButton: BackArrowButton(context),
+      body: Stack(children: [buildBackgroundPhoto(), buildForm()]),
+    );
   }
 
   Widget buildBackgroundPhoto() {
@@ -118,12 +120,24 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
 
   Widget buildBackgroundImageForEditForm(Widget picker) {
     return (!widget.isLocked
-        ? picker
-        : Image.network(
-            widget.editItem!.photoURL,
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.fill,
-          ));
+            ? picker
+            : ExtendedImage.network(
+                widget.editItem!.photoURL,
+                fit: BoxFit.fill,
+                cacheWidth: MediaQuery.of(context).size.width.toInt() *
+                    window.devicePixelRatio.ceil(),
+                cacheHeight: MediaQuery.of(context).size.height.toInt() *
+                    window.devicePixelRatio.ceil(),
+                cache: true,
+                enableMemoryCache: false,
+                enableLoadState: true,
+              )
+        // : Image.network(
+        //     widget.editItem!.photoURL,
+        //     height: MediaQuery.of(context).size.height,
+        //     width: MediaQuery.of(context).size.width,
+        //     fit: BoxFit.fill,
+        //   )
+        );
   }
 }

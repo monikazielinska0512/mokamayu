@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
 
-
 class Tags {
   static const List<String> sizes = [
     'XS',
@@ -50,6 +49,8 @@ class Tags {
   static const List<String> styles = [
     "School",
     "Classic",
+    "Sporty",
+    "Elegant",
     "Super",
     "Vintage",
     "Streetwear",
@@ -66,15 +67,8 @@ class OutfitTags {
     'Party',
     'Work',
     'Casual',
-    'Wedding',
-    'Summer',
-    'Winter',
-    'Fall',
-    'Spring'
+    'Wedding'
   ];
 
-  static const List<String> seasons = ['Summer', 'Winter', 'Fall', 'Spring', 'Active',
-    'Party',
-    'Work',
-    'Casual'];
+  static const List<String> seasons = ['Summer', 'Winter', 'Fall', 'Spring'];
 }
