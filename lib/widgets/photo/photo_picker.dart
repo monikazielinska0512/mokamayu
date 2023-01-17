@@ -30,7 +30,6 @@ class PhotoPicker extends StatefulWidget {
 
   @override
   State<PhotoPicker> createState() => _PhotoPickerState();
-
 }
 
 class _PhotoPickerState extends State<PhotoPicker> {
@@ -41,9 +40,8 @@ class _PhotoPickerState extends State<PhotoPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Expanded(child:
-      GestureDetector(
+    return Expanded(
+        child: GestureDetector(
       onTap: () {
         _showPicker(context);
       },
@@ -75,15 +73,10 @@ class _PhotoPickerState extends State<PhotoPicker> {
     ));
   }
 
-
-
-
-
-
-
   Future pickImage(ImageSource source) async {
-    final pickedFile =
-        await widget.picker.pickImage(source: source, imageQuality: 50);
+    var pickedFile =
+        await widget.picker.pickImage(source: source, imageQuality: 85);
+
     setState(() {
       if (pickedFile != null) {
         widget.photoPath = pickedFile.path;

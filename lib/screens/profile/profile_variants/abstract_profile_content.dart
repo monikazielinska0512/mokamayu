@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
@@ -90,8 +93,7 @@ abstract class AbstractProfileContentState
               return Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child:
-                Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -100,8 +102,17 @@ abstract class AbstractProfileContentState
                       child: SizedBox.fromSize(
                         size: const Size.square(110),
                         child: snapshot.data?.profilePicture != null
-                            ? Image.network(snapshot.data!.profilePicture!,
-                                fit: BoxFit.fill)
+                            ? ExtendedImage.network(
+                                snapshot.data!.profilePicture!,
+                                fit: BoxFit.fill,
+                                cacheWidth:
+                                    110 * window.devicePixelRatio.ceil(),
+                                cacheHeight:
+                                    110 * window.devicePixelRatio.ceil(),
+                                cache: true,
+                                enableMemoryCache: false,
+                                enableLoadState: true,
+                              )
                             : Image.asset(Assets.avatarPlaceholder,
                                 fit: BoxFit.fill),
                       ),
@@ -146,12 +157,13 @@ abstract class AbstractProfileContentState
                 child: Column(
                   children: [
                     Padding(
-                        padding: EdgeInsets.only(top:10, bottom: 10),
+                        padding: EdgeInsets.only(top: 10, bottom: 10),
                         child: TabBar(
                           indicatorPadding: EdgeInsets.symmetric(vertical: 0),
                           indicator: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: ColorsConstants.turquoise.withOpacity(0.3)),
+                              color:
+                                  ColorsConstants.turquoise.withOpacity(0.3)),
                           labelStyle: TextStyles.paragraphRegularSemiBold14(),
                           labelColor: ColorsConstants.turquoise,
                           unselectedLabelColor: ColorsConstants.grey,

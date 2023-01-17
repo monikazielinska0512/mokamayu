@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/photo_tapped_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:extended_image/extended_image.dart';
 
 class PhotoBox extends StatelessWidget {
   final WardrobeItem? object;
@@ -29,9 +31,16 @@ class PhotoBox extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(20), // Image border
             child: SizedBox.fromSize(
-              size: const Size.fromRadius(100),
-              child: Image.network(photoURL!, fit: BoxFit.fill),
-            ),
+                size: const Size.fromRadius(100),
+                child: ExtendedImage.network(
+                  photoURL!,
+                  fit: BoxFit.fill,
+                  cacheWidth: 100 * window.devicePixelRatio.ceil(),
+                  cacheHeight: 140 * window.devicePixelRatio.ceil(),
+                  cache: true,
+                  enableMemoryCache: false,
+                  enableLoadState: true,
+                )),
           ),
           Align(
               alignment: Alignment.centerLeft,
@@ -61,7 +70,15 @@ class PhotoBox extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12), // Image border
                 child: SizedBox.fromSize(
                   size: const Size.fromRadius(40), // Image radius
-                  child: Image.network(photoURL!, fit: BoxFit.fill),
+                  child: ExtendedImage.network(
+                    photoURL!,
+                    fit: BoxFit.fill,
+                    cacheWidth: 40 * window.devicePixelRatio.ceil(),
+                    cacheHeight: 40 * window.devicePixelRatio.ceil(),
+                    cache: true,
+                    enableMemoryCache: false,
+                    enableLoadState: true,
+                  ),
                 ),
               )),
         ]),
