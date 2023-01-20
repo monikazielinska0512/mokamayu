@@ -25,9 +25,6 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   UserData? friendData;
 
   @override
-  Color? setBackgroundColor() => Colors.transparent;
-
-  @override
   void loadData() {
     Provider.of<ProfileManager>(context, listen: true)
         .getUserData(widget.uid)
@@ -42,10 +39,22 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   }
 
   @override
+  double getHeight() => 0.86;
+
+  @override
   Widget getLeftButton() => BackArrowButton(context);
 
   @override
   Widget getRightButton() => NotificationsButton(context);
+
+  @override
+  String getTitle() => "";
+
+  @override
+  EdgeInsetsGeometry getPadding() => const EdgeInsets.only(
+      top: 10, right: 20, left: 20, bottom: 50);
+
+
 
   @override
   Widget buildButtons() => friendData != null
@@ -64,7 +73,10 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
         {
           return IconTextButton(
             onPressed: () {
-              return FriendDialogBox(friend: friendData!, isResponse: false,);
+              return FriendDialogBox(
+                friend: friendData!,
+                isResponse: false,
+              );
             },
             icon: Icons.check,
             text: "Friends",
@@ -92,7 +104,10 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   context: context,
                   useSafeArea: false,
                   builder: (BuildContext context) {
-                    return FriendDialogBox(friend: friendData!, isResponse: true,);
+                    return FriendDialogBox(
+                      friend: friendData!,
+                      isResponse: true,
+                    );
                   });
             },
             icon: Icons.mark_email_unread,
@@ -123,8 +138,20 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
             .isMyFriend(widget.uid);
     return eligibleToSeeProfile
         ? {
-            S.of(context).wardrobe: PhotoGrid(itemList: itemList),
-            S.of(context).outfits: PhotoGrid(outfitsList: outfitsList),
+            S.of(context).wardrobe: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: ColorsConstants.mint.withOpacity(0.1)),
+                child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: PhotoGrid(itemList: itemList))),
+            S.of(context).outfits: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: ColorsConstants.mint.withOpacity(0.1)),
+                child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: PhotoGrid(outfitsList: outfitsList))),
           }
         : null;
   }
@@ -143,9 +170,8 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
             },
             icon: const Icon(Ionicons.body),
             backgroundColor: ColorsConstants.darkBrick,
-            padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
+            padding: const EdgeInsets.fromLTRB(20, 10, 40, 60),
             alignment: Alignment.bottomRight)
         : Container();
   }
-
 }

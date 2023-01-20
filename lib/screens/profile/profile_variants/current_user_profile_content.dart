@@ -42,7 +42,15 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
   Widget getRightButton() => NotificationsButton(context);
 
   @override
-  Color? setBackgroundColor() => Colors.transparent;
+  double getHeight() => 0.84;
+
+  @override
+  String getTitle() => "Mój profil";
+
+  @override
+  EdgeInsetsGeometry getPadding() => const EdgeInsets.only(
+      top: 10, right: 20, left: 20, bottom: 40);
+
 
   @override
   Widget buildButtons() {

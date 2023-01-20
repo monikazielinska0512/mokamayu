@@ -39,7 +39,7 @@ class ImagePickerButton extends StatelessWidget {
       },
       child: Text(
         'Change photo',
-        style: TextStyles.paragraphRegularSemiBold16(),
+        style: TextStyles.paragraphRegularSemiBold14(ColorsConstants.darkMint),
       ),
     );
   }

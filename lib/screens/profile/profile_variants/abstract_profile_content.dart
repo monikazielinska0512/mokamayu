@@ -35,7 +35,12 @@ abstract class AbstractProfileContentState
 
   Widget buildCreateOutfitForFriendButton() => Container();
 
-  Color? setBackgroundColor() => Colors.transparent;
+  double getHeight();
+
+  String getTitle();
+
+  EdgeInsetsGeometry getPadding();
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +57,10 @@ abstract class AbstractProfileContentState
     loadData();
 
     return BasicScreen(
-      title: S.of(context).profile,
+      title: getTitle(),
       leftButton: getLeftButton(),
       rightButton: getRightButton(),
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       context: context,
       isFullScreen: true,
       body: Stack(children: [
@@ -67,13 +72,15 @@ abstract class AbstractProfileContentState
           bottom: 0,
           child: BackgroundCard(
             context: context,
-            height: 0.8,
+            height: getHeight(),
             child: Padding(
-                padding: const EdgeInsets.only(top: 0, right: 20, left: 20),
+                padding: getPadding(),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    buildUserCard(context),
+                    Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: buildUserCard(context)),
                     buildProfileGallery(context),
                   ],
                 )),
@@ -97,30 +104,37 @@ abstract class AbstractProfileContentState
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20), // Image border
-                      child: SizedBox.fromSize(
-                        size: const Size.square(120),
-                        child: snapshot.data?.profilePicture != null
-                            ? ExtendedImage.network(
-                                snapshot.data!.profilePicture!,
-                                fit: BoxFit.fill,
-                                cacheWidth:
-                                    110 * window.devicePixelRatio.ceil(),
-                                cacheHeight:
-                                    110 * window.devicePixelRatio.ceil(),
-                                cache: true,
-                                enableMemoryCache: false,
-                                enableLoadState: true,
-                              )
-                            : Image.asset(Assets.avatarPlaceholder,
-                                fit: BoxFit.fill),
-                      ),
-                    ),
+                    Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: ColorsConstants.whiteAccent),
+                        child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              // Image border
+                              child: SizedBox.fromSize(
+                                size: const Size.square(85),
+                                child: snapshot.data?.profilePicture != null
+                                    ? ExtendedImage.network(
+                                        snapshot.data!.profilePicture!,
+                                        fit: BoxFit.fill,
+                                        cacheWidth: 110 *
+                                            window.devicePixelRatio.ceil(),
+                                        cacheHeight: 110 *
+                                            window.devicePixelRatio.ceil(),
+                                        cache: true,
+                                        enableMemoryCache: false,
+                                        enableLoadState: true,
+                                      )
+                                    : Image.asset(Assets.avatarPlaceholder,
+                                        fit: BoxFit.fill),
+                              ),
+                            ))),
                     Padding(
-                      padding: const EdgeInsets.only(left: 15, top: 10),
+                      padding: const EdgeInsets.only(left: 15, top: 5),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
