@@ -42,14 +42,14 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
   Widget getRightButton() => NotificationsButton(context);
 
   @override
-  double getHeight() => 0.84;
+  double getHeight() => 0.78;
 
   @override
   String getTitle() => "Mój profil";
 
   @override
   EdgeInsetsGeometry getPadding() => const EdgeInsets.only(
-      top: 10, right: 20, left: 20, bottom: 40);
+      top: 10, right: 20, left: 20, bottom: 10);
 
 
   @override
