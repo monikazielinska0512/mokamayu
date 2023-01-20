@@ -5,12 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
-
 import '../../generated/l10n.dart';
-import '../../models/calendar_event.dart';
-import '../../services/managers/app_state_manager.dart';
-import '../../services/managers/calendar_manager.dart';
-import '../../services/managers/photo_tapped_manager.dart';
+import '../../services/managers/managers.dart';
 
 // ignore: must_be_immutable
 class WardrobeItemCard extends StatelessWidget {

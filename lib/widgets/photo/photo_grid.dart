@@ -7,7 +7,6 @@ import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
-import '../../models/calendar_event.dart';
 
 //ignore: must_be_immutable
 class PhotoGrid extends StatefulWidget {

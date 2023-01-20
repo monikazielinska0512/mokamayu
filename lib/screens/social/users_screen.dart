@@ -4,13 +4,10 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
-import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/constants/assets.dart';
-
 import '../../generated/l10n.dart';
-import '../../widgets/fields/search_text_field.dart';
 
 extension StringCasingExtension on String {
   String toCapitalized() =>
