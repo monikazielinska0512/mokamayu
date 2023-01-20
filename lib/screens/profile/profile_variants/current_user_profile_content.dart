@@ -66,7 +66,7 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
           child: IconTextButton(
             onPressed: () => context.pushNamed('friends'),
             icon: Icons.person_outline_outlined,
-            text: "Friends",
+            text: S.of(context).friends,
             backgroundColor: ColorsConstants.mint,
           )),
     ]);
