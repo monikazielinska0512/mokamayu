@@ -71,10 +71,12 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
         {
           return IconTextButton(
             onPressed: () {
-              return FriendDialogBox(
-                friend: friendData!,
-                isResponse: false,
-              );
+              showDialog(
+                  context: context,
+                  useSafeArea: false,
+                  builder: (BuildContext context) {
+                    return FriendDialogBox(friend: friendData!, isResponse: false,);
+                  });
             },
             icon: Icons.check,
             text: "Friends",

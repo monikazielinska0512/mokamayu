@@ -13,12 +13,11 @@ import '../../services/managers/managers.dart';
 
 
 class PostList extends StatefulWidget {
-  final List<Post> postList;
+
   final List<UserData> userList;
 
   const PostList({
     Key? key,
-    required this.postList,
     required this.userList,
   }) : super(key: key);
 
@@ -27,18 +26,15 @@ class PostList extends StatefulWidget {
 }
 
 class _PostListState extends State<PostList> {
+  late List<Post> postList;
   late List<TextEditingController> myController;
 
   @override
-  void initState() {
-    myController =
-        List.generate(widget.postList.length, (_) => TextEditingController());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return widget.postList.isNotEmpty ? buildFeed(context) : buildEmpty();
+    postList = Provider.of<PostManager>(context, listen: true).finalPostList;
+    myController =
+        List.generate(postList.length, (_) => TextEditingController());
+    return postList.isNotEmpty ? buildFeed(context) : buildEmpty();
   }
 
   Widget buildFeed(BuildContext context) {
@@ -65,8 +61,8 @@ class _PostListState extends State<PostList> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
-                  widget.postList[index].createdFor !=
-                          widget.postList[index].createdBy
+                  postList[index].createdFor !=
+                          postList[index].createdBy
                       ? buildDate(index)
                       : Container(),
                   buildCommentField(index),
@@ -78,7 +74,7 @@ class _PostListState extends State<PostList> {
         },
         separatorBuilder: (BuildContext context, int index) =>
             Container(height: 20),
-        itemCount: widget.postList.length);
+        itemCount: postList.length);
   }
 
   Widget buildHeader(int index) {
@@ -100,23 +96,23 @@ class _PostListState extends State<PostList> {
     return TextField(
       controller: myController[index],
       onSubmitted: (String comment) {
-        widget.postList[index].comments!.add(
+        postList[index].comments!.add(
             {"author": AuthService().getCurrentUserID(), "content": comment});
         Provider.of<PostManager>(context, listen: false).commentPost(
-            widget.postList[index].reference!,
-            widget.postList[index].createdFor,
-            widget.postList[index].comments!);
+            postList[index].reference!,
+            postList[index].createdFor,
+            postList[index].comments!);
         myController[index].clear();
         setState(() {});
         if (AuthService().getCurrentUserID() !=
-            widget.postList[index].createdBy) {
+            postList[index].createdBy) {
           CustomNotification notif = CustomNotification(
               sentFrom: AuthService().getCurrentUserID(),
               type: NotificationType.COMMENT.toString(),
               creationDate: DateTime.now().millisecondsSinceEpoch);
           Provider.of<NotificationsManager>(context, listen: false)
               .addNotificationToFirestore(
-                  notif, widget.postList[index].createdBy);
+                  notif, postList[index].createdBy);
         }
       },
       decoration: const InputDecoration(
@@ -145,9 +141,9 @@ class _PostListState extends State<PostList> {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) => PostScreen(
-                      post: widget.postList[index],
+                      post: postList[index],
                       user: widget.userList.singleWhere((element) =>
-                          element.uid == widget.postList[index].createdBy),
+                          element.uid == postList[index].createdBy),
                       userList: widget.userList,
                     )));
       },
@@ -160,7 +156,7 @@ class _PostListState extends State<PostList> {
 
   Widget buildPostBody(int index) {
     return ExtendedImage.network(
-      widget.postList[index].cover,
+      postList[index].cover,
       fit: BoxFit.fill,
       cache: true,
       enableMemoryCache: false,
@@ -173,7 +169,7 @@ class _PostListState extends State<PostList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        widget.postList[index].createdFor == widget.postList[index].createdBy
+        postList[index].createdFor == postList[index].createdBy
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -201,24 +197,24 @@ class _PostListState extends State<PostList> {
           context.pushNamed(
             "profile",
             queryParams: {
-              'uid': widget.postList[index].createdFor,
+              'uid': postList[index].createdFor,
             },
           );
         },
         child: Text(
             widget.userList
                         .singleWhere((element) =>
-                            element.uid == widget.postList[index].createdFor)
+                            element.uid == postList[index].createdFor)
                         .profileName !=
                     null
                 ? widget.userList
                     .singleWhere((element) =>
-                        element.uid == widget.postList[index].createdFor)
+                        element.uid == postList[index].createdFor)
                     .profileName!
                     .capitalize()
                 : widget.userList
                     .singleWhere((element) =>
-                        element.uid == widget.postList[index].createdFor)
+                        element.uid == postList[index].createdFor)
                     .username
                     .capitalize(),
             style: TextStyles.paragraphRegularSemiBold16()));
@@ -230,23 +226,23 @@ class _PostListState extends State<PostList> {
         context.pushNamed(
           "profile",
           queryParams: {
-            'uid': widget.postList[index].createdBy,
+            'uid': postList[index].createdBy,
           },
         );
       },
       child: Text(
           widget.userList
                       .singleWhere((element) =>
-                          element.uid == widget.postList[index].createdBy)
+                          element.uid == postList[index].createdBy)
                       .profileName !=
                   null
               ? widget.userList
                   .singleWhere((element) =>
-                      element.uid == widget.postList[index].createdBy)
+                      element.uid == postList[index].createdBy)
                   .profileName!
               : widget.userList
                   .singleWhere((element) =>
-                      element.uid == widget.postList[index].createdBy)
+                      element.uid == postList[index].createdBy)
                   .username,
           style: TextStyles.paragraphRegular14(ColorsConstants.darkBrick)),
     );
@@ -256,7 +252,7 @@ class _PostListState extends State<PostList> {
     return
       Padding(padding: const EdgeInsets.only(bottom: 10), child:
       Text(
-        "Opublikowano ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.postList[index].creationDate))}",
+        "Opublikowano ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(postList[index].creationDate))}",
         style: TextStyles.paragraphRegular12(ColorsConstants.grey)));
   }
 
@@ -267,13 +263,13 @@ class _PostListState extends State<PostList> {
         size: const Size.square(50),
         child: widget.userList
                     .singleWhere((element) =>
-                        element.uid == widget.postList[index].createdFor)
+                        element.uid == postList[index].createdFor)
                     .profilePicture !=
                 null
             ? Image.network(
                 widget.userList
                     .singleWhere((element) =>
-                        element.uid == widget.postList[index].createdFor)
+                        element.uid == postList[index].createdFor)
                     .profilePicture!,
                 fit: BoxFit.fill)
             : Image.asset(Assets.avatarPlaceholder,
@@ -311,17 +307,17 @@ class _PostListState extends State<PostList> {
   Widget buildLikeButton(int index) {
     return Row(
       children: [
-        Text(widget.postList[index].likes!.length.toString(),
+        Text(postList[index].likes!.length.toString(),
             style: TextStyles.paragraphRegular14(ColorsConstants.grey)),
-        widget.postList[index].likes!.contains(AuthService().getCurrentUserID())
+        postList[index].likes!.contains(AuthService().getCurrentUserID())
             ? IconButton(
                 onPressed: () {
-                  widget.postList[index].likes!
+                 postList[index].likes!
                       .remove(AuthService().getCurrentUserID());
                   Provider.of<PostManager>(context, listen: false).likePost(
-                      widget.postList[index].reference!,
-                      widget.postList[index].createdFor,
-                      widget.postList[index].likes!);
+                      postList[index].reference!,
+                      postList[index].createdFor,
+                      postList[index].likes!);
                   setState(() {});
                 },
                 icon: const Icon(
@@ -330,22 +326,22 @@ class _PostListState extends State<PostList> {
                 ))
             : IconButton(
                 onPressed: () {
-                  widget.postList[index].likes!
+                  postList[index].likes!
                       .add(AuthService().getCurrentUserID());
                   Provider.of<PostManager>(context, listen: false).likePost(
-                      widget.postList[index].reference!,
-                      widget.postList[index].createdFor,
-                      widget.postList[index].likes!);
+                      postList[index].reference!,
+                      postList[index].createdFor,
+                      postList[index].likes!);
                   setState(() {});
                   if (AuthService().getCurrentUserID() !=
-                      widget.postList[index].createdBy) {
+                      postList[index].createdBy) {
                     CustomNotification notif = CustomNotification(
                         sentFrom: AuthService().getCurrentUserID(),
                         type: NotificationType.LIKE.toString(),
                         creationDate: DateTime.now().millisecondsSinceEpoch);
                     Provider.of<NotificationsManager>(context, listen: false)
                         .addNotificationToFirestore(
-                            notif, widget.postList[index].createdBy);
+                            notif, postList[index].createdBy);
                   }
                 },
                 icon: const Icon(
