@@ -9,10 +9,8 @@ import 'package:mokamayu/widgets/widgets.dart';
 import '../../constants/constants.dart';
 import '../../generated/l10n.dart';
 import '../../services/services.dart';
-import '../../widgets/buttons/buttons.dart';
-import '../../widgets/fundamental/snackbar.dart';
-import '../../widgets/photo/photo.dart';
 
+//ignore: must_be_immutable
 class OutfitSummaryScreen extends StatelessWidget {
   OutfitSummaryScreen({super.key, this.map, this.friendUid}) {
     isCreatingOutfitForFriend = friendUid != null;
@@ -53,11 +51,11 @@ class OutfitSummaryScreen extends StatelessWidget {
         .of<PhotoTapped>(context, listen: false)
         .getObject;
     return BasicScreen(
-        title: "Summary",
+        title: S.of(context).summary,
         context: context,
         body: Column(children: [
           buildList(context),
-          buildTags(),
+          buildTags(context),
           item != null ? EditButton(context, item) : SaveButton(context)
         ]),
         leftButton: BackArrowButton(context),
@@ -83,7 +81,7 @@ class OutfitSummaryScreen extends StatelessWidget {
                         (item) => item.reference == entry.key[1],
                     orElse: () =>
                         WardrobeItem(
-                            name: "Photo deleted :(",
+                            name: "Ten element został usunięty",
                             type: "",
                             size: "",
                             photoURL: "Photo deleted",
@@ -93,14 +91,14 @@ class OutfitSummaryScreen extends StatelessWidget {
         ));
   }
 
-  Widget buildTags() {
+  Widget buildTags(BuildContext context) {
     return Column(children: [
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 5, 0, 5),
           child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Tags",
+                S.of(context).tags,
                 style: TextStyles.paragraphRegularSemiBold18(),
               ))),
       Padding(
@@ -136,7 +134,7 @@ class OutfitSummaryScreen extends StatelessWidget {
   Widget EditButton(BuildContext context, Outfit item) {
     return isCreatingOutfitForFriend
         ? Container()
-        : ButtonDarker(context, "Edit", () async {
+        : ButtonDarker(context, S.of(context).update, () async {
       Map<String, String> mapToFirestore = {};
       map!.forEach((key, value) {
         mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
@@ -164,7 +162,7 @@ class OutfitSummaryScreen extends StatelessWidget {
 
   Widget SaveButton(BuildContext context) {
     String currentUserUid = AuthService().getCurrentUserID();
-    return ButtonDarker(context, "Save", () async {
+    return ButtonDarker(context, S.of(context).add, () async {
       if (_elements.length > 0) {
         Map<String, String> mapToFirestore = {};
         map!.forEach((key, value) {
@@ -224,8 +222,12 @@ class OutfitSummaryScreen extends StatelessWidget {
 
         if (isCreatingOutfitForFriend) {
           context.go("/home/2");
+          CustomSnackBar.showSuccessSnackBar(
+              context: context, message: S.of(context).outfit_created_for_friend);
         } else {
           context.go("/home/1");
+          CustomSnackBar.showSuccessSnackBar(
+              context: context, message: S.of(context).outfit_created);
         }
       } else {
         CustomSnackBar.showErrorSnackBar(

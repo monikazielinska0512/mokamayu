@@ -8,6 +8,7 @@ import '../../generated/l10n.dart';
 import '../../models/wardrobe_item.dart';
 import '../../widgets/fields/search_text_field.dart';
 
+// ignore: must_be_immutable
 class WardrobeItemSearchScreen extends StatefulWidget {
   Future<List<WardrobeItem>> items;
 

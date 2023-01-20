@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 
+import '../../generated/l10n.dart';
+
 class AddPhotoScreen extends StatefulWidget {
   const AddPhotoScreen({Key? key}) : super(key: key);
 
@@ -50,7 +52,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
   }
 
   Widget buildButton(PhotoPicker picker) {
-    return ButtonDarker(context, "Next", () {
+    return ButtonDarker(context, S.of(context).next, () {
       picker.photo != null
           ? context.pushNamed(
               'add-wardrobe-item',
@@ -58,7 +60,8 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                 'file': picker.photoPath as String,
               },
             )
-          : null;
+          : CustomSnackBar.showErrorSnackBar(
+          context: context, message: S.of(context).photo_not_added);
     }, shouldExpand: false, width: 0.41, height: 0.061);
   }
 }

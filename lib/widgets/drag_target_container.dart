@@ -5,15 +5,17 @@ import 'package:provider/provider.dart';
 
 import '../models/outfit_container.dart';
 
+
+//ignore: must_be_immutable
 class DragTargetContainer extends StatefulWidget {
   DragTargetContainer({Key? key, this.map}) : super(key: key);
   Map<List<dynamic>, OutfitContainer>? map = {};
 
   @override
-  _DragTargetState createState() => _DragTargetState();
+  DragTargetState createState() => DragTargetState();
 }
 
-class _DragTargetState extends State<DragTargetContainer> {
+class DragTargetState extends State<DragTargetContainer> {
   List<OutfitContainer> list = [];
   late Offset _initPos;
   late Offset _currentPos = const Offset(0, 0);
@@ -48,6 +50,7 @@ class _DragTargetState extends State<DragTargetContainer> {
               setState(() {});
             },
             onScaleStart: (details) {
+              // ignore: unnecessary_null_comparison
               if (entry.value == null) return;
               _initPos = details.focalPoint;
               _currentPos =

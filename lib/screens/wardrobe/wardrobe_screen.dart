@@ -20,10 +20,10 @@ class WardrobeScreen extends StatefulWidget {
 class _WardrobeScreenState extends State<WardrobeScreen> {
   Future<List<WardrobeItem>>? futureItemList;
   Future<List<WardrobeItem>>? futureItemListCopy;
-  List<String> selectedTypes = Tags.types;
+  List<String> selectedTypes = [];
   List<String> selectedSizes = Tags.sizes;
   List<String> selectedStyles = Tags.styles;
-  List<String> selectedChips = Tags.types;
+  List<String> selectedChips = [];
 
   Future<List<Outfit>>? outfitsList;
 
@@ -67,7 +67,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                           chipsColor: ColorsConstants.darkPeach,
                           onSelectionChanged: (selectedList) {
                             selectedChips =
-                            selectedList.isEmpty ? Tags.types : selectedList;
+                            selectedList.isEmpty ? Tags.getLanguagesStyles(context) : selectedList;
                           }, type: "type_main")
                     ])),
               ]),
@@ -75,7 +75,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
               Expanded(
                   child: 
                   Container( 
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(color: ColorsConstants.mint.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
                       child: PhotoGrid(
                       itemList: futureItemListCopy ?? futureItemList))),
@@ -86,6 +86,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   }
 
   Widget buildSearchBarAndFilters() {
+
     return SizedBox(
         height: MediaQuery
             .of(context)

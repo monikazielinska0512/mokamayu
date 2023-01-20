@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../services/managers/managers.dart';
 import '../../widgets/widgets.dart';
 
+//ignore: must_be_immutable
 class FriendDialogBox extends StatelessWidget {
   FriendDialogBox({Key? key, required this.friend, required this.isResponse}) : super(key: key);
   UserData friend;

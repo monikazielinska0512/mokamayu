@@ -46,13 +46,11 @@ class SingleSelectChipsFormField extends FormField<String> {
                           onSelected: (bool selected) {
                             state.didChange(selected ? chipsList[index] : "");
                             if (type == 'season') {
-                              print('season');
                               Provider.of<OutfitManager>(context!,
                                       listen: false)
                                   .setSeason(chipsList[index]);
                             }
                             if (type == 'style') {
-                              print('style');
                               Provider.of<OutfitManager>(context!,
                                       listen: false)
                                   .setStyle(chipsList[index]);

@@ -5,8 +5,10 @@ import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
+import '../../generated/l10n.dart';
 import '../../services/managers/managers.dart';
 
+//ignore: must_be_immutable
 class CustomDialogBox extends StatelessWidget {
   CustomDialogBox({Key? key, required this.itemList}) : super(key: key);
   Future<List<WardrobeItem>>? itemList;
@@ -38,7 +40,7 @@ class CustomDialogBox extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        DialogCard(context, "Create outfit", () {
+                        DialogCard(context, S.of(context).create_outfit, () {
                           Provider.of<PhotoTapped>(context, listen: false)
                               .nullWholeMap();
                           Provider.of<WardrobeManager>(context, listen: false)
@@ -46,7 +48,7 @@ class CustomDialogBox extends StatelessWidget {
                           context.pushNamed("create-outfit-page",
                               extra: itemList!);
                           context.pop();
-                        }, 18, secondText: "Use your creativity!"),
+                        }, 18, secondText: S.of(context).for_yourself),
                       ],
                     )))
           ],
@@ -54,6 +56,7 @@ class CustomDialogBox extends StatelessWidget {
   }
 }
 
+// ignore: non_constant_identifier_names
 Widget DialogCard(
     BuildContext context, String text, Function() onTap, double pad,
     {String secondText = ""}) {
@@ -94,7 +97,7 @@ Widget DialogCard(
                                 Text(
                                   secondText,
                                   textAlign: TextAlign.center,
-                                  style: TextStyles.paragraphRegular14(
+                                  style: TextStyles.paragraphRegular12(
                                       Colors.grey),
                                 ),
                               ],

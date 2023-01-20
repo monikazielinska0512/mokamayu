@@ -3,8 +3,6 @@ import 'dart:ui';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
@@ -13,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/wardrobe_item.dart';
 
+// ignore: must_be_immutable
 class AddWardrobeItemForm extends StatefulWidget {
   bool isEdit;
   final String? photo;
@@ -83,19 +82,6 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
           .finalWardrobeItemList
           .contains(widget.editItem);
 
-  // Widget editButton() {
-  //   return isWardrobeItemMine()
-  //       ? Padding(
-  //           padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
-  //           child: Align(
-  //               alignment: Alignment.topRight,
-  //               child: IconButton(
-  //                   onPressed: () =>
-  //                       setState(() => widget.isLocked = !widget.isLocked),
-  //                   icon: const Icon(Ionicons.create_outline,
-  //                       color: Colors.black))))
-  //       : Container();
-  // }
 
   Widget buildBackgroundImageForAddForm() {
     return Image.file(
@@ -117,6 +103,6 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
       cache: true,
       enableMemoryCache: false,
       enableLoadState: true,
-    )
+    );
   }
 }

@@ -21,7 +21,9 @@ class PhotoTapped extends ChangeNotifier {
 
   void nullMap(List<String> ids) {
     mapDynamic.clear();
-    ids.forEach((element) => listOfIds.removeWhere((el) => el == element));
+    for (var element in ids) {
+      listOfIds.removeWhere((el) => el == element);
+    }
     notifyListeners();
   }
 

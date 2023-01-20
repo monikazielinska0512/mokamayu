@@ -12,9 +12,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:uuid/uuid.dart';
+import '../../generated/l10n.dart';
 import '../../models/calendar_event.dart';
 import '../../services/storage.dart';
 
+//ignore: must_be_immutable
 class OutfitsAddAttributesScreen extends StatefulWidget {
   OutfitsAddAttributesScreen({Key? key, required this.map, this.friendUid})
       : super(key: key) {
@@ -34,7 +36,7 @@ class OutfitsAddAttributesScreen extends StatefulWidget {
 class _OutfitsAddAttributesScreenState
     extends State<OutfitsAddAttributesScreen> {
   ScreenshotController screenshotController = ScreenshotController();
-  List<String> selectedChips = Tags.types;
+  List<String> selectedChips = [];
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Outfit? item;
@@ -64,8 +66,9 @@ class _OutfitsAddAttributesScreenState
     return BasicScreen(
         isFullScreen: true,
         title: item != null
-            ? "Edit"
-            : "Create outfit${widget.friendUid != null ? " for ..." : ""}",
+            ? S.of(context).edit
+            : S.of(context).create,
+        // "Create outfit${widget.friendUid != null ? " for ..." : ""}",
         context: context,
         body: item != null
             ? bodyEdit(screenshotController, formKey, item!, context)
@@ -289,7 +292,7 @@ class _OutfitsAddAttributesScreenState
   }
 
   Map<String, Widget>? getTabs() =>
-      {"Photos": buildEditPhoto(), "Attributes": buildFormEdit()};
+      {S.of(context).items: buildEditPhoto(), S.of(context).attributes: buildFormEdit()};
 
   Widget buildProfileGallery(BuildContext context) {
     List<Tab>? tabs = getTabs()
@@ -346,7 +349,7 @@ class _OutfitsAddAttributesScreenState
           MultiSelectChip(Tags.getLanguagesTypes(context),
               type: "type_main", chipsColor: ColorsConstants.darkPeach,
               onSelectionChanged: (selectedList) {
-            selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
+            selectedChips = selectedList.isEmpty ? Tags.getLanguagesTypes(context) : selectedList;
           }),
           SizedBox(
             width: double.infinity,

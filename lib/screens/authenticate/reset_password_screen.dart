@@ -71,7 +71,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   }
                 })
               ]))),
-      Expanded(child: Container(
+      Expanded(child: SizedBox(
           height: deviceWidth(context) * 1.295,
           child: Opacity(
             opacity: 0.9,

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/widgets.dart';
+import '../../generated/l10n.dart';
 import '../../models/outfit.dart';
 import '../../models/wardrobe_item.dart';
 
+
+//ignore: must_be_immutable
 class DeleteBottomModal extends StatefulWidget {
   WardrobeItem? wardrobe = WardrobeItem.init();
   Outfit? outfit;
   Function actionFunction;
+
   DeleteBottomModal(
       {Key? key,
       // required this.item,
@@ -51,43 +54,29 @@ class _DeleteBottomModalState extends State<DeleteBottomModal> {
                       decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(30))),
-                      height: MediaQuery.of(context).size.height * 0.30,
-                      // color: Colors.white,
+                      height: MediaQuery.of(context).size.height * 0.25,
                       child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 25, left: 30),
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Icon(Ionicons.close_outline,
-                                        size: 25,
-                                        color: Colors.grey,
-                                      )),
-                                )),
                             Padding(
-                                padding: const EdgeInsets.all(15),
+                                padding: const EdgeInsets.all(20),
                                 child: Column(children: [
                                   widget.wardrobe != null
                                       ? Text(
-                                          'Do you want delete this item ${widget.wardrobe!.name}?',
+                                          S.of(context).ask_deletion +
+                                              '${widget.wardrobe!.name} ?',
                                           textAlign: TextAlign.center,
-                                          style: TextStyles.paragraphRegular20(
+                                          style: TextStyles.paragraphRegular18(
                                               ColorsConstants.grey))
-                                      : Text('Do you want delete this outfit?',
+                                      : Text(S.of(context).delete_outfit,
                                           textAlign: TextAlign.center,
                                           style: TextStyles.paragraphRegular20(
                                               ColorsConstants.grey))
                                 ])),
-                            ButtonDarker(
-                                context, "Delete", widget.actionFunction,
+                            ButtonDarker(context, S.of(context).delete,
+                                widget.actionFunction,
                                 shouldExpand: false,
                                 height: 0.062,
                                 width: 0.25),

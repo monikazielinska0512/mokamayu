@@ -350,6 +350,16 @@ class S {
     );
   }
 
+  /// `T-Shirt`
+  String get tshirt {
+    return Intl.message(
+      'T-Shirt',
+      name: 'tshirt',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Trousers`
   String get trousers {
     return Intl.message(
@@ -925,6 +935,496 @@ class S {
     return Intl.message(
       'Enter your item name',
       name: 'enter_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get add {
+    return Intl.message(
+      'Add',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `School`
+  String get school {
+    return Intl.message(
+      'School',
+      name: 'school',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Classic`
+  String get classic {
+    return Intl.message(
+      'Classic',
+      name: 'classic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sport`
+  String get sport {
+    return Intl.message(
+      'Sport',
+      name: 'sport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Elegant`
+  String get elegant {
+    return Intl.message(
+      'Elegant',
+      name: 'elegant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vintage`
+  String get vintage {
+    return Intl.message(
+      'Vintage',
+      name: 'vintage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Smart Casual`
+  String get smart_casual {
+    return Intl.message(
+      'Smart Casual',
+      name: 'smart_casual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minimalistic`
+  String get minimalism {
+    return Intl.message(
+      'Minimalistic',
+      name: 'minimalism',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Retro`
+  String get retro {
+    return Intl.message(
+      'Retro',
+      name: 'retro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Glamour`
+  String get glamour {
+    return Intl.message(
+      'Glamour',
+      name: 'glamour',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Romantic`
+  String get romantic {
+    return Intl.message(
+      'Romantic',
+      name: 'romantic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Military`
+  String get military {
+    return Intl.message(
+      'Military',
+      name: 'military',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Streetwear`
+  String get streetwear {
+    return Intl.message(
+      'Streetwear',
+      name: 'streetwear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Boho`
+  String get boho {
+    return Intl.message(
+      'Boho',
+      name: 'boho',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hippie`
+  String get hippe {
+    return Intl.message(
+      'Hippie',
+      name: 'hippe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item has been added to wardrobe!`
+  String get item_added {
+    return Intl.message(
+      'Item has been added to wardrobe!',
+      name: 'item_added',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gallery`
+  String get gallery {
+    return Intl.message(
+      'Gallery',
+      name: 'gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camera`
+  String get camera {
+    return Intl.message(
+      'Camera',
+      name: 'camera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Some attribute are still to choose`
+  String get empty_paramaters {
+    return Intl.message(
+      'Some attribute are still to choose',
+      name: 'empty_paramaters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Photo hasn't been chosen!`
+  String get photo_not_added {
+    return Intl.message(
+      'Photo hasn\'t been chosen!',
+      name: 'photo_not_added',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove`
+  String get remove {
+    return Intl.message(
+      'Remove',
+      name: 'remove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update`
+  String get update {
+    return Intl.message(
+      'Update',
+      name: 'update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item has been updated!`
+  String get updated_item {
+    return Intl.message(
+      'Item has been updated!',
+      name: 'updated_item',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong`
+  String get something_went_wrong {
+    return Intl.message(
+      'Something went wrong',
+      name: 'something_went_wrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item has been deleted`
+  String get deleted_item {
+    return Intl.message(
+      'Item has been deleted',
+      name: 'deleted_item',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want delete\n`
+  String get ask_deletion {
+    return Intl.message(
+      'Do you want delete\n',
+      name: 'ask_deletion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active`
+  String get active {
+    return Intl.message(
+      'Active',
+      name: 'active',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Party`
+  String get party {
+    return Intl.message(
+      'Party',
+      name: 'party',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Casual`
+  String get casual {
+    return Intl.message(
+      'Casual',
+      name: 'casual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wedding`
+  String get wedding {
+    return Intl.message(
+      'Wedding',
+      name: 'wedding',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create outfit`
+  String get create_outfit {
+    return Intl.message(
+      'Create outfit',
+      name: 'create_outfit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use your creativity!`
+  String get use_creativity {
+    return Intl.message(
+      'Use your creativity!',
+      name: 'use_creativity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Summer`
+  String get summer {
+    return Intl.message(
+      'Summer',
+      name: 'summer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Winter`
+  String get winter {
+    return Intl.message(
+      'Winter',
+      name: 'winter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Autumn`
+  String get autumn {
+    return Intl.message(
+      'Autumn',
+      name: 'autumn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spring`
+  String get spring {
+    return Intl.message(
+      'Spring',
+      name: 'spring',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Season`
+  String get season {
+    return Intl.message(
+      'Season',
+      name: 'season',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `for yourself`
+  String get for_yourself {
+    return Intl.message(
+      'for yourself',
+      name: 'for_yourself',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tags`
+  String get tags {
+    return Intl.message(
+      'Tags',
+      name: 'tags',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want delete this outfit?`
+  String get delete_outfit {
+    return Intl.message(
+      'Do you want delete this outfit?',
+      name: 'delete_outfit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Items`
+  String get items {
+    return Intl.message(
+      'Items',
+      name: 'items',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Attributes`
+  String get attributes {
+    return Intl.message(
+      'Attributes',
+      name: 'attributes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outfit for friend has been created`
+  String get outfit_created_for_friend {
+    return Intl.message(
+      'Outfit for friend has been created',
+      name: 'outfit_created_for_friend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outfit has been created`
+  String get outfit_created {
+    return Intl.message(
+      'Outfit has been created',
+      name: 'outfit_created',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invitations`
+  String get requests {
+    return Intl.message(
+      'Invitations',
+      name: 'requests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Users`
+  String get users {
+    return Intl.message(
+      'Users',
+      name: 'users',
       desc: '',
       args: [],
     );

@@ -1,8 +1,12 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../constants/colors.dart';
 import '../../generated/l10n.dart';
 
+
+//ignore: must_be_immutable
 class SearchTextField extends StatefulWidget {
   Function(String)? onChanged;
   Function()? onTap;

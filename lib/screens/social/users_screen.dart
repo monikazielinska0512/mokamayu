@@ -88,7 +88,7 @@ class _UsersScreenState extends State<UsersScreen> {
     return BasicScreen(
       context: context,
       isFullScreen: false,
-      title: 'Users',
+      title: S.of(context).users,
       leftButton: BackArrowButton(context),
       rightButton: NotificationsButton(context),
       body: Stack(
@@ -105,13 +105,6 @@ class _UsersScreenState extends State<UsersScreen> {
                 ),
                 const SizedBox(height: 15),
               ]),
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${S.of(context).found} ${_foundUsers.length} ${S.of(context).results}",
-                    style: TextStyles.paragraphRegularSemiBold14(ColorsConstants.darkBrick),
-                  )),
               Expanded(
                 child: _foundUsers.isNotEmpty ? buildList() : buildEmpty(),
               ),
@@ -143,7 +136,7 @@ class _UsersScreenState extends State<UsersScreen> {
                     borderRadius: BorderRadius.circular(14)),
                 child: Row(children: [
                   Padding(
-                      padding: EdgeInsets.only(right: 10, left: 10),
+                      padding: const EdgeInsets.only(right: 10, left: 10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(14), // Image border
                         child: SizedBox.fromSize(

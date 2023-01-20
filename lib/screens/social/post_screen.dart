@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/managers.dart';
 
+
+//ignore: must_be_immutable
 class PostScreen extends StatefulWidget {
   Post post;
   UserData user;
@@ -71,7 +73,7 @@ class _PostScreenState extends State<PostScreen> {
                           size: const Size.square(50),
                           child: widget.user.profilePicture != null
                               ? Image.network(widget.user.profilePicture!,
-                                  fit: BoxFit.fill)
+                              fit: BoxFit.fill)
                               : Image.asset(Assets.avatarPlaceholder,
                               width: MediaQuery.of(context).size.width * 0.7),
                         ),
@@ -80,7 +82,7 @@ class _PostScreenState extends State<PostScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           widget.post.createdFor == widget.post.createdBy
-                          ? GestureDetector(
+                              ? GestureDetector(
                             onTap: () {
                               context.pushNamed(
                                 "profile",
@@ -95,7 +97,7 @@ class _PostScreenState extends State<PostScreen> {
                                     : widget.userList.singleWhere((element) => element.uid == widget.post.createdBy).username,
                                 style: TextStyles.paragraphRegularSemiBold16()),
                           )
-                          : Row(
+                              : Row(
                             children: [
                               GestureDetector(
                                 onTap: () {
@@ -141,32 +143,32 @@ class _PostScreenState extends State<PostScreen> {
                               style: TextStyles.paragraphRegular14(
                                   ColorsConstants.grey)),
                           widget.post.likes!.contains(AuthService().getCurrentUserID())
-                          ? IconButton(
-                            onPressed: (){
-                              widget.post.likes!.remove(AuthService().getCurrentUserID());
-                              Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdFor, widget.post.likes!);
-                              setState(() {});
+                              ? IconButton(
+                              onPressed: (){
+                                widget.post.likes!.remove(AuthService().getCurrentUserID());
+                                Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdFor, widget.post.likes!);
+                                setState(() {});
                               },
-                            icon: const Icon(Icons.favorite, color: ColorsConstants.darkBrick,))
-                          : IconButton(
-                            onPressed: (){
-                              widget.post.likes!.add(AuthService().getCurrentUserID());
-                              Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdFor, widget.post.likes!);
-                              setState(() {});
-                              if(AuthService().getCurrentUserID() != widget.post.createdBy) {
+                              icon: const Icon(Icons.favorite, color: ColorsConstants.darkBrick,))
+                              : IconButton(
+                              onPressed: (){
+                                widget.post.likes!.add(AuthService().getCurrentUserID());
+                                Provider.of<PostManager>(context, listen: false).likePost(widget.post.reference!, widget.post.createdFor, widget.post.likes!);
+                                setState(() {});
+                                if(AuthService().getCurrentUserID() != widget.post.createdBy) {
                                   CustomNotification notif =
-                                      CustomNotification(
-                                          sentFrom: AuthService().getCurrentUserID(),
-                                          type: NotificationType.COMMENT.toString(),
-                                          creationDate: DateTime.now()
-                                              .millisecondsSinceEpoch);
+                                  CustomNotification(
+                                      sentFrom: AuthService().getCurrentUserID(),
+                                      type: NotificationType.COMMENT.toString(),
+                                      creationDate: DateTime.now()
+                                          .millisecondsSinceEpoch);
                                   Provider.of<NotificationsManager>(context,
-                                          listen: false)
+                                      listen: false)
                                       .addNotificationToFirestore(
-                                          notif, widget.post.createdBy);
+                                      notif, widget.post.createdBy);
                                 }
                               },
-                            icon: const Icon(Icons.favorite_border, color: ColorsConstants.darkBrick,))
+                              icon: const Icon(Icons.favorite_border, color: ColorsConstants.darkBrick,))
                         ],
                       ),
                     ],
@@ -174,43 +176,43 @@ class _PostScreenState extends State<PostScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                   Image.network(widget.post.cover, fit: BoxFit.fill),
                   widget.post.comments != null
-                  ? Expanded(
+                      ? Expanded(
                       child: ListView.separated(
                           itemBuilder: (BuildContext context, int index){
                             return Container(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profileName != null
-                                      ? widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profileName!
-                                          : widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).username,
-                                      style: TextStyles.paragraphRegularSemiBold16()),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profilePicture != null
-                                            ? Image.network(widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profilePicture!,
-                                            height: 20)
-                                            : Image.asset(Assets.avatarPlaceholder,
-                                            height: 20),
-                                      ),
-                                    ]
-                                  ),
-                                  Text(widget.post.comments![index]['content']!, style: TextStyles.paragraphRegular14(),)
-                                ],
-                              )
+                                padding: const EdgeInsets.all(10),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Text(widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profileName != null
+                                              ? widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profileName!
+                                              : widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).username,
+                                              style: TextStyles.paragraphRegularSemiBold16()),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(5),
+                                            child: widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profilePicture != null
+                                                ? Image.network(widget.userList.singleWhere((element) => element.uid == widget.post.comments![index]['author']!).profilePicture!,
+                                                height: 20)
+                                                : Image.asset(Assets.avatarPlaceholder,
+                                                height: 20),
+                                          ),
+                                        ]
+                                    ),
+                                    Text(widget.post.comments![index]['content']!, style: TextStyles.paragraphRegular14(),)
+                                  ],
+                                )
                             );
                           },
                           separatorBuilder: (BuildContext context, int index) => const Divider(),
                           itemCount: widget.post.comments!.length))
-                  : SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                      : SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   TextField(
                     controller: myController,
                     onSubmitted: (String comment){
@@ -221,7 +223,7 @@ class _PostScreenState extends State<PostScreen> {
                       });
                       Provider.of<PostManager>(context, listen: false)
                           .commentPost(widget.post.reference!,
-                              widget.post.createdFor, widget.post.comments!);
+                          widget.post.createdFor, widget.post.comments!);
                       myController.clear();
                       setState(() {});
 
@@ -230,11 +232,11 @@ class _PostScreenState extends State<PostScreen> {
                             sentFrom: AuthService().getCurrentUserID(),
                             type: NotificationType.COMMENT.toString(),
                             creationDate:
-                                DateTime.now().millisecondsSinceEpoch);
+                            DateTime.now().millisecondsSinceEpoch);
                         Provider.of<NotificationsManager>(context,
-                                listen: false)
+                            listen: false)
                             .addNotificationToFirestore(
-                                notif, widget.post.createdBy);
+                            notif, widget.post.createdBy);
                       }
                     },
                     decoration: const InputDecoration(

@@ -15,7 +15,7 @@ import '../../services/managers/wardrobe_manager.dart';
 class FilterModal extends StatefulWidget {
   Future<List<WardrobeItem>>? futureItemListCopy;
   Future<List<Outfit>>? futureOutfitListCopy;
-  List<String> selectedTypes = Tags.getTypes();
+  List<String> selectedTypes = [];
   List<String> selectedStyles = Tags.styles;
   List<String> selectedSizes = Tags.sizes;
 
@@ -91,7 +91,7 @@ class _FilterModalState extends State<FilterModal> {
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: MultiSelectChip(
               chipsColor: ColorsConstants.mint,
-              Tags.styles,
+              Tags.getLanguagesStyles(context),
               isScrollable: false,
               type: "style",
               onSelectionChanged: (selectedList) => {
@@ -109,8 +109,8 @@ class _FilterModalState extends State<FilterModal> {
       Padding(
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: MultiSelectChip(
-              chipsColor: ColorsConstants.mint,
-              OutfitTags.styles,
+              chipsColor: ColorsConstants.peachy,
+              OutfitTags.getLanguagesStyles(context),
               isScrollable: false,
               type: "outfit_style",
               onSelectionChanged: (selectedList) => {
@@ -129,7 +129,7 @@ class _FilterModalState extends State<FilterModal> {
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: MultiSelectChip(
               chipsColor: ColorsConstants.mint,
-              OutfitTags.seasons,
+              OutfitTags.getSeasons(context),
               isScrollable: false,
               type: "outfit_season",
               onSelectionChanged: (selectedList) => {

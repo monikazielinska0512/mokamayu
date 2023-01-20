@@ -50,7 +50,7 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
       IconTextButton(
         onPressed: () => context.push('/edit-profile'),
         icon: Icons.edit_outlined,
-        text: "Edit",
+        text: S.of(context).edit,
         backgroundColor: ColorsConstants.peachy,
       ),
       Padding(

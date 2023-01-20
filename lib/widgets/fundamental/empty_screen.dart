@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../constants/colors.dart';
-import '../../constants/text_styles.dart';
 
 Expanded EmptyScreen(BuildContext context, Text information, Color color) {
   return Expanded(

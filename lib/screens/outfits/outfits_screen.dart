@@ -57,11 +57,11 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
                 children: [
                   Expanded(
                       child: Wrap(children: [
-                    MultiSelectChip(OutfitTags.styles,
+                    MultiSelectChip(OutfitTags.getLanguagesStyles(context),
                         chipsColor: ColorsConstants.darkPeach,
                         onSelectionChanged: (selectedList) {
                       selectedChips = selectedList.isEmpty
-                          ? OutfitTags.styles
+                          ? OutfitTags.getLanguagesStyles(context)
                           : selectedList;
                     }, type: "style_main")
                   ])),

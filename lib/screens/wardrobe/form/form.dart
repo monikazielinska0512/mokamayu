@@ -20,10 +20,7 @@ class WardrobeItemForm extends StatefulWidget {
   final WardrobeItem? item;
 
   const WardrobeItemForm(
-      {Key? key,
-      this.photoPath,
-      this.item,
-      this.editedPhoto})
+      {Key? key, this.photoPath, this.item, this.editedPhoto})
       : super(key: key);
 
   @override
@@ -61,12 +58,11 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Padding(padding: EdgeInsets.only(bottom: 15), child:
-                  buildNameTextField()),
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: buildNameTextField()),
                   Gallery(context, getTabs()),
-                  widget.item == null
-                      ? buildAddButton()
-                      :  buildUpdateButton()
+                  widget.item == null ? buildAddButton() : buildUpdateButton()
                 ])));
   }
 
@@ -87,28 +83,30 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
         style: TextStyles.paragraphRegularSemiBold16(),
         decoration: InputDecoration(
             hintText: S.of(context).enter_name,
-            prefixIcon: const Icon(Ionicons.pencil_outline, color: ColorsConstants.darkBrick),
+            prefixIcon: const Icon(Ionicons.pencil_outline,
+                color: ColorsConstants.darkBrick),
             filled: true,
             fillColor: ColorsConstants.whiteAccent,
             labelStyle: TextStyles.paragraphRegularSemiBold16(),
             hintStyle: TextStyles.paragraphRegular16(),
             enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
+              borderSide:
+                  BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
             ),
             focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
+              borderSide:
+                  BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
             ),
             border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(14.0))))
-    );
+                borderRadius: BorderRadius.all(Radius.circular(14.0)))));
   }
 
   Map<String, Widget>? getTabs() => {
         S.of(context).type: SingleChildScrollView(child: buildTypeChipsField()),
-        S.of(context).style: buildStyleChipsField(),
-        S.of(context).size: buildSizeChipsField()
+        S.of(context).style:
+            SingleChildScrollView(child: buildStyleChipsField()),
+        S.of(context).size: SingleChildScrollView(child: buildSizeChipsField())
       };
-
 
   Widget buildTypeChipsField() {
     return Column(children: [
@@ -146,7 +144,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       MultiSelectChipsFormField(
           isScroll: false,
           initialValue: _styles,
-          chipsList: Tags.styles,
+          chipsList: Tags.getLanguagesStyles(context),
           onSaved: (value) => _styles = value!,
           validator: (value) =>
               Validator.checkIfMultipleValueSelected(value!, context)),
@@ -154,7 +152,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   }
 
   Widget buildAddButton() {
-    return ButtonDarker(context, 'Add item', () async {
+    return ButtonDarker(context, S.of(context).add, () async {
       _formKey.currentState!.save();
       if (_formKey.currentState!.validate()) {
         String url =
@@ -181,61 +179,72 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
         context.pushReplacement("/home/0");
 
         CustomSnackBar.showSuccessSnackBar(
-            context: context, message: "Dodano do bazy danych");
+            context: context, message: S.of(context).item_added);
       } else {
         CustomSnackBar.showErrorSnackBar(
-            context: context, message: "Coś poszło nie tak");
+            context: context, message: S.of(context).empty_paramaters);
       }
     }, shouldExpand: false, width: 0.45, height: 0.061);
   }
 
   Widget buildUpdateButton() {
     return Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CustomIconButton(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: CustomIconButton(
                 onPressed: () {
                   Provider.of<WardrobeManager>(context, listen: false)
                       .removeWardrobeItem(widget.item?.reference);
+
                   reset();
                   context.pushReplacement("/home/0");
+                  CustomSnackBar.showErrorSnackBar(
+                      context: context, message: S.of(context).deleted_item);
                 },
+                height: 0.061,
                 backgroundColor: ColorsConstants.whiteAccent,
                 iconColor: ColorsConstants.grey,
                 icon: Ionicons.trash_bin_outline,
-                width: 0.15),
-            const SizedBox(width: 10),
-            ButtonDarker(context, 'Update', () async {
-              _formKey.currentState!.save();
-              if (_formKey.currentState!.validate()) {
-                if (widget.editedPhoto != null) {
-                  StorageService().uploadFile(context, widget.photoPath ?? "");
+                width: 0.15)),
+        const SizedBox(width: 10),
+        ButtonDarker(
+          context,
+          S.of(context).update,
+          () async {
+            _formKey.currentState!.save();
+            if (_formKey.currentState!.validate()) {
+              if (widget.editedPhoto != null) {
+                StorageService().uploadFile(context, widget.photoPath ?? "");
 
-                  String url = await StorageService()
-                      .uploadFile(context, widget.photoPath ?? "");
-                  Provider.of<WardrobeManager>(context, listen: false)
-                      .updateWardrobeItem(widget.item?.reference ?? "", _name,
-                          _type, _size, url, _styles);
-                }
-
+                String url = await StorageService()
+                    .uploadFile(context, widget.photoPath ?? "");
                 Provider.of<WardrobeManager>(context, listen: false)
                     .updateWardrobeItem(widget.item?.reference ?? "", _name,
-                        _type, _size, widget.item?.photoURL ?? "", _styles);
-                reset();
-                context.pushReplacement("/home/0");
-                CustomSnackBar.showSuccessSnackBar(
-                    context: context, message: "Updated");
-              } else {
-                CustomSnackBar.showErrorSnackBar(
-                    context: context, message: "Error");
+                        _type, _size, url, _styles);
               }
-            },
-                shouldExpand: false,
-                width: 0.65,
-                margin: const EdgeInsets.fromLTRB(0, 0, 0, 0)),
-          ],
-        );
+
+              Provider.of<WardrobeManager>(context, listen: false)
+                  .updateWardrobeItem(widget.item?.reference ?? "", _name,
+                      _type, _size, widget.item?.photoURL ?? "", _styles);
+              reset();
+              context.pushReplacement("/home/0");
+              CustomSnackBar.showSuccessSnackBar(
+                  context: context, message: S.of(context).updated_item);
+            } else {
+              CustomSnackBar.showErrorSnackBar(
+                  context: context,
+                  message: S.of(context).something_went_wrong);
+            }
+          },
+          shouldExpand: false,
+          width: 0.6,
+          height: 0.061,
+        )
+      ],
+    );
   }
 
   void reset() {

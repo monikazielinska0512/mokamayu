@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../constants/constants.dart';
+import '../../generated/l10n.dart';
 import '../../services/storage.dart';
 
 class ImagePickerButton extends StatelessWidget {
@@ -28,10 +29,10 @@ class ImagePickerButton extends StatelessWidget {
                   ],
                   buildImageSourceOption(buildContext, const Icon(
                       Icons.photo_library),
-                      "Gallery", ImageSource.gallery),
+                      S.of(context).gallery, ImageSource.gallery),
                   buildImageSourceOption(buildContext, const Icon(
                       Icons.photo_camera),
-                      "Camera", ImageSource.camera),
+                      S.of(context).camera, ImageSource.camera),
                 ]),
               );
             }),

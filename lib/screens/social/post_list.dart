@@ -47,223 +47,28 @@ class _PostListState extends State<PostList> {
             decoration: BoxDecoration(
                 color: ColorsConstants.whiteAccent,
                 borderRadius: BorderRadius.circular(20)),
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+            padding: const EdgeInsets.all(20),
             child: GestureDetector(
               onTap: () {},
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(5), // Image border
-                        child: SizedBox.fromSize(
-                          size: const Size.square(50),
-                          child: widget.userList
-                                      .singleWhere((element) =>
-                                          element.uid ==
-                                          widget.postList[index].createdBy)
-                                      .profilePicture !=
-                                  null
-                              ? Image.network(
-                                  widget.userList
-                                      .singleWhere((element) =>
-                                          element.uid ==
-                                          widget.postList[index].createdBy)
-                                      .profilePicture!,
-                                  fit: BoxFit.fill)
-                              : Image.asset(Assets.avatarPlaceholder,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          widget.postList[index].createdFor ==
-                                  widget.postList[index].createdBy
-                              ? GestureDetector(
-                                  onTap: () {
-                                    context.pushNamed(
-                                      "profile",
-                                      queryParams: {
-                                        'uid': widget.postList[index].createdBy,
-                                      },
-                                    );
-                                  },
-                                  child: Text(
-                                      widget.userList
-                                                  .singleWhere((element) =>
-                                                      element.uid ==
-                                                      widget.postList[index]
-                                                          .createdBy)
-                                                  .profileName !=
-                                              null
-                                          ? widget.userList
-                                              .singleWhere((element) =>
-                                                  element.uid ==
-                                                  widget.postList[index]
-                                                      .createdBy)
-                                              .profileName!
-                                          : widget.userList
-                                              .singleWhere((element) =>
-                                                  element.uid ==
-                                                  widget.postList[index]
-                                                      .createdBy)
-                                              .username,
-                                      style: TextStyles
-                                          .paragraphRegularSemiBold16()),
-                                )
-                              : Row(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        context.pushNamed(
-                                          "profile",
-                                          queryParams: {
-                                            'uid': widget
-                                                .postList[index].createdBy,
-                                          },
-                                        );
-                                      },
-                                      child: Text(
-                                          widget.userList
-                                                      .singleWhere((element) =>
-                                                          element.uid ==
-                                                          widget.postList[index]
-                                                              .createdBy)
-                                                      .profileName !=
-                                                  null
-                                              ? widget.userList
-                                                  .singleWhere((element) =>
-                                                      element.uid ==
-                                                      widget.postList[index]
-                                                          .createdBy)
-                                                  .profileName!
-                                              : widget.userList
-                                                  .singleWhere((element) =>
-                                                      element.uid ==
-                                                      widget.postList[index]
-                                                          .createdBy)
-                                                  .username,
-                                          style: TextStyles
-                                              .paragraphRegularSemiBold16()),
-                                    ),
-                                    Text(" for ",
-                                        style: TextStyles.paragraphRegular16()),
-                                    GestureDetector(
-                                      onTap: () {
-                                        context.pushNamed(
-                                          "profile",
-                                          queryParams: {
-                                            'uid': widget
-                                                .postList[index].createdFor,
-                                          },
-                                        );
-                                      },
-                                      child: Text(
-                                          widget.userList
-                                                      .singleWhere((element) =>
-                                                          element.uid ==
-                                                          widget.postList[index]
-                                                              .createdFor)
-                                                      .profileName !=
-                                                  null
-                                              ? widget.userList
-                                                  .singleWhere((element) =>
-                                                      element.uid ==
-                                                      widget.postList[index]
-                                                          .createdFor)
-                                                  .profileName!
-                                              : widget.userList
-                                                  .singleWhere((element) =>
-                                                      element.uid ==
-                                                      widget.postList[index]
-                                                          .createdFor)
-                                                  .username,
-                                          style: TextStyles
-                                              .paragraphRegularSemiBold16()),
-                                    ),
-                                  ],
-                                ),
-                          Text(
-                              "Posted ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.postList[index].creationDate))}",
-                              style: TextStyles.paragraphRegular14(
-                                  ColorsConstants.grey)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(widget.postList[index].likes!.length.toString(),
-                              style: TextStyles.paragraphRegular14(
-                                  ColorsConstants.grey)),
-                          widget.postList[index].likes!
-                                  .contains(AuthService().getCurrentUserID())
-                              ? IconButton(
-                                  onPressed: () {
-                                    widget.postList[index].likes!.remove(
-                                        AuthService().getCurrentUserID());
-                                    Provider.of<PostManager>(context,
-                                            listen: false)
-                                        .likePost(
-                                            widget.postList[index].reference!,
-                                            widget.postList[index].createdFor,
-                                            widget.postList[index].likes!);
-                                    setState(() {});
-                                  },
-                                  icon: const Icon(
-                                    Icons.favorite,
-                                    color: ColorsConstants.darkBrick,
-                                  ))
-                              : IconButton(
-                                  onPressed: () {
-                                    widget.postList[index].likes!
-                                        .add(AuthService().getCurrentUserID());
-                                    Provider.of<PostManager>(context,
-                                            listen: false)
-                                        .likePost(
-                                            widget.postList[index].reference!,
-                                            widget.postList[index].createdFor,
-                                            widget.postList[index].likes!);
-                                    setState(() {});
-                                    if (AuthService().getCurrentUserID() !=
-                                        widget.postList[index].createdBy) {
-                                      CustomNotification notif =
-                                          CustomNotification(
-                                              sentFrom: AuthService()
-                                                  .getCurrentUserID(),
-                                              type: NotificationType
-                                                  .LIKE
-                                                  .toString(),
-                                              creationDate: DateTime.now()
-                                                  .millisecondsSinceEpoch);
-                                      Provider.of<NotificationsManager>(context,
-                                              listen: false)
-                                          .addNotificationToFirestore(notif,
-                                              widget.postList[index].createdBy);
-                                    }
-                                  },
-                                  icon: const Icon(
-                                    Icons.favorite_border,
-                                    color: ColorsConstants.darkBrick,
-                                  ))
-                        ],
-                      ),
+                      buildUserAvatar(index),
+                      buildNameAndDate(index),
+                      buildLikeButton(index)
                     ],
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
-                  ExtendedImage.network(
-                    widget.postList[index].cover,
-                    fit: BoxFit.fill,
-                    cache: true,
-                    enableMemoryCache: false,
-                    enableLoadState: true,
-                  ),
+                  buildPostBody(index),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
@@ -340,6 +145,223 @@ class _PostListState extends State<PostList> {
         separatorBuilder: (BuildContext context, int index) => const Divider(),
         itemCount: widget.postList.length);
   }
+
+
+  Widget buildPostBody(int index){
+    return ExtendedImage.network(
+      widget.postList[index].cover,
+      fit: BoxFit.fill,
+      cache: true,
+      enableMemoryCache: false,
+      enableLoadState: true,
+    );
+  }
+
+
+  Widget buildLikeButton(int index){
+    return Row(
+      children: [
+        Text(widget.postList[index].likes!.length.toString(),
+            style: TextStyles.paragraphRegular14(
+                ColorsConstants.grey)),
+        widget.postList[index].likes!
+            .contains(AuthService().getCurrentUserID())
+            ? IconButton(
+            onPressed: () {
+              widget.postList[index].likes!.remove(
+                  AuthService().getCurrentUserID());
+              Provider.of<PostManager>(context,
+                  listen: false)
+                  .likePost(
+                  widget.postList[index].reference!,
+                  widget.postList[index].createdFor,
+                  widget.postList[index].likes!);
+              setState(() {});
+            },
+            icon: const Icon(
+              Icons.favorite,
+              color: ColorsConstants.darkBrick,
+            ))
+            : IconButton(
+            onPressed: () {
+              widget.postList[index].likes!
+                  .add(AuthService().getCurrentUserID());
+              Provider.of<PostManager>(context,
+                  listen: false)
+                  .likePost(
+                  widget.postList[index].reference!,
+                  widget.postList[index].createdFor,
+                  widget.postList[index].likes!);
+              setState(() {});
+              if (AuthService().getCurrentUserID() !=
+                  widget.postList[index].createdBy) {
+                CustomNotification notif =
+                CustomNotification(
+                    sentFrom: AuthService()
+                        .getCurrentUserID(),
+                    type: NotificationType
+                        .LIKE
+                        .toString(),
+                    creationDate: DateTime.now()
+                        .millisecondsSinceEpoch);
+                Provider.of<NotificationsManager>(context,
+                    listen: false)
+                    .addNotificationToFirestore(notif,
+                    widget.postList[index].createdBy);
+              }
+            },
+            icon: const Icon(
+              Icons.favorite_border,
+              color: ColorsConstants.darkBrick,
+            ))
+      ],
+    );
+  }
+
+
+  Widget buildNameAndDate(int index){
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        widget.postList[index].createdFor ==
+            widget.postList[index].createdBy
+            ? GestureDetector(
+          onTap: () {
+            context.pushNamed(
+              "profile",
+              queryParams: {
+                'uid': widget.postList[index].createdBy,
+              },
+            );
+          },
+          child: Text(
+              widget.userList
+                  .singleWhere((element) =>
+              element.uid ==
+                  widget.postList[index]
+                      .createdBy)
+                  .profileName !=
+                  null
+                  ? widget.userList
+                  .singleWhere((element) =>
+              element.uid ==
+                  widget.postList[index]
+                      .createdBy)
+                  .profileName!
+                  : widget.userList
+                  .singleWhere((element) =>
+              element.uid ==
+                  widget.postList[index]
+                      .createdBy)
+                  .username,
+              style: TextStyles
+                  .paragraphRegularSemiBold16()),
+        )
+            : Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                context.pushNamed(
+                  "profile",
+                  queryParams: {
+                    'uid': widget
+                        .postList[index].createdBy,
+                  },
+                );
+              },
+              child: Text(
+                  widget.userList
+                      .singleWhere((element) =>
+                  element.uid ==
+                      widget.postList[index]
+                          .createdBy)
+                      .profileName !=
+                      null
+                      ? widget.userList
+                      .singleWhere((element) =>
+                  element.uid ==
+                      widget.postList[index]
+                          .createdBy)
+                      .profileName!
+                      : widget.userList
+                      .singleWhere((element) =>
+                  element.uid ==
+                      widget.postList[index]
+                          .createdBy)
+                      .username,
+                  style: TextStyles
+                      .paragraphRegularSemiBold16()),
+            ),
+            Text(" for ",
+                style: TextStyles.paragraphRegular16()),
+            GestureDetector(
+              onTap: () {
+                context.pushNamed(
+                  "profile",
+                  queryParams: {
+                    'uid': widget
+                        .postList[index].createdFor,
+                  },
+                );
+              },
+              child: Text(
+                  widget.userList
+                      .singleWhere((element) =>
+                  element.uid ==
+                      widget.postList[index]
+                          .createdFor)
+                      .profileName !=
+                      null
+                      ? widget.userList
+                      .singleWhere((element) =>
+                  element.uid ==
+                      widget.postList[index]
+                          .createdFor)
+                      .profileName!
+                      : widget.userList
+                      .singleWhere((element) =>
+                  element.uid ==
+                      widget.postList[index]
+                          .createdFor)
+                      .username,
+                  style: TextStyles
+                      .paragraphRegularSemiBold16()),
+            ),
+          ],
+        ),
+        Text(
+            "Posted ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.postList[index].creationDate))}",
+            style: TextStyles.paragraphRegular14(
+                ColorsConstants.grey)),
+      ],
+    );
+  }
+
+  Widget buildUserAvatar(int index){
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(5), // Image border
+      child: SizedBox.fromSize(
+        size: const Size.square(50),
+        child: widget.userList
+            .singleWhere((element) =>
+        element.uid ==
+            widget.postList[index].createdBy)
+            .profilePicture !=
+            null
+            ? Image.network(
+            widget.userList
+                .singleWhere((element) =>
+            element.uid ==
+                widget.postList[index].createdBy)
+                .profilePicture!,
+            fit: BoxFit.fill)
+            : Image.asset(Assets.avatarPlaceholder,
+            width:
+            MediaQuery.of(context).size.width * 0.7),
+      ),
+    );
+  }
+
 
   Widget buildEmpty() {
     return Container(

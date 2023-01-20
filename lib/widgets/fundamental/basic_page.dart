@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../constants/text_styles.dart';
 
+
+//ignore: must_be_immutable
 class BasicScreen extends StatelessWidget {
   BuildContext context;
   Widget body;
@@ -40,7 +42,7 @@ class BasicScreen extends StatelessWidget {
         appBar: isAppBarVisible!
             ? AppBar(
                 title:
-                    Text(title ?? "", style: TextStyles.appTitle(Colors.black)),
+                    Text(title, style: TextStyles.appTitle(Colors.black)),
                 centerTitle: true,
                 backgroundColor: Colors.transparent,
                 foregroundColor: color,

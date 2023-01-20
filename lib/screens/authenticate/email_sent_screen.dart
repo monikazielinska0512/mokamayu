@@ -26,12 +26,10 @@ class EmailSentScreen extends StatelessWidget {
       children: [
         Padding(
             padding: EdgeInsets.only(top: deviceHeight(context) * 0.2),
-            child: Container(
-              child: Image.asset(
-                "assets/images/woman-email.png",
-                width: deviceWidth(context) * 0.8,
-                fit: BoxFit.fitWidth,
-              ),
+            child: Image.asset(
+              "assets/images/woman-email.png",
+              width: deviceWidth(context) * 0.8,
+              fit: BoxFit.fitWidth,
             )),
         Text(S.of(context).check_inbox, style: TextStyles.h4()),
         Padding(

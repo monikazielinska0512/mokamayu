@@ -6,6 +6,8 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../constants/text_styles.dart';
 import '../../generated/l10n.dart';
 
+
+//ignore: must_be_immutable
 class NavBar extends StatefulWidget {
   int selectedIndex;
   Function(int)? onTabChange;
@@ -57,7 +59,7 @@ class NavBarState extends State<NavBar> {
         SalomonBottomBarItem(
             icon: const Icon(Ionicons.calendar_outline),
             activeIcon: const Icon(Ionicons.calendar),
-            title: Text("Calendar",
+            title: Text(S.of(context).calendar,
                 style: TextStyles.paragraphRegularSemiBold14()),
             selectedColor: ColorsConstants.mint),
         SalomonBottomBarItem(

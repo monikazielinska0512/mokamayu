@@ -20,7 +20,7 @@ class CreateOutfitPage extends StatelessWidget {
   String? friendUid;
   late final bool isCreatingOutfitForFriend;
   Map<List<dynamic>, OutfitContainer> map = {};
-  List<String> selectedChips = Tags.types;
+  List<String> selectedChips = [];
   Future<List<WardrobeItem>>? futureItemListCopy;
 
   @override
@@ -99,7 +99,7 @@ class CreateOutfitPage extends StatelessWidget {
       chipsColor: ColorsConstants.darkPeach,
       usingFriendsWardrobe: isCreatingOutfitForFriend,
       onSelectionChanged: (selectedList) {
-        selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
+        selectedChips = selectedList.isEmpty ? Tags.getLanguagesTypes(context) : selectedList;
       },
     );
   }

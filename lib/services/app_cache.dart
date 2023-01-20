@@ -1,8 +1,5 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../models/calendar_event.dart';
 import 'authentication/authentication.dart';
 
 class AppCache {

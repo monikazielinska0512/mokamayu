@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/colors.dart';
 
+//ignore: must_be_immutable
 class CustomIconButton extends StatelessWidget {
   Function()? onPressed;
   IconData? icon;

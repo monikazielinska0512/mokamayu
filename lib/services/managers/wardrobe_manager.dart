@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mokamayu/models/models.dart';
@@ -116,13 +118,13 @@ class WardrobeManager extends ChangeNotifier {
       List<String> sizesList,
       List<WardrobeItem> itemList) async {
     List<WardrobeItem> filteredList = [];
-    typesList = typesList.isNotEmpty ? typesList : Tags.types;
+    typesList = typesList.isNotEmpty ? typesList : Tags.getLanguagesTypes(context);
     sizesList = sizesList.isNotEmpty ? sizesList : Tags.sizes;
-    stylesList = stylesList.isNotEmpty ? stylesList : Tags.styles;
+    stylesList = stylesList.isNotEmpty ? stylesList : Tags.getLanguagesStyles(context);
 
     var set = Set.of(stylesList);
 
-    itemList.forEach((element) {
+    for (var element in itemList) {
       WardrobeItem item = element;
       bool type = typesList.contains(item.type);
       bool styles = set.containsAll(item.styles);
@@ -140,7 +142,7 @@ class WardrobeManager extends ChangeNotifier {
       if (type && styles && size) {
         filteredList.add(item);
       }
-    });
+    }
 
     filteredList != null
         ? finalWardrobeItemListCopy = filteredList
@@ -152,7 +154,7 @@ class WardrobeManager extends ChangeNotifier {
   Future<List<WardrobeItem>> filterFriendWardrobe(BuildContext context,
       List<String> typesList, List<WardrobeItem> itemList) async {
     List<WardrobeItem> filteredList = [];
-    typesList = typesList.isNotEmpty ? typesList : Tags.types;
+    typesList = typesList.isNotEmpty ? typesList : Tags.getLanguagesTypes(context);
 
     filteredList =
         itemList.where((item) => typesList.contains(item.type)).toList();

@@ -83,18 +83,18 @@ class _RequestsScreenState extends State<RequestsScreen> {
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
-      title: 'friend-requests',
+      title: S.of(context).requests,
       isFullScreen: false,
       leftButton: BackArrowButton(context),
       rightButton: null,
       body: Column(
         children: [
-          TextField(
-              onChanged: (value) {
-                _runFilter(value);
-                value.isNotEmpty ? searching = true : searching = false;
-              },
-              decoration: SearchBarStyle(S.of(context).search_friend)),
+          // TextField(
+          //     onChanged: (value) {
+          //       _runFilter(value);
+          //       value.isNotEmpty ? searching = true : searching = false;
+          //     },
+          //     decoration: SearchBarStyle(S.of(context).search_friend)),
           Padding(
               padding: const EdgeInsets.only(top: 10, left: 20, bottom: 10),
               child: Container(

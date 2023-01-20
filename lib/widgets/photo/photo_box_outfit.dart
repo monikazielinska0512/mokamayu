@@ -7,6 +7,8 @@ import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
 
+
+//ignore: must_be_immutable
 class PhotoCardOutfit extends StatelessWidget {
   PhotoCardOutfit({Key? key, this.object, this.type}) : super(key: key);
   final Outfit? object;
@@ -92,7 +94,6 @@ class PhotoCardOutfit extends StatelessWidget {
           .contains(object);
 
   void tapOutfitCalendar(BuildContext context) {
-    print(selected);
     if (selected == false) {
       Provider.of<CalendarManager>(context, listen: false)
           .selectOutfit(object, selected);

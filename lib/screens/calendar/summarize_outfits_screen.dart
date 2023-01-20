@@ -31,7 +31,7 @@ class SummarizeOutfitsScreen extends StatelessWidget {
               Provider.of<CalendarManager>(context, listen: false)
                   .getPickedOutfits;
 
-          if (outfitList.length > 0) {
+          if (outfitList.isNotEmpty) {
             if (events[day] != null) {
               for (var element in outfitList) {
                 events[day]!.add(

@@ -5,6 +5,7 @@ import '../../constants/text_styles.dart';
 import '../../models/weather_data.dart';
 import '../../services/managers/weather_manager.dart';
 
+//ignore: must_be_immutable
 class HourlyWeather extends StatelessWidget {
   HourlyWeather({super.key});
 
@@ -25,6 +26,7 @@ class HourlyWeather extends StatelessWidget {
   }
 }
 
+//ignore: must_be_immutable
 class HourlyWeatherRow extends StatelessWidget {
   HourlyWeatherRow(
       {Key? key,

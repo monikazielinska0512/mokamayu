@@ -4,10 +4,8 @@ import 'package:mokamayu/utils/validator.dart';
 import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants/constants.dart';
 import '../../services/services.dart';
-import '../../widgets/fundamental/background_card.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
