@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/colors.dart';
-import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
 import '../../generated/l10n.dart';
 import '../../services/managers/outfit_manager.dart';
-import '../../widgets/fundamental/basic_page.dart';
-import '../../widgets/photo/photo_grid.dart';
 
 class PickOutfitScreen extends StatelessWidget {
   const PickOutfitScreen({super.key});

@@ -2,17 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
 import '../../generated/l10n.dart';
-import '../../models/calendar_event.dart';
-import '../../models/outfit.dart';
-import '../../services/managers/app_state_manager.dart';
-import '../../services/managers/calendar_manager.dart';
-import '../../widgets/fundamental/basic_page.dart';
-import '../../widgets/fundamental/snackbar.dart';
-import '../../widgets/photo/wardrobe_item_card.dart';
+import '../../models/models.dart';
+import '../../services/services.dart';
 
 class SummarizeOutfitsScreen extends StatelessWidget {
   const SummarizeOutfitsScreen({super.key});

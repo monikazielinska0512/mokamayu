@@ -1,25 +1,17 @@
 import 'dart:convert';
-
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:mokamayu/constants/text_styles.dart';
-import 'package:mokamayu/models/outfit.dart';
-import 'package:mokamayu/services/api/weather.dart';
-import 'package:mokamayu/services/managers/calendar_manager.dart';
-import 'package:mokamayu/services/managers/weather_manager.dart';
-import 'package:mokamayu/widgets/fields/search_text_field.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:table_calendar/table_calendar.dart';
+
+import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
-import '../../constants/colors.dart';
 import '../../generated/l10n.dart';
-import '../../models/calendar_event.dart';
-import '../../services/authentication/auth.dart';
-import '../../services/managers/outfit_manager.dart';
-import '../../widgets/buttons/predefined_buttons.dart';
 import 'hourly_weather.dart';
 
 class CalendarScreen extends StatefulWidget {

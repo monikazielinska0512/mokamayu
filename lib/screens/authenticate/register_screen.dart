@@ -7,7 +7,6 @@ import 'package:mokamayu/utils/validator.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/buttons/predefined_buttons.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);

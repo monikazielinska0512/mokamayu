@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import '../../generated/l10n.dart';
-import '../../widgets/buttons/button_darker_orange.dart';
-import '../../widgets/fundamental/basic_page.dart';
 
 class InitScreen extends StatelessWidget {
   const InitScreen({super.key});

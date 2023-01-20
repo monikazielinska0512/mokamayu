@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/constants.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import '../../generated/l10n.dart';
-import '../../widgets/buttons/button_darker_orange.dart';
-import '../../widgets/fundamental/basic_page.dart';
 
 class EmailSentScreen extends StatelessWidget {
   const EmailSentScreen({super.key});

@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:uuid/uuid.dart';
 import '../../generated/l10n.dart';
-import '../../models/calendar_event.dart';
 import '../../services/storage.dart';
 
 //ignore: must_be_immutable

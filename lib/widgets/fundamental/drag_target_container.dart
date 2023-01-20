@@ -3,7 +3,7 @@ import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/services/managers/photo_tapped_manager.dart';
 import 'package:provider/provider.dart';
 
-import '../models/outfit_container.dart';
+import '../../models/outfit_container.dart';
 
 
 //ignore: must_be_immutable

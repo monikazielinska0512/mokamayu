@@ -7,7 +7,6 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
-import '../../widgets/buttons/predefined_buttons.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
