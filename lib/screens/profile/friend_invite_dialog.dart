@@ -54,6 +54,27 @@ class FriendDialogBox extends StatelessWidget {
                                   )),
                             ),
                             Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child:
+                              isResponse
+                                  ? friendDialogCard("Accept invite", () {
+                                Provider.of<ProfileManager>(context, listen: false).acceptFriendInvite(friend);
+                                CustomNotification notif = CustomNotification(
+                                    sentFrom: AuthService().getCurrentUserID(),
+                                    type: NotificationType.ACCEPTED_INVITE.toString(),
+                                    creationDate: DateTime.now().millisecondsSinceEpoch
+                                );
+                                Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, friend.uid);
+                                context.pop();
+                              }, 85)
+                                  : friendDialogCard("Delete friend",
+                                      () {
+                                    Provider.of<ProfileManager>(context, listen: false).removeFriend(friend);
+                                    context.pop();
+                                  }, 18),
+
+                            ),
+                            Padding(
                                 padding: const EdgeInsets.only(top: 25),
                                 child:
                                 isResponse
@@ -62,31 +83,11 @@ class FriendDialogBox extends StatelessWidget {
                                             Provider.of<ProfileManager>(context, listen: false).rejectFriendInvite(friend);
                                             context.pop();
                                       }, 18)
-                                   : friendDialogCard("Delete friend",
-                                        () {
-                                      Provider.of<ProfileManager>(context, listen: false).removeFriend(friend);
-                                      context.pop();
-                                    }, 18),
+                                  : friendDialogCard("No, take me back",
+                                      () {
+                                    context.pop();
+                                  }, 18),
                             ),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child:
-                                isResponse
-                                    ? friendDialogCard("Accept invite", () {
-                                      Provider.of<ProfileManager>(context, listen: false).acceptFriendInvite(friend);
-                                      CustomNotification notif = CustomNotification(
-                                          sentFrom: AuthService().getCurrentUserID(),
-                                          type: NotificationType.ACCEPTED_INVITE.toString(),
-                                          creationDate: DateTime.now().millisecondsSinceEpoch
-                                      );
-                                      Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, friend.uid);
-                                      context.pop();
-                                    }, 85)
-                                    : friendDialogCard("No, take me back",
-                                        () {
-                                      context.pop();
-                                    }, 18),
-                                )
                           ],
                         ))))
           ],

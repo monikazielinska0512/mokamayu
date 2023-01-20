@@ -20,12 +20,12 @@ class _SocialScreenState extends State<SocialScreen> {
   List<Post> postList = [];
   List<Post> friendsPostList = [];
   List<UserData> userList = [];
+  late UserData currentUser;
 
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
 
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
-
   @override
   Widget build(BuildContext context) {
     if (mounted) {
@@ -33,23 +33,21 @@ class _SocialScreenState extends State<SocialScreen> {
 // Your state change code goes here
       });
     }
-    Provider.of<PostManager>(context, listen: true)
-        .readPostsOnce()
-        .then((List<Post> temp) {
-      setState(() => postList = temp);
-    });
+    if(Provider.of<ProfileManager>(context, listen: false).currentCustomUser != null){
+      currentUser = Provider.of<ProfileManager>(context, listen: false).currentCustomUser!;
+    }
+    else {
+      Provider.of<ProfileManager>(context, listen: false).getCurrentUserData().then((value) => currentUser = value!)
+          .whenComplete(() => null);
+    }
     Provider.of<UserListManager>(context, listen: false)
         .readUserOnce()
         .then((List<UserData> temp) {
       setState(() => userList = temp);
     });
-    UserData currentUser = userList.singleWhere(
-        (element) => element.uid == AuthService().getCurrentUserID());
-    var friendList = Provider.of<FriendsManager>(context, listen: false)
-        .readFriendsIdsOnce(currentUser);
-    friendList.add(currentUser.uid);
-    friendsPostList = Provider.of<PostManager>(context, listen: false)
-        .readFeedPostsOnce(friendList, postList);
+    Provider.of<PostManager>(context, listen: false)
+        .readFriendsPostsOnce(currentUser);
+
 
     return BasicScreen(
       title: "Social",
@@ -64,7 +62,7 @@ class _SocialScreenState extends State<SocialScreen> {
             height: 15,
           ),
           Expanded(
-              child: PostList(postList: friendsPostList, userList: userList)),
+              child: PostList(userList: userList)),
         ],
       ),
     );

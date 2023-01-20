@@ -12,12 +12,11 @@ import '../../generated/l10n.dart';
 import '../../services/managers/managers.dart';
 
 class PostList extends StatefulWidget {
-  final List<Post> postList;
+   
   final List<UserData> userList;
 
   const PostList({
     Key? key,
-    required this.postList,
     required this.userList,
   }) : super(key: key);
 
@@ -26,17 +25,18 @@ class PostList extends StatefulWidget {
 }
 
 class _PostListState extends State<PostList> {
+  late List<Post> postList;
   late List<TextEditingController> myController;
-  @override
-  void initState() {
-    myController =
-        List.generate(widget.postList.length, (_) => TextEditingController());
-    super.initState();
-  }
+
+
 
   @override
   Widget build(BuildContext context) {
-    return widget.postList.isNotEmpty ? buildFeed(context) : buildEmpty();
+    postList = Provider.of<PostManager>(context, listen: true).finalPostList;
+    myController =
+        List.generate(postList.length, (_) => TextEditingController());
+    return postList.isNotEmpty ? buildFeed(context) : buildEmpty();
+    return buildEmpty();
   }
 
   Widget buildFeed(BuildContext context) {
@@ -65,14 +65,14 @@ class _PostListState extends State<PostList> {
                           child: widget.userList
                                       .singleWhere((element) =>
                                           element.uid ==
-                                          widget.postList[index].createdBy)
+                                          postList[index].createdBy)
                                       .profilePicture !=
                                   null
                               ? Image.network(
                                   widget.userList
                                       .singleWhere((element) =>
                                           element.uid ==
-                                          widget.postList[index].createdBy)
+                                          postList[index].createdBy)
                                       .profilePicture!,
                                   fit: BoxFit.fill)
                               : Image.asset(Assets.avatarPlaceholder,
@@ -83,14 +83,14 @@ class _PostListState extends State<PostList> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          widget.postList[index].createdFor ==
-                                  widget.postList[index].createdBy
+                          postList[index].createdFor ==
+                                  postList[index].createdBy
                               ? GestureDetector(
                                   onTap: () {
                                     context.pushNamed(
                                       "profile",
                                       queryParams: {
-                                        'uid': widget.postList[index].createdBy,
+                                        'uid': postList[index].createdBy,
                                       },
                                     );
                                   },
@@ -98,20 +98,20 @@ class _PostListState extends State<PostList> {
                                       widget.userList
                                                   .singleWhere((element) =>
                                                       element.uid ==
-                                                      widget.postList[index]
+                                                      postList[index]
                                                           .createdBy)
                                                   .profileName !=
                                               null
                                           ? widget.userList
                                               .singleWhere((element) =>
                                                   element.uid ==
-                                                  widget.postList[index]
+                                                  postList[index]
                                                       .createdBy)
                                               .profileName!
                                           : widget.userList
                                               .singleWhere((element) =>
                                                   element.uid ==
-                                                  widget.postList[index]
+                                                  postList[index]
                                                       .createdBy)
                                               .username,
                                       style: TextStyles
@@ -124,8 +124,7 @@ class _PostListState extends State<PostList> {
                                         context.pushNamed(
                                           "profile",
                                           queryParams: {
-                                            'uid': widget
-                                                .postList[index].createdBy,
+                                            'uid': postList[index].createdBy,
                                           },
                                         );
                                       },
@@ -133,20 +132,20 @@ class _PostListState extends State<PostList> {
                                           widget.userList
                                                       .singleWhere((element) =>
                                                           element.uid ==
-                                                          widget.postList[index]
+                                                          postList[index]
                                                               .createdBy)
                                                       .profileName !=
                                                   null
                                               ? widget.userList
                                                   .singleWhere((element) =>
                                                       element.uid ==
-                                                      widget.postList[index]
+                                                      postList[index]
                                                           .createdBy)
                                                   .profileName!
                                               : widget.userList
                                                   .singleWhere((element) =>
                                                       element.uid ==
-                                                      widget.postList[index]
+                                                      postList[index]
                                                           .createdBy)
                                                   .username,
                                           style: TextStyles
@@ -159,8 +158,7 @@ class _PostListState extends State<PostList> {
                                         context.pushNamed(
                                           "profile",
                                           queryParams: {
-                                            'uid': widget
-                                                .postList[index].createdFor,
+                                            'uid': postList[index].createdFor,
                                           },
                                         );
                                       },
@@ -168,20 +166,20 @@ class _PostListState extends State<PostList> {
                                           widget.userList
                                                       .singleWhere((element) =>
                                                           element.uid ==
-                                                          widget.postList[index]
+                                                          postList[index]
                                                               .createdFor)
                                                       .profileName !=
                                                   null
                                               ? widget.userList
                                                   .singleWhere((element) =>
                                                       element.uid ==
-                                                      widget.postList[index]
+                                                      postList[index]
                                                           .createdFor)
                                                   .profileName!
                                               : widget.userList
                                                   .singleWhere((element) =>
                                                       element.uid ==
-                                                      widget.postList[index]
+                                                      postList[index]
                                                           .createdFor)
                                                   .username,
                                           style: TextStyles
@@ -190,28 +188,28 @@ class _PostListState extends State<PostList> {
                                   ],
                                 ),
                           Text(
-                              "Posted ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.postList[index].creationDate))}",
+                              "Posted ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(postList[index].creationDate))}",
                               style: TextStyles.paragraphRegular14(
                                   ColorsConstants.grey)),
                         ],
                       ),
                       Row(
                         children: [
-                          Text(widget.postList[index].likes!.length.toString(),
+                          Text(postList[index].likes!.length.toString(),
                               style: TextStyles.paragraphRegular14(
                                   ColorsConstants.grey)),
-                          widget.postList[index].likes!
+                          postList[index].likes!
                                   .contains(AuthService().getCurrentUserID())
                               ? IconButton(
                                   onPressed: () {
-                                    widget.postList[index].likes!.remove(
+                                    postList[index].likes!.remove(
                                         AuthService().getCurrentUserID());
                                     Provider.of<PostManager>(context,
                                             listen: false)
                                         .likePost(
-                                            widget.postList[index].reference!,
-                                            widget.postList[index].createdFor,
-                                            widget.postList[index].likes!);
+                                            postList[index].reference!,
+                                            postList[index].createdFor,
+                                            postList[index].likes!);
                                     setState(() {});
                                   },
                                   icon: const Icon(
@@ -220,17 +218,17 @@ class _PostListState extends State<PostList> {
                                   ))
                               : IconButton(
                                   onPressed: () {
-                                    widget.postList[index].likes!
+                                    postList[index].likes!
                                         .add(AuthService().getCurrentUserID());
                                     Provider.of<PostManager>(context,
                                             listen: false)
                                         .likePost(
-                                            widget.postList[index].reference!,
-                                            widget.postList[index].createdFor,
-                                            widget.postList[index].likes!);
+                                            postList[index].reference!,
+                                            postList[index].createdFor,
+                                            postList[index].likes!);
                                     setState(() {});
                                     if (AuthService().getCurrentUserID() !=
-                                        widget.postList[index].createdBy) {
+                                        postList[index].createdBy) {
                                       CustomNotification notif =
                                           CustomNotification(
                                               sentFrom: AuthService()
@@ -243,7 +241,7 @@ class _PostListState extends State<PostList> {
                                       Provider.of<NotificationsManager>(context,
                                               listen: false)
                                           .addNotificationToFirestore(notif,
-                                              widget.postList[index].createdBy);
+                                              postList[index].createdBy);
                                     }
                                   },
                                   icon: const Icon(
@@ -258,7 +256,7 @@ class _PostListState extends State<PostList> {
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   ExtendedImage.network(
-                    widget.postList[index].cover,
+                    postList[index].cover,
                     fit: BoxFit.fill,
                     cache: true,
                     enableMemoryCache: false,
@@ -271,19 +269,19 @@ class _PostListState extends State<PostList> {
                     controller: myController[index],
                     onSubmitted: (String comment) {
                       print("add comment");
-                      widget.postList[index].comments!.add({
+                      postList[index].comments!.add({
                         "author": AuthService().getCurrentUserID(),
                         "content": comment
                       });
                       Provider.of<PostManager>(context, listen: false)
                           .commentPost(
-                              widget.postList[index].reference!,
-                              widget.postList[index].createdFor,
-                              widget.postList[index].comments!);
+                              postList[index].reference!,
+                              postList[index].createdFor,
+                              postList[index].comments!);
                       myController[index].clear();
                       setState(() {});
                       if (AuthService().getCurrentUserID() !=
-                          widget.postList[index].createdBy) {
+                          postList[index].createdBy) {
                         CustomNotification notif = CustomNotification(
                             sentFrom: AuthService().getCurrentUserID(),
                             type: NotificationType.COMMENT.toString(),
@@ -292,7 +290,7 @@ class _PostListState extends State<PostList> {
                         Provider.of<NotificationsManager>(context,
                                 listen: false)
                             .addNotificationToFirestore(
-                                notif, widget.postList[index].createdBy);
+                                notif, postList[index].createdBy);
                       }
                     },
                     decoration: const InputDecoration(
@@ -318,11 +316,11 @@ class _PostListState extends State<PostList> {
                           context,
                           MaterialPageRoute(
                               builder: (BuildContext context) => PostScreen(
-                                    post: widget.postList[index],
+                                    post: postList[index],
                                     user: widget.userList.singleWhere(
                                         (element) =>
                                             element.uid ==
-                                            widget.postList[index].createdBy),
+                                            postList[index].createdBy),
                                     userList: widget.userList,
                                   )));
                     },
@@ -338,7 +336,7 @@ class _PostListState extends State<PostList> {
           );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
-        itemCount: widget.postList.length);
+        itemCount: postList.length);
   }
 
   Widget buildEmpty() {

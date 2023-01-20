@@ -64,7 +64,12 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
         {
           return IconTextButton(
             onPressed: () {
-              return FriendDialogBox(friend: friendData!, isResponse: false,);
+              showDialog(
+                  context: context,
+                  useSafeArea: false,
+                  builder: (BuildContext context) {
+                    return FriendDialogBox(friend: friendData!, isResponse: false,);
+                  });
             },
             icon: Icons.check,
             text: "Friends",
@@ -75,7 +80,6 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
         {
           return IconTextButton(
             onPressed: () {
-              print("cancel");
               Provider.of<ProfileManager>(context, listen: false)
                   .cancelFriendInvite(friendData!);
             },
@@ -104,7 +108,6 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
         {
           return IconTextButton(
             onPressed: () {
-              print("send");
               Provider.of<ProfileManager>(context, listen: false)
                   .sendFriendInvite(friendData!);
             },

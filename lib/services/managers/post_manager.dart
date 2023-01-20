@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mokamayu/models/post.dart';
-
+import 'package:mokamayu/models/models.dart';
+import 'package:collection/collection.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
 
@@ -23,18 +23,18 @@ class PostManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Post>> readPostsOnce() async {
-    QuerySnapshot snapshot = await db.collectionGroup('posts').get();
-
-    List<Post> postList = [];
-    for (var element in snapshot.docs) {
-      Post item = Post.fromSnapshot(element);
-      postList.add(item);
-    }
-
-    finalPostList = postList;
-    return finalPostList;
-  }
+  // Future<List<Post>> readPostsOnce() async {
+  //   QuerySnapshot snapshot = await db.collectionGroup('posts').get();
+  //
+  //   List<Post> postList = [];
+  //   for (var element in snapshot.docs) {
+  //     Post item = Post.fromSnapshot(element);
+  //     postList.add(item);
+  //   }
+  //
+  //   finalPostList = postList;
+  //   return finalPostList;
+  // }
 
   Future<List<Post>> getUserPosts(String uid) async {
     QuerySnapshot snapshot =
@@ -92,7 +92,31 @@ class PostManager extends ChangeNotifier {
     friendsPostList = list;
     return friendsPostList;
   }
-
+  
+  Future<List<Post>> readFriendsPostsOnce(UserData currentUser) async {
+    List<Post> postList = [];
+    List<String> friends = [currentUser.uid];
+    for (var element in currentUser.friends!) {
+      if (element['status'] == FriendshipState.FRIENDS.toString()) {
+        friends.add(element['id']!);
+      }
+    }
+    var chunks = friends.slices(10);
+    for (List<String> chunk in chunks) {
+      QuerySnapshot snapshot = await db
+          .collectionGroup('posts')
+          .where("createdFor", whereIn: chunk)
+          .get();
+      for (var element in snapshot.docs) {
+        Post item = Post.fromSnapshot(element);
+        postList.add(item);
+      }
+    }
+    postList.sort((b, a) => a.creationDate.compareTo(b.creationDate));
+    finalPostList = postList;
+    return finalPostList;
+  }
+  
   void likePost(String reference, String owner, List<String> likes) {
     db
         .collection('users')
