@@ -75,7 +75,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         snapshot.data?.profilePicture),
 
                                     Padding(
-                                        padding: EdgeInsets.only(top: 0),
+                                        padding: const EdgeInsets.only(top: 0),
                                         child: Column(children: [
                                           buildRow(
                                               'Nazwa profilu',

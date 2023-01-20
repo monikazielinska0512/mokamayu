@@ -87,7 +87,6 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
         {
           return IconTextButton(
             onPressed: () {
-              print("cancel");
               Provider.of<ProfileManager>(context, listen: false)
                   .cancelFriendInvite(friendData!);
             },
@@ -119,7 +118,6 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
         {
           return IconTextButton(
             onPressed: () {
-              print("send");
               Provider.of<ProfileManager>(context, listen: false)
                   .sendFriendInvite(friendData!);
             },
@@ -143,14 +141,14 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                     borderRadius: BorderRadius.circular(12),
                     color: ColorsConstants.mint.withOpacity(0.1)),
                 child: Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: PhotoGrid(itemList: itemList))),
             S.of(context).outfits: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     color: ColorsConstants.mint.withOpacity(0.1)),
                 child: Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: PhotoGrid(outfitsList: outfitsList))),
           }
         : null;

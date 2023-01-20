@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import '../../models/calendar_event.dart';
 import '../app_cache.dart';
 import '../authentication/auth.dart';
 

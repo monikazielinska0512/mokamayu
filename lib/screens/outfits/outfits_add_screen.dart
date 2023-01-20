@@ -108,7 +108,7 @@ class CreateOutfitPage extends StatelessWidget {
 
   Widget buildAddButton(BuildContext context) {
     return
-      Padding(padding: EdgeInsets.only(right: 10), child:
+      Padding(padding: const EdgeInsets.only(right: 10), child:
       IconButton(
       icon: const Icon(
         Ionicons.arrow_forward,

@@ -11,11 +11,6 @@ import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
 import '../../services/managers/managers.dart';
 
-extension StringExtension on String {
-  String capitalize() {
-    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
-  }
-}
 
 class PostList extends StatefulWidget {
   final List<Post> postList;
@@ -105,7 +100,6 @@ class _PostListState extends State<PostList> {
     return TextField(
       controller: myController[index],
       onSubmitted: (String comment) {
-        print("add comment");
         widget.postList[index].comments!.add(
             {"author": AuthService().getCurrentUserID(), "content": comment});
         Provider.of<PostManager>(context, listen: false).commentPost(
@@ -193,7 +187,7 @@ class _PostListState extends State<PostList> {
                     Text("Stworzono przez ",
                         style: TextStyles.paragraphRegular12(Colors.grey),
                         textAlign: TextAlign.start),
-                    buildCreatedByUser(index),
+                    buildCreator(index),
                   ])
                 ],
               ),
@@ -230,7 +224,7 @@ class _PostListState extends State<PostList> {
             style: TextStyles.paragraphRegularSemiBold16()));
   }
 
-  Widget buildCreatedByUser(int index) {
+  Widget buildCreator(int index) {
     return GestureDetector(
       onTap: () {
         context.pushNamed(
@@ -260,7 +254,7 @@ class _PostListState extends State<PostList> {
 
   Widget buildDate(int index) {
     return
-      Padding(padding: EdgeInsets.only(bottom: 10), child:
+      Padding(padding: const EdgeInsets.only(bottom: 10), child:
       Text(
         "Opublikowano ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.postList[index].creationDate))}",
         style: TextStyles.paragraphRegular12(ColorsConstants.grey)));

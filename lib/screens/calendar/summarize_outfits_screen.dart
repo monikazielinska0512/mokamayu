@@ -74,9 +74,9 @@ class SummarizeOutfitsScreen extends StatelessWidget {
     Map<String, String> newMap = {};
     List<String> eventList = [];
     map.forEach((key, value) {
-      value.forEach((element) {
+      for (var element in value) {
         eventList.add(json.encode(element));
-      });
+      }
       newMap[key.toString()] = json.encode(eventList);
       eventList = [];
     });

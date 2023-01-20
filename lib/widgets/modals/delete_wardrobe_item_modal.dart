@@ -65,8 +65,7 @@ class _DeleteBottomModalState extends State<DeleteBottomModal> {
                                 child: Column(children: [
                                   widget.wardrobe != null
                                       ? Text(
-                                          S.of(context).ask_deletion +
-                                              '${widget.wardrobe!.name} ?',
+                                          '${S.of(context).ask_deletion}${widget.wardrobe!.name} ?',
                                           textAlign: TextAlign.center,
                                           style: TextStyles.paragraphRegular18(
                                               ColorsConstants.grey))

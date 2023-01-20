@@ -93,10 +93,10 @@ class WardrobeManager extends ChangeNotifier {
         .get();
 
     List<WardrobeItem> itemList = [];
-    snapshot.docs.forEach((element) {
+    for (var element in snapshot.docs) {
       WardrobeItem item = WardrobeItem.fromSnapshot(element);
       itemList.add(item);
-    });
+    }
     finalWardrobeItemList = itemList;
     return finalWardrobeItemList;
   }

@@ -219,31 +219,29 @@ class _FilterModalState extends State<FilterModal> {
       builder: (_) {
         return Stack(alignment: AlignmentDirectional.bottomCenter, children: [
           buildBackgroundImage(),
-          Container(
-              child: DraggableScrollableSheet(
-                  expand: true,
-                  builder: (_, controller) {
-                    return Container(
-                        height: 500.0,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(40))),
-                        child: SingleChildScrollView(
-                          controller: controller,
-                          child: Column(
-                            children: <Widget>[
-                              buildCloseButton(),
-                              buildTitle(),
-                              Container(
-                                  child: SingleChildScrollView(
-                                      child: Container(
-                                          child: buildFiltersSection()))),
-                              buildApplyButton()
-                            ],
-                          ),
-                        ));
-                  }))
+          DraggableScrollableSheet(
+              expand: true,
+              builder: (_, controller) {
+                return Container(
+                    height: 500.0,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(40))),
+                    child: SingleChildScrollView(
+                      controller: controller,
+                      child: Column(
+                        children: <Widget>[
+                          buildCloseButton(),
+                          buildTitle(),
+                          SingleChildScrollView(
+                              child: Container(
+                                  child: buildFiltersSection())),
+                          buildApplyButton()
+                        ],
+                      ),
+                    ));
+              })
         ]);
       },
     );

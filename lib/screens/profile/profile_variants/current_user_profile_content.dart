@@ -62,7 +62,7 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
         backgroundColor: ColorsConstants.peachy,
       ),
       Padding(
-          padding: EdgeInsets.only(left: 5),
+          padding: const EdgeInsets.only(left: 5),
           child: IconTextButton(
             onPressed: () => context.pushNamed('friends'),
             icon: Icons.person_outline_outlined,

@@ -131,6 +131,7 @@ class OutfitSummaryScreen extends StatelessWidget {
     ]);
   }
 
+  // ignore: non_constant_identifier_names
   Widget EditButton(BuildContext context, Outfit item) {
     return isCreatingOutfitForFriend
         ? Container()
@@ -160,10 +161,11 @@ class OutfitSummaryScreen extends StatelessWidget {
     });
   }
 
+  // ignore: non_constant_identifier_names
   Widget SaveButton(BuildContext context) {
     String currentUserUid = AuthService().getCurrentUserID();
     return ButtonDarker(context, S.of(context).add, () async {
-      if (_elements.length > 0) {
+      if (_elements.isNotEmpty) {
         Map<String, String> mapToFirestore = {};
         map!.forEach((key, value) {
           mapToFirestore.addAll({json.encode(key): jsonEncode(value)});

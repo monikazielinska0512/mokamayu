@@ -8,7 +8,6 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/constants.dart';
-import '../../../generated/l10n.dart';
 
 abstract class AbstractProfileContent extends StatefulWidget {
   final String? uid;
@@ -109,7 +108,7 @@ abstract class AbstractProfileContentState
                             borderRadius: BorderRadius.circular(12),
                             color: ColorsConstants.whiteAccent),
                         child: Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               // Image border

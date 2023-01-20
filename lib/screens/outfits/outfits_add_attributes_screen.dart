@@ -230,12 +230,12 @@ class _OutfitsAddAttributesScreenState
                     Provider.of<PostManager>(context, listen: false)
                         .getFinalCurrentPostList;
 
-                postList.forEach((element) {
+                for (var element in postList) {
                   if (element.cover == item?.cover) {
                     Provider.of<PostManager>(context, listen: false)
                         .removePost(element.reference);
                   }
-                });
+                }
 
 
           List<Event> eventsToRemove = [];

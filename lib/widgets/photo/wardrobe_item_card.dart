@@ -12,6 +12,7 @@ import '../../services/managers/app_state_manager.dart';
 import '../../services/managers/calendar_manager.dart';
 import '../../services/managers/photo_tapped_manager.dart';
 
+// ignore: must_be_immutable
 class WardrobeItemCard extends StatelessWidget {
   WardrobeItemCard(
       {Key? key,
