@@ -19,8 +19,6 @@ class OtherUserProfileContent extends AbstractProfileContent {
   AbstractProfileContentState createState() => _OtherUserProfileContentState();
 }
 
-
-
 class _OtherUserProfileContentState extends AbstractProfileContentState {
   UserData? friendData;
 
@@ -29,6 +27,11 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
 
   @override
   void loadData() {
+    Provider.of<ProfileManager>(context, listen: false)
+        .getCurrentUserData()
+        .then((value) => Provider.of<FriendsManager>(context, listen: false)
+            .readFriendsIdsOnce(value!));
+
     Provider.of<ProfileManager>(context, listen: true)
         .getUserData(widget.uid)
         .then((UserData? temp) {
@@ -68,7 +71,8 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   context: context,
                   useSafeArea: false,
                   builder: (BuildContext context) {
-                    return FriendDialogBox(friend: friendData!, isResponse: false,);
+                    return FriendDialogBox(
+                        friend: friendData!, isResponse: false);
                   });
             },
             icon: Icons.check,
@@ -96,7 +100,8 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   context: context,
                   useSafeArea: false,
                   builder: (BuildContext context) {
-                    return FriendDialogBox(friend: friendData!, isResponse: true,);
+                    return FriendDialogBox(
+                        friend: friendData!, isResponse: true);
                   });
             },
             icon: Icons.mark_email_unread,
@@ -150,5 +155,4 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
             alignment: Alignment.bottomRight)
         : Container();
   }
-
 }
