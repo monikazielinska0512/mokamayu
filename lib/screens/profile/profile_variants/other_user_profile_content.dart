@@ -29,8 +29,9 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   void loadData() {
     Provider.of<ProfileManager>(context, listen: false)
         .getCurrentUserData()
-        .then((value) => Provider.of<FriendsManager>(context, listen: false)
-            .readFriendsIdsOnce(value!));
+        .then((currentUser) =>
+            Provider.of<FriendsManager>(context, listen: false)
+                .readFriendsIdsOnce(currentUser!));
 
     Provider.of<ProfileManager>(context, listen: true)
         .getUserData(widget.uid)
