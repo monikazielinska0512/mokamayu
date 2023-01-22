@@ -110,6 +110,12 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
             onPressed: () {
               Provider.of<ProfileManager>(context, listen: false)
                   .sendFriendInvite(friendData!);
+              CustomNotification notif = CustomNotification(
+                  sentFrom: AuthService().getCurrentUserID(),
+                  type: NotificationType.RECEIVED_INVITE.toString(),
+                  creationDate: DateTime.now().millisecondsSinceEpoch
+              );
+              Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, friendData!.uid);
             },
             icon: Icons.person_outline_outlined,
             text: "Add friend",
