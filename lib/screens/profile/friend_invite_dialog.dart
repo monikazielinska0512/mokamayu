@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../services/managers/managers.dart';
 import '../../widgets/widgets.dart';
 
+//ignore: must_be_immutable
 class FriendDialogBox extends StatelessWidget {
   FriendDialogBox({Key? key, required this.friend, required this.isResponse}) : super(key: key);
   UserData friend;
@@ -19,6 +20,7 @@ class FriendDialogBox extends StatelessWidget {
         bottom: false,
         top: false,
         child: Stack(
+          alignment: Alignment.center,
           children: [
             GestureDetector(
               onTap: () => context.pop(),
@@ -34,30 +36,18 @@ class FriendDialogBox extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: SizedBox(
-                    height: 260,
-                    width: 310,
+                    height: MediaQuery.of(context).size.height * 0.14,
                     child: Padding(
-                        padding: const EdgeInsets.only(left: 15),
+                        padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 25),
-                              child: GestureDetector(
-                                  onTap: () {
-                                    context.pop();
-                                  },
-                                  child: const Icon(
-                                    Icons.close,
-                                    size: 25,
-                                    color: Colors.grey,
-                                  )),
-                            ),
                             Padding(
                               padding: const EdgeInsets.only(top: 20),
                               child:
                               isResponse
-                                  ? friendDialogCard("Accept invite", () {
+                                  ? friendDialogCard("Zaakceptuj", () {
                                 Provider.of<ProfileManager>(context, listen: false).acceptFriendInvite(friend);
                                 CustomNotification notif = CustomNotification(
                                     sentFrom: AuthService().getCurrentUserID(),
@@ -67,26 +57,12 @@ class FriendDialogBox extends StatelessWidget {
                                 Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, friend.uid);
                                 context.pop();
                               }, 85)
-                                  : friendDialogCard("Delete friend",
+                                  : friendDialogCard("Usuń znajomego",
                                       () {
                                     Provider.of<ProfileManager>(context, listen: false).removeFriend(friend);
                                     context.pop();
                                   }, 18),
 
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 25),
-                                child:
-                                isResponse
-                                  ? friendDialogCard("Reject invite",
-                                          () {
-                                            Provider.of<ProfileManager>(context, listen: false).rejectFriendInvite(friend);
-                                            context.pop();
-                                      }, 18)
-                                  : friendDialogCard("No, take me back",
-                                      () {
-                                    context.pop();
-                                  }, 18),
                             ),
                           ],
                         ))))
@@ -112,6 +88,7 @@ Widget friendDialogCard(String text, Function onTap, double pad) {
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
               "assets/images/empty_dot.png",

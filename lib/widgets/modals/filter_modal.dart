@@ -15,7 +15,7 @@ import '../../services/managers/wardrobe_manager.dart';
 class FilterModal extends StatefulWidget {
   Future<List<WardrobeItem>>? futureItemListCopy;
   Future<List<Outfit>>? futureOutfitListCopy;
-  List<String> selectedTypes = Tags.getTypes();
+  List<String> selectedTypes = [];
   List<String> selectedStyles = Tags.styles;
   List<String> selectedSizes = Tags.sizes;
 
@@ -91,7 +91,7 @@ class _FilterModalState extends State<FilterModal> {
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: MultiSelectChip(
               chipsColor: ColorsConstants.mint,
-              Tags.styles,
+              Tags.getLanguagesStyles(context),
               isScrollable: false,
               type: "style",
               onSelectionChanged: (selectedList) => {
@@ -109,8 +109,8 @@ class _FilterModalState extends State<FilterModal> {
       Padding(
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: MultiSelectChip(
-              chipsColor: ColorsConstants.mint,
-              OutfitTags.styles,
+              chipsColor: ColorsConstants.peachy,
+              OutfitTags.getLanguagesStyles(context),
               isScrollable: false,
               type: "outfit_style",
               onSelectionChanged: (selectedList) => {
@@ -122,14 +122,14 @@ class _FilterModalState extends State<FilterModal> {
 
   Widget buildOutfitSeasonSection() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("Seasons",
+      Text(S.of(context).season,
           style: TextStyles.paragraphRegularSemiBold18(),
           textAlign: TextAlign.start),
       Padding(
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: MultiSelectChip(
               chipsColor: ColorsConstants.mint,
-              OutfitTags.seasons,
+              OutfitTags.getSeasons(context),
               isScrollable: false,
               type: "outfit_season",
               onSelectionChanged: (selectedList) => {
@@ -219,31 +219,29 @@ class _FilterModalState extends State<FilterModal> {
       builder: (_) {
         return Stack(alignment: AlignmentDirectional.bottomCenter, children: [
           buildBackgroundImage(),
-          Container(
-              child: DraggableScrollableSheet(
-                  expand: true,
-                  builder: (_, controller) {
-                    return Container(
-                        height: 500.0,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(40))),
-                        child: SingleChildScrollView(
-                          controller: controller,
-                          child: Column(
-                            children: <Widget>[
-                              buildCloseButton(),
-                              buildTitle(),
-                              Container(
-                                  child: SingleChildScrollView(
-                                      child: Container(
-                                          child: buildFiltersSection()))),
-                              buildApplyButton()
-                            ],
-                          ),
-                        ));
-                  }))
+          DraggableScrollableSheet(
+              expand: true,
+              builder: (_, controller) {
+                return Container(
+                    height: 500.0,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(40))),
+                    child: SingleChildScrollView(
+                      controller: controller,
+                      child: Column(
+                        children: <Widget>[
+                          buildCloseButton(),
+                          buildTitle(),
+                          SingleChildScrollView(
+                              child: Container(
+                                  child: buildFiltersSection())),
+                          buildApplyButton()
+                        ],
+                      ),
+                    ));
+              })
         ]);
       },
     );

@@ -12,9 +12,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:uuid/uuid.dart';
-import '../../models/calendar_event.dart';
+import '../../generated/l10n.dart';
 import '../../services/storage.dart';
 
+//ignore: must_be_immutable
 class OutfitsAddAttributesScreen extends StatefulWidget {
   OutfitsAddAttributesScreen({Key? key, required this.map, this.friendUid})
       : super(key: key) {
@@ -34,7 +35,7 @@ class OutfitsAddAttributesScreen extends StatefulWidget {
 class _OutfitsAddAttributesScreenState
     extends State<OutfitsAddAttributesScreen> {
   ScreenshotController screenshotController = ScreenshotController();
-  List<String> selectedChips = Tags.types;
+  List<String> selectedChips = [];
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Outfit? item;
@@ -51,21 +52,22 @@ class _OutfitsAddAttributesScreenState
 
     itemList = widget.isCreatingOutfitForFriend
         ? Provider.of<WardrobeManager>(context, listen: true)
-            .getFriendWardrobeItemList
+        .getFriendWardrobeItemList
         : Provider.of<WardrobeManager>(context, listen: true)
-            .getWardrobeItemList;
+        .getWardrobeItemList;
 
     futureItemListCopy = widget.isCreatingOutfitForFriend
         ? Provider.of<WardrobeManager>(context, listen: true)
-            .readWardrobeItemsForUser(widget.friendUid!)
+        .readWardrobeItemsForUser(widget.friendUid!)
         : Provider.of<WardrobeManager>(context, listen: true)
-            .getWardrobeItemListCopy;
+        .getWardrobeItemListCopy;
 
     return BasicScreen(
         isFullScreen: true,
         title: item != null
-            ? "Edit"
-            : "Create outfit${widget.friendUid != null ? " for ..." : ""}",
+            ? S.of(context).edit
+            : S.of(context).create,
+        // "Create outfit${widget.friendUid != null ? " for ..." : ""}",
         context: context,
         body: item != null
             ? bodyEdit(screenshotController, formKey, item!, context)
@@ -147,13 +149,13 @@ class _OutfitsAddAttributesScreenState
         child: IconButton(
           icon: item != null
               ? const Icon(
-                  Ionicons.arrow_forward,
-                  size: 35,
-                )
+            Ionicons.arrow_forward,
+            size: 35,
+          )
               : const Icon(
-                  Ionicons.add,
-                  size: 35,
-                ),
+            Ionicons.add,
+            size: 35,
+          ),
           onPressed: () {
             screenshotController.capture().then((capturedImage) async {
               setState(() {
@@ -164,13 +166,13 @@ class _OutfitsAddAttributesScreenState
               if (item == null) {
                 final directory = await getApplicationDocumentsDirectory();
                 imagePath = await File(
-                        '${directory.path}/image${const Uuid().v4()}.png')
+                    '${directory.path}/image${const Uuid().v4()}.png')
                     .create();
               } else {
                 final directory = await getApplicationDocumentsDirectory();
                 imagePath =
-                    await File('${directory.path}/image${item!.reference}.png')
-                        .create();
+                await File('${directory.path}/image${item!.reference}.png')
+                    .create();
               }
               Uint8List? capturedOutfit = widget.capturedOutfit;
               await imagePath.writeAsBytes(capturedOutfit!);
@@ -216,6 +218,7 @@ class _OutfitsAddAttributesScreenState
           Provider.of<OutfitManager>(context, listen: false)
               .removeOutfit(item?.reference);
           context.go("/home/1");
+          CustomSnackBar.showErrorSnackBar(context: context, message: "Usunięto stylizację");
           Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
           Provider.of<OutfitManager>(context, listen: false).nullListItemCopy();
           Provider.of<OutfitManager>(context, listen: false).resetTagLists();
@@ -223,16 +226,16 @@ class _OutfitsAddAttributesScreenState
           //checking if outfit was in any event, if so, then delete event from calendar
           Map<DateTime, List<Event>> events =
               Provider.of<CalendarManager>(context, listen: false).getEvents;
-                List<Post> postList =
-                    Provider.of<PostManager>(context, listen: false)
-                        .getFinalCurrentPostList;
+          List<Post> postList =
+              Provider.of<PostManager>(context, listen: false)
+                  .getFinalCurrentPostList;
 
-                postList.forEach((element) {
-                  if (element.cover == item?.cover) {
-                    Provider.of<PostManager>(context, listen: false)
-                        .removePost(element.reference);
-                  }
-                });
+          for (var element in postList) {
+            if (element.cover == item?.cover) {
+              Provider.of<PostManager>(context, listen: false)
+                  .removePost(element.reference);
+            }
+          }
 
 
           List<Event> eventsToRemove = [];
@@ -261,8 +264,8 @@ class _OutfitsAddAttributesScreenState
               .cacheEvents(encodedEvents);
 
           Future<List<Outfit>>? outfitsList =
-              Provider.of<OutfitManager>(context, listen: false)
-                  .readOutfitsOnce();
+          Provider.of<OutfitManager>(context, listen: false)
+              .readOutfitsOnce();
           Provider.of<OutfitManager>(context, listen: false)
               .setOutfits(outfitsList);
         });
@@ -289,53 +292,53 @@ class _OutfitsAddAttributesScreenState
   }
 
   Map<String, Widget>? getTabs() =>
-      {"Photos": buildEditPhoto(), "Attributes": buildFormEdit()};
+      {S.of(context).items: buildEditPhoto(), S.of(context).attributes: buildFormEdit()};
 
   Widget buildProfileGallery(BuildContext context) {
     List<Tab>? tabs = getTabs()
         ?.keys
         .map((label) => Tab(
-            child: Text(label,
-                style: TextStyles.paragraphRegularSemiBold14(),
-                textAlign: TextAlign.center)))
+        child: Text(label,
+            style: TextStyles.paragraphRegularSemiBold14(),
+            textAlign: TextAlign.center)))
         .toList();
     return tabs == null
         ? Container()
         : MediaQuery.removePadding(
-            context: context,
-            removeTop: true,
-            child: Expanded(
-              child: DefaultTabController(
-                length: tabs.length,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    TabBar(
-                      padding: const EdgeInsets.only(top: 10, bottom: 5),
-                      indicator: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: ColorsConstants.peachy.withOpacity(0.3)),
-                      indicatorColor: ColorsConstants.darkBrick,
-                      labelStyle: TextStyles.paragraphRegular16(),
-                      labelColor: ColorsConstants.darkBrick,
-                      unselectedLabelColor: ColorsConstants.grey,
-                      tabs: tabs,
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        children: getTabs()!
-                            .values
-                            .map((widget) => Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: widget))
-                            .toList(),
-                      ),
-                    )
-                  ],
-                ),
+      context: context,
+      removeTop: true,
+      child: Expanded(
+        child: DefaultTabController(
+          length: tabs.length,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TabBar(
+                padding: const EdgeInsets.only(top: 10, bottom: 5),
+                indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: ColorsConstants.peachy.withOpacity(0.3)),
+                indicatorColor: ColorsConstants.darkBrick,
+                labelStyle: TextStyles.paragraphRegular16(),
+                labelColor: ColorsConstants.darkBrick,
+                unselectedLabelColor: ColorsConstants.grey,
+                tabs: tabs,
               ),
-            ),
-          );
+              Expanded(
+                child: TabBarView(
+                  children: getTabs()!
+                      .values
+                      .map((widget) => Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: widget))
+                      .toList(),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget buildEditPhoto() {
@@ -346,8 +349,8 @@ class _OutfitsAddAttributesScreenState
           MultiSelectChip(Tags.getLanguagesTypes(context),
               type: "type_main", chipsColor: ColorsConstants.darkPeach,
               onSelectionChanged: (selectedList) {
-            selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
-          }),
+                selectedChips = selectedList.isEmpty ? Tags.getLanguagesTypes(context) : selectedList;
+              }),
           SizedBox(
             width: double.infinity,
             height: 200,
@@ -361,15 +364,15 @@ class _OutfitsAddAttributesScreenState
 
   Widget buildCanvas() {
     return  Container(
-            decoration: BoxDecoration(
-              color: ColorsConstants.whiteAccent,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Screenshot(
-                    controller: screenshotController,
-                    child:DragTargetContainer(map: widget.map))));
+        decoration: BoxDecoration(
+          color: ColorsConstants.whiteAccent,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Screenshot(
+                controller: screenshotController,
+                child:DragTargetContainer(map: widget.map))));
   }
 
   Widget buildFormEdit() {

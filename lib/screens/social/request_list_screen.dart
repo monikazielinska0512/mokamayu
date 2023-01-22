@@ -4,15 +4,12 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
-import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
-import 'package:mokamayu/widgets/fundamental/empty_screen.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:mokamayu/constants/assets.dart';
 
 import '../../generated/l10n.dart';
-import '../../widgets/fields/search_text_field.dart';
 
 class RequestsScreen extends StatefulWidget {
   const RequestsScreen({Key? key}) : super(key: key);
@@ -48,53 +45,53 @@ class _RequestsScreenState extends State<RequestsScreen> {
     });
   }
 
-  void _runFilter(String enteredKeyword) {
-    List<UserData> results = [];
-    if (enteredKeyword.isEmpty) {
-      // if the search field is empty or only contains white-space, we'll display all users
-      results = requestList;
-    } else {
-      results = requestList
-          .where((user) => user.profileName != null
-              ? user.username
-                      .toLowerCase()
-                      .contains(enteredKeyword.toLowerCase()) ||
-                  user.email
-                      .toLowerCase()
-                      .contains(enteredKeyword.toLowerCase()) ||
-                  user.profileName!
-                      .toLowerCase()
-                      .contains(enteredKeyword.toLowerCase())
-              : user.username
-                      .toLowerCase()
-                      .contains(enteredKeyword.toLowerCase()) ||
-                  user.email
-                      .toLowerCase()
-                      .contains(enteredKeyword.toLowerCase()))
-          .toList();
-    }
-
-    setState(() {
-      _foundRequests = results;
-    });
-  }
+  // void _runFilter(String enteredKeyword) {
+  //   List<UserData> results = [];
+  //   if (enteredKeyword.isEmpty) {
+  //     // if the search field is empty or only contains white-space, we'll display all users
+  //     results = requestList;
+  //   } else {
+  //     results = requestList
+  //         .where((user) => user.profileName != null
+  //             ? user.username
+  //                     .toLowerCase()
+  //                     .contains(enteredKeyword.toLowerCase()) ||
+  //                 user.email
+  //                     .toLowerCase()
+  //                     .contains(enteredKeyword.toLowerCase()) ||
+  //                 user.profileName!
+  //                     .toLowerCase()
+  //                     .contains(enteredKeyword.toLowerCase())
+  //             : user.username
+  //                     .toLowerCase()
+  //                     .contains(enteredKeyword.toLowerCase()) ||
+  //                 user.email
+  //                     .toLowerCase()
+  //                     .contains(enteredKeyword.toLowerCase()))
+  //         .toList();
+  //   }
+  //
+  //   setState(() {
+  //     _foundRequests = results;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
-      title: 'friend-requests',
+      title: S.of(context).requests,
       isFullScreen: false,
       leftButton: BackArrowButton(context),
       rightButton: null,
       body: Column(
         children: [
-          TextField(
-              onChanged: (value) {
-                _runFilter(value);
-                value.isNotEmpty ? searching = true : searching = false;
-              },
-              decoration: SearchBarStyle(S.of(context).search_friend)),
+          // TextField(
+          //     onChanged: (value) {
+          //       _runFilter(value);
+          //       value.isNotEmpty ? searching = true : searching = false;
+          //     },
+          //     decoration: SearchBarStyle(S.of(context).search_friend)),
           Padding(
               padding: const EdgeInsets.only(top: 10, left: 20, bottom: 10),
               child: Container(

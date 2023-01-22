@@ -3,10 +3,12 @@ import 'package:mokamayu/models/outfit.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
+import '../../generated/l10n.dart';
 import '../../services/managers/managers.dart';
 import '../../utils/validator.dart';
 import '../../widgets/chips/chips.dart';
 
+//ignore: must_be_immutable
 class OutfitForm extends StatelessWidget {
   OutfitForm({super.key, required this.formKey, this.item});
 
@@ -38,7 +40,7 @@ class OutfitForm extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
               padding: const EdgeInsets.only(bottom: 5, top: 10, right: 5),
-              child: Text("Season",
+              child: Text(S.of(context).season,
                   style: TextStyles.paragraphRegularSemiBold18()))),
       Align(
           alignment: Alignment.centerLeft,
@@ -53,7 +55,7 @@ class OutfitForm extends StatelessWidget {
               _season = value!;
             },
             color: ColorsConstants.darkMint,
-            chipsList: OutfitTags.seasons,
+            chipsList: OutfitTags.getSeasons(context),
           ))
     ]);
   }
@@ -64,7 +66,7 @@ class OutfitForm extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
               padding: const EdgeInsets.only(bottom: 5, top: 10),
-              child: Text("Style",
+              child: Text(S.of(context).style,
                   style: TextStyles.paragraphRegularSemiBold18()))),
       Align(
           alignment: Alignment.centerLeft,
@@ -79,7 +81,7 @@ class OutfitForm extends StatelessWidget {
               _style = value!;
             },
             color: ColorsConstants.sunflower,
-            chipsList: OutfitTags.styles,
+            chipsList: OutfitTags.getLanguagesStyles(context),
           )),
     ]);
   }

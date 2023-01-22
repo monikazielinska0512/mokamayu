@@ -105,6 +105,15 @@ class TextStyles {
         color: color);
   }
 
+  static TextStyle paragraphRegular10([Color? color]) {
+    return TextStyle(
+        fontSize: 10,
+        fontFamily: "Poppins",
+        fontWeight: FontWeight.w400,
+        color: color);
+  }
+
+
   static TextStyle paragraphRegularSemiBold12([Color? color]) {
     return TextStyle(
         fontSize: 12,

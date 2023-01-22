@@ -3,9 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
-
 import '../../utils/validator.dart';
-import '../../widgets/buttons/predefined_buttons.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -27,7 +25,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        title: "Reset Password",
+        title: S.of(context).reset_password,
         leftButton: BackArrowButton(context),
         rightButton: null,
         context: context,
@@ -71,7 +69,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   }
                 })
               ]))),
-      Container(
+      Expanded(child: SizedBox(
           height: deviceWidth(context) * 1.295,
           child: Opacity(
             opacity: 0.9,
@@ -80,7 +78,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               width: deviceWidth(context),
               fit: BoxFit.fitWidth,
             ),
-          ))
+          )))
     ]);
   }
 }

@@ -69,10 +69,10 @@ class OutfitManager extends ChangeNotifier {
         .get();
 
     List<Outfit> outfitList = [];
-    snapshot.docs.forEach((element) {
+    for (var element in snapshot.docs) {
       Outfit item = Outfit.fromSnapshot(element);
       outfitList.add(item);
-    });
+    }
     finalOutfitList = outfitList;
     return finalOutfitList;
   }
@@ -123,7 +123,7 @@ class OutfitManager extends ChangeNotifier {
     stylesList = stylesList.isNotEmpty ? stylesList : OutfitTags.styles;
     seasonsList = seasonsList.isNotEmpty ? seasonsList : OutfitTags.seasons;
 
-    itemList.forEach((element) {
+    for (var element in itemList) {
       Outfit item = element;
       bool season = seasonsList.contains(item.season);
       bool style = stylesList.contains(item.style);
@@ -140,8 +140,9 @@ class OutfitManager extends ChangeNotifier {
       if (season && style) {
         filteredList.add(item);
       }
-    });
+    }
 
+    // ignore: unnecessary_null_comparison
     filteredList != null
         ? finalOutfitListCopy = filteredList
         : finalOutfitListCopy = itemList;

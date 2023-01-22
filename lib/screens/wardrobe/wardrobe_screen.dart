@@ -3,12 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/managers.dart';
-import 'package:mokamayu/widgets/fields/search_text_field.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
-import '../../widgets/buttons/predefined_buttons.dart';
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({Key? key}) : super(key: key);
@@ -20,10 +18,10 @@ class WardrobeScreen extends StatefulWidget {
 class _WardrobeScreenState extends State<WardrobeScreen> {
   Future<List<WardrobeItem>>? futureItemList;
   Future<List<WardrobeItem>>? futureItemListCopy;
-  List<String> selectedTypes = Tags.types;
+  List<String> selectedTypes = [];
   List<String> selectedSizes = Tags.sizes;
   List<String> selectedStyles = Tags.styles;
-  List<String> selectedChips = Tags.types;
+  List<String> selectedChips = [];
 
   Future<List<Outfit>>? outfitsList;
 
@@ -67,14 +65,18 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                           chipsColor: ColorsConstants.darkPeach,
                           onSelectionChanged: (selectedList) {
                             selectedChips =
-                            selectedList.isEmpty ? Tags.types : selectedList;
+                            selectedList.isEmpty ? Tags.getLanguagesStyles(context) : selectedList;
                           }, type: "type_main")
                     ])),
               ]),
               const SizedBox(height: 10),
               Expanded(
-                  child: PhotoGrid(
-                      itemList: futureItemListCopy ?? futureItemList)),
+                  child: 
+                  Container( 
+                    padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(color: ColorsConstants.mint.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
+                      child: PhotoGrid(
+                      itemList: futureItemListCopy ?? futureItemList))),
             ],
           ),
           buildFloatingButton(),
@@ -82,6 +84,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   }
 
   Widget buildSearchBarAndFilters() {
+
     return SizedBox(
         height: MediaQuery
             .of(context)

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
@@ -20,7 +19,7 @@ class CreateOutfitPage extends StatelessWidget {
   String? friendUid;
   late final bool isCreatingOutfitForFriend;
   Map<List<dynamic>, OutfitContainer> map = {};
-  List<String> selectedChips = Tags.types;
+  List<String> selectedChips = [];
   Future<List<WardrobeItem>>? futureItemListCopy;
 
   @override
@@ -99,7 +98,7 @@ class CreateOutfitPage extends StatelessWidget {
       chipsColor: ColorsConstants.darkPeach,
       usingFriendsWardrobe: isCreatingOutfitForFriend,
       onSelectionChanged: (selectedList) {
-        selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
+        selectedChips = selectedList.isEmpty ? Tags.getLanguagesTypes(context) : selectedList;
       },
     );
   }
@@ -108,7 +107,7 @@ class CreateOutfitPage extends StatelessWidget {
 
   Widget buildAddButton(BuildContext context) {
     return
-      Padding(padding: EdgeInsets.only(right: 10), child:
+      Padding(padding: const EdgeInsets.only(right: 10), child:
       IconButton(
       icon: const Icon(
         Ionicons.arrow_forward,

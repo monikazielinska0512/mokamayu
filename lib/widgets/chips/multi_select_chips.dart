@@ -4,6 +4,8 @@ import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
 
+
+//ignore: must_be_immutable
 class MultiSelectChip extends StatefulWidget {
   final List<String> chipsList;
   final List<String> initialValues;

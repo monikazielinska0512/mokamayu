@@ -9,7 +9,7 @@ class StorageService {
   final String uid = AuthService().getCurrentUserID();
 
   Future<String> uploadFile(BuildContext context, String filePath) async {
-    String downloadUrl = "";
+    // String downloadUrl = "";
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child(uid).child(filePath);
 

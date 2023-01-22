@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/constants.dart';
-import 'package:mokamayu/models/models.dart';
-import 'package:provider/provider.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import '../../generated/l10n.dart';
-import '../../services/managers/managers.dart';
 
 //ignore: must_be_immutable
-class CustomDialogBox extends StatelessWidget {
-  CustomDialogBox({Key? key, required this.itemList}) : super(key: key);
-  Future<List<WardrobeItem>>? itemList;
+class DeleteOutfitDialog extends StatelessWidget {
+  Function()? onTap;
+  DeleteOutfitDialog({Key? key, required Function() onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +37,9 @@ class CustomDialogBox extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        DialogCard(context, S.of(context).create_outfit, () {
-                          Provider.of<PhotoTapped>(context, listen: false)
-                              .nullWholeMap();
-                          Provider.of<WardrobeManager>(context, listen: false)
-                              .resetBeforeCreatingNewOutfit();
-                          context.pushNamed("create-outfit-page",
-                              extra: itemList!);
-                          context.pop();
-                        }, 18, secondText: S.of(context).for_yourself),
+                        DialogCard(
+                            context, "Jesteś pewny że chcesz usunąć stylizację?", onTap, 18,
+                            secondText: S.of(context).for_yourself),
                       ],
                     )))
           ],
@@ -58,7 +49,7 @@ class CustomDialogBox extends StatelessWidget {
 
 // ignore: non_constant_identifier_names
 Widget DialogCard(
-    BuildContext context, String text, Function() onTap, double pad,
+    BuildContext context, String text, Function()? onTap, double pad,
     {String secondText = ""}) {
   return GestureDetector(
       onTap: onTap,
@@ -103,8 +94,6 @@ Widget DialogCard(
                               ],
                             )
                           ]),
-                          const Icon(Icons.arrow_forward_ios,
-                              color: Colors.grey),
                         ],
                       ))))));
 }

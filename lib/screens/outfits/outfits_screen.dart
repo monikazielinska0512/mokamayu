@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
@@ -8,7 +7,6 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
-import '../../widgets/buttons/predefined_buttons.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -57,11 +55,11 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
                 children: [
                   Expanded(
                       child: Wrap(children: [
-                    MultiSelectChip(OutfitTags.styles,
+                    MultiSelectChip(OutfitTags.getLanguagesStyles(context),
                         chipsColor: ColorsConstants.darkPeach,
                         onSelectionChanged: (selectedList) {
                       selectedChips = selectedList.isEmpty
-                          ? OutfitTags.styles
+                          ? OutfitTags.getLanguagesStyles(context)
                           : selectedList;
                     }, type: "style_main")
                   ])),

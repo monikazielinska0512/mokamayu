@@ -1,3 +1,3 @@
 class Assets {
-  static const avatarPlaceholder = "assets/images/girl.png";
+  static const avatarPlaceholder = "assets/images/placeholder.png";
 }

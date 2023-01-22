@@ -4,9 +4,6 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/constants/text_styles.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
-import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
-import 'package:mokamayu/widgets/fields/search_text_field.dart';
-import 'package:mokamayu/widgets/fundamental/empty_screen.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/services/managers/managers.dart';
@@ -94,7 +91,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
   Widget build(BuildContext context) {
     return BasicScreen(
       context: context,
-      title: 'friends',
+      title: S.of(context).friends,
       leftButton: BackArrowButton(context),
       isFullScreen: false,
       rightButton: null,
@@ -110,7 +107,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.centerLeft,
               child: Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 5, left: 2),
+                  padding: const EdgeInsets.only(top: 20, bottom: 5, left: 2),
                   child: searching
                       ? Text(
                           "${S.of(context).found} ${_foundFriends.length} ${S.of(context).results}",
@@ -143,7 +140,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
   Widget buildList() {
     return Expanded(
         child: ListView.separated(
-      padding: const EdgeInsets.all(3),
+      padding: const EdgeInsets.only(top:3, right: 5, left: 5),
       itemCount: _foundFriends.length,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
@@ -158,12 +155,12 @@ class _FriendsScreenState extends State<FriendsScreen> {
             child: Container(
                 height: MediaQuery.of(context).size.height * 0.12,
                 decoration: BoxDecoration(
-                    color: ColorsConstants.peachy.withOpacity(0.3),
+                    color: ColorsConstants.mint.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(12)),
                 child: Row(children: [
                   Padding(
                     padding:
-                        const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         // Image border
@@ -190,7 +187,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                               Colors.black)),
                 ])));
       },
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
+      separatorBuilder: (BuildContext context, int index) => Container(height: 20),
     ));
   }
 }

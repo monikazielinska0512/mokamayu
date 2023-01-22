@@ -7,6 +7,9 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/widgets/buttons/button_darker_orange.dart';
 import 'package:mokamayu/widgets/fundamental/fundamentals.dart';
 
+import '../../generated/l10n.dart';
+
+//ignore: must_be_immutable
 class PhotoPicker extends StatefulWidget {
   File? photo;
   bool isEditPhotoForm;
@@ -83,7 +86,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
         widget.photo = File(pickedFile.path);
       } else {
         CustomSnackBar.showErrorSnackBar(
-            context: context, message: "Something went wrong");
+            context: context, message: S.of(context).photo_not_added);
       }
     });
   }
@@ -116,7 +119,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                     opacity: 0.5),
               ])),
           Container(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(20),
             decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -124,38 +127,23 @@ class _PhotoPickerState extends State<PhotoPicker> {
                 ? MediaQuery.of(context).size.height * 0.25
                 : MediaQuery.of(context).size.height * 0.35,
             // color: Colors.white,
-            child: Center(
-              child: Column(
+            child:  Column(
                 children: <Widget>[
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 0, left: 0),
-                        child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Icon(
-                              Ionicons.close_outline,
-                              size: 25,
-                              color: Colors.grey,
-                            )),
-                      )),
                   Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         widget.photo == null
                             ? Container()
-                            : buildSourceElement(context, "Remove photo", null),
+                            : buildSourceElement(context, S.of(context).remove, null),
                         buildSourceElement(
-                            context, "Gallery", ImageSource.gallery),
+                            context, S.of(context).gallery, ImageSource.gallery),
                         buildSourceElement(
-                            context, "Camera", ImageSource.camera),
+                            context, S.of(context).camera, ImageSource.camera),
                       ])
                 ],
               ),
             ),
-          )
         ]);
       },
     );

@@ -1,12 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mokamayu/constants/colors.dart';
-import 'package:mokamayu/services/managers/weather_manager.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:provider/provider.dart';
 
@@ -37,6 +32,7 @@ void main() async {
 class MyApp extends StatefulWidget {
   final AppStateManager appStateManager;
 
+  // ignore: prefer_const_constructors_in_immutables
   MyApp({
     Key? key,
     required this.appStateManager,

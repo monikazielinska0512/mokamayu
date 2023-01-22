@@ -5,20 +5,17 @@ import 'package:go_router/go_router.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
-
 import '../../generated/l10n.dart';
-import '../../models/calendar_event.dart';
-import '../../services/managers/app_state_manager.dart';
-import '../../services/managers/calendar_manager.dart';
-import '../../services/managers/photo_tapped_manager.dart';
+import '../../services/managers/managers.dart';
 
+// ignore: must_be_immutable
 class WardrobeItemCard extends StatelessWidget {
   WardrobeItemCard(
       {Key? key,
-      this.wardrobeItem,
-      this.outfit,
-      required this.size,
-      this.event})
+        this.wardrobeItem,
+        this.outfit,
+        required this.size,
+        this.event})
       : super(key: key);
   final WardrobeItem? wardrobeItem;
   final Outfit? outfit;
@@ -62,8 +59,8 @@ class WardrobeItemCard extends StatelessWidget {
       children: [
         event != null
             ? const SizedBox(
-                width: 80,
-              )
+          width: 80,
+        )
             : const SizedBox.shrink(),
         Column(children: [
           TextButton(
@@ -75,27 +72,27 @@ class WardrobeItemCard extends StatelessWidget {
                 textAlign: TextAlign.right,
               ),
               onPressed: () => {
-                    Provider.of<PhotoTapped>(context, listen: false)
-                        .setObject(outfit),
-                    outfit!.map!.forEach((key, value) {
-                      Map<String, dynamic> contList = json.decode(value);
-                      OutfitContainer list = OutfitContainer(
-                          height: contList["height"],
-                          rotation: contList["rotation"],
-                          scale: contList["scale"],
-                          width: contList["width"],
-                          xPosition: contList["xPosition"],
-                          yPosition: contList["yPosition"]);
-                      getMap!.addAll({json.decode(key): list});
-                    }),
-                    GoRouter.of(context).pushNamed(
-                        "outfit-add-attributes-screen",
-                        extra: getMap)
-                  }),
+                Provider.of<PhotoTapped>(context, listen: false)
+                    .setObject(outfit),
+                outfit!.map!.forEach((key, value) {
+                  Map<String, dynamic> contList = json.decode(value);
+                  OutfitContainer list = OutfitContainer(
+                      height: contList["height"],
+                      rotation: contList["rotation"],
+                      scale: contList["scale"],
+                      width: contList["width"],
+                      xPosition: contList["xPosition"],
+                      yPosition: contList["yPosition"]);
+                  getMap!.addAll({json.decode(key): list});
+                }),
+                GoRouter.of(context).pushNamed(
+                    "outfit-add-attributes-screen",
+                    extra: getMap)
+              }),
           event != null
               ? const SizedBox(
-                  height: 10,
-                )
+            height: 10,
+          )
               : const SizedBox.shrink(),
           GestureDetector(
               onTap: () {
@@ -187,7 +184,7 @@ class WardrobeItemCard extends StatelessWidget {
 
   buildEditCard(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
         child: Align(
             alignment: Alignment.centerRight,
             child: Column(
@@ -207,9 +204,9 @@ class WardrobeItemCard extends StatelessWidget {
                       textAlign: TextAlign.right,
                     ),
                     onPressed: () => {
-                          context.pushNamed('wardrobe-item',
-                              extra: wardrobeItem)
-                        }),
+                      context.pushNamed('wardrobe-item',
+                          extra: wardrobeItem)
+                    }),
               ],
             )));
   }

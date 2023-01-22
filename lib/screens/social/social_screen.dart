@@ -5,16 +5,12 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/models/models.dart';
 
-import '../../widgets/buttons/predefined_buttons.dart';
-
 class SocialScreen extends StatefulWidget {
   const SocialScreen({Key? key}) : super(key: key);
 
   @override
   State<SocialScreen> createState() => _SocialScreenState();
 }
-
-
 
 class _SocialScreenState extends State<SocialScreen> {
   List<Post> postList = [];
@@ -26,6 +22,7 @@ class _SocialScreenState extends State<SocialScreen> {
       MediaQuery.of(context).size.height;
 
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
+
   @override
   Widget build(BuildContext context) {
     if (mounted) {
@@ -33,11 +30,14 @@ class _SocialScreenState extends State<SocialScreen> {
 // Your state change code goes here
       });
     }
-    if(Provider.of<ProfileManager>(context, listen: false).currentCustomUser != null){
-      currentUser = Provider.of<ProfileManager>(context, listen: false).currentCustomUser!;
-    }
-    else {
-      Provider.of<ProfileManager>(context, listen: false).getCurrentUserData().then((value) => currentUser = value!)
+    if (Provider.of<ProfileManager>(context, listen: false).currentCustomUser !=
+        null) {
+      currentUser = Provider.of<ProfileManager>(context, listen: false)
+          .currentCustomUser!;
+    } else {
+      Provider.of<ProfileManager>(context, listen: false)
+          .getCurrentUserData()
+          .then((value) => currentUser = value!)
           .whenComplete(() => null);
     }
     Provider.of<UserListManager>(context, listen: false)
@@ -45,12 +45,12 @@ class _SocialScreenState extends State<SocialScreen> {
         .then((List<UserData> temp) {
       setState(() => userList = temp);
     });
+
     Provider.of<PostManager>(context, listen: false)
         .readFriendsPostsOnce(currentUser);
 
-
     return BasicScreen(
-      title: "Social",
+      title: "Społeczność",
       leftButton: DotsButton(context),
       rightButton: SearchNotificationButton(context),
       context: context,
@@ -61,8 +61,7 @@ class _SocialScreenState extends State<SocialScreen> {
           const SizedBox(
             height: 15,
           ),
-          Expanded(
-              child: PostList(userList: userList)),
+          Expanded(child: PostList(userList: userList)),
         ],
       ),
     );

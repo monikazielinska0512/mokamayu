@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../generated/l10n.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
-import '../../../constants/constants.dart';
-import '../../../generated/l10n.dart';
-import '../../../widgets/buttons/predefined_buttons.dart';
+import 'package:mokamayu/constants/constants.dart';
 
 class CurrentUserProfileContent extends AbstractProfileContent {
   const CurrentUserProfileContent({Key? key, required String? uid})
@@ -42,7 +40,15 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
   Widget getRightButton() => NotificationsButton(context);
 
   @override
-  Color? setBackgroundColor() => Colors.transparent;
+  double getHeight() => 0.78;
+
+  @override
+  String getTitle() => "Mój profil";
+
+  @override
+  EdgeInsetsGeometry getPadding() => const EdgeInsets.only(
+      top: 10, right: 20, left: 20, bottom: 10);
+
 
   @override
   Widget buildButtons() {
@@ -50,15 +56,15 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
       IconTextButton(
         onPressed: () => context.push('/edit-profile'),
         icon: Icons.edit_outlined,
-        text: "Edit",
+        text: S.of(context).edit,
         backgroundColor: ColorsConstants.peachy,
       ),
       Padding(
-          padding: EdgeInsets.only(left: 5),
+          padding: const EdgeInsets.only(left: 5),
           child: IconTextButton(
             onPressed: () => context.pushNamed('friends'),
             icon: Icons.person_outline_outlined,
-            text: "Friends",
+            text: S.of(context).friends,
             backgroundColor: ColorsConstants.mint,
           )),
     ]);
@@ -89,7 +95,12 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
                 borderRadius: BorderRadius.circular(15)),
             child: PhotoGrid(outfitsList: getOutfitsCreatedByMe())),
         S.of(context).outfits_by_friends:
-            PhotoGrid(outfitsList: getOutfitsCreatedByFriends()),
+        Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: ColorsConstants.darkBrick.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(15)),
+            child:PhotoGrid(outfitsList: getOutfitsCreatedByFriends())),
         S.of(context).posts: buildPosts(),
       };
 
@@ -107,11 +118,9 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
               },
             );
           } else {
-            return Center(
-              child: Text("There are no posts to display.",
-                  style: TextStyles.paragraphRegularSemiBold14(Colors.grey),
-                  textAlign: TextAlign.center),
-            );
+            return EmptyScreen(context, Text("There are no posts to display.",
+                style: TextStyles.paragraphRegularSemiBold14(Colors.grey),
+                textAlign: TextAlign.center), ColorsConstants.darkMint);
           }
         }
         return const Center(

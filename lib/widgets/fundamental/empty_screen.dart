@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../constants/colors.dart';
-import '../../constants/text_styles.dart';
-
-Expanded EmptyScreen(BuildContext context, Text information, Color color) {
+Expanded EmptyScreen(BuildContext context, Text information, Color color,
+    {IconData? icon = Ionicons.sad_outline}) {
   return Expanded(
       child: Container(
           decoration: BoxDecoration(
@@ -18,8 +17,8 @@ Expanded EmptyScreen(BuildContext context, Text information, Color color) {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                const Icon(
-                  Ionicons.sad_outline,
+                Icon(
+                  icon,
                   size: 25,
                   color: Colors.grey,
                 ),

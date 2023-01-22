@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mokamayu/models/models.dart';
@@ -33,7 +35,6 @@ class NotificationsManager extends ChangeNotifier {
         .doc(uid)
         .collection('notifications')
         .add(item.toJson());
-    print("dodano?");
     notifyListeners();
   }
 

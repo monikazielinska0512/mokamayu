@@ -4,10 +4,8 @@ import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/screens/screens.dart';
 import 'package:mokamayu/services/services.dart';
-import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
 import '../../../constants/constants.dart';
 import '../../../generated/l10n.dart';
 
@@ -21,9 +19,6 @@ class OtherUserProfileContent extends AbstractProfileContent {
 
 class _OtherUserProfileContentState extends AbstractProfileContentState {
   UserData? friendData;
-
-  @override
-  Color? setBackgroundColor() => Colors.transparent;
 
   @override
   void loadData() {
@@ -46,10 +41,20 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   }
 
   @override
+  double getHeight() => 0.86;
+
+  @override
   Widget getLeftButton() => BackArrowButton(context);
 
   @override
   Widget getRightButton() => NotificationsButton(context);
+
+  @override
+  String getTitle() => "";
+
+  @override
+  EdgeInsetsGeometry getPadding() =>
+      const EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 50);
 
   @override
   Widget buildButtons() => friendData != null
@@ -77,7 +82,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   });
             },
             icon: Icons.check,
-            text: "Friends",
+            text: "Znajomy",
             backgroundColor: ColorsConstants.mint,
           );
         }
@@ -89,7 +94,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   .cancelFriendInvite(friendData!);
             },
             icon: Icons.outgoing_mail,
-            text: "Sent",
+            text: "Wysłano zaproszenie",
             backgroundColor: ColorsConstants.mint,
           );
         }
@@ -106,7 +111,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   });
             },
             icon: Icons.mark_email_unread,
-            text: "Respond",
+            text: "Odpowiedz",
             backgroundColor: ColorsConstants.mint,
           );
         }
@@ -124,7 +129,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
               Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, friendData!.uid);
             },
             icon: Icons.person_outline_outlined,
-            text: "Add friend",
+            text: "Dodaj znajomego",
             backgroundColor: ColorsConstants.mint,
           );
         }
@@ -138,8 +143,20 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
             .isMyFriend(widget.uid);
     return eligibleToSeeProfile
         ? {
-            S.of(context).wardrobe: PhotoGrid(itemList: itemList),
-            S.of(context).outfits: PhotoGrid(outfitsList: outfitsList),
+            S.of(context).wardrobe: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: ColorsConstants.mint.withOpacity(0.1)),
+                child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: PhotoGrid(itemList: itemList))),
+            S.of(context).outfits: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: ColorsConstants.mint.withOpacity(0.1)),
+                child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: PhotoGrid(outfitsList: outfitsList))),
           }
         : null;
   }
@@ -158,7 +175,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
             },
             icon: const Icon(Ionicons.body),
             backgroundColor: ColorsConstants.darkBrick,
-            padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
+            padding: const EdgeInsets.fromLTRB(20, 10, 40, 60),
             alignment: Alignment.bottomRight)
         : Container();
   }

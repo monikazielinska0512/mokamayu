@@ -3,19 +3,16 @@ import 'dart:ui';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
 import 'package:mokamayu/services/managers/managers.dart';
-import 'package:mokamayu/widgets/buttons/predefined_buttons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/wardrobe_item.dart';
 
+// ignore: must_be_immutable
 class AddWardrobeItemForm extends StatefulWidget {
   bool isEdit;
-  bool isLocked;
   final String? photo;
   WardrobeItem? editItem;
 
@@ -23,8 +20,7 @@ class AddWardrobeItemForm extends StatefulWidget {
       {Key? key,
       this.photo,
       this.editItem,
-      required this.isEdit,
-      this.isLocked = false})
+      required this.isEdit})
       : super(key: key);
 
   @override
@@ -34,7 +30,6 @@ class AddWardrobeItemForm extends StatefulWidget {
 class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
   @override
   void initState() {
-    widget.isLocked = widget.isEdit;
 
     super.initState();
   }
@@ -68,26 +63,17 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
         alignment: Alignment.bottomLeft,
         child: BackgroundCard(
             context: context,
-            height: widget.isLocked ? 0.5 : 0.55,
-            child: Padding(
-                padding: widget.isLocked
-                    ? const EdgeInsets.all(5)
-                    : const EdgeInsets.all(5),
-                child: Stack(children: [
-                  Positioned.fill(
-                      child: Align(
+            height: 0.7,
+            child: Stack(children: [
+                   Align(
                           alignment: Alignment.center,
-                          child: AbsorbPointer(
-                              absorbing: widget.isLocked,
-                              child: Align(
-                                  alignment: Alignment.center,
-                                  child: WardrobeItemForm(
+                          child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              child:
+                          WardrobeItemForm(
                                       photoPath: widget.photo ?? "",
-                                      item: widget.editItem,
-                                      showUpdateAndDeleteButtons:
-                                          !widget.isLocked))))),
-                  editButton()
-                ]))));
+                                      item: widget.editItem))),
+                ])));
   }
 
   bool isWardrobeItemMine() =>
@@ -95,19 +81,6 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
           .finalWardrobeItemList
           .contains(widget.editItem);
 
-  Widget editButton() {
-    return widget.isLocked && isWardrobeItemMine()
-        ? Padding(
-            padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
-            child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                    onPressed: () =>
-                        setState(() => widget.isLocked = !widget.isLocked),
-                    icon: const Icon(Ionicons.create_outline,
-                        color: ColorsConstants.grey))))
-        : Container();
-  }
 
   Widget buildBackgroundImageForAddForm() {
     return Image.file(
@@ -119,25 +92,16 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
   }
 
   Widget buildBackgroundImageForEditForm(Widget picker) {
-    return (!widget.isLocked
-            ? picker
-            : ExtendedImage.network(
-                widget.editItem!.photoURL,
-                fit: BoxFit.fill,
-                cacheWidth: MediaQuery.of(context).size.width.toInt() *
-                    window.devicePixelRatio.ceil(),
-                cacheHeight: MediaQuery.of(context).size.height.toInt() *
-                    window.devicePixelRatio.ceil(),
-                cache: true,
-                enableMemoryCache: false,
-                enableLoadState: true,
-              )
-        // : Image.network(
-        //     widget.editItem!.photoURL,
-        //     height: MediaQuery.of(context).size.height,
-        //     width: MediaQuery.of(context).size.width,
-        //     fit: BoxFit.fill,
-        //   )
-        );
+    return ExtendedImage.network(
+      widget.editItem!.photoURL,
+      fit: BoxFit.fill,
+      cacheWidth: MediaQuery.of(context).size.width.toInt() *
+          window.devicePixelRatio.ceil(),
+      cacheHeight: MediaQuery.of(context).size.height.toInt() *
+          window.devicePixelRatio.ceil(),
+      cache: true,
+      enableMemoryCache: false,
+      enableLoadState: true,
+    );
   }
 }

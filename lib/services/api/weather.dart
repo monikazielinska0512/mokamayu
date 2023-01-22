@@ -26,7 +26,7 @@ class WeatherModel {
   Future<dynamic> getForecastByCoords(
       double longtitude, double lattitude) async {
     NetworkData networkHelper = NetworkData(
-        '$forecastApiUrl?lat=${lattitude}&lon=${longtitude}&appid=$apiKey&units=metric');
+        '$forecastApiUrl?lat=$lattitude&lon=$longtitude&appid=$apiKey&units=metric');
     var weatherData = await networkHelper.getData();
     return weatherData;
   }
