@@ -95,7 +95,12 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
                 borderRadius: BorderRadius.circular(15)),
             child: PhotoGrid(outfitsList: getOutfitsCreatedByMe())),
         S.of(context).outfits_by_friends:
-            PhotoGrid(outfitsList: getOutfitsCreatedByFriends()),
+        Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: ColorsConstants.darkBrick.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(15)),
+            child:PhotoGrid(outfitsList: getOutfitsCreatedByFriends())),
         S.of(context).posts: buildPosts(),
       };
 
@@ -113,11 +118,9 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
               },
             );
           } else {
-            return Center(
-              child: Text("There are no posts to display.",
-                  style: TextStyles.paragraphRegularSemiBold14(Colors.grey),
-                  textAlign: TextAlign.center),
-            );
+            return EmptyScreen(context, Text("There are no posts to display.",
+                style: TextStyles.paragraphRegularSemiBold14(Colors.grey),
+                textAlign: TextAlign.center), ColorsConstants.darkMint);
           }
         }
         return const Center(

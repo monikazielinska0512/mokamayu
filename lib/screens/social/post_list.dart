@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
 import '../../services/managers/managers.dart';
 
-
+import '../../utils/string_extensions.dart';
 class PostList extends StatefulWidget {
 
   final List<UserData> userList;
@@ -210,13 +210,11 @@ class _PostListState extends State<PostList> {
                 ? widget.userList
                     .singleWhere((element) =>
                         element.uid == postList[index].createdFor)
-                    .profileName!
-                    .capitalize()
+                    .profileName!.capitalize()
                 : widget.userList
                     .singleWhere((element) =>
                         element.uid == postList[index].createdFor)
-                    .username
-                    .capitalize(),
+                    .username.capitalize(),
             style: TextStyles.paragraphRegularSemiBold16()));
   }
 
@@ -239,11 +237,11 @@ class _PostListState extends State<PostList> {
               ? widget.userList
                   .singleWhere((element) =>
                       element.uid == postList[index].createdBy)
-                  .profileName!
+                  .profileName!.capitalize()
               : widget.userList
                   .singleWhere((element) =>
                       element.uid == postList[index].createdBy)
-                  .username,
+                  .username.capitalize(),
           style: TextStyles.paragraphRegular14(ColorsConstants.darkBrick)),
     );
   }

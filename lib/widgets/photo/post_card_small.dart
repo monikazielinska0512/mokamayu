@@ -88,8 +88,8 @@ class _PostCardSmallState extends State<PostCardSmall> {
   Widget buildDatePosted() {
     String creationDate = DateFormat('dd/MM/yyyy HH:mm')
         .format(DateTime.fromMillisecondsSinceEpoch(post.creationDate));
-    return Text("Posted $creationDate",
-        style: TextStyles.paragraphRegular12(ColorsConstants.grey));
+    return Text("Opublikowano $creationDate",
+        style: TextStyles.paragraphRegular10(ColorsConstants.grey));
   }
 
   Widget buildLikeAndCommentCounters() {

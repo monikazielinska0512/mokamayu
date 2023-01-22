@@ -96,7 +96,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   .cancelFriendInvite(friendData!);
             },
             icon: Icons.outgoing_mail,
-            text: "Sent",
+            text: "Wysłano",
             backgroundColor: ColorsConstants.mint,
           );
         }
@@ -125,7 +125,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   .sendFriendInvite(friendData!);
             },
             icon: Icons.person_outline_outlined,
-            text: "Add friend",
+            text: "Dodaj znajomego",
             backgroundColor: ColorsConstants.mint,
           );
         }

@@ -7,13 +7,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/managers.dart';
-
-
-extension StringExtension on String {
-  String capitalize() {
-    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
-  }
-}
+import '../../utils/string_extensions.dart';
 
 //ignore: must_be_immutable
 class PostScreen extends StatefulWidget {
@@ -85,8 +79,7 @@ class _PostScreenState extends State<PostScreen> {
                                     borderRadius: BorderRadius.circular(12)),
                                 child: buildPost())
                           ]),
-                      widget.post.createdFor !=
-                          widget.post.createdBy
+                      widget.post.createdFor != widget.post.createdBy
                           ? buildDate()
                           : Container(),
                       buildCommentList(),
@@ -97,7 +90,6 @@ class _PostScreenState extends State<PostScreen> {
           ),
         ]));
   }
-
 
   Widget buildHeader() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -114,8 +106,6 @@ class _PostScreenState extends State<PostScreen> {
     ]);
   }
 
-
-
   Widget buildName() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,48 +113,47 @@ class _PostScreenState extends State<PostScreen> {
       children: [
         widget.post.createdFor == widget.post.createdBy
             ? Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [buildPostingUser(), buildDate()])
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [buildPostingUser(), buildDate()])
             : Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildPostingUser(),
-            Row(children: [
-              Text("Stworzono przez ",
-                  style: TextStyles.paragraphRegular12(Colors.grey),
-                  textAlign: TextAlign.start),
-              buildCreator(),
-            ])
-          ],
-        ),
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildPostingUser(),
+                  Row(children: [
+                    Text("Stworzono przez ",
+                        style: TextStyles.paragraphRegular12(Colors.grey),
+                        textAlign: TextAlign.start),
+                    buildCreator(),
+                  ])
+                ],
+              ),
       ],
     );
   }
-  Widget buildUserAvatar(){
+
+  Widget buildUserAvatar() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5), // Image border
       child: SizedBox.fromSize(
         size: const Size.square(50),
         child: widget.userList
-            .singleWhere(
-                (element) => element.uid == widget.post.createdFor)
-            .profilePicture !=
-            null
+                    .singleWhere(
+                        (element) => element.uid == widget.post.createdFor)
+                    .profilePicture !=
+                null
             ? Image.network(
-            widget.userList
-                .singleWhere(
-                    (element) => element.uid == widget.post.createdFor)
-                .profilePicture!,
-            fit: BoxFit.fill)
+                widget.userList
+                    .singleWhere(
+                        (element) => element.uid == widget.post.createdFor)
+                    .profilePicture!,
+                fit: BoxFit.fill)
             : Image.asset(Assets.avatarPlaceholder,
-            width: MediaQuery.of(context).size.width * 0.7),
+                width: MediaQuery.of(context).size.width * 0.7),
       ),
     );
   }
-
-
 
   Widget buildCreator() {
     return GestureDetector(
@@ -178,22 +167,21 @@ class _PostScreenState extends State<PostScreen> {
       },
       child: Text(
           widget.userList
-              .singleWhere((element) =>
-          element.uid == widget.post.createdBy)
-              .profileName !=
-              null
+                      .singleWhere(
+                          (element) => element.uid == widget.post.createdBy)
+                      .profileName !=
+                  null
               ? widget.userList
-              .singleWhere((element) =>
-          element.uid == widget.post.createdBy)
-              .profileName!
+                  .singleWhere(
+                      (element) => element.uid == widget.post.createdBy)
+                  .profileName!
               : widget.userList
-              .singleWhere((element) =>
-          element.uid == widget.post.createdBy)
-              .username,
+                  .singleWhere(
+                      (element) => element.uid == widget.post.createdBy)
+                  .username,
           style: TextStyles.paragraphRegular14(ColorsConstants.darkBrick)),
     );
   }
-
 
   Widget buildPostingUser() {
     return GestureDetector(
@@ -207,23 +195,22 @@ class _PostScreenState extends State<PostScreen> {
         },
         child: Text(
             widget.userList
-                .singleWhere((element) =>
-            element.uid == widget.post.createdFor)
-                .profileName !=
-                null
+                        .singleWhere(
+                            (element) => element.uid == widget.post.createdFor)
+                        .profileName !=
+                    null
                 ? widget.userList
-                .singleWhere((element) =>
-            element.uid == widget.post.createdFor)
-                .profileName!
-                .capitalize()
+                    .singleWhere(
+                        (element) => element.uid == widget.post.createdFor)
+                    .profileName!
+                    .capitalize()
                 : widget.userList
-                .singleWhere((element) =>
-            element.uid == widget.post.createdFor)
-                .username
-                .capitalize(),
+                    .singleWhere(
+                        (element) => element.uid == widget.post.createdFor)
+                    .username
+                    .capitalize(),
             style: TextStyles.paragraphRegularSemiBold16()));
   }
-
 
   Widget buildDate() {
     return Padding(
@@ -284,7 +271,7 @@ class _PostScreenState extends State<PostScreen> {
   }
 
   Widget buildCommentList() {
-    return widget.post.comments != null
+    return widget.post.comments!.isNotEmpty
         ? Expanded(
             child: Padding(
                 padding: const EdgeInsets.all(10),
@@ -360,12 +347,18 @@ class _PostScreenState extends State<PostScreen> {
                     separatorBuilder: (BuildContext context, int index) =>
                         const Divider(),
                     itemCount: widget.post.comments!.length)))
-        : SizedBox(height: MediaQuery.of(context).size.height * 0.01);
+        : EmptyScreen(
+            context,
+            Text("Ten post nie ma komentarzy",
+                style: TextStyles.paragraphRegular12(Colors.grey)),
+            ColorsConstants.grey);
+
+    SizedBox(height: MediaQuery.of(context).size.height * 0.01);
   }
 
   Widget buildCommentField() {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 15),
+        padding: const EdgeInsets.only(bottom: 15, top: 10),
         child: TextField(
           controller: myController,
           onSubmitted: (String comment) {
@@ -390,7 +383,7 @@ class _PostScreenState extends State<PostScreen> {
             }
           },
           decoration: const InputDecoration(
-            hintText: "Comment post",
+            hintText: "Skomentuj",
             filled: true,
             fillColor: ColorsConstants.whiteAccent,
             suffixIcon: Icon(
@@ -398,7 +391,7 @@ class _PostScreenState extends State<PostScreen> {
               color: ColorsConstants.darkBrick,
             ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(80)),
+              borderRadius: BorderRadius.all(Radius.circular(12)),
               borderSide: BorderSide(
                 width: 0,
                 style: BorderStyle.none,

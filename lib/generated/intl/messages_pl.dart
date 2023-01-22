@@ -73,13 +73,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "empty_notifications": MessageLookupByLibrary.simpleMessage(
             "Nie otrzymałeś żadnych powiadomień"),
         "empty_outfits": MessageLookupByLibrary.simpleMessage(
-            "Nie stowrzono jeszcze żadnej stylizacji!"),
+            "Brak stworzonych stylizacji!"),
         "empty_paramaters":
             MessageLookupByLibrary.simpleMessage("Zaznacz wszystkie atrybuty!"),
         "empty_planned_outfits": MessageLookupByLibrary.simpleMessage(
             "Brak zaplanowanych stylizacji na ten dzień"),
-        "empty_wardrobe": MessageLookupByLibrary.simpleMessage(
-            "Nie masz żadnych elementów w szafie!"),
+        "empty_wardrobe":
+            MessageLookupByLibrary.simpleMessage("Brak elementów w szafie!"),
         "enter_city": MessageLookupByLibrary.simpleMessage("Nazwa miasta"),
         "enter_email":
             MessageLookupByLibrary.simpleMessage("Wprowadź adres email"),
