@@ -21,7 +21,7 @@ class NotificationsManager extends ChangeNotifier {
 
       temp.add(notif);
     }
-    print("readNotificationsOnce");
+    temp.sort((b, a) => a.creationDate.compareTo(b.creationDate));
     notificationList = temp;
     return notificationList;
   }
