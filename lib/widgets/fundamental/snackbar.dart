@@ -47,10 +47,10 @@ class CustomSnackBar {
         content: Row(children: [
           Icon(icon, color: Colors.white),
           const SizedBox(width: 10),
-          SelectableText(
+          Flexible(child: SelectableText(
             message,
             style: TextStyles.paragraphRegular14(Colors.white),
-          )
+          ))
         ]),
       ),
     );

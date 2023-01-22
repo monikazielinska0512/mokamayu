@@ -1429,6 +1429,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Month`
+  String get month {
+    return Intl.message(
+      'Month',
+      name: 'month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2 weeks`
+  String get two_weeks {
+    return Intl.message(
+      '2 weeks',
+      name: 'two_weeks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Week`
+  String get week {
+    return Intl.message(
+      'Week',
+      name: 'week',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

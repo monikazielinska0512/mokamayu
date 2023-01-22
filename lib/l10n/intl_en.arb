@@ -138,6 +138,9 @@
   "outfit_created_for_friend": "Outfit for friend has been created",
   "outfit_created": "Outfit has been created",
   "requests" : "Invitations",
-  "users": "Users"
+  "users": "Users",
+  "month": "Month",
+  "two_weeks": "2 weeks",
+  "week": "Week"
 
 }

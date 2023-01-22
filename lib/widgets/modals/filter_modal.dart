@@ -122,7 +122,7 @@ class _FilterModalState extends State<FilterModal> {
 
   Widget buildOutfitSeasonSection() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("Seasons",
+      Text(S.of(context).season,
           style: TextStyles.paragraphRegularSemiBold18(),
           textAlign: TextAlign.start),
       Padding(

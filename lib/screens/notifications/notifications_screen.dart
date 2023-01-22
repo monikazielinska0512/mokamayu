@@ -66,8 +66,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   Widget buildNotificationScreen(
       BuildContext context, List<CustomNotification> notificationList) {
-    return Expanded(
-        child: ListView.separated(
+    return ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             itemBuilder: (BuildContext context, int index) {
               return Dismissible(
@@ -95,7 +94,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             },
             separatorBuilder: (BuildContext context, int index) =>
                 Container(height: 10),
-            itemCount: notificationList.length));
+            itemCount: notificationList.length);
   }
 
   Widget buildNotifications(
@@ -122,7 +121,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                   const Padding(padding: EdgeInsets.only(left: 10)),
                   Flexible(
-                      child: Text("Użytkownik ${name}polubił twój post!",
+                      child: Text("Użytkownik ${name} polubił twój post!",
                           style: TextStyles.paragraphRegular14())),
                 ],
               ));
@@ -145,7 +144,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                   const Padding(padding: EdgeInsets.only(left: 10)),
                   Flexible(
-                      child: Text("Użytkownik ${name}skomentował twój post!",
+                      child: Text("Użytkownik ${name} skomentował twój post!",
                           style: TextStyles.paragraphRegular14())),
                 ],
               ));
@@ -169,7 +168,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   const Padding(padding: EdgeInsets.only(left: 10)),
                   Flexible(
                       child: Text(
-                          "Użytwkonik ${name}stworzył dla Ciebie stylizację!",
+                          "Użytkownik ${name} stworzył dla Ciebie stylizację!",
                           style: TextStyles.paragraphRegular14())),
                 ],
               ));

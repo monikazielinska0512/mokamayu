@@ -35,7 +35,6 @@ class NotificationsManager extends ChangeNotifier {
         .doc(uid)
         .collection('notifications')
         .add(item.toJson());
-    print("dodano?");
     notifyListeners();
   }
 

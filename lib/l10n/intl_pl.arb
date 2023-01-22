@@ -136,7 +136,11 @@
   "items": "Elementy",
   "attributes": "Atrybuty",
   "outfit_created_for_friend": "Stworzono stylizację dla znajomego",
-  "outfit_created": "Stworzono outfit",
+  "outfit_created": "Stworzono stylizację",
   "requests" : "Zaproszenia",
-  "users": "Użytwkonicy"
+  "users": "Użytkwonicy",
+  "month": "Miesiąc",
+  "two_weeks": "2 tygodnie",
+  "week": "TydzieĶ"
+
 }

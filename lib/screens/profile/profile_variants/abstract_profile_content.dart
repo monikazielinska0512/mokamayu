@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
@@ -39,7 +40,6 @@ abstract class AbstractProfileContentState
   String getTitle();
 
   EdgeInsetsGeometry getPadding();
-
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,17 @@ abstract class AbstractProfileContentState
                     Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: buildUserCard(context)),
-                    buildProfileGallery(context),
+                    !(userData?.privateProfile ?? true) ||
+                            Provider.of<FriendsManager>(context, listen: false)
+                                .isMyFriend(widget.uid)
+                        ? buildProfileGallery(context)
+                        : EmptyScreen(
+                            context,
+                            Text("Prywatny",
+                                style: TextStyles.paragraphRegularSemiBold14(
+                                    Colors.grey)),
+                            Colors.grey,
+                            icon: Ionicons.lock_closed_outline)
                   ],
                 )),
           ),

@@ -36,11 +36,12 @@ class FriendDialogBox extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.25,
+                    height: MediaQuery.of(context).size.height * 0.14,
                     child: Padding(
-                        padding: const EdgeInsets.all(15),
+                        padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 20),
@@ -62,20 +63,6 @@ class FriendDialogBox extends StatelessWidget {
                                     context.pop();
                                   }, 18),
 
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 25),
-                                child:
-                                isResponse
-                                  ? friendDialogCard("Odrzuć zaproszenie",
-                                          () {
-                                            Provider.of<ProfileManager>(context, listen: false).rejectFriendInvite(friend);
-                                            context.pop();
-                                      }, 18)
-                                  : friendDialogCard("No, take me back",
-                                      () {
-                                    context.pop();
-                                  }, 18),
                             ),
                           ],
                         ))))

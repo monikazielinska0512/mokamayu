@@ -113,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "looks_for": MessageLookupByLibrary.simpleMessage("Looks for"),
         "military": MessageLookupByLibrary.simpleMessage("Military"),
         "minimalism": MessageLookupByLibrary.simpleMessage("Minimalistic"),
+        "month": MessageLookupByLibrary.simpleMessage("Month"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
@@ -189,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "top": MessageLookupByLibrary.simpleMessage("Top"),
         "trousers": MessageLookupByLibrary.simpleMessage("Trousers"),
         "tshirt": MessageLookupByLibrary.simpleMessage("T-Shirt"),
+        "two_weeks": MessageLookupByLibrary.simpleMessage("2 weeks"),
         "type": MessageLookupByLibrary.simpleMessage("Type"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "updated_item":
@@ -203,6 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "wardrobe_page_title":
             MessageLookupByLibrary.simpleMessage("Your Wardrobe"),
         "wedding": MessageLookupByLibrary.simpleMessage("Wedding"),
+        "week": MessageLookupByLibrary.simpleMessage("Week"),
         "winter": MessageLookupByLibrary.simpleMessage("Winter"),
         "wrong_password": MessageLookupByLibrary.simpleMessage(
             "Your email or password is wrong")

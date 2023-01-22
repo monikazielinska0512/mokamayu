@@ -105,6 +105,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                                           listen: false)
                                       .setWardrobeItemList(widget.itemList!);
                                   context.pop();
+                                  CustomSnackBar.showErrorSnackBar(context: context, message: "Usunięto stylizację");
                                 },
                               )
                             : PhotoBox(
@@ -192,6 +193,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                                     .setOutfits(widget.outfitsList!);
 
                                 context.pop();
+                                CustomSnackBar.showErrorSnackBar(context: context, message: "Usunięto stylizację");
 
                                 List<Post> postList = Provider.of<PostManager>(
                                         context,

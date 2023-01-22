@@ -115,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "looks_for": MessageLookupByLibrary.simpleMessage("Stylizacje na"),
         "military": MessageLookupByLibrary.simpleMessage("Militarny"),
         "minimalism": MessageLookupByLibrary.simpleMessage("Minimalistyczny"),
+        "month": MessageLookupByLibrary.simpleMessage("Miesiąc"),
         "next": MessageLookupByLibrary.simpleMessage("Dalej"),
         "no_account": MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
         "no_found_friends": MessageLookupByLibrary.simpleMessage(
@@ -126,7 +127,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_pending_invitation_user": MessageLookupByLibrary.simpleMessage(
             "Brak zaproszenia od tego użytkownika"),
         "outfit_created":
-            MessageLookupByLibrary.simpleMessage("Stworzono outfit"),
+            MessageLookupByLibrary.simpleMessage("Stworzono stylizację"),
         "outfit_created_for_friend": MessageLookupByLibrary.simpleMessage(
             "Stworzono stylizację dla znajomego"),
         "outfits": MessageLookupByLibrary.simpleMessage("Stylizacje"),
@@ -189,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "top": MessageLookupByLibrary.simpleMessage("Top"),
         "trousers": MessageLookupByLibrary.simpleMessage("Spodnie"),
         "tshirt": MessageLookupByLibrary.simpleMessage("Koszulka"),
+        "two_weeks": MessageLookupByLibrary.simpleMessage("2 tygodnie"),
         "type": MessageLookupByLibrary.simpleMessage("Rodzaj"),
         "update": MessageLookupByLibrary.simpleMessage("Aktualizuj"),
         "updated_item":
@@ -197,12 +199,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Wykorzystaj swoją wyobraźnię!"),
         "user_not_exist": MessageLookupByLibrary.simpleMessage(
             "Podany użytkownik nie istnieje"),
-        "users": MessageLookupByLibrary.simpleMessage("Użytwkonicy"),
+        "users": MessageLookupByLibrary.simpleMessage("Użytkwonicy"),
         "vintage": MessageLookupByLibrary.simpleMessage("Vintage"),
         "wardrobe": MessageLookupByLibrary.simpleMessage("Szafa"),
         "wardrobe_page_title":
             MessageLookupByLibrary.simpleMessage("Twoja szafa"),
         "wedding": MessageLookupByLibrary.simpleMessage("Na ślub"),
+        "week": MessageLookupByLibrary.simpleMessage("TydzieĶ"),
         "winter": MessageLookupByLibrary.simpleMessage("Zima"),
         "wrong_password":
             MessageLookupByLibrary.simpleMessage("Hasło lub email jest błędne")

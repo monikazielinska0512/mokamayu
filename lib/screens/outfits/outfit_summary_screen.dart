@@ -157,6 +157,7 @@ class OutfitSummaryScreen extends StatelessWidget {
           .setOutfits(outfitsList!);
 
       context.go("/home/1");
+      CustomSnackBar.showSuccessSnackBar(context: context, message: "Zaktualizowano stylizację");
     });
   }
 

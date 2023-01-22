@@ -53,10 +53,8 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
   String getTitle() => "";
 
   @override
-  EdgeInsetsGeometry getPadding() => const EdgeInsets.only(
-      top: 10, right: 20, left: 20, bottom: 50);
-
-
+  EdgeInsetsGeometry getPadding() =>
+      const EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 50);
 
   @override
   Widget buildButtons() => friendData != null
@@ -84,7 +82,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   });
             },
             icon: Icons.check,
-            text: "Friends",
+            text: "Znajomy",
             backgroundColor: ColorsConstants.mint,
           );
         }
@@ -96,7 +94,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   .cancelFriendInvite(friendData!);
             },
             icon: Icons.outgoing_mail,
-            text: "Wysłano",
+            text: "Wysłano zaproszenie",
             backgroundColor: ColorsConstants.mint,
           );
         }
@@ -113,7 +111,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   });
             },
             icon: Icons.mark_email_unread,
-            text: "Respond",
+            text: "Odpowiedz",
             backgroundColor: ColorsConstants.mint,
           );
         }

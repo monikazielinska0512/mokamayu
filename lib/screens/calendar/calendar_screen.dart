@@ -335,91 +335,97 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 color: ColorsConstants.white),
             child: SingleChildScrollView(
                 child: TableCalendar<Event>(
+                    availableCalendarFormats: {
+                      CalendarFormat.month: S.of(context).month,
+                      CalendarFormat.twoWeeks: S.of(context).two_weeks,
+                      CalendarFormat.week: S.of(context).week
+                    },
+                    locale: 'pl_PL',
                     calendarFormat: _calendarFormat,
                     headerStyle: HeaderStyle(
-                        titleCentered: true,
-                        formatButtonShowsNext: false,
-                        formatButtonPadding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        formatButtonDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: ColorsConstants.sunflower.withOpacity(0.2)),
-                        formatButtonTextStyle:
-                        TextStyles.paragraphRegularSemiBold14(
-                            ColorsConstants.sunflower),
-                        leftChevronIcon: const Icon(Ionicons.chevron_back,
-                            color: Colors.black),
-                        leftChevronPadding: const EdgeInsets.all(0),
-                        rightChevronIcon: const Icon(Ionicons.chevron_forward,
-                            color: Colors.black),
-                        rightChevronPadding: const EdgeInsets.only(left: 10),
-                        rightChevronMargin: const EdgeInsets.all(0),
-                        leftChevronMargin: const EdgeInsets.all(0),
-                        titleTextStyle: TextStyles.paragraphRegularSemiBold16(),
-                        headerPadding: const EdgeInsets.all(5)),
-                    daysOfWeekStyle: DaysOfWeekStyle(
-                        weekdayStyle: TextStyles.paragraphRegularSemiBold12(
-                            ColorsConstants.darkBrick),
-                        weekendStyle: TextStyles.paragraphRegularSemiBold12(
-                            ColorsConstants.darkBrick)),
-                    firstDay: DateTime.utc(2010, 10, 16),
-                    lastDay: DateTime.utc(2030, 3, 14),
-                    focusedDay: _selectedDay,
-                    selectedDayPredicate: (day) {
-                      return isSameDay(_selectedDay, day);
-                    },
-                    onDaySelected: (selectedDay, focusedDay) {
-                      setState(() {
-                        _selectedDay = selectedDay;
-                        _focusedDay = focusedDay;
-                      });
-                    },
-                    onFormatChanged: (format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    },
-                    onPageChanged: (focusedDay) {
-                      _focusedDay = focusedDay;
-                    },
-                    eventLoader: _getEventsfromDay,
-                    calendarStyle: CalendarStyle(
-                      cellMargin: const EdgeInsets.all(5),
-                      todayTextStyle:
-                      TextStyles.paragraphRegular12(Colors.white),
-                      defaultTextStyle: TextStyles.paragraphRegular12(),
-                      weekendTextStyle: TextStyles.paragraphRegularSemiBold12(),
-                      selectedTextStyle:
-                      TextStyles.paragraphRegularSemiBold12(Colors.white),
-                      markersAlignment: Alignment.bottomRight,
-                      selectedDecoration: const BoxDecoration(
-                        color: ColorsConstants.peachy,
-                        shape: BoxShape.circle,
-                      ),
-                      todayDecoration: const BoxDecoration(
-                        color: ColorsConstants.darkPeach,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    calendarBuilders: CalendarBuilders(
-                      markerBuilder: (context, day, events) =>
-                      events.isNotEmpty
-                          ? Container(
-                        width: 20,
-                        height: 20,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: ColorsConstants.darkBrick,
-                        ),
-                        child: Text(
-                          '${events.length}',
-                          style: TextStyles.paragraphRegularSemiBold12(
-                              ColorsConstants.white),
-                        ),
-                      )
-                          : null,
-                    )))));
+                    titleCentered: true,
+                    formatButtonShowsNext: false,
+                formatButtonPadding: const EdgeInsets.symmetric(
+                horizontal: 10, vertical: 5),
+                formatButtonDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: ColorsConstants.sunflower.withOpacity(0.2)),
+                formatButtonTextStyle:
+                TextStyles.paragraphRegularSemiBold14(
+                    ColorsConstants.sunflower),
+                leftChevronIcon: const Icon(Ionicons.chevron_back,
+                    color: Colors.black),
+                leftChevronPadding: const EdgeInsets.all(0),
+                rightChevronIcon: const Icon(Ionicons.chevron_forward,
+                    color: Colors.black),
+                rightChevronPadding: const EdgeInsets.only(left: 10),
+                rightChevronMargin: const EdgeInsets.all(0),
+                leftChevronMargin: const EdgeInsets.all(0),
+                titleTextStyle: TextStyles.paragraphRegularSemiBold16(),
+                headerPadding: const EdgeInsets.all(5)),
+            daysOfWeekStyle: DaysOfWeekStyle(
+                weekdayStyle: TextStyles.paragraphRegularSemiBold12(
+                    ColorsConstants.darkBrick),
+                weekendStyle: TextStyles.paragraphRegularSemiBold12(
+                    ColorsConstants.darkBrick)),
+            firstDay: DateTime.utc(2010, 10, 16),
+            lastDay: DateTime.utc(2030, 3, 14),
+            focusedDay: _selectedDay,
+            selectedDayPredicate: (day) {
+              return isSameDay(_selectedDay, day);
+            },
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay;
+              });
+            },
+            onFormatChanged: (format) {
+              setState(() {
+                _calendarFormat = format;
+              });
+            },
+            onPageChanged: (focusedDay) {
+              _focusedDay = focusedDay;
+            },
+            eventLoader: _getEventsfromDay,
+            calendarStyle: CalendarStyle(
+              cellMargin: const EdgeInsets.all(5),
+              todayTextStyle:
+              TextStyles.paragraphRegular12(Colors.white),
+              defaultTextStyle: TextStyles.paragraphRegular12(),
+              weekendTextStyle: TextStyles.paragraphRegularSemiBold12(),
+              selectedTextStyle:
+              TextStyles.paragraphRegularSemiBold12(Colors.white),
+              markersAlignment: Alignment.bottomRight,
+              selectedDecoration: const BoxDecoration(
+                color: ColorsConstants.peachy,
+                shape: BoxShape.circle,
+              ),
+              todayDecoration: const BoxDecoration(
+                color: ColorsConstants.darkPeach,
+                shape: BoxShape.circle,
+              ),
+            ),
+            calendarBuilders: CalendarBuilders(
+              markerBuilder: (context, day, events) =>
+              events.isNotEmpty
+                  ? Container(
+                width: 20,
+                height: 20,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: ColorsConstants.darkBrick,
+                ),
+                child: Text(
+                  '${events.length}',
+                  style: TextStyles.paragraphRegularSemiBold12(
+                      ColorsConstants.white),
+                ),
+              )
+                  : null,
+            )))));
   }
 
   Widget buildPlannedOutfits() {
@@ -473,7 +479,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             Padding(
                                 padding: const EdgeInsets.all(30),
                                 child: Text(
-                                    S.of(context).empty_planned_outfits,
+                                    S
+                                        .of(context)
+                                        .empty_planned_outfits,
                                     textAlign: TextAlign.center,
                                     style: TextStyles.paragraphRegular14(
                                         Colors.grey)))
