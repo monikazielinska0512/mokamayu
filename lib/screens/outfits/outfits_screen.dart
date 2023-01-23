@@ -20,7 +20,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
   Future<List<Outfit>>? outfitsList;
   Future<List<Outfit>>? outfitsListCopy;
   Future<List<WardrobeItem>>? itemList;
-  List<String> selectedChips = OutfitTags.styles;
+  List<String> selectedChips = [];
 
   @override
   void initState() {
@@ -37,6 +37,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    selectedChips = OutfitTags.getLanguagesStyles(context);
     outfitsList =
         Provider.of<OutfitManager>(context, listen: true).getOutfitList;
     outfitsListCopy =

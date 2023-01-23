@@ -20,7 +20,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   Future<List<WardrobeItem>>? futureItemListCopy;
   List<String> selectedTypes = [];
   List<String> selectedSizes = Tags.sizes;
-  List<String> selectedStyles = Tags.styles;
+  // List<String> selectedStyles = [];
   List<String> selectedChips = [];
 
   Future<List<Outfit>>? outfitsList;
@@ -40,13 +40,11 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    futureItemListCopy = Provider
-        .of<WardrobeManager>(context, listen: true)
+    // selectedStyles = Tags.getLanguagesStyles(context);
+    futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
         .getWardrobeItemListCopy;
     futureItemList =
-        Provider
-            .of<WardrobeManager>(context, listen: true)
-            .getWardrobeItemList;
+        Provider.of<WardrobeManager>(context, listen: true).getWardrobeItemList;
     return BasicScreen(
         title: S.of(context).wardrobe,
         leftButton: DotsButton(context),
@@ -64,19 +62,21 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                       MultiSelectChip(Tags.getLanguagesTypes(context),
                           chipsColor: ColorsConstants.darkPeach,
                           onSelectionChanged: (selectedList) {
-                            selectedChips =
-                            selectedList.isEmpty ? Tags.getLanguagesStyles(context) : selectedList;
-                          }, type: "type_main")
+                        selectedChips = selectedList.isEmpty
+                            ? Tags.getLanguagesTypes(context)
+                            : selectedList;
+                      }, type: "type_main")
                     ])),
               ]),
               const SizedBox(height: 10),
               Expanded(
-                  child: 
-                  Container( 
-                    padding: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(color: ColorsConstants.mint.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
+                  child: Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          color: ColorsConstants.mint.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(12)),
                       child: PhotoGrid(
-                      itemList: futureItemListCopy ?? futureItemList))),
+                          itemList: futureItemListCopy ?? futureItemList))),
             ],
           ),
           buildFloatingButton(),
@@ -84,37 +84,25 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
   }
 
   Widget buildSearchBarAndFilters() {
-
     return SizedBox(
-        height: MediaQuery
-            .of(context)
-            .size
-            .height * 0.076,
+        height: MediaQuery.of(context).size.height * 0.076,
         child:
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        SizedBox(
-        width: MediaQuery.of(context).size.width * 0.73,
-        height: MediaQuery
-            .of(context)
-            .size
-            .height * 0.1,
-        child: SearchTextField(
-            readOnly: true,
-            onTap: () =>
-
-        context.pushNamed("wardrobe-item-search-screen",
-        extra: futureItemList)
-  ,
-    )),
-    const SizedBox(width: 10),
-    FilterModal(
-    width: 0.15,
-    height: 0.1,
-    onApplyWardrobe: (selectedList) =>
-    {futureItemListCopy = selectedList})
-    ]
-    )
-    );
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          SizedBox(
+              width: MediaQuery.of(context).size.width * 0.73,
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: SearchTextField(
+                readOnly: true,
+                onTap: () => context.pushNamed("wardrobe-item-search-screen",
+                    extra: futureItemList),
+              )),
+          const SizedBox(width: 10),
+          FilterModal(
+              width: 0.15,
+              height: 0.1,
+              onApplyWardrobe: (selectedList) =>
+                  {futureItemListCopy = selectedList})
+        ]));
   }
 
   Widget buildFloatingButton() {

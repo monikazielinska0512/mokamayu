@@ -120,8 +120,11 @@ class OutfitManager extends ChangeNotifier {
       List<String> seasonsList,
       List<Outfit> itemList) async {
     List<Outfit> filteredList = [];
-    stylesList = stylesList.isNotEmpty ? stylesList : OutfitTags.styles;
-    seasonsList = seasonsList.isNotEmpty ? seasonsList : OutfitTags.seasons;
+    stylesList = stylesList.isNotEmpty
+        ? stylesList
+        : OutfitTags.getLanguagesStyles(context);
+    seasonsList =
+        seasonsList.isNotEmpty ? seasonsList : OutfitTags.getSeasons(context);
 
     for (var element in itemList) {
       Outfit item = element;

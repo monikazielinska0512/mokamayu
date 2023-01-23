@@ -16,18 +16,23 @@ class FilterModal extends StatefulWidget {
   Future<List<WardrobeItem>>? futureItemListCopy;
   Future<List<Outfit>>? futureOutfitListCopy;
   List<String> selectedTypes = [];
-  List<String> selectedStyles = Tags.styles;
+  List<String> selectedStyles = [];
   List<String> selectedSizes = Tags.sizes;
 
-  List<String> selectedOutfitStyles = OutfitTags.styles;
-  List<String> selectedOutfitSeasons = OutfitTags.seasons;
+  List<String> selectedOutfitStyles = [];
+  List<String> selectedOutfitSeasons = [];
   Function(Future<List<WardrobeItem>>?)? onApplyWardrobe;
   Function(Future<List<Outfit>>?)? onApplyOutfits;
 
   double height;
   double width;
 
-  FilterModal({Key? key, this.onApplyWardrobe, this.onApplyOutfits, this.width=0.16, this.height=0.04})
+  FilterModal(
+      {Key? key,
+      this.onApplyWardrobe,
+      this.onApplyOutfits,
+      this.width = 0.16,
+      this.height = 0.04})
       : super(key: key);
 
   @override
@@ -37,6 +42,9 @@ class FilterModal extends StatefulWidget {
 class _FilterModalState extends State<FilterModal> {
   @override
   Widget build(BuildContext context) {
+    widget.selectedOutfitStyles = OutfitTags.getLanguagesStyles(context);
+    widget.selectedOutfitSeasons = OutfitTags.getSeasons(context);
+    widget.selectedStyles = Tags.getLanguagesStyles(context);
     return CustomIconButton(
         height: widget.height,
         width: widget.width,
@@ -73,10 +81,10 @@ class _FilterModalState extends State<FilterModal> {
           child: MultiSelectChip(Tags.getLanguagesTypes(context),
               isScrollable: false,
               onSelectionChanged: (selectedList) => {
-                setState(() {
-                  widget.selectedTypes = selectedList;
-                })
-              },
+                    setState(() {
+                      widget.selectedTypes = selectedList;
+                    })
+                  },
               type: "type",
               chipsColor: ColorsConstants.peachy))
     ]);
@@ -95,9 +103,9 @@ class _FilterModalState extends State<FilterModal> {
               isScrollable: false,
               type: "style",
               onSelectionChanged: (selectedList) => {
-                widget.selectedStyles = selectedList,
-                // print(widget.selectedStyles)
-              })),
+                    widget.selectedStyles = selectedList,
+                    // print(widget.selectedStyles)
+                  })),
     ]);
   }
 
@@ -114,9 +122,9 @@ class _FilterModalState extends State<FilterModal> {
               isScrollable: false,
               type: "outfit_style",
               onSelectionChanged: (selectedList) => {
-                widget.selectedOutfitStyles = selectedList,
-                // print(widget.selectedStyles)
-              })),
+                    widget.selectedOutfitStyles = selectedList,
+                    // print(widget.selectedStyles)
+                  })),
     ]);
   }
 
@@ -133,9 +141,9 @@ class _FilterModalState extends State<FilterModal> {
               isScrollable: false,
               type: "outfit_season",
               onSelectionChanged: (selectedList) => {
-                widget.selectedOutfitSeasons = selectedList,
-                // print(widget.selectedStyles)
-              })),
+                    widget.selectedOutfitSeasons = selectedList,
+                    // print(widget.selectedStyles)
+                  })),
     ]);
   }
 
@@ -151,9 +159,9 @@ class _FilterModalState extends State<FilterModal> {
               Tags.sizes,
               type: "size",
               onSelectionChanged: (selectedList) => {
-                widget.selectedSizes = selectedList,
-                // print(widget.selectedSizes)
-              }))
+                    widget.selectedSizes = selectedList,
+                    // print(widget.selectedSizes)
+                  }))
     ]);
   }
 
@@ -163,47 +171,47 @@ class _FilterModalState extends State<FilterModal> {
       child: ButtonDarker(
           context,
           S.of(context).apply_filters,
-              () => {
-            if (widget.onApplyWardrobe != null)
-              {
-                widget.futureItemListCopy = Provider.of<WardrobeManager>(
-                    context,
-                    listen: false)
-                    .filterWardrobe(
-                    context,
-                    widget.selectedTypes,
-                    widget.selectedStyles,
-                    widget.selectedSizes,
-                    Provider.of<WardrobeManager>(context, listen: false)
-                        .getFinalWardrobeItemList),
-                if (widget.futureItemListCopy != null)
+          () => {
+                if (widget.onApplyWardrobe != null)
                   {
-                    Provider.of<WardrobeManager>(context, listen: false)
-                        .setWardrobeItemListCopy(widget.futureItemListCopy!)
-                  },
-              }
-            else
-              {
-                widget.futureOutfitListCopy = Provider.of<OutfitManager>(
-                    context,
-                    listen: false)
-                    .filterOutfits(
-                    context,
-                    widget.selectedOutfitStyles,
-                    widget.selectedOutfitSeasons,
-                    Provider.of<OutfitManager>(context, listen: false)
-                        .getFinalOutfitList),
-                if (widget.futureOutfitListCopy != null)
+                    widget.futureItemListCopy = Provider.of<WardrobeManager>(
+                            context,
+                            listen: false)
+                        .filterWardrobe(
+                            context,
+                            widget.selectedTypes,
+                            widget.selectedStyles,
+                            widget.selectedSizes,
+                            Provider.of<WardrobeManager>(context, listen: false)
+                                .getFinalWardrobeItemList),
+                    if (widget.futureItemListCopy != null)
+                      {
+                        Provider.of<WardrobeManager>(context, listen: false)
+                            .setWardrobeItemListCopy(widget.futureItemListCopy!)
+                      },
+                  }
+                else
                   {
-                    Provider.of<OutfitManager>(context, listen: false)
-                        .setOutfitsCopy(widget.futureOutfitListCopy!)
+                    widget.futureOutfitListCopy = Provider.of<OutfitManager>(
+                            context,
+                            listen: false)
+                        .filterOutfits(
+                            context,
+                            widget.selectedOutfitStyles,
+                            widget.selectedOutfitSeasons,
+                            Provider.of<OutfitManager>(context, listen: false)
+                                .getFinalOutfitList),
+                    if (widget.futureOutfitListCopy != null)
+                      {
+                        Provider.of<OutfitManager>(context, listen: false)
+                            .setOutfitsCopy(widget.futureOutfitListCopy!)
+                      },
                   },
-              },
 
-            // widget.onApply!(widget.futureItemListCopy),
-            context.pop(),
-            // clearFilters()
-          },
+                // widget.onApply!(widget.futureItemListCopy),
+                context.pop(),
+                // clearFilters()
+              },
           shouldExpand: false,
           height: 0.060,
           width: 0.6),
@@ -226,8 +234,7 @@ class _FilterModalState extends State<FilterModal> {
                     height: 500.0,
                     decoration: const BoxDecoration(
                         color: Colors.white,
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(40))),
+                        borderRadius: BorderRadius.all(Radius.circular(40))),
                     child: SingleChildScrollView(
                       controller: controller,
                       child: Column(
@@ -235,8 +242,7 @@ class _FilterModalState extends State<FilterModal> {
                           buildCloseButton(),
                           buildTitle(),
                           SingleChildScrollView(
-                              child: Container(
-                                  child: buildFiltersSection())),
+                              child: Container(child: buildFiltersSection())),
                           buildApplyButton()
                         ],
                       ),
@@ -276,20 +282,20 @@ class _FilterModalState extends State<FilterModal> {
         alignment: Alignment.topLeft,
         child: Padding(
             padding:
-            const EdgeInsets.only(top: 20, right: 30, left: 30, bottom: 30),
+                const EdgeInsets.only(top: 20, right: 30, left: 30, bottom: 30),
             child: widget.onApplyWardrobe != null
                 ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildTypesSection(),
-                  buildStylesSection(),
-                  buildSizesSection()
-                ])
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                        buildTypesSection(),
+                        buildStylesSection(),
+                        buildSizesSection()
+                      ])
                 : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildOutfitStylesSection(),
-                  buildOutfitSeasonSection()
-                ])));
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                        buildOutfitStylesSection(),
+                        buildOutfitSeasonSection()
+                      ])));
   }
 }

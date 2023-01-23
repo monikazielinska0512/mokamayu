@@ -26,16 +26,6 @@ class Tags {
     '48'
   ];
 
-  // static List<String> types = [
-  //   "Sukienka",
-  //   "Koszulka",
-  // ];
-
-  // static List<String> getTypes() {
-  //   types.sort();
-  //   return types;
-  // }
-
   static List<String> getLanguagesTypes(BuildContext context) {
     List<String> list = [
       S.of(context).dress,
@@ -80,32 +70,9 @@ class Tags {
     list.sort();
     return list;
   }
-
-  static const List<String> styles = [
-    "School",
-    "Classic",
-    "Sporty",
-    "Elegant",
-    "Super",
-    "Vintage",
-    "Streetwear",
-    "Classic1",
-    "Super1",
-    "Vintage1",
-    "Streetwea1r",
-  ];
 }
 
 class OutfitTags {
-  static const List<String> styles = [
-    'Active',
-    'Party',
-    'Work',
-    'Casual',
-    'Wedding'
-  ];
-
-
   static List<String> getLanguagesStyles(BuildContext context) {
     List<String> list = [
       S.of(context).active,
