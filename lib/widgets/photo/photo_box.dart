@@ -70,15 +70,7 @@ class PhotoBox extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12), // Image border
                 child: SizedBox.fromSize(
                   size: const Size.fromRadius(40), // Image radius
-                  child: ExtendedImage.network(
-                    photoURL!,
-                    fit: BoxFit.fill,
-                    cacheWidth: 40 * window.devicePixelRatio.ceil(),
-                    cacheHeight: 40 * window.devicePixelRatio.ceil(),
-                    cache: true,
-                    enableMemoryCache: false,
-                    enableLoadState: true,
-                  ),
+                  child: Image.network(photoURL!, fit: BoxFit.fill),
                 ),
               )),
         ]),
