@@ -118,9 +118,11 @@ class WardrobeManager extends ChangeNotifier {
       List<String> sizesList,
       List<WardrobeItem> itemList) async {
     List<WardrobeItem> filteredList = [];
-    typesList = typesList.isNotEmpty ? typesList : Tags.getLanguagesTypes(context);
+    typesList =
+        typesList.isNotEmpty ? typesList : Tags.getLanguagesTypes(context);
     sizesList = sizesList.isNotEmpty ? sizesList : Tags.sizes;
-    stylesList = stylesList.isNotEmpty ? stylesList : Tags.getLanguagesStyles(context);
+    stylesList =
+        stylesList.isNotEmpty ? stylesList : Tags.getLanguagesStyles(context);
 
     var set = Set.of(stylesList);
 
@@ -154,7 +156,8 @@ class WardrobeManager extends ChangeNotifier {
   Future<List<WardrobeItem>> filterFriendWardrobe(BuildContext context,
       List<String> typesList, List<WardrobeItem> itemList) async {
     List<WardrobeItem> filteredList = [];
-    typesList = typesList.isNotEmpty ? typesList : Tags.getLanguagesTypes(context);
+    typesList =
+        typesList.isNotEmpty ? typesList : Tags.getLanguagesTypes(context);
 
     filteredList =
         itemList.where((item) => typesList.contains(item.type)).toList();

@@ -22,25 +22,28 @@ class MultiSelectChipsFormField extends FormField<List<String>> {
             initialValue: initialValue,
             autovalidateMode: AutovalidateMode.disabled,
             builder: (FormFieldState<List<String>> state) {
-              return
-                isScroll
-                    ? SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Wrap(spacing: 20, children: <Widget>[
-                          MultiSelectChip(chipsList,
-                              isScrollable: isScroll,
-                              chipsColor: ColorsConstants.darkPeach,
-                              onSelectionChanged: (selectedList) {
-                            state.didChange(selectedList);
-                          })
-                        ]))
-                    : Wrap(spacing: 10, children: <Widget>[
+              print('tu');
+              print(initialValue);
+              return isScroll
+                  ? SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Wrap(spacing: 20, children: <Widget>[
                         MultiSelectChip(chipsList,
                             isScrollable: isScroll,
+                            // initialValues: initialValue!,
                             chipsColor: ColorsConstants.darkPeach,
                             onSelectionChanged: (selectedList) {
                           state.didChange(selectedList);
                         })
-                      ]);
+                      ]))
+                  : Wrap(spacing: 10, children: <Widget>[
+                      MultiSelectChip(chipsList,
+                          isScrollable: isScroll,
+                          // initialValues: initialValue!,
+                          chipsColor: ColorsConstants.darkPeach,
+                          onSelectionChanged: (selectedList) {
+                        state.didChange(selectedList);
+                      })
+                    ]);
             });
 }

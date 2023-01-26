@@ -13,6 +13,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../../generated/l10n.dart';
 import '../../../utils/validator.dart';
+import 'keep_alive_wrapper.dart';
 
 class WardrobeItemForm extends StatefulWidget {
   final String? photoPath;
@@ -40,6 +41,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       _size = widget.item!.size;
       _name = widget.item!.name;
       _styles = widget.item!.styles;
+      print(_styles);
     }
     super.initState();
   }
@@ -76,7 +78,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             return 'Please enter name';
           }
           if (value.length > 20) {
-            return 'Maximum lenght is 20 characters';
+            return 'Maximum length is 20 characters';
           }
           return null;
         },
@@ -102,10 +104,12 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   }
 
   Map<String, Widget>? getTabs() => {
-        S.of(context).type: SingleChildScrollView(child: buildTypeChipsField()),
-        S.of(context).style:
-            SingleChildScrollView(child: buildStyleChipsField()),
-        S.of(context).size: SingleChildScrollView(child: buildSizeChipsField())
+        S.of(context).type: SingleChildScrollView(
+            child: KeepAliveWrapper(child: buildTypeChipsField())),
+        S.of(context).style: SingleChildScrollView(
+            child: KeepAliveWrapper(child: buildStyleChipsField())),
+        S.of(context).size: SingleChildScrollView(
+            child: KeepAliveWrapper(child: buildSizeChipsField()))
       };
 
   Widget buildTypeChipsField() {
@@ -119,6 +123,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                   Validator.checkIfSingleValueSelected(value!, context),
               onSaved: (value) => _type = value!,
               color: ColorsConstants.sunflower,
+              type: "wardrobeType",
               chipsList: Tags.getLanguagesTypes(context)))
     ]);
   }
@@ -134,12 +139,14 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                 Validator.checkIfSingleValueSelected(value!, context),
             onSaved: (value) => _size = value!,
             color: ColorsConstants.darkMint,
+            type: "wardrobeSize",
             chipsList: Tags.sizes,
           )),
     ]);
   }
 
   Widget buildStyleChipsField() {
+    print(_styles);
     return Column(children: [
       MultiSelectChipsFormField(
           isScroll: false,

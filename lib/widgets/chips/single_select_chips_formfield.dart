@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mokamayu/services/managers/wardrobe_manager.dart';
 import 'package:provider/provider.dart';
 import '../../constants/text_styles.dart';
 import '../../services/managers/outfit_manager.dart';
