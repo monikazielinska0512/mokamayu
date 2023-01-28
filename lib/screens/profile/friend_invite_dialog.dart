@@ -4,7 +4,6 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/authentication/auth.dart';
 import 'package:provider/provider.dart';
-
 import '../../services/managers/managers.dart';
 import '../../widgets/widgets.dart';
 
@@ -36,18 +35,20 @@ class FriendDialogBox extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.14,
+                    height: isResponse
+                        ? MediaQuery.of(context).size.height * 0.25
+                        : MediaQuery.of(context).size.height * 0.14,
                     child: Padding(
                         padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
+                          children:
+                              isResponse
+                          ? [
                             Padding(
                               padding: const EdgeInsets.only(top: 20),
-                              child:
-                              isResponse
-                                  ? friendDialogCard("Zaakceptuj", () {
+                              child: friendDialogCard("Zaakceptuj", () {
                                 Provider.of<ProfileManager>(context, listen: false).acceptFriendInvite(friend);
                                 CustomNotification notif = CustomNotification(
                                     sentFrom: AuthService().getCurrentUserID(),
@@ -57,14 +58,28 @@ class FriendDialogBox extends StatelessWidget {
                                 Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, friend.uid);
                                 context.pop();
                               }, 85)
-                                  : friendDialogCard("Usuń znajomego",
-                                      () {
-                                    Provider.of<ProfileManager>(context, listen: false).removeFriend(friend);
-                                    context.pop();
-                                  }, 18),
-
                             ),
-                          ],
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child:
+                                  friendDialogCard("Odrzuć",
+                                      () {
+                                    Provider.of<ProfileManager>(context, listen: false).rejectFriendInvite(friend);
+                                    context.pop();
+                                  }, 18)
+                            ),
+                          ]
+                          : [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 20),
+                                  child:
+                                  friendDialogCard("Usuń znajomego",
+                                          () {
+                                        Provider.of<ProfileManager>(context, listen: false).removeFriend(friend);
+                                        context.pop();
+                                      }, 18),
+                                ),
+                              ]
                         ))))
           ],
         ));
