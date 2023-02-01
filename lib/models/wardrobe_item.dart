@@ -7,6 +7,7 @@ class WardrobeItem {
   final String photoURL;
   final List<String> styles;
   final DateTime created;
+  final String createdBy;
   String? reference;
 
   WardrobeItem({
@@ -16,6 +17,7 @@ class WardrobeItem {
     required this.photoURL,
     required this.styles,
     required this.created,
+    required this.createdBy,
     this.reference,
   });
 
@@ -24,6 +26,7 @@ class WardrobeItem {
         type = '',
         size = '',
         photoURL = '',
+        createdBy = '',
         styles = [],
         created = DateTime.now();
 
@@ -33,6 +36,7 @@ class WardrobeItem {
           type: item['type'] as String,
           size: item['size'] as String,
           photoURL: item['photoURL'] as String,
+          createdBy: item['createdBy'] as String,
           styles: List.from(item['styles']),
           created: DateTime.parse(item['created']));
 
@@ -43,6 +47,7 @@ class WardrobeItem {
         'photoURL': photoURL.toString(),
         'styles': styles,
         'created': created.toString(),
+        "createdBy": createdBy.toString(),
       };
 
   factory WardrobeItem.fromSnapshot(DocumentSnapshot snapshot) {

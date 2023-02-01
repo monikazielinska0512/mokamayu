@@ -1,26 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/models/outfit.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/colors.dart';
-import '../../constants/text_styles.dart';
-import '../../services/managers/outfit_manager.dart';
+import '../../constants/constants.dart';
+import '../../generated/l10n.dart';
+import '../../services/managers/managers.dart';
 import '../../utils/validator.dart';
-import '../../widgets/chips/single_select_chips_formfield.dart';
+import '../../widgets/chips/chips.dart';
 
+//ignore: must_be_immutable
 class OutfitForm extends StatelessWidget {
   OutfitForm({super.key, required this.formKey, this.item});
+
   final Outfit? item;
   final GlobalKey<FormState> formKey;
   String _season = "";
-  String _style = "";
+  List<String> _styles = [];
+
   @override
   Widget build(BuildContext context) {
-    _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
-    _style = Provider.of<OutfitManager>(context, listen: false).getStyle!;
-    return Padding(
-        padding:
-            const EdgeInsets.only(top: 30, bottom: 10, left: 30, right: 30),
+    if (item != null) {
+      _styles = item!.styles;
+      _season = item!.season;
+    } else {
+      _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
+      _styles = Provider.of<OutfitManager>(context, listen: false).getStyle;
+    }
+    return Scrollbar(
+        thickness: 2,
+        radius: const Radius.circular(10),
+        scrollbarOrientation: ScrollbarOrientation.right,
         child: SingleChildScrollView(
             child: Form(
                 key: formKey,
@@ -35,8 +45,8 @@ class OutfitForm extends StatelessWidget {
       Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-              padding: const EdgeInsets.only(bottom: 5, top: 10),
-              child: Text("Season",
+              padding: const EdgeInsets.only(bottom: 5, top: 10, right: 5),
+              child: Text(S.of(context).season,
                   style: TextStyles.paragraphRegularSemiBold18()))),
       Align(
           alignment: Alignment.centerLeft,
@@ -51,7 +61,7 @@ class OutfitForm extends StatelessWidget {
               _season = value!;
             },
             color: ColorsConstants.darkMint,
-            chipsList: const ["Spring", "Summer", "Fall", "Winter"],
+            chipsList: OutfitTags.getSeasons(context),
           ))
     ]);
   }
@@ -62,23 +72,34 @@ class OutfitForm extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
               padding: const EdgeInsets.only(bottom: 5, top: 10),
-              child: Text("Style",
+              child: Text(S.of(context).style,
                   style: TextStyles.paragraphRegularSemiBold18()))),
       Align(
           alignment: Alignment.centerLeft,
-          child: SingleSelectChipsFormField(
-            initialValue: _style,
-            type: 'style',
-            autoValidate: true,
-            context: context,
-            validator: (value) =>
-                Validator.checkIfSingleValueSelected(value!, context),
-            onSaved: (value) {
-              _style = value!;
-            },
-            color: ColorsConstants.sunflower,
-            chipsList: const ["Party", "Work", "Active", "Casual", "Wedding"],
-          )),
+          child: MultiSelectChip(
+              chipsColor: ColorsConstants.lightBrown,
+              OutfitTags.getLanguagesStyles(context),
+              isScrollable: false,
+              initialValues: _styles,
+              // type: "style_outfit",
+              onSelectionChanged: (selectedList) => {
+                    _styles = selectedList,
+                  })
+
+          // SingleSelectChipsFormField(
+          //   initialValue: _styles,
+          //   type: 'style',
+          //   autoValidate: true,
+          //   context: context,
+          //   validator: (value) =>
+          //       Validator.checkIfSingleValueSelected(value!, context),
+          //   onSaved: (value) {
+          //     _styles = value!;
+          //   },
+          //   color: ColorsConstants.sunflower,
+          //   chipsList: OutfitTags.getLanguagesStyles(context),
+          // )
+          ),
     ]);
   }
 }

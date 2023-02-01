@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mokamayu/constants/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:searchfield/searchfield.dart';
-import 'package:mokamayu/constants/constants.dart';
+
 import '../../generated/l10n.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/wardrobe_manager.dart';
 
 class WardrobeItemSearch extends StatefulWidget {
-  WardrobeItemSearch({Key? key, required this.title}) : super(key: key);
+  const WardrobeItemSearch({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -68,7 +69,7 @@ class _WardrobeItemSearchState extends State<WardrobeItemSearch> {
             setState(() {
               _selectedWardrobeItem = x.item!;
             });
-            context.goNamed('wardrobe-item', extra: _selectedWardrobeItem);
+            context.pushNamed('wardrobe-item', extra: _selectedWardrobeItem);
             focus.unfocus();
           },
           searchInputDecoration: InputDecoration(
@@ -76,11 +77,11 @@ class _WardrobeItemSearchState extends State<WardrobeItemSearch> {
               fillColor: ColorsConstants.whiteAccent,
               labelStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
               hintStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
               ),
-              focusedBorder: OutlineInputBorder(
+              focusedBorder: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
               ),

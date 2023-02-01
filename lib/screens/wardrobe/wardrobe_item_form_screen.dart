@@ -1,27 +1,26 @@
 import 'dart:io';
+import 'dart:ui';
+
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mokamayu/screens/wardrobe/form/form.dart';
-import 'package:mokamayu/widgets/fundamental/background_card.dart';
-import 'package:mokamayu/widgets/fundamental/basic_page.dart';
+import 'package:mokamayu/services/managers/managers.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
 import '../../models/wardrobe_item.dart';
-import '../../services/managers/wardrobe_manager.dart';
 
+// ignore: must_be_immutable
 class AddWardrobeItemForm extends StatefulWidget {
-  final bool? disableFields;
-  final bool isEdit;
-  bool? isLocked;
+  bool isEdit;
   final String? photo;
-
   WardrobeItem? editItem;
 
   AddWardrobeItemForm(
       {Key? key,
       this.photo,
       this.editItem,
-      required this.isEdit,
-      this.disableFields})
+      required this.isEdit})
       : super(key: key);
 
   @override
@@ -31,75 +30,78 @@ class AddWardrobeItemForm extends StatefulWidget {
 class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
   @override
   void initState() {
-    widget.isLocked = (widget.isEdit == true ? false : false);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        context: context,
-        isFullScreen: true,
-        isEdit: true,
-        color: Colors.white,
-        rightButtonType: "",
-        body: Stack(children: [buildBackgroundPhoto(), buildForm()]),
-        type: "wardrobe_item_form");
+      context: context,
+      isFullScreen: true,
+      isEdit: true,
+      color: Colors.white,
+      rightButton: null,
+      leftButton: BackArrowButton(context),
+      body: Stack(children: [buildBackgroundPhoto(), buildForm()]),
+    );
   }
 
   Widget buildBackgroundPhoto() {
+    final picker = widget.editItem != null
+        ? PhotoPicker(
+            photoURL: widget.editItem!.photoURL, isEditPhotoForm: true)
+        : Container();
     return Positioned(
-        child: ClipRRect(
-            child: !widget.isEdit
-                ? Image.file(
-                    File(widget.photo ?? ""),
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.fill,
-                  )
-                : Image.network(
-                    widget.editItem!.photoURL,
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.fill,
-                  )));
+        child: !widget.isEdit
+            ? buildBackgroundImageForAddForm()
+            : buildBackgroundImageForEditForm(picker));
   }
 
   Widget buildForm() {
     return Align(
         alignment: Alignment.bottomLeft,
         child: BackgroundCard(
-          context: context,
-          height: 0.6,
-          child: AbsorbPointer(
-            absorbing: false,
-            child: WardrobeItemForm(
-                photoPath: widget.photo ?? "", item: widget.editItem),
-          ),
-        ));
+            context: context,
+            height: 0.7,
+            child: Stack(children: [
+                   Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              child:
+                          WardrobeItemForm(
+                                      photoPath: widget.photo ?? "",
+                                      item: widget.editItem))),
+                ])));
   }
 
-  Widget buildEditFormButtons() {
-    return Row(children: [
-      IconButton(
-          onPressed: () {
-            Provider.of<WardrobeManager>(context, listen: false)
-                .removeWardrobeItem(widget.editItem?.reference);
-            Provider.of<WardrobeManager>(context, listen: false)
-                .nullListItemCopy();
-            Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-            Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
-            Provider.of<WardrobeManager>(context, listen: false).setStyles([]);
-            context.go("/home/0");
-          },
-          icon: const Icon(Icons.delete)),
-      IconButton(
-          onPressed: () {
-            setState(() {
-              widget.isLocked = false;
-            });
-          },
-          icon: const Icon(Icons.edit))
-    ]);
+  bool isWardrobeItemMine() =>
+      Provider.of<WardrobeManager>(context, listen: false)
+          .finalWardrobeItemList
+          .contains(widget.editItem);
+
+
+  Widget buildBackgroundImageForAddForm() {
+    return Image.file(
+      File(widget.photo ?? ""),
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      fit: BoxFit.fill,
+    );
+  }
+
+  Widget buildBackgroundImageForEditForm(Widget picker) {
+    return ExtendedImage.network(
+      widget.editItem!.photoURL,
+      fit: BoxFit.fill,
+      cacheWidth: MediaQuery.of(context).size.width.toInt() *
+          window.devicePixelRatio.ceil(),
+      cacheHeight: MediaQuery.of(context).size.height.toInt() *
+          window.devicePixelRatio.ceil(),
+      cache: true,
+      enableMemoryCache: false,
+      enableLoadState: true,
+    );
   }
 }

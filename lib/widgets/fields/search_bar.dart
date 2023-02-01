@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
 import '../../constants/text_styles.dart';
 
+
+//ignore: must_be_immutable
 class SearchBar extends StatefulWidget {
   String title;
   String? hintTitle;
@@ -36,10 +38,10 @@ class _SearchBarState extends State<SearchBar> {
           labelStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
           hintText: widget.hintTitle,
           hintStyle: TextStyles.paragraphRegular18(ColorsConstants.grey),
-          enabledBorder:  OutlineInputBorder(
+          enabledBorder:  const OutlineInputBorder(
             borderSide: BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
           ),
-          focusedBorder:  OutlineInputBorder(
+          focusedBorder:  const OutlineInputBorder(
             borderSide: BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
           ),
           border: const OutlineInputBorder(

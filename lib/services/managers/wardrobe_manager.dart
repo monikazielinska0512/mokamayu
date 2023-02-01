@@ -1,6 +1,9 @@
+// ignore_for_file: avoid_print, unnecessary_null_comparison
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mokamayu/models/models.dart';
+
 import '../../constants/tags.dart';
 import '../authentication/auth.dart';
 import '../database/database_service.dart';
@@ -8,30 +11,66 @@ import '../database/database_service.dart';
 class WardrobeManager extends ChangeNotifier {
   List<WardrobeItem> finalWardrobeItemList = [];
   List<WardrobeItem> finalWardrobeItemListCopy = [];
+
+  List<WardrobeItem> finalFriendWardrobeItemList = [];
+  List<WardrobeItem> finalFriendWardrobeItemListCopy = [];
+
   Future<List<WardrobeItem>>? futureWardrobeItemList;
   Future<List<WardrobeItem>>? futureWardrobeItemListCopy;
 
+  Future<List<WardrobeItem>>? futureFriendWardrobeItemList;
+  Future<List<WardrobeItem>>? futureFriendWardrobeItemListCopy;
+
+  List<WardrobeItem> get getFinalWardrobeItemList => finalWardrobeItemList;
+
+  List<WardrobeItem> get getFinalFriendWardrobeItemList =>
+      finalFriendWardrobeItemList;
+
   Future<List<WardrobeItem>>? get getWardrobeItemList => futureWardrobeItemList;
+
   Future<List<WardrobeItem>>? get getWardrobeItemListCopy =>
       futureWardrobeItemListCopy;
-  List<WardrobeItem> get getFinalWardrobeItemList => finalWardrobeItemList;
+
+  Future<List<WardrobeItem>>? get getFriendWardrobeItemList =>
+      futureFriendWardrobeItemList;
+
+  Future<List<WardrobeItem>>? get getFriendWardrobeItemListCopy =>
+      futureFriendWardrobeItemListCopy;
+
+  bool block = false;
+  bool get getBlock => block;
 
   List<String>? itemTypes;
   List<String>? itemSizes;
   List<String>? itemStyles;
+
+  void blockEdit(bool newblock) {
+    block = newblock;
+  }
 
   void setWardrobeItemList(Future<List<WardrobeItem>> itemList) {
     futureWardrobeItemList = itemList;
     notifyListeners();
   }
 
-  void setWardrobeItemListCopy(Future<List<WardrobeItem>> itemList) {
+  void setWardrobeItemListCopy(Future<List<WardrobeItem>>? itemList) {
     futureWardrobeItemListCopy = itemList;
+    notifyListeners();
+  }
+
+  void setFriendWardrobeItemList(Future<List<WardrobeItem>> itemList) {
+    futureFriendWardrobeItemList = itemList;
+    notifyListeners();
+  }
+
+  void setFriendWardrobeItemListCopy(Future<List<WardrobeItem>> itemList) {
+    futureFriendWardrobeItemListCopy = itemList;
     notifyListeners();
   }
 
   void nullListItemCopy() {
     futureWardrobeItemListCopy = null;
+    futureFriendWardrobeItemListCopy = null;
     notifyListeners();
   }
 
@@ -61,12 +100,22 @@ class WardrobeManager extends ChangeNotifier {
         .get();
 
     List<WardrobeItem> itemList = [];
-    snapshot.docs.forEach((element) {
+    for (var element in snapshot.docs) {
       WardrobeItem item = WardrobeItem.fromSnapshot(element);
       itemList.add(item);
-    });
+    }
     finalWardrobeItemList = itemList;
     return finalWardrobeItemList;
+  }
+
+  Future<List<WardrobeItem>> readWardrobeItemsForUser(String uid) async {
+    QuerySnapshot snapshot =
+        await db.collection('users').doc(uid).collection('wardrobe').get();
+
+    finalFriendWardrobeItemList = snapshot.docs
+        .map((element) => WardrobeItem.fromSnapshot(element))
+        .toList();
+    return finalFriendWardrobeItemList;
   }
 
   Future<List<WardrobeItem>> filterWardrobe(
@@ -76,37 +125,43 @@ class WardrobeManager extends ChangeNotifier {
       List<String> sizesList,
       List<WardrobeItem> itemList) async {
     List<WardrobeItem> filteredList = [];
-    typesList = typesList.isNotEmpty ? typesList : Tags.types;
+    typesList =
+        typesList.isNotEmpty ? typesList : Tags.getLanguagesTypes(context);
     sizesList = sizesList.isNotEmpty ? sizesList : Tags.sizes;
-    stylesList = stylesList.isNotEmpty ? stylesList : Tags.styles;
+    stylesList =
+        stylesList.isNotEmpty ? stylesList : Tags.getLanguagesStyles(context);
 
     var set = Set.of(stylesList);
 
-    itemList.forEach((element) {
+    for (var element in itemList) {
       WardrobeItem item = element;
       bool type = typesList.contains(item.type);
       bool styles = set.containsAll(item.styles);
       bool size = sizesList.contains(item.size);
 
-      // print("Name:" +
-      //     item.name +
-      //     "\ntype: " +
-      //     type.toString() +
-      //     "\nstyles: " +
-      //     styles.toString() +
-      //     "\nsize: " +
-      //     size.toString());
-
       if (type && styles && size) {
         filteredList.add(item);
       }
-    });
+    }
 
     filteredList != null
         ? finalWardrobeItemListCopy = filteredList
         : finalWardrobeItemListCopy = itemList;
 
     return finalWardrobeItemListCopy;
+  }
+
+  Future<List<WardrobeItem>> filterFriendWardrobe(BuildContext context,
+      List<String> typesList, List<WardrobeItem> itemList) async {
+    List<WardrobeItem> filteredList = [];
+    typesList =
+        typesList.isNotEmpty ? typesList : Tags.getLanguagesTypes(context);
+
+    filteredList =
+        itemList.where((item) => typesList.contains(item.type)).toList();
+
+    finalFriendWardrobeItemListCopy = filteredList;
+    return finalFriendWardrobeItemListCopy;
   }
 
   void addWardrobeItem(WardrobeItem item) {
@@ -146,5 +201,12 @@ class WardrobeManager extends ChangeNotifier {
         .then((_) => print('Deleted'))
         .catchError((error) => print(' $error'));
     // notifyListeners();
+  }
+
+  void resetBeforeCreatingNewOutfit() {
+    nullListItemCopy();
+    setTypes([]);
+    setSizes([]);
+    setStyles([]);
   }
 }

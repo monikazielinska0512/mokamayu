@@ -7,6 +7,7 @@ import 'package:mokamayu/services/managers/outfit_manager.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/wardrobe_item.dart';
 import '../../services/managers/wardrobe_manager.dart';
 
@@ -14,16 +15,24 @@ import '../../services/managers/wardrobe_manager.dart';
 class FilterModal extends StatefulWidget {
   Future<List<WardrobeItem>>? futureItemListCopy;
   Future<List<Outfit>>? futureOutfitListCopy;
-  List<String> selectedTypes = Tags.types;
-  List<String> selectedStyles = Tags.styles;
+  List<String> selectedTypes = [];
+  List<String> selectedStyles = [];
   List<String> selectedSizes = Tags.sizes;
 
-  List<String> selectedOutfitStyles = OutfitTags.styles;
-  List<String> selectedOutfitSeasons = OutfitTags.seasons;
+  List<String> selectedOutfitStyles = [];
+  List<String> selectedOutfitSeasons = [];
   Function(Future<List<WardrobeItem>>?)? onApplyWardrobe;
   Function(Future<List<Outfit>>?)? onApplyOutfits;
 
-  FilterModal({Key? key, this.onApplyWardrobe, this.onApplyOutfits})
+  double height;
+  double width;
+
+  FilterModal(
+      {Key? key,
+      this.onApplyWardrobe,
+      this.onApplyOutfits,
+      this.width = 0.16,
+      this.height = 0.04})
       : super(key: key);
 
   @override
@@ -33,40 +42,14 @@ class FilterModal extends StatefulWidget {
 class _FilterModalState extends State<FilterModal> {
   @override
   Widget build(BuildContext context) {
+    widget.selectedOutfitStyles = OutfitTags.getLanguagesStyles(context);
+    widget.selectedOutfitSeasons = OutfitTags.getSeasons(context);
+    widget.selectedStyles = Tags.getLanguagesStyles(context);
     return CustomIconButton(
+        height: widget.height,
+        width: widget.width,
         icon: Ionicons.filter,
-        onPressed: () => showModalBottomSheet<void>(
-              backgroundColor: Colors.transparent,
-              barrierColor: Colors.transparent,
-              builder: (BuildContext context) {
-                return Stack(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    children: [
-                      buildBackgroundImage(),
-                      Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(40))),
-                        height: MediaQuery.of(context).size.height * 0.86,
-                        // color: Colors.white,
-                        child: Column(
-                          children: <Widget>[
-                            buildCLoseButton(),
-                            buildTitle(),
-                            buildFiltersSection(),
-                            buildApplyButton()
-                          ],
-                        ),
-                      ),
-                    ]);
-              },
-              context: context,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              isScrollControlled: true,
-            ));
+        onPressed: () => showModal());
   }
 
   void clearFilters() {
@@ -90,12 +73,12 @@ class _FilterModalState extends State<FilterModal> {
 
   Widget buildTypesSection() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("Types",
+      Text(S.of(context).clothing_types,
           style: TextStyles.paragraphRegularSemiBold18(),
           textAlign: TextAlign.start),
       Padding(
-          padding: const EdgeInsets.only(bottom: 10, top: 5),
-          child: MultiSelectChip(Tags.types,
+          padding: const EdgeInsets.only(bottom: 5, top: 5),
+          child: MultiSelectChip(Tags.getLanguagesTypes(context),
               isScrollable: false,
               onSelectionChanged: (selectedList) => {
                     setState(() {
@@ -109,64 +92,61 @@ class _FilterModalState extends State<FilterModal> {
 
   Widget buildStylesSection() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("Styles",
+      Text(S.of(context).style,
           style: TextStyles.paragraphRegularSemiBold18(),
           textAlign: TextAlign.start),
       Padding(
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: MultiSelectChip(
               chipsColor: ColorsConstants.mint,
-              Tags.styles,
+              Tags.getLanguagesStyles(context),
               isScrollable: false,
               type: "style",
               onSelectionChanged: (selectedList) => {
                     widget.selectedStyles = selectedList,
-                    // print(widget.selectedStyles)
                   })),
     ]);
   }
 
   Widget buildOutfitStylesSection() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("Styles",
+      Text(S.of(context).style,
           style: TextStyles.paragraphRegularSemiBold18(),
           textAlign: TextAlign.start),
       Padding(
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: MultiSelectChip(
-              chipsColor: ColorsConstants.mint,
-              OutfitTags.styles,
+              chipsColor: ColorsConstants.peachy,
+              OutfitTags.getLanguagesStyles(context),
               isScrollable: false,
               type: "outfit_style",
               onSelectionChanged: (selectedList) => {
                     widget.selectedOutfitStyles = selectedList,
-                    // print(widget.selectedStyles)
                   })),
     ]);
   }
 
   Widget buildOutfitSeasonSection() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("Seasons",
+      Text(S.of(context).season,
           style: TextStyles.paragraphRegularSemiBold18(),
           textAlign: TextAlign.start),
       Padding(
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: MultiSelectChip(
               chipsColor: ColorsConstants.mint,
-              OutfitTags.seasons,
+              OutfitTags.getSeasons(context),
               isScrollable: false,
               type: "outfit_season",
               onSelectionChanged: (selectedList) => {
                     widget.selectedOutfitSeasons = selectedList,
-                    // print(widget.selectedStyles)
                   })),
     ]);
   }
 
   Widget buildSizesSection() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("Size",
+      Text(S.of(context).size,
           style: TextStyles.paragraphRegularSemiBold18(),
           textAlign: TextAlign.start),
       Padding(
@@ -177,7 +157,6 @@ class _FilterModalState extends State<FilterModal> {
               type: "size",
               onSelectionChanged: (selectedList) => {
                     widget.selectedSizes = selectedList,
-                    // print(widget.selectedSizes)
                   }))
     ]);
   }
@@ -187,7 +166,7 @@ class _FilterModalState extends State<FilterModal> {
       alignment: Alignment.bottomCenter,
       child: ButtonDarker(
           context,
-          "Apply",
+          S.of(context).apply_filters,
           () => {
                 if (widget.onApplyWardrobe != null)
                   {
@@ -217,7 +196,7 @@ class _FilterModalState extends State<FilterModal> {
                             widget.selectedOutfitStyles,
                             widget.selectedOutfitSeasons,
                             Provider.of<OutfitManager>(context, listen: false)
-                                .getfinalOutfitList),
+                                .getFinalOutfitList),
                     if (widget.futureOutfitListCopy != null)
                       {
                         Provider.of<OutfitManager>(context, listen: false)
@@ -235,7 +214,42 @@ class _FilterModalState extends State<FilterModal> {
     );
   }
 
-  Widget buildCLoseButton() {
+  void showModal() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      barrierColor: Colors.transparent,
+      builder: (_) {
+        return Stack(alignment: AlignmentDirectional.bottomCenter, children: [
+          buildBackgroundImage(),
+          DraggableScrollableSheet(
+              expand: true,
+              builder: (_, controller) {
+                return Container(
+                    height: 500.0,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(40))),
+                    child: SingleChildScrollView(
+                      controller: controller,
+                      child: Column(
+                        children: <Widget>[
+                          buildCloseButton(),
+                          buildTitle(),
+                          SingleChildScrollView(
+                              child: Container(child: buildFiltersSection())),
+                          buildApplyButton()
+                        ],
+                      ),
+                    ));
+              })
+        ]);
+      },
+    );
+  }
+
+  Widget buildCloseButton() {
     return Align(
         alignment: Alignment.centerLeft,
         child: Padding(
@@ -255,7 +269,7 @@ class _FilterModalState extends State<FilterModal> {
   Widget buildTitle() {
     return Align(
       alignment: Alignment.center,
-      child: Text("Filters & Sort", style: TextStyles.h4()),
+      child: Text(S.of(context).filters, style: TextStyles.h4()),
     );
   }
 

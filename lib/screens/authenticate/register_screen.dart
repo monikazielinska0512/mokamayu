@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
@@ -30,15 +31,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-      type: "Sign up",
-      leftButtonType: "back",
-      isRightButtonVisible: false,
+      title: S.of(context).sign_up,
+      leftButton: BackArrowButton(context),
+      rightButton: null,
       context: context,
       isFullScreen: true,
+      resizeToAvoidBottomInset: true,
       body: Stack(children: [
         Stack(children: [
           Positioned(
-            bottom: MediaQuery.of(context).size.height - 448,
+            bottom: MediaQuery.of(context).size.height * 0.5,
             width: MediaQuery.of(context).size.width,
             child: Image.asset(
               "assets/images/background_auth.png",
@@ -46,9 +48,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
           Positioned(
-            bottom: MediaQuery.of(context).size.height - 412,
-            width: MediaQuery.of(context).size.width - 250,
-            right: MediaQuery.of(context).size.width - 240,
+            bottom: MediaQuery.of(context).size.height * 0.54,
+            width: MediaQuery.of(context).size.width * 0.4,
+            right: MediaQuery.of(context).size.width * 0.4,
             child: Image.asset(
               "assets/images/woman2.png",
               fit: BoxFit.fitWidth,
@@ -130,9 +132,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             _emailTextController.text,
                             _usernameTextController.text,
                             _auth.getCurrentUserID());
-                    Navigator.pop(context);
+
                     Provider.of<AppStateManager>(context, listen: false)
                         .login();
+                    context.go("/home/0");
                   } else {
                     final error = AuthExceptionHandler.generateErrorMessage(
                         status, context);

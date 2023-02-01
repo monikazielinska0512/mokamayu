@@ -8,7 +8,8 @@ class NavigationBarTab {
   static const int wardrobe = 0;
   static const int outfits = 1;
   static const int social = 2;
-  static const int profile = 3;
+  static const int calendar = 3;
+  static const int profile = 4;
 }
 
 class AppStateManager extends ChangeNotifier {
@@ -47,8 +48,8 @@ class AppStateManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void cacheIndexList(List<int> indexList) async {
-    await _appCache.cacheIndexList(indexList);
+  void cacheEvents(Map<String, String> events) async {
+    await _appCache.cacheEvents(events);
     notifyListeners();
   }
 }

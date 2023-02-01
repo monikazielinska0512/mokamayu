@@ -1,102 +1,129 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+import '../../constants/constants.dart';
+import '../../generated/l10n.dart';
+import '../../models/models.dart';
+import '../../services/managers/managers.dart';
 
-import '../../constants/colors.dart';
-import '../../constants/tags.dart';
-import '../../models/outfit_container.dart';
-import '../../models/wardrobe_item.dart';
-import '../../services/managers/outfit_manager.dart';
-import '../../services/managers/wardrobe_manager.dart';
-
+// ignore: must_be_immutable
 class CreateOutfitPage extends StatelessWidget {
-  CreateOutfitPage({Key? key, this.itemList}) : super(key: key);
+  CreateOutfitPage({Key? key, this.itemList, this.friendUid})
+      : super(key: key) {
+    isCreatingOutfitForFriend = friendUid != null;
+  }
+
   Future<List<WardrobeItem>>? itemList;
+  String? friendUid;
+  late final bool isCreatingOutfitForFriend;
   Map<List<dynamic>, OutfitContainer> map = {};
-  List<String> selectedChips = Tags.types;
+  List<String> selectedChips = [];
   Future<List<WardrobeItem>>? futureItemListCopy;
 
   @override
   Widget build(BuildContext context) {
     map = Provider.of<PhotoTapped>(context, listen: true).getMapDynamic;
-    double deviceHeight(BuildContext context) =>
-        MediaQuery.of(context).size.height;
 
-    futureItemListCopy = Provider.of<WardrobeManager>(context, listen: true)
-        .getWardrobeItemListCopy;
-    itemList =
-        Provider.of<WardrobeManager>(context, listen: true).getWardrobeItemList;
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        elevation: 0,
-        title: const Text("Create outfit",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        leading: IconButton(
+    itemList = isCreatingOutfitForFriend
+        ? Provider.of<WardrobeManager>(context, listen: true)
+            .getFriendWardrobeItemList
+        : Provider.of<WardrobeManager>(context, listen: true)
+            .getWardrobeItemList;
+
+    futureItemListCopy = isCreatingOutfitForFriend
+        ? Provider.of<WardrobeManager>(context, listen: true)
+            .getFriendWardrobeItemListCopy
+        : Provider.of<WardrobeManager>(context, listen: true)
+            .getWardrobeItemListCopy;
+
+    return BasicScreen(
+        title: S.of(context).create,
+        rightButton: buildAddButton(context),
+        leftButton: BackArrowButton(context),
+        context: context,
+        isFullScreen: true,
+        body: Stack(alignment: AlignmentDirectional.bottomCenter, children: [
+          Stack(children: const [
+            BackgroundImage(
+              imagePath: "assets/images/upside_down_background.png",
+              imageShift: 150,
+            ),
+          ]),
+          BackgroundCard(
+            context: context,
+            height: 0.87,
+            child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Align(
+                    alignment: AlignmentDirectional.topCenter,
+                    child: SizedBox(
+                        height: double.maxFinite,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                  decoration: BoxDecoration(
+                                    color: ColorsConstants.whiteAccent,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: DragTargetContainer(map: map))),
+                              SingleChildScrollView(
+                                  child: Column(children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: buildFilters(context)),
+                                SizedBox(
+                                    width: double.infinity,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.24,
+                                    child: PhotoGrid(
+                                      itemList: futureItemListCopy ?? itemList,
+                                      scrollVertically: false,
+                                    ))
+                              ])),
+                            ])))),
+          )
+        ]));
+  }
+
+  Widget buildFilters(BuildContext context) {
+    return MultiSelectChip(
+      Tags.getLanguagesTypes(context),
+      type: "type_main",
+      chipsColor: ColorsConstants.darkPeach,
+      usingFriendsWardrobe: isCreatingOutfitForFriend,
+      onSelectionChanged: (selectedList) {
+        selectedChips = selectedList.isEmpty
+            ? Tags.getLanguagesTypes(context)
+            : selectedList;
+      },
+    );
+  }
+
+  Widget buildAddButton(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: IconButton(
+          icon: const Icon(
+            Ionicons.chevron_forward,
+            size: 35,
+          ),
           onPressed: () {
-            Provider.of<PhotoTapped>(context, listen: false).setMap({});
-            Provider.of<PhotoTapped>(context, listen: false).nullWholeMap();
-            Provider.of<OutfitManager>(context, listen: false).setSeason("");
-            Provider.of<OutfitManager>(context, listen: false).setStyle("");
+            Provider.of<PhotoTapped>(context, listen: false).setObject(null);
             Provider.of<WardrobeManager>(context, listen: false)
                 .nullListItemCopy();
             Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-            context.go("/home/1");
+            if (isCreatingOutfitForFriend) {
+              context.pushNamed("outfit-add-attributes-screen",
+                  extra: map, queryParams: {'friendUid': friendUid});
+            } else {
+              context.pushNamed("outfit-add-attributes-screen", extra: map);
+            }
           },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.add,
-              size: 35,
-            ),
-            onPressed: () {
-              Provider.of<PhotoTapped>(context, listen: false).setObject(null);
-              Provider.of<WardrobeManager>(context, listen: false)
-                  .nullListItemCopy();
-              Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-              GoRouter.of(context)
-                  .goNamed("outfit-add-attributes-screen", extra: map);
-            },
-          )
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          Stack(children: <Widget>[
-            const BackgroundImage(
-              imagePath: "assets/images/upside_down_background.png",
-              imageShift: -50,
-            ),
-            Positioned(
-              child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      0, deviceHeight(context) * 0.14, 0, 0),
-                  child: DragTargetContainer(map: map)
-                  // ),
-                  ),
-            )
-          ]),
-          MultiSelectChip(Tags.types,
-              type: "type_main", chipsColor: ColorsConstants.darkPeach,
-              onSelectionChanged: (selectedList) {
-            selectedChips = selectedList.isEmpty ? Tags.types : selectedList;
-          }),
-          SizedBox(
-            width: double.infinity,
-            height: 200,
-            child: PhotoGrid(
-              itemList: futureItemListCopy ?? itemList,
-              scrollVertically: false,
-            ),
-          )
-        ],
-      ),
-      //),
-    );
+        ));
   }
 }

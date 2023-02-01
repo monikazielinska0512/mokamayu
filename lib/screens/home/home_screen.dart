@@ -5,6 +5,8 @@ import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../calendar/calendar_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   final int currentTab;
 
@@ -20,13 +22,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<ProfileManager>(context).currentAuthUser;
+    String? currentUserUid =
+        Provider.of<ProfileManager>(context).currentAuthUser?.uid;
 
     List<Widget> pages = [
       const WardrobeScreen(),
       const OutfitsScreen(),
       const SocialScreen(),
-      ProfileScreen(user: user),
+      const CalendarScreen(),
+      ProfileScreen(uid: currentUserUid),
     ];
 
     return Scaffold(

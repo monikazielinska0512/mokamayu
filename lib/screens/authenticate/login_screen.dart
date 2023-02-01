@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mokamayu/constants/colors.dart';
+import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
-import '../../constants/text_styles.dart';
 import '../../utils/validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -31,15 +29,16 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-      type: "Sign in",
-      leftButtonType: "back",
-      isRightButtonVisible: false,
+      title: S.of(context).sign_in,
+      leftButton: null,
+      rightButton: null,
       context: context,
       isFullScreen: true,
+      resizeToAvoidBottomInset: true,
       body: Stack(children: [
         Stack(children: [
           Positioned(
-            bottom: MediaQuery.of(context).size.height - 448,
+            bottom: MediaQuery.of(context).size.height * 0.5,
             width: MediaQuery.of(context).size.width,
             child: Image.asset(
               "assets/images/background_auth.png",
@@ -47,9 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           Positioned(
-            bottom: MediaQuery.of(context).size.height - 412,
-            width: MediaQuery.of(context).size.width - 235,
-            right: MediaQuery.of(context).size.width - 350,
+            bottom: MediaQuery.of(context).size.height * 0.54,
+            width: MediaQuery.of(context).size.width * 0.4,
+            right: MediaQuery.of(context).size.width * 0.1,
             child: Image.asset(
               "assets/images/man.png",
               fit: BoxFit.fitWidth,
@@ -136,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           child: Text(
             S.of(context).sign_up,
-            style: TextStyle(
+            style: const TextStyle(
                 color: ColorsConstants.red, fontWeight: FontWeight.bold),
           ),
         )

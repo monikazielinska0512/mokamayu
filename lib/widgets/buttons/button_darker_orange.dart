@@ -1,10 +1,12 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:mokamayu/constants/colors.dart';
 
 Container ButtonDarker(BuildContext context, String title, Function onTap,
     {bool shouldExpand = true,
-    double width = 0.01,
-    double height = 0.01,
+    double width = 0.4,
+    double height = 0.06,
     EdgeInsets margin = const EdgeInsets.fromLTRB(0, 10, 0, 30)}) {
   return Container(
     width: shouldExpand

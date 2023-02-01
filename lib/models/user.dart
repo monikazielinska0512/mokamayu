@@ -8,6 +8,7 @@ class UserData {
   String? profilePicture;
   DateTime? birthdayDate;
   bool privateProfile;
+  List<Map<String, String>>? friends;
   String? reference;
 
   UserData(
@@ -18,6 +19,7 @@ class UserData {
       this.profilePicture,
       this.birthdayDate,
       this.privateProfile = false,
+      this.friends,
       this.reference});
 
   factory UserData.fromFirestore(Map<dynamic, dynamic> json) => UserData(
@@ -27,7 +29,11 @@ class UserData {
         profileName: json['profileName'] as String?,
         profilePicture: json['profilePicture'] as String?,
         birthdayDate: json['birthdayDate'] as DateTime?,
-        privateProfile: json['privateProfile'] as bool,
+        // ignore: unnecessary_cast
+        privateProfile: json['privateProfile'] ?? false as bool,
+        friends: json['friends'] = (json['friends'] as List?)
+            ?.map((e) => Map<String, String>.from(e))
+            .toList(),
       );
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
@@ -38,6 +44,7 @@ class UserData {
         "profilePicture": profilePicture,
         "birthdayDate": birthdayDate,
         "privateProfile": privateProfile,
+        "friends": friends,
       };
 
   factory UserData.fromSnapshot(DocumentSnapshot snapshot) {

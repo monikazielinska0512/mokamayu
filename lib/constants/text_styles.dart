@@ -97,6 +97,31 @@ class TextStyles {
         color: color);
   }
 
+  static TextStyle paragraphRegular12([Color? color]) {
+    return TextStyle(
+        fontSize: 12,
+        fontFamily: "Poppins",
+        fontWeight: FontWeight.w400,
+        color: color);
+  }
+
+  static TextStyle paragraphRegular10([Color? color]) {
+    return TextStyle(
+        fontSize: 10,
+        fontFamily: "Poppins",
+        fontWeight: FontWeight.w400,
+        color: color);
+  }
+
+
+  static TextStyle paragraphRegularSemiBold12([Color? color]) {
+    return TextStyle(
+        fontSize: 12,
+        fontFamily: "Poppins",
+        fontWeight: FontWeight.w600,
+        color: color);
+  }
+
   static TextStyle paragraphRegular14([Color? color]) {
     return TextStyle(
         fontSize: 14,

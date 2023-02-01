@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mokamayu/generated/l10n.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:mokamayu/services/services.dart';
-
 import '../../utils/validator.dart';
 
 class ResetPassword extends StatefulWidget {
@@ -25,9 +25,9 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-        type: "Reset Password",
-        leftButtonType: "back",
-        isRightButtonVisible: false,
+        title: S.of(context).reset_password,
+        leftButton: BackArrowButton(context),
+        rightButton: null,
         context: context,
         isFullScreen: true,
         body: buildBody(context));
@@ -64,12 +64,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                       );
                     } else {
                       Navigator.of(context).pop();
+                      GoRouter.of(context).push('/email-sent');
                     }
                   }
                 })
               ]))),
-      Container(
-          height: deviceWidth(context) + 132.7,
+      Expanded(child: SizedBox(
+          height: deviceWidth(context) * 1.295,
           child: Opacity(
             opacity: 0.9,
             child: Image.asset(
@@ -77,7 +78,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               width: deviceWidth(context),
               fit: BoxFit.fitWidth,
             ),
-          ))
+          )))
     ]);
   }
 }

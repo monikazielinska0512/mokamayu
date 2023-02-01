@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:mokamayu/models/models.dart';
-import 'package:mokamayu/widgets/widgets.dart';
-import 'package:mokamayu/services/services.dart';
 import 'package:mokamayu/constants/constants.dart';
-import '../../services/managers/outfit_manager.dart';
-import '../../widgets/modals/filter_modal.dart';
+import 'package:mokamayu/models/models.dart';
+import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+
+import '../../generated/l10n.dart';
 import 'create_outfit_dialog.dart';
 
 class OutfitsScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
   Future<List<Outfit>>? outfitsList;
   Future<List<Outfit>>? outfitsListCopy;
   Future<List<WardrobeItem>>? itemList;
-  List<String> selectedChips = OutfitTags.styles;
+  List<String> selectedChips = [];
 
   @override
   void initState() {
@@ -37,36 +37,50 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    selectedChips = OutfitTags.getLanguagesStyles(context);
     outfitsList =
         Provider.of<OutfitManager>(context, listen: true).getOutfitList;
     outfitsListCopy =
         Provider.of<OutfitManager>(context, listen: true).getOutfitListCopy;
     return BasicScreen(
-        type: "outfits",
-        leftButtonType: "dots",
+        title: S.of(context).outfits,
+        leftButton: DotsButton(context),
+        rightButton: NotificationsButton(context),
+        backgroundColor: Colors.transparent,
         context: context,
         body: Stack(children: [
-          Column(
-            children: [
-              Wrap(spacing: 20, runSpacing: 20, children: [
-                buildSearchBarAndFilters(),
-                SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Wrap(spacing: 10, children: [
-                      MultiSelectChip(OutfitTags.styles,
+          Column(children: [
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                      child: MultiSelectChip(
+                          OutfitTags.getLanguagesStyles(context),
                           chipsColor: ColorsConstants.darkPeach,
                           onSelectionChanged: (selectedList) {
-                        selectedChips = selectedList.isEmpty
-                            ? OutfitTags.styles
-                            : selectedList;
-                      }, type: "style_main")
-                    ])),
-              ]),
-              Expanded(
-                  child:
-                      PhotoGrid(outfitsList: outfitsListCopy ?? outfitsList)),
-            ],
-          ),
+                    selectedChips = selectedList.isEmpty
+                        ? OutfitTags.getLanguagesStyles(context)
+                        : selectedList;
+                  }, type: "style_main")),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.03),
+                  Container(
+                      alignment: Alignment.center,
+                      child: FilterModal(
+                          height: 0.038,
+                          onApplyOutfits: (selectedList) =>
+                              {outfitsListCopy = selectedList}))
+                ]),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.007),
+            Expanded(
+                child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        color: ColorsConstants.darkPeach.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12)),
+                    child:
+                        PhotoGrid(outfitsList: outfitsListCopy ?? outfitsList)))
+          ]),
           buildFloatingButton(),
         ]));
   }
@@ -76,9 +90,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.075,
         child: Row(children: [
-          Expanded(
-              child: SearchBar(title: "Search", hintTitle: "Name of item")),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.045),
+          const Spacer(),
           FilterModal(
               onApplyOutfits: (selectedList) =>
                   {outfitsListCopy = selectedList})
