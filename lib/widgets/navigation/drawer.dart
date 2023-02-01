@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mokamayu/services/services.dart';
+import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/colors.dart';
@@ -77,17 +78,26 @@ class CustomDrawer extends StatelessWidget {
   }
 
   Widget buildSignOutOption(BuildContext context) {
+    void clearFilters() {
+      Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
+      Provider.of<WardrobeManager>(context, listen: false).setSizes([]);
+      Provider.of<WardrobeManager>(context, listen: false).setStyles([]);
+      Provider.of<OutfitManager>(context, listen: false).setStyles([]);
+      Provider.of<OutfitManager>(context, listen: false).setSeasons([]);
+      Provider.of<OutfitManager>(context, listen: false).setOutfitsCopy(null);
+      Provider.of<WardrobeManager>(context, listen: false)
+              .setWardrobeItemListCopy(null);
+    }
+
     return Align(
       alignment: Alignment.bottomLeft,
       child: Column(
         children: [
           Divider(color: ColorsConstants.lightGrey, thickness: 1.5),
-          buildDrawerOption(
-              context,
-              S.of(context).sign_out,
-              () =>
-                  Provider.of<AppStateManager>(context, listen: false).logout(),
-              TextStyles.paragraphRegularSemiBold16(ColorsConstants.grey)),
+          buildDrawerOption(context, S.of(context).sign_out, () {
+            clearFilters();
+            Provider.of<AppStateManager>(context, listen: false).logout();
+          }, TextStyles.paragraphRegularSemiBold16(ColorsConstants.grey)),
         ],
       ),
     );

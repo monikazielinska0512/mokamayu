@@ -70,6 +70,7 @@ class OutfitSummaryScreen extends StatelessWidget {
                     type: "",
                     size: "",
                     photoURL: "Photo deleted",
+                    createdBy: AuthService().getCurrentUserID(),
                     styles: [],
                     created: DateTime.now())));
       }).toList(),
@@ -143,6 +144,10 @@ class OutfitSummaryScreen extends StatelessWidget {
             Provider.of<OutfitManager>(context, listen: false)
                 .setOutfits(outfitsList!);
 
+            Provider.of<OutfitManager>(context, listen: false)
+                .setOutfitsCopy(null);
+            Provider.of<OutfitManager>(context, listen: false).setStyles([]);
+
             context.go("/home/1");
             CustomSnackBar.showSuccessSnackBar(
                 context: context, message: "Zaktualizowano stylizację");
@@ -210,6 +215,9 @@ class OutfitSummaryScreen extends StatelessWidget {
               .readOutfitsOnce();
           Provider.of<OutfitManager>(context, listen: false)
               .setOutfits(outfitsList!);
+          Provider.of<OutfitManager>(context, listen: false)
+              .setOutfitsCopy(null);
+          Provider.of<OutfitManager>(context, listen: false).setStyles([]);
           context.pushReplacement("/home/1");
           CustomSnackBar.showSuccessSnackBar(
               context: context, message: S.of(context).outfit_created);

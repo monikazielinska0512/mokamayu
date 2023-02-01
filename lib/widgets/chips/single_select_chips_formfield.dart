@@ -17,6 +17,7 @@ class SingleSelectChipsFormField extends FormField<String> {
       BuildContext? context,
       String initialValue = "",
       String? type,
+      bool disableChange = false,
       bool autoValidate = true})
       : super(
             key: key,
@@ -45,16 +46,18 @@ class SingleSelectChipsFormField extends FormField<String> {
                           backgroundColor: color.withOpacity(0.6),
                           selectedColor: color,
                           onSelected: (bool selected) {
-                            state.didChange(selected ? chipsList[index] : "");
-                            if (type == 'season') {
-                              Provider.of<OutfitManager>(context!,
-                                      listen: false)
-                                  .setSeason(chipsList[index]);
-                            }
-                            if (type == 'style') {
-                              Provider.of<OutfitManager>(context!,
-                                      listen: false)
-                                  .setStyle(chipsList[index]);
+                            if (!disableChange) {
+                              state.didChange(selected ? chipsList[index] : "");
+                              if (type == 'season') {
+                                Provider.of<OutfitManager>(context!,
+                                        listen: false)
+                                    .setSeason(chipsList[index]);
+                              }
+                              if (type == 'style') {
+                                Provider.of<OutfitManager>(context!,
+                                        listen: false)
+                                    .setStyle(chipsList[index]);
+                              }
                             }
                           });
                     }).toList()),

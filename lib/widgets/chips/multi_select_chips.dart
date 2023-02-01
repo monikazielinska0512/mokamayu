@@ -15,12 +15,14 @@ class MultiSelectChip extends StatefulWidget {
   Future<List<WardrobeItem>>? wardrobeItemList;
   Future<List<Outfit>>? outfitList;
   bool isScrollable;
+  bool disableChange;
   Color chipsColor;
 
   MultiSelectChip(this.chipsList,
       {super.key,
       required this.onSelectionChanged,
       this.type,
+      this.disableChange = false,
       this.initialValues = const [],
       this.isScrollable = true,
       required this.chipsColor,
@@ -81,83 +83,85 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
           backgroundColor: widget.chipsColor.withOpacity(0.6),
           selectedColor: widget.chipsColor,
           onSelected: (selected) {
-            setState(() {
-              selectedChoices.contains(item)
-                  ? selectedChoices.remove(item)
-                  : selectedChoices.add(item);
-              widget.onSelectionChanged!(selectedChoices);
-              if (widget.type == 'type_main') {
-                Provider.of<WardrobeManager>(context, listen: false)
-                    .setTypes(selectedChoices);
-                if (widget.usingFriendsWardrobe) {
-                  widget.wardrobeItemList = Provider.of<WardrobeManager>(
-                          context,
-                          listen: false)
-                      .filterFriendWardrobe(
-                          context,
-                          selectedChoices,
-                          Provider.of<WardrobeManager>(context, listen: false)
-                              .getFinalFriendWardrobeItemList);
-                  if (widget.wardrobeItemList != null) {
-                    Provider.of<WardrobeManager>(context, listen: false)
-                        .setFriendWardrobeItemListCopy(
-                            widget.wardrobeItemList!);
-                  }
-                } else {
-                  widget.wardrobeItemList = Provider.of<WardrobeManager>(
-                          context,
-                          listen: false)
-                      .filterWardrobe(
-                          context,
-                          selectedChoices,
-                          [],
-                          [],
-                          Provider.of<WardrobeManager>(context, listen: false)
-                              .getFinalWardrobeItemList);
-                  if (widget.wardrobeItemList != null) {
-                    Provider.of<WardrobeManager>(context, listen: false)
-                        .setWardrobeItemListCopy(widget.wardrobeItemList!);
-                  }
-                }
-              }
-              if (widget.type == 'style_main') {
-                Provider.of<OutfitManager>(context, listen: false)
-                    .setStyles(selectedChoices);
-                widget.outfitList =
-                    Provider.of<OutfitManager>(context, listen: false)
-                        .filterOutfits(
+            if (!widget.disableChange) {
+              setState(() {
+                selectedChoices.contains(item)
+                    ? selectedChoices.remove(item)
+                    : selectedChoices.add(item);
+                widget.onSelectionChanged!(selectedChoices);
+                if (widget.type == 'type_main') {
+                  Provider.of<WardrobeManager>(context, listen: false)
+                      .setTypes(selectedChoices);
+                  if (widget.usingFriendsWardrobe) {
+                    widget.wardrobeItemList = Provider.of<WardrobeManager>(
+                            context,
+                            listen: false)
+                        .filterFriendWardrobe(
+                            context,
+                            selectedChoices,
+                            Provider.of<WardrobeManager>(context, listen: false)
+                                .getFinalFriendWardrobeItemList);
+                    if (widget.wardrobeItemList != null) {
+                      Provider.of<WardrobeManager>(context, listen: false)
+                          .setFriendWardrobeItemListCopy(
+                              widget.wardrobeItemList!);
+                    }
+                  } else {
+                    widget.wardrobeItemList = Provider.of<WardrobeManager>(
+                            context,
+                            listen: false)
+                        .filterWardrobe(
                             context,
                             selectedChoices,
                             [],
-                            Provider.of<OutfitManager>(context, listen: false)
-                                .getFinalOutfitList);
-
-                if (widget.outfitList != null) {
-                  Provider.of<OutfitManager>(context, listen: false)
-                      .setOutfitsCopy(widget.outfitList!);
+                            [],
+                            Provider.of<WardrobeManager>(context, listen: false)
+                                .getFinalWardrobeItemList);
+                    if (widget.wardrobeItemList != null) {
+                      Provider.of<WardrobeManager>(context, listen: false)
+                          .setWardrobeItemListCopy(widget.wardrobeItemList!);
+                    }
+                  }
                 }
-              }
-            });
+                if (widget.type == 'style_main') {
+                  Provider.of<OutfitManager>(context, listen: false)
+                      .setStyles(selectedChoices);
+                  widget.outfitList =
+                      Provider.of<OutfitManager>(context, listen: false)
+                          .filterOutfits(
+                              context,
+                              selectedChoices,
+                              [],
+                              Provider.of<OutfitManager>(context, listen: false)
+                                  .getFinalOutfitList);
 
-            if (widget.type == 'type') {
-              Provider.of<WardrobeManager>(context, listen: false)
-                  .setTypes(selectedChoices);
-            }
-            if (widget.type == 'size') {
-              Provider.of<WardrobeManager>(context, listen: false)
-                  .setSizes(selectedChoices);
-            }
-            if (widget.type == 'style') {
-              Provider.of<WardrobeManager>(context, listen: false)
-                  .setStyles(selectedChoices);
-            }
-            if (widget.type == 'outfit_style') {
-              Provider.of<OutfitManager>(context, listen: false)
-                  .setStyles(selectedChoices);
-            }
-            if (widget.type == 'outfit_season') {
-              Provider.of<OutfitManager>(context, listen: false)
-                  .setSeasons(selectedChoices);
+                  if (widget.outfitList != null) {
+                    Provider.of<OutfitManager>(context, listen: false)
+                        .setOutfitsCopy(widget.outfitList!);
+                  }
+                }
+              });
+
+              if (widget.type == 'type') {
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setTypes(selectedChoices);
+              }
+              if (widget.type == 'size') {
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setSizes(selectedChoices);
+              }
+              if (widget.type == 'style') {
+                Provider.of<WardrobeManager>(context, listen: false)
+                    .setStyles(selectedChoices);
+              }
+              if (widget.type == 'outfit_style') {
+                Provider.of<OutfitManager>(context, listen: false)
+                    .setStyles(selectedChoices);
+              }
+              if (widget.type == 'outfit_season') {
+                Provider.of<OutfitManager>(context, listen: false)
+                    .setSeasons(selectedChoices);
+              }
             }
           },
         ),

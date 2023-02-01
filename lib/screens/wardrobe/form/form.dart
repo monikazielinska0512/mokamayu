@@ -41,7 +41,6 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       _size = widget.item!.size;
       _name = widget.item!.name;
       _styles = widget.item!.styles;
-      print(_styles);
     }
     super.initState();
   }
@@ -64,13 +63,23 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                       padding: const EdgeInsets.only(bottom: 15),
                       child: buildNameTextField()),
                   Gallery(context, getTabs()),
-                  widget.item == null ? buildAddButton() : buildUpdateButton()
+                  widget.item == null
+                      ? buildAddButton()
+                      : widget.item!.createdBy !=
+                              AuthService().getCurrentUserID()
+                          ? const SizedBox.shrink()
+                          : buildUpdateButton()
                 ])));
   }
 
   Widget buildNameTextField() {
     return TextFormField(
         initialValue: _name,
+        readOnly: widget.item == null
+            ? false
+            : widget.item!.createdBy != AuthService().getCurrentUserID()
+                ? true
+                : false,
         onSaved: (value) => _name = value!,
         autovalidateMode: AutovalidateMode.disabled,
         validator: (value) {
@@ -122,6 +131,11 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
               validator: (value) =>
                   Validator.checkIfSingleValueSelected(value!, context),
               onSaved: (value) => _type = value!,
+              disableChange: widget.item == null
+                  ? false
+                  : widget.item!.createdBy != AuthService().getCurrentUserID()
+                      ? true
+                      : false,
               color: ColorsConstants.sunflower,
               type: "wardrobeType",
               chipsList: Tags.getLanguagesTypes(context)))
@@ -138,6 +152,11 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             validator: (value) =>
                 Validator.checkIfSingleValueSelected(value!, context),
             onSaved: (value) => _size = value!,
+            disableChange: widget.item == null
+                ? false
+                : widget.item!.createdBy != AuthService().getCurrentUserID()
+                    ? true
+                    : false,
             color: ColorsConstants.darkMint,
             type: "wardrobeSize",
             chipsList: Tags.sizes,
@@ -154,26 +173,16 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
               Tags.getLanguagesStyles(context),
               isScrollable: false,
               initialValues: _styles,
+              disableChange: widget.item == null
+                  ? false
+                  : widget.item!.createdBy != AuthService().getCurrentUserID()
+                      ? true
+                      : false,
               onSelectionChanged: (selectedList) => {
                     _styles = selectedList,
-                    // print(widget.selectedStyles)
                   })),
     ]);
   }
-
-  // Widget buildStyleChipsField() {
-  //   // print(_styles);
-  //   return Column(children: [
-  //     MultiSelectChipsFormField(
-  //         isScroll: false,
-  //         initialValue: _styles,
-  //         chipsList: Tags.getLanguagesStyles(context),
-  //         onSaved: (value) => _styles = value!,
-  //         type: "style",
-  //         validator: (value) =>
-  //             Validator.checkIfMultipleValueSelected(value!, context)),
-  //   ]);
-  // }
 
   Widget buildAddButton() {
     return ButtonDarker(context, S.of(context).add, () async {
@@ -188,6 +197,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             size: _size,
             photoURL: url,
             styles: _styles,
+            createdBy: AuthService().getCurrentUserID(),
             created: DateTime.now());
         if (!mounted) return;
         Provider.of<WardrobeManager>(context, listen: false)

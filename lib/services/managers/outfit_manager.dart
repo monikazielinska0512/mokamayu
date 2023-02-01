@@ -27,7 +27,7 @@ class OutfitManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setOutfitsCopy(Future<List<Outfit>> outfitsList) {
+  void setOutfitsCopy(Future<List<Outfit>>? outfitsList) {
     futureOutfitListCopy = outfitsList;
     notifyListeners();
   }

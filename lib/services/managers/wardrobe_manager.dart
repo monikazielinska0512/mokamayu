@@ -46,7 +46,7 @@ class WardrobeManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setWardrobeItemListCopy(Future<List<WardrobeItem>> itemList) {
+  void setWardrobeItemListCopy(Future<List<WardrobeItem>>? itemList) {
     futureWardrobeItemListCopy = itemList;
     notifyListeners();
   }
