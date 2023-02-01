@@ -29,26 +29,16 @@ class OutfitSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     itemList = isCreatingOutfitForFriend
-        ? Provider
-        .of<WardrobeManager>(context, listen: true)
-        .getFinalFriendWardrobeItemList
-        : Provider
-        .of<WardrobeManager>(context, listen: true)
-        .getFinalWardrobeItemList;
+        ? Provider.of<WardrobeManager>(context, listen: true)
+            .getFinalFriendWardrobeItemList
+        : Provider.of<WardrobeManager>(context, listen: true)
+            .getFinalWardrobeItemList;
 
     capturedOutfit =
-        Provider
-            .of<PhotoTapped>(context, listen: false)
-            .getScreenshot;
-    _season = Provider
-        .of<OutfitManager>(context, listen: false)
-        .getSeason!;
-    _style = Provider
-        .of<OutfitManager>(context, listen: false)
-        .getStyle!;
-    Outfit? item = Provider
-        .of<PhotoTapped>(context, listen: false)
-        .getObject;
+        Provider.of<PhotoTapped>(context, listen: false).getScreenshot;
+    _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
+    _style = Provider.of<OutfitManager>(context, listen: false).getStyle!;
+    Outfit? item = Provider.of<PhotoTapped>(context, listen: false).getObject;
     return BasicScreen(
         title: S.of(context).summary,
         context: context,
@@ -64,30 +54,26 @@ class OutfitSummaryScreen extends StatelessWidget {
   Widget buildList(BuildContext context) {
     return Expanded(
         child: ListView(
-          padding: const EdgeInsets.all(8),
-          children: map!.entries.map((entry) {
-            for (var element in itemList!) {
-              if (element.reference == entry.key[1]) {
-                _elements.add(entry.key[1]);
-              }
-            }
-            return WardrobeItemCard(
-                size: MediaQuery
-                    .of(context)
-                    .size
-                    .width * 0.1,
-                wardrobeItem: itemList!.firstWhere(
-                        (item) => item.reference == entry.key[1],
-                    orElse: () =>
-                        WardrobeItem(
-                            name: "Ten element został usunięty",
-                            type: "",
-                            size: "",
-                            photoURL: "Photo deleted",
-                            styles: [],
-                            created: DateTime.now())));
-          }).toList(),
-        ));
+      padding: const EdgeInsets.all(8),
+      children: map!.entries.map((entry) {
+        for (var element in itemList!) {
+          if (element.reference == entry.key[1]) {
+            _elements.add(entry.key[1]);
+          }
+        }
+        return WardrobeItemCard(
+            size: MediaQuery.of(context).size.width * 0.1,
+            wardrobeItem: itemList!.firstWhere(
+                (item) => item.reference == entry.key[1],
+                orElse: () => WardrobeItem(
+                    name: "Ten element został usunięty",
+                    type: "",
+                    size: "",
+                    photoURL: "Photo deleted",
+                    styles: [],
+                    created: DateTime.now())));
+      }).toList(),
+    ));
   }
 
   Widget buildTags(BuildContext context) {
@@ -105,8 +91,9 @@ class OutfitSummaryScreen extends StatelessWidget {
         child: Align(
             alignment: Alignment.centerLeft,
             child: ChoiceChip(
-              label: Text(_season, style: TextStyles.paragraphRegularSemiBold14(
-                  ColorsConstants.white)),
+              label: Text(_season,
+                  style: TextStyles.paragraphRegularSemiBold14(
+                      ColorsConstants.white)),
               selected: true,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -135,30 +122,31 @@ class OutfitSummaryScreen extends StatelessWidget {
     return isCreatingOutfitForFriend
         ? Container()
         : ButtonDarker(context, S.of(context).update, () async {
-      Map<String, String> mapToFirestore = {};
-      map!.forEach((key, value) {
-        mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
-      });
-      Provider.of<OutfitManager>(context, listen: false).updateOutfit(
-          item.reference ?? "",
-          _style,
-          _season,
-          capturedOutfit,
-          _elements,
-          mapToFirestore);
-      Provider.of<OutfitManager>(context, listen: false)
-          .resetSingleTags();
-      Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
-      Provider.of<PhotoTapped>(context, listen: false).setObject(null);
+            Map<String, String> mapToFirestore = {};
+            map!.forEach((key, value) {
+              mapToFirestore.addAll({json.encode(key): jsonEncode(value)});
+            });
+            Provider.of<OutfitManager>(context, listen: false).updateOutfit(
+                item.reference ?? "",
+                _style,
+                _season,
+                capturedOutfit,
+                _elements,
+                mapToFirestore);
+            Provider.of<OutfitManager>(context, listen: false)
+                .resetSingleTags();
+            Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
+            Provider.of<PhotoTapped>(context, listen: false).setObject(null);
 
-      outfitsList = Provider.of<OutfitManager>(context, listen: false)
-          .readOutfitsOnce();
-      Provider.of<OutfitManager>(context, listen: false)
-          .setOutfits(outfitsList!);
+            outfitsList = Provider.of<OutfitManager>(context, listen: false)
+                .readOutfitsOnce();
+            Provider.of<OutfitManager>(context, listen: false)
+                .setOutfits(outfitsList!);
 
-      context.go("/home/1");
-      CustomSnackBar.showSuccessSnackBar(context: context, message: "Zaktualizowano stylizację");
-    });
+            context.go("/home/1");
+            CustomSnackBar.showSuccessSnackBar(
+                context: context, message: "Zaktualizowano stylizację");
+          });
   }
 
   // ignore: non_constant_identifier_names
@@ -180,16 +168,6 @@ class OutfitSummaryScreen extends StatelessWidget {
             createdBy: currentUserUid);
         Provider.of<OutfitManager>(context, listen: false)
             .addOutfitToFirestore(data, friendUid ?? currentUserUid);
-
-        if (!isCreatingOutfitForFriend) {
-          outfitsList = Provider.of<OutfitManager>(context, listen: false)
-              .readOutfitsOnce();
-          Provider.of<OutfitManager>(context, listen: false)
-              .setOutfits(outfitsList!);
-          Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
-          Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
-          Provider.of<PhotoTapped>(context, listen: false).setObject(null);
-        }
 
         _elements = [];
 
@@ -220,11 +198,19 @@ class OutfitSummaryScreen extends StatelessWidget {
         Provider.of<PostManager>(context, listen: false).getCurrentUserPosts();
 
         if (isCreatingOutfitForFriend) {
-          context.go("/home/2");
+          context.pushReplacement("/home/2");
           CustomSnackBar.showSuccessSnackBar(
-              context: context, message: S.of(context).outfit_created_for_friend);
+              context: context,
+              message: S.of(context).outfit_created_for_friend);
         } else {
-          context.go("/home/1");
+          Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
+          Provider.of<PhotoTapped>(context, listen: false).nullMap(_elements);
+          Provider.of<PhotoTapped>(context, listen: false).setObject(null);
+          outfitsList = Provider.of<OutfitManager>(context, listen: false)
+              .readOutfitsOnce();
+          Provider.of<OutfitManager>(context, listen: false)
+              .setOutfits(outfitsList!);
+          context.pushReplacement("/home/1");
           CustomSnackBar.showSuccessSnackBar(
               context: context, message: S.of(context).outfit_created);
         }
@@ -235,4 +221,3 @@ class OutfitSummaryScreen extends StatelessWidget {
     });
   }
 }
-

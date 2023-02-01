@@ -22,8 +22,6 @@ class MultiSelectChipsFormField extends FormField<List<String>> {
             initialValue: initialValue,
             autovalidateMode: AutovalidateMode.disabled,
             builder: (FormFieldState<List<String>> state) {
-              print('tu');
-              print(initialValue);
               return isScroll
                   ? SingleChildScrollView(
                       scrollDirection: Axis.horizontal,

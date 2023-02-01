@@ -35,6 +35,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
 
   @override
   void initState() {
+    selectedChoices = widget.initialValues;
     if ((widget.type == 'type' || widget.type == 'type_main') &&
         Provider.of<WardrobeManager>(context, listen: false).getTypes != null) {
       selectedChoices =

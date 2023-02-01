@@ -146,17 +146,34 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   }
 
   Widget buildStyleChipsField() {
-    print(_styles);
-    return Column(children: [
-      MultiSelectChipsFormField(
-          isScroll: false,
-          initialValue: _styles,
-          chipsList: Tags.getLanguagesStyles(context),
-          onSaved: (value) => _styles = value!,
-          validator: (value) =>
-              Validator.checkIfMultipleValueSelected(value!, context)),
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+          padding: const EdgeInsets.only(bottom: 10, top: 5),
+          child: MultiSelectChip(
+              chipsColor: ColorsConstants.mint,
+              Tags.getLanguagesStyles(context),
+              isScrollable: false,
+              initialValues: _styles,
+              onSelectionChanged: (selectedList) => {
+                    _styles = selectedList,
+                    // print(widget.selectedStyles)
+                  })),
     ]);
   }
+
+  // Widget buildStyleChipsField() {
+  //   // print(_styles);
+  //   return Column(children: [
+  //     MultiSelectChipsFormField(
+  //         isScroll: false,
+  //         initialValue: _styles,
+  //         chipsList: Tags.getLanguagesStyles(context),
+  //         onSaved: (value) => _styles = value!,
+  //         type: "style",
+  //         validator: (value) =>
+  //             Validator.checkIfMultipleValueSelected(value!, context)),
+  //   ]);
+  // }
 
   Widget buildAddButton() {
     return ButtonDarker(context, S.of(context).add, () async {
