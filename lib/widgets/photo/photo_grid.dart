@@ -88,26 +88,36 @@ class _PhotoGridState extends State<PhotoGrid> {
                       itemBuilder: (BuildContext context, int index) {
                         var itemInfo = snapshot.data![index];
                         return widget.getScrollDirection() == Axis.vertical
-                            ? DeleteBottomModal(
-                                wardrobe: itemInfo,
-                                actionFunction: () {
-                                  Provider.of<WardrobeManager>(context,
-                                          listen: false)
-                                      .removeWardrobeItem(itemInfo.reference);
-                                  Provider.of<WardrobeManager>(context,
-                                          listen: false)
-                                      .resetBeforeCreatingNewOutfit();
-                                  widget.itemList =
+                            ? itemInfo.createdBy ==
+                                    AuthService().getCurrentUserID()
+                                ? DeleteBottomModal(
+                                    wardrobe: itemInfo,
+                                    actionFunction: () {
                                       Provider.of<WardrobeManager>(context,
                                               listen: false)
-                                          .readWardrobeItemOnce();
-                                  Provider.of<WardrobeManager>(context,
-                                          listen: false)
-                                      .setWardrobeItemList(widget.itemList!);
-                                  context.pop();
-                                  CustomSnackBar.showErrorSnackBar(context: context, message: "Usunięto stylizację");
-                                },
-                              )
+                                          .removeWardrobeItem(
+                                              itemInfo.reference);
+                                      Provider.of<WardrobeManager>(context,
+                                              listen: false)
+                                          .resetBeforeCreatingNewOutfit();
+                                      widget.itemList =
+                                          Provider.of<WardrobeManager>(context,
+                                                  listen: false)
+                                              .readWardrobeItemOnce();
+                                      Provider.of<WardrobeManager>(context,
+                                              listen: false)
+                                          .setWardrobeItemList(
+                                              widget.itemList!);
+                                      context.pop();
+                                      CustomSnackBar.showErrorSnackBar(
+                                          context: context,
+                                          message: "Usunięto stylizację");
+                                    },
+                                  )
+                                : PhotoBox(
+                                    object: itemInfo,
+                                    scrollVertically: widget.scrollVertically,
+                                  )
                             : PhotoBox(
                                 object: itemInfo,
                                 scrollVertically: widget.scrollVertically,
@@ -171,79 +181,85 @@ class _PhotoGridState extends State<PhotoGrid> {
                     itemBuilder: (BuildContext context, int index) {
                       var itemInfo = snapshot.data![index];
                       return widget.type == null
-                          ? DeleteBottomModal(
-                              outfit: itemInfo,
-                              actionFunction: () {
-                                Provider.of<OutfitManager>(context,
-                                        listen: false)
-                                    .removeOutfit(itemInfo.reference);
-                                Provider.of<OutfitManager>(context,
-                                        listen: false)
-                                    .nullListItemCopy();
-                                Provider.of<OutfitManager>(context,
-                                        listen: false)
-                                    .resetTagLists();
-                                widget.outfitsList = Provider.of<OutfitManager>(
-                                        context,
-                                        listen: false)
-                                    .readOutfitsOnce();
-
-                                Provider.of<OutfitManager>(context,
-                                        listen: false)
-                                    .setOutfits(widget.outfitsList!);
-
-                                context.pop();
-                                CustomSnackBar.showErrorSnackBar(context: context, message: "Usunięto stylizację");
-
-                                List<Post> postList = Provider.of<PostManager>(
-                                        context,
-                                        listen: false)
-                                    .getFinalCurrentPostList;
-
-                                for (var element in postList) {
-                                  if (element.cover == itemInfo.cover) {
-                                    Provider.of<PostManager>(context,
+                          ? itemInfo.createdBy ==
+                                  AuthService().getCurrentUserID()
+                              ? DeleteBottomModal(
+                                  outfit: itemInfo,
+                                  actionFunction: () {
+                                    Provider.of<OutfitManager>(context,
                                             listen: false)
-                                        .removePost(element.reference);
-                                  }
-                                }
+                                        .removeOutfit(itemInfo.reference);
+                                    Provider.of<OutfitManager>(context,
+                                            listen: false)
+                                        .nullListItemCopy();
+                                    Provider.of<OutfitManager>(context,
+                                            listen: false)
+                                        .resetTagLists();
+                                    widget.outfitsList =
+                                        Provider.of<OutfitManager>(context,
+                                                listen: false)
+                                            .readOutfitsOnce();
 
-                                //checking if outfit was in any event, if so, then delete event from calendar
-                                Map<DateTime, List<Event>> events =
-                                    Provider.of<CalendarManager>(context,
+                                    Provider.of<OutfitManager>(context,
+                                            listen: false)
+                                        .setOutfits(widget.outfitsList!);
+
+                                    context.pop();
+                                    CustomSnackBar.showErrorSnackBar(
+                                        context: context,
+                                        message: "Usunięto stylizację");
+
+                                    List<Post> postList =
+                                        Provider.of<PostManager>(context,
+                                                listen: false)
+                                            .getFinalCurrentPostList;
+
+                                    for (var element in postList) {
+                                      if (element.cover == itemInfo.cover) {
+                                        Provider.of<PostManager>(context,
+                                                listen: false)
+                                            .removePost(element.reference);
+                                      }
+                                    }
+
+                                    //checking if outfit was in any event, if so, then delete event from calendar
+                                    Map<DateTime, List<Event>> events =
+                                        Provider.of<CalendarManager>(context,
+                                                listen: false)
+                                            .getEvents;
+
+                                    List<Event> eventsToRemove = [];
+
+                                    events.forEach((key, value) {
+                                      for (var element in value) {
+                                        if (element.outfit == itemInfo) {
+                                          eventsToRemove.add(element);
+                                        }
+                                      }
+                                    });
+
+                                    for (var element in eventsToRemove) {
+                                      Provider.of<CalendarManager>(context,
+                                              listen: false)
+                                          .removeEvent(element);
+                                    }
+
+                                    events = Provider.of<CalendarManager>(
+                                            context,
                                             listen: false)
                                         .getEvents;
+                                    Provider.of<CalendarManager>(context,
+                                            listen: false)
+                                        .setSelectedEvents(events);
+                                    Map<String, String> encodedEvents =
+                                        encodeMap(events);
 
-                                List<Event> eventsToRemove = [];
-
-                                events.forEach((key, value) {
-                                  for (var element in value) {
-                                    if (element.outfit == itemInfo) {
-                                      eventsToRemove.add(element);
-                                    }
-                                  }
-                                });
-
-                                for (var element in eventsToRemove) {
-                                  Provider.of<CalendarManager>(context,
-                                          listen: false)
-                                      .removeEvent(element);
-                                }
-
-                                events = Provider.of<CalendarManager>(context,
-                                        listen: false)
-                                    .getEvents;
-                                Provider.of<CalendarManager>(context,
-                                        listen: false)
-                                    .setSelectedEvents(events);
-                                Map<String, String> encodedEvents =
-                                    encodeMap(events);
-
-                                Provider.of<AppStateManager>(context,
-                                        listen: false)
-                                    .cacheEvents(encodedEvents);
-                              },
-                            )
+                                    Provider.of<AppStateManager>(context,
+                                            listen: false)
+                                        .cacheEvents(encodedEvents);
+                                  },
+                                )
+                              : PhotoCardOutfit(object: itemInfo)
                           : PhotoCardOutfit(
                               object: itemInfo, type: "pick_outfits");
                     },

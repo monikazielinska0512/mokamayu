@@ -169,7 +169,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       Padding(
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: MultiSelectChip(
-              chipsColor: ColorsConstants.mint,
+              chipsColor: ColorsConstants.lightBrown,
               Tags.getLanguagesStyles(context),
               isScrollable: false,
               initialValues: _styles,

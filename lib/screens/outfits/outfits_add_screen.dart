@@ -55,8 +55,7 @@ class CreateOutfitPage extends StatelessWidget {
             context: context,
             height: 0.87,
             child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Align(
                     alignment: AlignmentDirectional.topCenter,
                     child: SizedBox(
@@ -98,32 +97,33 @@ class CreateOutfitPage extends StatelessWidget {
       chipsColor: ColorsConstants.darkPeach,
       usingFriendsWardrobe: isCreatingOutfitForFriend,
       onSelectionChanged: (selectedList) {
-        selectedChips = selectedList.isEmpty ? Tags.getLanguagesTypes(context) : selectedList;
+        selectedChips = selectedList.isEmpty
+            ? Tags.getLanguagesTypes(context)
+            : selectedList;
       },
     );
   }
 
-
-
   Widget buildAddButton(BuildContext context) {
-    return
-      Padding(padding: const EdgeInsets.only(right: 10), child:
-      IconButton(
-      icon: const Icon(
-        Ionicons.arrow_forward,
-        size: 35,
-      ),
-      onPressed: () {
-        Provider.of<PhotoTapped>(context, listen: false).setObject(null);
-        Provider.of<WardrobeManager>(context, listen: false).nullListItemCopy();
-        Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
-        if (isCreatingOutfitForFriend) {
-          context.pushNamed("outfit-add-attributes-screen",
-              extra: map, queryParams: {'friendUid': friendUid});
-        } else {
-          context.pushNamed("outfit-add-attributes-screen", extra: map);
-        }
-      },
-    ));
+    return Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: IconButton(
+          icon: const Icon(
+            Ionicons.chevron_forward,
+            size: 35,
+          ),
+          onPressed: () {
+            Provider.of<PhotoTapped>(context, listen: false).setObject(null);
+            Provider.of<WardrobeManager>(context, listen: false)
+                .nullListItemCopy();
+            Provider.of<WardrobeManager>(context, listen: false).setTypes([]);
+            if (isCreatingOutfitForFriend) {
+              context.pushNamed("outfit-add-attributes-screen",
+                  extra: map, queryParams: {'friendUid': friendUid});
+            } else {
+              context.pushNamed("outfit-add-attributes-screen", extra: map);
+            }
+          },
+        ));
   }
 }

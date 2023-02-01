@@ -218,6 +218,7 @@ class OutfitSummaryScreen extends StatelessWidget {
           Provider.of<OutfitManager>(context, listen: false)
               .setOutfitsCopy(null);
           Provider.of<OutfitManager>(context, listen: false).setStyles([]);
+          Provider.of<OutfitManager>(context, listen: false).setSeasons([]);
           context.pushReplacement("/home/1");
           CustomSnackBar.showSuccessSnackBar(
               context: context, message: S.of(context).outfit_created);

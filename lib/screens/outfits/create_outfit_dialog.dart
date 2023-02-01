@@ -45,6 +45,8 @@ class CustomDialogBox extends StatelessWidget {
                               .nullWholeMap();
                           Provider.of<WardrobeManager>(context, listen: false)
                               .resetBeforeCreatingNewOutfit();
+                          Provider.of<OutfitManager>(context, listen: false)
+                              .resetTagLists();
                           context.pushNamed("create-outfit-page",
                               extra: itemList!);
                           context.pop();
