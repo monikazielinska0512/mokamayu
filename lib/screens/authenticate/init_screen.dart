@@ -43,7 +43,7 @@ class InitScreen extends StatelessWidget {
       }, shouldExpand: false),
       Stack(children: [
         SizedBox(
-          height: deviceHeight(context) * 0.6,
+          height: deviceHeight(context) * 0.613,
           width: deviceWidth(context),
           child: Image.asset(
             "assets/images/mountaints-tall.png",

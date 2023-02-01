@@ -78,7 +78,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
 
   Future pickImage(ImageSource source) async {
     var pickedFile =
-        await widget.picker.pickImage(source: source, imageQuality: 85);
+        await widget.picker.pickImage(source: source, imageQuality: 50);
 
     setState(() {
       if (pickedFile != null) {
@@ -127,23 +127,24 @@ class _PhotoPickerState extends State<PhotoPicker> {
                 ? MediaQuery.of(context).size.height * 0.25
                 : MediaQuery.of(context).size.height * 0.35,
             // color: Colors.white,
-            child:  Column(
-                children: <Widget>[
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        widget.photo == null
-                            ? Container()
-                            : buildSourceElement(context, S.of(context).remove, null),
-                        buildSourceElement(
-                            context, S.of(context).gallery, ImageSource.gallery),
-                        buildSourceElement(
-                            context, S.of(context).camera, ImageSource.camera),
-                      ])
-                ],
-              ),
+            child: Column(
+              children: <Widget>[
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      widget.photo == null
+                          ? Container()
+                          : buildSourceElement(
+                              context, S.of(context).remove, null),
+                      buildSourceElement(
+                          context, S.of(context).gallery, ImageSource.gallery),
+                      buildSourceElement(
+                          context, S.of(context).camera, ImageSource.camera),
+                    ])
+              ],
             ),
+          ),
         ]);
       },
     );

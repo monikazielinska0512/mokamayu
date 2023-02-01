@@ -77,6 +77,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
 
   Widget buildNameTextField() {
     return TextFormField(
+        cursorColor: Colors.grey,
         initialValue: _name,
         readOnly: widget.item == null
             ? false
@@ -95,7 +96,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
           }
           return null;
         },
-        style: TextStyles.paragraphRegularSemiBold16(),
+        style: TextStyles.paragraphRegularSemiBold16(Colors.grey),
         decoration: InputDecoration(
             hintText: S.of(context).enter_name,
             prefixIcon: const Icon(Ionicons.pencil_outline,
