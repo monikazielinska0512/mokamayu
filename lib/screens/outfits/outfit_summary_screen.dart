@@ -21,7 +21,7 @@ class OutfitSummaryScreen extends StatelessWidget {
   late String capturedOutfit;
   List<WardrobeItem>? itemList;
   List<String> _elements = [];
-  late String _style;
+  late List<String> _styles;
   late String _season;
   Future<List<Outfit>>? outfitsList;
   Future<List<Post>>? postList;
@@ -37,7 +37,7 @@ class OutfitSummaryScreen extends StatelessWidget {
     capturedOutfit =
         Provider.of<PhotoTapped>(context, listen: false).getScreenshot;
     _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
-    _style = Provider.of<OutfitManager>(context, listen: false).getStyle!;
+    _styles = Provider.of<OutfitManager>(context, listen: false).getStyle;
     Outfit? item = Provider.of<PhotoTapped>(context, listen: false).getObject;
     return BasicScreen(
         title: S.of(context).summary,
@@ -91,29 +91,27 @@ class OutfitSummaryScreen extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
         child: Align(
             alignment: Alignment.centerLeft,
-            child: ChoiceChip(
-              label: Text(_season,
-                  style: TextStyles.paragraphRegularSemiBold14(
-                      ColorsConstants.white)),
-              selected: true,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              selectedColor: ColorsConstants.darkMint,
-            )),
+            child: MultiSelectChip(
+                chipsColor: ColorsConstants.darkMint,
+                [_season],
+                isScrollable: false,
+                disableChange: true,
+                onSelectionChanged: (selectedList) => {
+                      _styles = selectedList,
+                    })),
       ),
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
           child: Align(
             alignment: Alignment.centerLeft,
-            child: ChoiceChip(
-              label: Text(_style,
-                  style: TextStyles.paragraphRegularSemiBold14(
-                      ColorsConstants.white)),
-              selected: true,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              selectedColor: ColorsConstants.sunflower,
-            ),
+            child: MultiSelectChip(
+                chipsColor: ColorsConstants.lightBrown,
+                _styles,
+                isScrollable: false,
+                disableChange: true,
+                onSelectionChanged: (selectedList) => {
+                      _styles = selectedList,
+                    }),
           ))
     ]);
   }
@@ -129,7 +127,7 @@ class OutfitSummaryScreen extends StatelessWidget {
             });
             Provider.of<OutfitManager>(context, listen: false).updateOutfit(
                 item.reference ?? "",
-                _style,
+                _styles,
                 _season,
                 capturedOutfit,
                 _elements,
@@ -167,7 +165,7 @@ class OutfitSummaryScreen extends StatelessWidget {
             owner: friendUid ?? currentUserUid,
             elements: _elements,
             cover: capturedOutfit,
-            style: _style,
+            styles: _styles,
             season: _season,
             map: mapToFirestore,
             createdBy: currentUserUid);

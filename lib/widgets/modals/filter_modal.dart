@@ -104,7 +104,6 @@ class _FilterModalState extends State<FilterModal> {
               type: "style",
               onSelectionChanged: (selectedList) => {
                     widget.selectedStyles = selectedList,
-                    // print(widget.selectedStyles)
                   })),
     ]);
   }
@@ -123,7 +122,6 @@ class _FilterModalState extends State<FilterModal> {
               type: "outfit_style",
               onSelectionChanged: (selectedList) => {
                     widget.selectedOutfitStyles = selectedList,
-                    // print(widget.selectedStyles)
                   })),
     ]);
   }
@@ -142,7 +140,6 @@ class _FilterModalState extends State<FilterModal> {
               type: "outfit_season",
               onSelectionChanged: (selectedList) => {
                     widget.selectedOutfitSeasons = selectedList,
-                    // print(widget.selectedStyles)
                   })),
     ]);
   }
@@ -160,7 +157,6 @@ class _FilterModalState extends State<FilterModal> {
               type: "size",
               onSelectionChanged: (selectedList) => {
                     widget.selectedSizes = selectedList,
-                    // print(widget.selectedSizes)
                   }))
     ]);
   }

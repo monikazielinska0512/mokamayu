@@ -12,10 +12,10 @@ import '../../services/managers/managers.dart';
 class WardrobeItemCard extends StatelessWidget {
   WardrobeItemCard(
       {Key? key,
-        this.wardrobeItem,
-        this.outfit,
-        required this.size,
-        this.event})
+      this.wardrobeItem,
+      this.outfit,
+      required this.size,
+      this.event})
       : super(key: key);
   final WardrobeItem? wardrobeItem;
   final Outfit? outfit;
@@ -59,8 +59,8 @@ class WardrobeItemCard extends StatelessWidget {
       children: [
         event != null
             ? const SizedBox(
-          width: 80,
-        )
+                width: 80,
+              )
             : const SizedBox.shrink(),
         Column(children: [
           TextButton(
@@ -72,27 +72,27 @@ class WardrobeItemCard extends StatelessWidget {
                 textAlign: TextAlign.right,
               ),
               onPressed: () => {
-                Provider.of<PhotoTapped>(context, listen: false)
-                    .setObject(outfit),
-                outfit!.map!.forEach((key, value) {
-                  Map<String, dynamic> contList = json.decode(value);
-                  OutfitContainer list = OutfitContainer(
-                      height: contList["height"],
-                      rotation: contList["rotation"],
-                      scale: contList["scale"],
-                      width: contList["width"],
-                      xPosition: contList["xPosition"],
-                      yPosition: contList["yPosition"]);
-                  getMap!.addAll({json.decode(key): list});
-                }),
-                GoRouter.of(context).pushNamed(
-                    "outfit-add-attributes-screen",
-                    extra: getMap)
-              }),
+                    Provider.of<PhotoTapped>(context, listen: false)
+                        .setObject(outfit),
+                    outfit!.map!.forEach((key, value) {
+                      Map<String, dynamic> contList = json.decode(value);
+                      OutfitContainer list = OutfitContainer(
+                          height: contList["height"],
+                          rotation: contList["rotation"],
+                          scale: contList["scale"],
+                          width: contList["width"],
+                          xPosition: contList["xPosition"],
+                          yPosition: contList["yPosition"]);
+                      getMap!.addAll({json.decode(key): list});
+                    }),
+                    GoRouter.of(context).pushNamed(
+                        "outfit-add-attributes-screen",
+                        extra: getMap)
+                  }),
           event != null
               ? const SizedBox(
-            height: 10,
-          )
+                  height: 10,
+                )
               : const SizedBox.shrink(),
           GestureDetector(
               onTap: () {
@@ -204,9 +204,11 @@ class WardrobeItemCard extends StatelessWidget {
                       textAlign: TextAlign.right,
                     ),
                     onPressed: () => {
-                      context.pushNamed('wardrobe-item',
-                          extra: wardrobeItem)
-                    }),
+                          Provider.of<WardrobeManager>(context, listen: false)
+                              .blockEdit(true),
+                          context.pushNamed('wardrobe-item',
+                              extra: wardrobeItem)
+                        }),
               ],
             )));
   }

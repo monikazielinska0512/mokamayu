@@ -7,7 +7,6 @@ import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/managers/managers.dart';
 import 'package:provider/provider.dart';
 
-
 //ignore: must_be_immutable
 class PhotoCardOutfit extends StatelessWidget {
   PhotoCardOutfit({Key? key, this.object, this.type}) : super(key: key);
@@ -24,7 +23,6 @@ class PhotoCardOutfit extends StatelessWidget {
           Provider.of<CalendarManager>(context, listen: true).getOutfitsMap;
       selected = outfitsMap[object];
       selected ??= false;
-      // print(selected);
     }
 
     String? photoUrl = object!.cover;
@@ -73,7 +71,7 @@ class PhotoCardOutfit extends StatelessWidget {
     Provider.of<PhotoTapped>(context, listen: false).setObject(object);
     Provider.of<OutfitManager>(context, listen: false)
         .setSeason(object!.season);
-    Provider.of<OutfitManager>(context, listen: false).setStyle(object!.style);
+    Provider.of<OutfitManager>(context, listen: false).setStyle(object!.styles);
     getMap.forEach((key, value) {
       Provider.of<PhotoTapped>(context, listen: false).addIds(key[1]);
     });

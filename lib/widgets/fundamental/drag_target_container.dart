@@ -63,14 +63,11 @@ class DragTargetState extends State<DragTargetContainer> {
               final delta = details.focalPoint - _initPos;
               var left = (delta.dx / screen.width) + _currentPos.dx;
               var top = (delta.dy / screen.height) + _currentPos.dy;
-              // print(left);
-              // print(top);
 
               if (left < 0) left = 0;
               if (left > 0.72) left = 0.72;
               if (top < 0) top = 0;
               if (top > 0.5) top = 0.5;
-              // print(_currentScale);
 
               setState(() {
                 entry.value.xPosition = Offset(left, top).dx;
@@ -78,7 +75,7 @@ class DragTargetState extends State<DragTargetContainer> {
                 entry.value.rotation = details.rotation + _currentRotation;
                 entry.value.scale = details.scale * _currentScale;
                 if (entry.value.scale > 2) entry.value.scale = 2;
-                // print(entry.value.scale);
+
               });
             },
             child: Stack(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mokamayu/models/outfit.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
@@ -15,12 +16,17 @@ class OutfitForm extends StatelessWidget {
   final Outfit? item;
   final GlobalKey<FormState> formKey;
   String _season = "";
-  String _style = "";
+  List<String> _styles = [];
 
   @override
   Widget build(BuildContext context) {
-    _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
-    _style = Provider.of<OutfitManager>(context, listen: false).getStyle!;
+    if (item != null) {
+      _styles = item!.styles;
+      _season = item!.season;
+    } else {
+      _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
+      _styles = Provider.of<OutfitManager>(context, listen: false).getStyle;
+    }
     return Scrollbar(
         thickness: 2,
         radius: const Radius.circular(10),
@@ -70,19 +76,30 @@ class OutfitForm extends StatelessWidget {
                   style: TextStyles.paragraphRegularSemiBold18()))),
       Align(
           alignment: Alignment.centerLeft,
-          child: SingleSelectChipsFormField(
-            initialValue: _style,
-            type: 'style',
-            autoValidate: true,
-            context: context,
-            validator: (value) =>
-                Validator.checkIfSingleValueSelected(value!, context),
-            onSaved: (value) {
-              _style = value!;
-            },
-            color: ColorsConstants.sunflower,
-            chipsList: OutfitTags.getLanguagesStyles(context),
-          )),
+          child: MultiSelectChip(
+              chipsColor: ColorsConstants.lightBrown,
+              OutfitTags.getLanguagesStyles(context),
+              isScrollable: false,
+              initialValues: _styles,
+              // type: "style_outfit",
+              onSelectionChanged: (selectedList) => {
+                    _styles = selectedList,
+                  })
+
+          // SingleSelectChipsFormField(
+          //   initialValue: _styles,
+          //   type: 'style',
+          //   autoValidate: true,
+          //   context: context,
+          //   validator: (value) =>
+          //       Validator.checkIfSingleValueSelected(value!, context),
+          //   onSaved: (value) {
+          //     _styles = value!;
+          //   },
+          //   color: ColorsConstants.sunflower,
+          //   chipsList: OutfitTags.getLanguagesStyles(context),
+          // )
+          ),
     ]);
   }
 }

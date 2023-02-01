@@ -3,11 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
+import '../../services/managers/wardrobe_manager.dart';
 import 'icon_button.dart';
 
 IconButton BackArrowButton(BuildContext context, {String? backPath}) {
   return IconButton(
     onPressed: () {
+      Provider.of<WardrobeManager>(context, listen: false).blockEdit(false);
       backPath != null ? context.go(backPath) : context.pop();
     },
     icon: const Icon(Ionicons.chevron_back, size: 35),

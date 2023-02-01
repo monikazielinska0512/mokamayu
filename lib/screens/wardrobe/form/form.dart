@@ -33,6 +33,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   String _size = "";
   String _name = "";
   List<String> _styles = [];
+  bool? block;
 
   @override
   void initState() {
@@ -42,6 +43,7 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       _name = widget.item!.name;
       _styles = widget.item!.styles;
     }
+    block = Provider.of<WardrobeManager>(context, listen: false).getBlock;
     super.initState();
   }
 
@@ -66,7 +68,8 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                   widget.item == null
                       ? buildAddButton()
                       : widget.item!.createdBy !=
-                              AuthService().getCurrentUserID()
+                                  AuthService().getCurrentUserID() ||
+                              block == true
                           ? const SizedBox.shrink()
                           : buildUpdateButton()
                 ])));
@@ -77,7 +80,8 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
         initialValue: _name,
         readOnly: widget.item == null
             ? false
-            : widget.item!.createdBy != AuthService().getCurrentUserID()
+            : widget.item!.createdBy != AuthService().getCurrentUserID() ||
+                    block == true
                 ? true
                 : false,
         onSaved: (value) => _name = value!,
@@ -133,7 +137,9 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
               onSaved: (value) => _type = value!,
               disableChange: widget.item == null
                   ? false
-                  : widget.item!.createdBy != AuthService().getCurrentUserID()
+                  : widget.item!.createdBy !=
+                              AuthService().getCurrentUserID() ||
+                          block == true
                       ? true
                       : false,
               color: ColorsConstants.sunflower,
@@ -154,7 +160,8 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             onSaved: (value) => _size = value!,
             disableChange: widget.item == null
                 ? false
-                : widget.item!.createdBy != AuthService().getCurrentUserID()
+                : widget.item!.createdBy != AuthService().getCurrentUserID() ||
+                        block == true
                     ? true
                     : false,
             color: ColorsConstants.darkMint,
@@ -175,7 +182,9 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
               initialValues: _styles,
               disableChange: widget.item == null
                   ? false
-                  : widget.item!.createdBy != AuthService().getCurrentUserID()
+                  : widget.item!.createdBy !=
+                              AuthService().getCurrentUserID() ||
+                          block == true
                       ? true
                       : false,
               onSelectionChanged: (selectedList) => {

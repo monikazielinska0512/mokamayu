@@ -17,7 +17,7 @@ class OutfitManager extends ChangeNotifier {
   Future<List<Outfit>>? get getOutfitListCopy => futureOutfitListCopy;
 
   List<Outfit> get getFinalOutfitList => finalOutfitList;
-  String? outfitStyle = "";
+  List<String> outfitStyle = [];
   String? outfitSeason = "";
   List<String>? outfitStyles;
   List<String>? outfitSeasons;
@@ -32,11 +32,11 @@ class OutfitManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setStyle(String? style) {
+  void setStyle(List<String> style) {
     outfitStyle = style;
   }
 
-  String? get getStyle => outfitStyle;
+  List<String> get getStyle => outfitStyle;
 
   void setSeason(String? season) {
     outfitSeason = season;
@@ -96,7 +96,7 @@ class OutfitManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateOutfit(String reference, String? style, String? season,
+  void updateOutfit(String reference, List<String> styles, String? season,
       String? cover, List<String>? elements, Map<String, String>? map) {
     db
         .collection('users')
@@ -104,7 +104,7 @@ class OutfitManager extends ChangeNotifier {
         .collection('outfits')
         .doc(reference)
         .update({
-          "style": style,
+          "styles": styles,
           "season": season,
           "cover": cover,
           "elements": elements,
@@ -120,25 +120,17 @@ class OutfitManager extends ChangeNotifier {
       List<String> seasonsList,
       List<Outfit> itemList) async {
     List<Outfit> filteredList = [];
+    seasonsList =
+        seasonsList.isNotEmpty ? seasonsList : OutfitTags.getSeasons(context);
     stylesList = stylesList.isNotEmpty
         ? stylesList
         : OutfitTags.getLanguagesStyles(context);
-    seasonsList =
-        seasonsList.isNotEmpty ? seasonsList : OutfitTags.getSeasons(context);
+    var set = Set.of(stylesList);
 
     for (var element in itemList) {
       Outfit item = element;
       bool season = seasonsList.contains(item.season);
-      bool style = stylesList.contains(item.style);
-
-      // print("Name:" +
-      //     item.name +
-      //     "\ntype: " +
-      //     type.toString() +
-      //     "\nstyles: " +
-      //     styles.toString() +
-      //     "\nsize: " +
-      //     size.toString());
+      bool style = set.containsAll(item.styles);
 
       if (season && style) {
         filteredList.add(item);
@@ -166,7 +158,7 @@ class OutfitManager extends ChangeNotifier {
 
   void resetSingleTags() {
     setSeason("");
-    setStyle("");
+    setStyle([]);
   }
 
   void resetTagLists() {

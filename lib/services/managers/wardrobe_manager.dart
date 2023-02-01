@@ -37,9 +37,16 @@ class WardrobeManager extends ChangeNotifier {
   Future<List<WardrobeItem>>? get getFriendWardrobeItemListCopy =>
       futureFriendWardrobeItemListCopy;
 
+  bool block = false;
+  bool get getBlock => block;
+
   List<String>? itemTypes;
   List<String>? itemSizes;
   List<String>? itemStyles;
+
+  void blockEdit(bool newblock) {
+    block = newblock;
+  }
 
   void setWardrobeItemList(Future<List<WardrobeItem>> itemList) {
     futureWardrobeItemList = itemList;
@@ -131,15 +138,6 @@ class WardrobeManager extends ChangeNotifier {
       bool type = typesList.contains(item.type);
       bool styles = set.containsAll(item.styles);
       bool size = sizesList.contains(item.size);
-
-      // print("Name:" +
-      //     item.name +
-      //     "\ntype: " +
-      //     type.toString() +
-      //     "\nstyles: " +
-      //     styles.toString() +
-      //     "\nsize: " +
-      //     size.toString());
 
       if (type && styles && size) {
         filteredList.add(item);
