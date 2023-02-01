@@ -4,6 +4,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
+import '../../generated/l10n.dart';
 import '../../services/managers/managers.dart';
 import '../../widgets/widgets.dart';
 
@@ -15,7 +16,6 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
-  final title = 'Powiadomienia';
   List<CustomNotification> notificationList = [];
   List<UserData> userList = [];
 
@@ -33,7 +33,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-      title: title,
+      title: S.of(context).notifications,
       leftButton: BackArrowButton(context),
       rightButton: null,
       context: context,
@@ -54,7 +54,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               child: notificationList.isEmpty
                   ? EmptyScreen(
                       context,
-                      const Text("Nie masz żadnych powiadomień"),
+                      Text(S.of(context).empty_notifications),
                       ColorsConstants.lightSunflower)
                   : buildNotificationScreen(context, notificationList),
             ),
@@ -67,34 +67,34 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget buildNotificationScreen(
       BuildContext context, List<CustomNotification> notificationList) {
     return ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            itemBuilder: (BuildContext context, int index) {
-              return Dismissible(
-                key: Key(notificationList[index].reference!),
-                onDismissed: (direction) {
-                  Provider.of<NotificationsManager>(context, listen: false)
-                      .deleteNotification(notificationList[index].reference!);
-                  setState(() {
-                    notificationList.removeAt(index);
-                  });
-                },
-                background: Container(color: ColorsConstants.darkBrick),
-                child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: ColorsConstants.whiteAccent),
-
-                    // height: MediaQuery.of(context).size.height * 0.1,
-                    child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: buildNotifications(
-                            context, notificationList[index], userList))),
-              );
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        itemBuilder: (BuildContext context, int index) {
+          return Dismissible(
+            key: Key(notificationList[index].reference!),
+            onDismissed: (direction) {
+              Provider.of<NotificationsManager>(context, listen: false)
+                  .deleteNotification(notificationList[index].reference!);
+              setState(() {
+                notificationList.removeAt(index);
+              });
             },
-            separatorBuilder: (BuildContext context, int index) =>
-                Container(height: 10),
-            itemCount: notificationList.length);
+            background: Container(color: ColorsConstants.darkBrick),
+            child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: ColorsConstants.whiteAccent),
+
+                // height: MediaQuery.of(context).size.height * 0.1,
+                child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: buildNotifications(
+                        context, notificationList[index], userList))),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) =>
+            Container(height: 10),
+        itemCount: notificationList.length);
   }
 
   Widget buildNotifications(
@@ -121,7 +121,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                   const Padding(padding: EdgeInsets.only(left: 10)),
                   Flexible(
-                      child: Text("Użytkownik ${name} polubił twój post!",
+                      child: Text(
+                          "${S.of(context).user} ${name} ${S.of(context).liked_your_post}",
                           style: TextStyles.paragraphRegular14())),
                 ],
               ));
@@ -144,7 +145,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                   const Padding(padding: EdgeInsets.only(left: 10)),
                   Flexible(
-                      child: Text("Użytkownik ${name} skomentował twój post!",
+                      child: Text(
+                          "${S.of(context).user} ${name} ${S.of(context).commented_on_your_post}",
                           style: TextStyles.paragraphRegular14())),
                 ],
               ));
@@ -168,7 +170,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   const Padding(padding: EdgeInsets.only(left: 10)),
                   Flexible(
                       child: Text(
-                          "Użytkownik ${name} stworzył dla Ciebie stylizację!",
+                          "${S.of(context).user} ${name} ${S.of(context).created_outfit_for_you}",
                           style: TextStyles.paragraphRegular14())),
                 ],
               ));
@@ -197,7 +199,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   const Padding(padding: EdgeInsets.only(left: 10)),
                   Flexible(
                       child: Text(
-                          "Ty i użytkownik $name jesteście teraz znajomymi!",
+                          "${S.of(context).you_and_user} $name ${S.of(context).are_now_friends}",
                           style: TextStyles.paragraphRegular14())),
                 ],
               ));

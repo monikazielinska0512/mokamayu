@@ -5,6 +5,7 @@ import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/constants/constants.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import '../../generated/l10n.dart';
 import '../../services/authentication/auth.dart';
 import '../../services/managers/managers.dart';
 import '../../utils/string_extensions.dart';
@@ -362,36 +363,36 @@ class _PostScreenState extends State<PostScreen> {
         padding: const EdgeInsets.only(bottom: 15, top: 10),
         child: TextField(
           controller: myController,
-          onSubmitted: (String comment) {
-            if (myController.text != "") {
-              widget.post.comments!.add({
-                "author": AuthService().getCurrentUserID(),
-                "content": comment
-              });
-              Provider.of<PostManager>(context, listen: false).commentPost(
-                  widget.post.reference!,
-                  widget.post.createdFor,
-                  widget.post.comments!);
-              myController.clear();
-              setState(() {});
-            }
-
-            if (AuthService().getCurrentUserID() != widget.post.createdBy) {
-              CustomNotification notif = CustomNotification(
-                  sentFrom: AuthService().getCurrentUserID(),
-                  type: NotificationType.COMMENT.toString(),
-                  creationDate: DateTime.now().millisecondsSinceEpoch);
-              Provider.of<NotificationsManager>(context, listen: false)
-                  .addNotificationToFirestore(notif, widget.post.createdBy);
-            }
-          },
-          decoration: const InputDecoration(
-            hintText: "Skomentuj",
+          decoration: InputDecoration(
+            hintText: S.of(context).comment,
             filled: true,
             fillColor: ColorsConstants.whiteAccent,
-            suffixIcon: Icon(
-              Icons.arrow_forward_ios_rounded,
-              color: ColorsConstants.darkBrick,
+            suffixIcon: IconButton(
+              icon: const Icon(Icons.arrow_forward_ios_rounded,
+                  color: ColorsConstants.darkBrick),
+              onPressed: () {
+                if (myController.text != "") {
+                  widget.post.comments!.add({
+                    "author": AuthService().getCurrentUserID(),
+                    "content": myController.text
+                  });
+                  Provider.of<PostManager>(context, listen: false).commentPost(
+                      widget.post.reference!,
+                      widget.post.createdFor,
+                      widget.post.comments!);
+                  myController.clear();
+                  setState(() {});
+                }
+
+                if (AuthService().getCurrentUserID() != widget.post.createdBy) {
+                  CustomNotification notif = CustomNotification(
+                      sentFrom: AuthService().getCurrentUserID(),
+                      type: NotificationType.COMMENT.toString(),
+                      creationDate: DateTime.now().millisecondsSinceEpoch);
+                  Provider.of<NotificationsManager>(context, listen: false)
+                      .addNotificationToFirestore(notif, widget.post.createdBy);
+                }
+              },
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12)),

@@ -1459,6 +1459,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Comment`
+  String get comment {
+    return Intl.message(
+      'Comment',
+      name: 'comment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See all comments`
+  String get see_all_comments {
+    return Intl.message(
+      'See all comments',
+      name: 'see_all_comments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Posted`
+  String get posted {
+    return Intl.message(
+      'Posted',
+      name: 'posted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notifications`
+  String get notifications {
+    return Intl.message(
+      'Notifications',
+      name: 'notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User`
+  String get user {
+    return Intl.message(
+      'User',
+      name: 'user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `liked your post!`
+  String get liked_your_post {
+    return Intl.message(
+      'liked your post!',
+      name: 'liked_your_post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `commented on your post!`
+  String get commented_on_your_post {
+    return Intl.message(
+      'commented on your post!',
+      name: 'commented_on_your_post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `created ourfit for you!`
+  String get created_outfit_for_you {
+    return Intl.message(
+      'created ourfit for you!',
+      name: 'created_outfit_for_you',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You and user`
+  String get you_and_user {
+    return Intl.message(
+      'You and user',
+      name: 'you_and_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `are now friends!`
+  String get are_now_friends {
+    return Intl.message(
+      'are now friends!',
+      name: 'are_now_friends',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

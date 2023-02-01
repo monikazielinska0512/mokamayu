@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Plan outfits for"),
         "all_friends": MessageLookupByLibrary.simpleMessage("All your friends"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Apply filters"),
+        "are_now_friends":
+            MessageLookupByLibrary.simpleMessage("are now friends!"),
         "ask_deletion":
             MessageLookupByLibrary.simpleMessage("Do you want delete\n"),
         "attributes": MessageLookupByLibrary.simpleMessage("Attributes"),
@@ -49,10 +51,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "classic": MessageLookupByLibrary.simpleMessage("Classic"),
         "clothing_types": MessageLookupByLibrary.simpleMessage("Clothing type"),
         "coat": MessageLookupByLibrary.simpleMessage("Coat"),
+        "comment": MessageLookupByLibrary.simpleMessage("Comment"),
+        "commented_on_your_post":
+            MessageLookupByLibrary.simpleMessage("commented on your post!"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "create_outfit": MessageLookupByLibrary.simpleMessage("Create outfit"),
+        "created_outfit_for_you":
+            MessageLookupByLibrary.simpleMessage("created ourfit for you!"),
         "current_weather": MessageLookupByLibrary.simpleMessage("Current"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "delete_outfit": MessageLookupByLibrary.simpleMessage(
@@ -110,6 +117,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "items": MessageLookupByLibrary.simpleMessage("Items"),
         "jacket": MessageLookupByLibrary.simpleMessage("Jacket"),
         "jeans": MessageLookupByLibrary.simpleMessage("Jeans"),
+        "liked_your_post":
+            MessageLookupByLibrary.simpleMessage("liked your post!"),
         "looks_for": MessageLookupByLibrary.simpleMessage("Looks for"),
         "military": MessageLookupByLibrary.simpleMessage("Military"),
         "minimalism": MessageLookupByLibrary.simpleMessage("Minimalistic"),
@@ -125,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No pending invitations"),
         "no_pending_invitation_user": MessageLookupByLibrary.simpleMessage(
             "No pending invitations from such user"),
+        "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
         "outfit_created":
             MessageLookupByLibrary.simpleMessage("Outfit has been created"),
         "outfit_created_for_friend": MessageLookupByLibrary.simpleMessage(
@@ -147,6 +157,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Planned outfits"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Please enter text"),
+        "posted": MessageLookupByLibrary.simpleMessage("Posted"),
         "posts": MessageLookupByLibrary.simpleMessage("Posts"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "pyjama": MessageLookupByLibrary.simpleMessage("Pyjama"),
@@ -163,6 +174,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchbar_wardrobe_item":
             MessageLookupByLibrary.simpleMessage("Search by name"),
         "season": MessageLookupByLibrary.simpleMessage("Season"),
+        "see_all_comments":
+            MessageLookupByLibrary.simpleMessage("See all comments"),
         "see_details": MessageLookupByLibrary.simpleMessage("See details"),
         "shoes": MessageLookupByLibrary.simpleMessage("Shoes"),
         "shorts": MessageLookupByLibrary.simpleMessage("Shorts"),
@@ -197,6 +210,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Item has been updated!"),
         "use_creativity":
             MessageLookupByLibrary.simpleMessage("Use your creativity!"),
+        "user": MessageLookupByLibrary.simpleMessage("User"),
         "user_not_exist":
             MessageLookupByLibrary.simpleMessage("User does not exist"),
         "users": MessageLookupByLibrary.simpleMessage("Users"),
@@ -208,6 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "week": MessageLookupByLibrary.simpleMessage("Week"),
         "winter": MessageLookupByLibrary.simpleMessage("Winter"),
         "wrong_password": MessageLookupByLibrary.simpleMessage(
-            "Your email or password is wrong")
+            "Your email or password is wrong"),
+        "you_and_user": MessageLookupByLibrary.simpleMessage("You and user")
       };
 }

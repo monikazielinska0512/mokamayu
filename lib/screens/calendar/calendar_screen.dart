@@ -99,7 +99,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
     super.initState();
     myFocusNode = FocusNode();
     selectedEvents = {};
-    // updateUI();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 2), () => prefsData());
     });

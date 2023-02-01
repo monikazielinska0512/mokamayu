@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dodaj stylizacje na"),
         "all_friends": MessageLookupByLibrary.simpleMessage("Wszyscy znajomi"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Filtruj"),
+        "are_now_friends":
+            MessageLookupByLibrary.simpleMessage("jesteście teraz znajomymi!"),
         "ask_deletion": MessageLookupByLibrary.simpleMessage("Chcesz usunąć "),
         "attributes": MessageLookupByLibrary.simpleMessage("Atrybuty"),
         "autumn": MessageLookupByLibrary.simpleMessage("Jesień"),
@@ -48,11 +50,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "classic": MessageLookupByLibrary.simpleMessage("Klasyczny"),
         "clothing_types": MessageLookupByLibrary.simpleMessage("Rodzaj"),
         "coat": MessageLookupByLibrary.simpleMessage("Płaszcz"),
+        "comment": MessageLookupByLibrary.simpleMessage("Skomentuj"),
+        "commented_on_your_post":
+            MessageLookupByLibrary.simpleMessage("skomentował twój post!"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Potwierdź hasło"),
         "create": MessageLookupByLibrary.simpleMessage("Stwórz"),
         "create_outfit":
             MessageLookupByLibrary.simpleMessage("Stwórz stylizację"),
+        "created_outfit_for_you": MessageLookupByLibrary.simpleMessage(
+            "stworzył dla Ciebie stylizację!"),
         "current_weather": MessageLookupByLibrary.simpleMessage("Aktualnie"),
         "delete": MessageLookupByLibrary.simpleMessage("Usuń"),
         "delete_outfit": MessageLookupByLibrary.simpleMessage(
@@ -112,6 +119,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "items": MessageLookupByLibrary.simpleMessage("Elementy"),
         "jacket": MessageLookupByLibrary.simpleMessage("Kurtka"),
         "jeans": MessageLookupByLibrary.simpleMessage("Dżinsy"),
+        "liked_your_post":
+            MessageLookupByLibrary.simpleMessage("polubił twój post!"),
         "looks_for": MessageLookupByLibrary.simpleMessage("Stylizacje na"),
         "military": MessageLookupByLibrary.simpleMessage("Militarny"),
         "minimalism": MessageLookupByLibrary.simpleMessage("Minimalistyczny"),
@@ -126,6 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Brak zaproszeń od znajomych"),
         "no_pending_invitation_user": MessageLookupByLibrary.simpleMessage(
             "Brak zaproszenia od tego użytkownika"),
+        "notifications": MessageLookupByLibrary.simpleMessage("Powiadomienia"),
         "outfit_created":
             MessageLookupByLibrary.simpleMessage("Stworzono stylizację"),
         "outfit_created_for_friend": MessageLookupByLibrary.simpleMessage(
@@ -147,6 +157,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "planned_outfits": MessageLookupByLibrary.simpleMessage("Zaplanowane"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Proszę wprowadzić tekst"),
+        "posted": MessageLookupByLibrary.simpleMessage("Opublikowano"),
         "posts": MessageLookupByLibrary.simpleMessage("Posty"),
         "profile": MessageLookupByLibrary.simpleMessage("Profil"),
         "pyjama": MessageLookupByLibrary.simpleMessage("Piżama"),
@@ -163,6 +174,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchbar_wardrobe_item":
             MessageLookupByLibrary.simpleMessage("Szukaj po nazwie"),
         "season": MessageLookupByLibrary.simpleMessage("Pora roku"),
+        "see_all_comments":
+            MessageLookupByLibrary.simpleMessage("Zobacz wszystkie komentarze"),
         "see_details": MessageLookupByLibrary.simpleMessage("Szczegóły"),
         "shoes": MessageLookupByLibrary.simpleMessage("Buty"),
         "shorts": MessageLookupByLibrary.simpleMessage("Spodenki"),
@@ -197,6 +210,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Zaktualizowano element"),
         "use_creativity": MessageLookupByLibrary.simpleMessage(
             "Wykorzystaj swoją wyobraźnię!"),
+        "user": MessageLookupByLibrary.simpleMessage("Użytkownik"),
         "user_not_exist": MessageLookupByLibrary.simpleMessage(
             "Podany użytkownik nie istnieje"),
         "users": MessageLookupByLibrary.simpleMessage("Użytkwonicy"),
@@ -208,6 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "week": MessageLookupByLibrary.simpleMessage("TydzieĶ"),
         "winter": MessageLookupByLibrary.simpleMessage("Zima"),
         "wrong_password":
-            MessageLookupByLibrary.simpleMessage("Hasło lub email jest błędne")
+            MessageLookupByLibrary.simpleMessage("Hasło lub email jest błędne"),
+        "you_and_user": MessageLookupByLibrary.simpleMessage("Ty i użytkownik")
       };
 }

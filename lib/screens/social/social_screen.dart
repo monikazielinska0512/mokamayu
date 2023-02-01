@@ -5,6 +5,8 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:mokamayu/models/models.dart';
 
+import '../../generated/l10n.dart';
+
 class SocialScreen extends StatefulWidget {
   const SocialScreen({Key? key}) : super(key: key);
 
@@ -50,7 +52,7 @@ class _SocialScreenState extends State<SocialScreen> {
         .readFriendsPostsOnce(currentUser);
 
     return BasicScreen(
-      title: "Społeczność",
+      title: S.of(context).social,
       leftButton: DotsButton(context),
       rightButton: SearchNotificationButton(context),
       context: context,
