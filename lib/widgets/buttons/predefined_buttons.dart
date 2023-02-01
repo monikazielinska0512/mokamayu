@@ -70,7 +70,7 @@ Widget GoForwardButton(Function() onPressed) {
         onPressed: onPressed,
         icon: const Icon(
           size: 35,
-          Icons.arrow_forward,
+          Ionicons.chevron_forward,
         ),
       ));
 }

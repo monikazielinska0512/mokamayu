@@ -7,7 +7,6 @@ import 'package:mokamayu/utils/validator.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -37,6 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       rightButton: null,
       context: context,
       isFullScreen: true,
+      resizeToAvoidBottomInset: true,
       body: Stack(children: [
         Stack(children: [
           Positioned(

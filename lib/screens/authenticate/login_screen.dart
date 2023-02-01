@@ -34,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
       rightButton: null,
       context: context,
       isFullScreen: true,
+      resizeToAvoidBottomInset: true,
       body: Stack(children: [
         Stack(children: [
           Positioned(
