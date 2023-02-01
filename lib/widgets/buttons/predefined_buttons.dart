@@ -40,7 +40,7 @@ Widget NotificationsButton(BuildContext context) {
 Widget AddButton(BuildContext context, Function() onPressed) {
   return IconButton(
     color: Colors.black,
-    iconSize: 30,
+    iconSize: 40,
     onPressed: onPressed,
     icon: const Icon(
       Ionicons.add,

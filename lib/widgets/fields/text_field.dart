@@ -6,7 +6,8 @@ import '../../constants/colors.dart';
 import '../../constants/text_styles.dart';
 
 TextFormField CustomTextField(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller, String? Function(String?)? onValidate) {
+    TextEditingController controller, String? Function(String?)? onValidate,
+    {Color? color = ColorsConstants.grey}) {
   return TextFormField(
     validator: onValidate,
     controller: controller,
@@ -16,7 +17,7 @@ TextFormField CustomTextField(String text, IconData icon, bool isPasswordType,
     cursorColor: Colors.grey,
     style: TextStyles.paragraphRegular14(Colors.grey),
     decoration: InputDecoration(
-      prefixIcon: Icon(icon, color: ColorsConstants.grey),
+      prefixIcon: Icon(icon, color: color),
       labelText: text,
       labelStyle: TextStyle(color: Colors.grey.withOpacity(0.9)),
       filled: true,

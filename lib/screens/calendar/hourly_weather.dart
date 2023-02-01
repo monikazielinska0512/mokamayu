@@ -73,7 +73,7 @@ class HourlyWeatherItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final temp = data.temp;
     return Padding(
-        padding: const EdgeInsets.only(top: 0, left: 0, right: 30),
+        padding: const EdgeInsets.only(right: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

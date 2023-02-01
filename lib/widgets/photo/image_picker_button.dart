@@ -56,7 +56,7 @@ class ImagePickerButton extends StatelessWidget {
                                     buildContext,
                                     const Icon(Ionicons.trash_bin_outline,
                                         color: Colors.white),
-                                    "Usuń zdjęcie",
+                                    S.of(context).delete_photo,
                                     null)
                               ],
                               buildImageSourceOption(
@@ -76,7 +76,7 @@ class ImagePickerButton extends StatelessWidget {
             }),
       },
       child: Text(
-        'Zmień zdjęcie',
+        S.of(context).change_photo,
         style: TextStyles.paragraphRegularSemiBold14(ColorsConstants.darkMint),
       ),
     );

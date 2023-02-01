@@ -16,6 +16,19 @@ class CalendarManager extends ChangeNotifier {
   DateTime day = DateTime.now();
   DateTime get getDay => day;
 
+  Map<Outfit, String> eventNames = {};
+  Map<Outfit, String> get getEventNames => eventNames;
+
+  void addEventNames(Outfit outfit, String name) {
+    eventNames.containsKey(outfit)
+        ? eventNames[outfit] = name
+        : eventNames.addAll({outfit: name});
+  }
+
+  void resetEventNames() {
+    eventNames = {};
+  }
+
   void removeEvent(Event event) {
     events.forEach((key, value) {
       if (value.contains(event)) {

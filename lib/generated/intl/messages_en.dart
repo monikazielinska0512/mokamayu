@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cardigan": MessageLookupByLibrary.simpleMessage("Cardigan"),
         "casual": MessageLookupByLibrary.simpleMessage("Casual"),
+        "change_photo": MessageLookupByLibrary.simpleMessage("Change photo"),
         "check_inbox":
             MessageLookupByLibrary.simpleMessage("Check your inbox!"),
         "classic": MessageLookupByLibrary.simpleMessage("Classic"),
@@ -64,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "delete_outfit": MessageLookupByLibrary.simpleMessage(
             "Do you want delete this outfit?"),
+        "delete_photo": MessageLookupByLibrary.simpleMessage("Delete photo"),
         "deleted_item":
             MessageLookupByLibrary.simpleMessage("Item has been deleted"),
         "dismiss": MessageLookupByLibrary.simpleMessage("DISMISS"),
@@ -123,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "military": MessageLookupByLibrary.simpleMessage("Military"),
         "minimalism": MessageLookupByLibrary.simpleMessage("Minimalistic"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
+        "my_profile": MessageLookupByLibrary.simpleMessage("My profile"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
@@ -159,7 +162,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter text"),
         "posted": MessageLookupByLibrary.simpleMessage("Posted"),
         "posts": MessageLookupByLibrary.simpleMessage("Posts"),
+        "private": MessageLookupByLibrary.simpleMessage("Private"),
+        "private_profile":
+            MessageLookupByLibrary.simpleMessage("Private profile"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "profile_name": MessageLookupByLibrary.simpleMessage("Profile name"),
         "pyjama": MessageLookupByLibrary.simpleMessage("Pyjama"),
         "remove": MessageLookupByLibrary.simpleMessage("Remove"),
         "requests": MessageLookupByLibrary.simpleMessage("Invitations"),
@@ -213,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "user": MessageLookupByLibrary.simpleMessage("User"),
         "user_not_exist":
             MessageLookupByLibrary.simpleMessage("User does not exist"),
+        "username": MessageLookupByLibrary.simpleMessage("Username"),
         "users": MessageLookupByLibrary.simpleMessage("Users"),
         "vintage": MessageLookupByLibrary.simpleMessage("Vintage"),
         "wardrobe": MessageLookupByLibrary.simpleMessage("Wardrobe"),

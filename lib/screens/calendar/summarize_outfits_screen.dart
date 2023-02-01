@@ -24,20 +24,28 @@ class SummarizeOutfitsScreen extends StatelessWidget {
           List<Outfit?> outfitList =
               Provider.of<CalendarManager>(context, listen: false)
                   .getPickedOutfits;
+          Map<Outfit, String> eventNames =
+              Provider.of<CalendarManager>(context, listen: false)
+                  .getEventNames;
+          print(eventNames);
 
           if (outfitList.isNotEmpty) {
             if (events[day] != null) {
               for (var element in outfitList) {
                 events[day]!.add(
-                  Event(outfit: element!),
+                  Event(outfit: element!, name: eventNames[element]),
                 );
               }
             } else {
-              events[day] = [Event(outfit: outfitList[0]!)];
+              events[day] = [
+                Event(outfit: outfitList[0]!, name: eventNames[outfitList[0]])
+              ];
               if (outfitList.length > 1) {
                 for (var i = 1; i < outfitList.length; i++) {
                   events[day]!.add(
-                    Event(outfit: outfitList[i]!),
+                    Event(
+                        outfit: outfitList[i]!,
+                        name: eventNames[outfitList[i]]),
                   );
                 }
               }
@@ -45,13 +53,14 @@ class SummarizeOutfitsScreen extends StatelessWidget {
             Provider.of<CalendarManager>(context, listen: false)
                 .setSelectedEvents(events);
             Map<String, String> encodedEvents = encodeMap(events);
-
             Provider.of<AppStateManager>(context, listen: false)
                 .cacheEvents(encodedEvents);
             Provider.of<CalendarManager>(context, listen: false)
                 .nullOutfitsMap();
             Provider.of<CalendarManager>(context, listen: false)
                 .nullPickedOutfits();
+            Provider.of<CalendarManager>(context, listen: false)
+                .resetEventNames();
             context.go("/home/3");
           } else {
             //no outfits picked
@@ -95,7 +104,7 @@ class SummarizeOutfitsScreen extends StatelessWidget {
             context,
             Provider.of<CalendarManager>(context, listen: true)
                 .getPickedOutfits),
-      ]))
+      ])),
     ]);
   }
 }

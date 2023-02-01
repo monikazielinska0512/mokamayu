@@ -310,7 +310,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   CalendarFormat.twoWeeks: S.of(context).two_weeks,
                   CalendarFormat.week: S.of(context).week
                 },
-                    locale: 'pl_PL',
+                    locale: Localizations.localeOf(context).toString(),
                     calendarFormat: _calendarFormat,
                     headerStyle: HeaderStyle(
                         titleCentered: true,
@@ -416,7 +416,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ? ListView(shrinkWrap: true, children: [
                       ..._getEventsfromDay(_selectedDay)
                           .map((Event event) => WardrobeItemCard(
-                              size: 60, outfit: event.outfit, event: event))
+                              size: 60,
+                              outfit: event.outfit,
+                              event: event,
+                              calendarPage: true))
                           .toList(),
                     ])
                   : Container(
@@ -502,6 +505,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                       Provider.of<CalendarManager>(context,
                                               listen: false)
                                           .setSelectedDay(_selectedDay);
+                                      Provider.of<CalendarManager>(context,
+                                              listen: false)
+                                          .resetEventNames();
 
                                       context.push('/pick-outfits-calendar');
 

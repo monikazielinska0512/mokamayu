@@ -5,7 +5,6 @@ import 'package:ionicons/ionicons.dart';
 import '../../constants/colors.dart';
 import '../../generated/l10n.dart';
 
-
 //ignore: must_be_immutable
 class SearchTextField extends StatefulWidget {
   Function(String)? onChanged;
@@ -81,23 +80,25 @@ class _SearchTextFieldState extends State<SearchTextField> {
 }
 
 InputDecoration SearchBarStyle(String hintText,
-    {Icon? icon = const Icon(Ionicons.search_outline, color: ColorsConstants.darkBrick),
-    Widget? suffixIcon}) {
+    {Icon? icon =
+        const Icon(Ionicons.search_outline, color: ColorsConstants.darkBrick),
+    Widget? suffixIcon,
+    double? fontSize = 18}) {
   return InputDecoration(
       suffixIcon: suffixIcon,
       hintText: hintText,
       filled: true,
       fillColor: ColorsConstants.whiteAccent,
-      labelStyle: const TextStyle(
-          fontSize: 18,
+      labelStyle: TextStyle(
+          fontSize: fontSize,
           fontFamily: "Poppins",
           fontWeight: FontWeight.w400,
-          color: ColorsConstants.turquoise),
-      hintStyle: const TextStyle(
-          fontSize: 18,
+          color: ColorsConstants.grey),
+      hintStyle: TextStyle(
+          fontSize: fontSize,
           fontFamily: "Poppins",
           fontWeight: FontWeight.w400,
-          color: ColorsConstants.turquoise),
+          color: ColorsConstants.grey),
       enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: ColorsConstants.whiteAccent, width: 0.0),
       ),

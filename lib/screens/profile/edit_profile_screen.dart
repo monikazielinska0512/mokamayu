@@ -4,6 +4,7 @@ import 'package:mokamayu/utils/validator.dart';
 import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
+import '../../generated/l10n.dart';
 import '../../services/services.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScreen(
-      title: "Mój profil",
+      title: S.of(context).my_profile,
       leftButton: BackArrowButton(context),
       rightButton: null,
       context: context,
@@ -77,7 +78,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         padding: const EdgeInsets.only(top: 0),
                                         child: Column(children: [
                                           buildRow(
-                                              'Nazwa profilu',
+                                              S.of(context).profile_name,
                                               snapshot.data?.profileName ?? '',
                                               profileNameController,
                                               Provider.of<ProfileManager>(
@@ -85,7 +86,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                       listen: false)
                                                   .updateProfileName),
                                           buildRow(
-                                              'Nazwa użytkownika',
+                                              S.of(context).username,
                                               snapshot.data?.username ?? '',
                                               usernameController,
                                               Provider.of<ProfileManager>(
@@ -198,7 +199,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Widget buildPrivacySwitch() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text("Profil prywatny",
+      Text(S.of(context).private_profile,
           style:
               TextStyles.paragraphRegularSemiBold18(ColorsConstants.darkBrick)),
       Switch(
