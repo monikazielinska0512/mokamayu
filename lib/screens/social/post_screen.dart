@@ -40,6 +40,7 @@ class _PostScreenState extends State<PostScreen> {
         title: "",
         rightButton: null,
         leftButton: BackArrowButton(context),
+        resizeToAvoidBottomInset: true,
         isFullScreen: true,
         body: Stack(children: [
           const BackgroundImage(
@@ -362,16 +363,18 @@ class _PostScreenState extends State<PostScreen> {
         child: TextField(
           controller: myController,
           onSubmitted: (String comment) {
-            widget.post.comments!.add({
-              "author": AuthService().getCurrentUserID(),
-              "content": comment
-            });
-            Provider.of<PostManager>(context, listen: false).commentPost(
-                widget.post.reference!,
-                widget.post.createdFor,
-                widget.post.comments!);
-            myController.clear();
-            setState(() {});
+            if (myController.text != "") {
+              widget.post.comments!.add({
+                "author": AuthService().getCurrentUserID(),
+                "content": comment
+              });
+              Provider.of<PostManager>(context, listen: false).commentPost(
+                  widget.post.reference!,
+                  widget.post.createdFor,
+                  widget.post.comments!);
+              myController.clear();
+              setState(() {});
+            }
 
             if (AuthService().getCurrentUserID() != widget.post.createdBy) {
               CustomNotification notif = CustomNotification(
