@@ -55,15 +55,14 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                      child: Wrap(children: [
-                    MultiSelectChip(OutfitTags.getLanguagesStyles(context),
-                        chipsColor: ColorsConstants.darkPeach,
-                        onSelectionChanged: (selectedList) {
-                      selectedChips = selectedList.isEmpty
-                          ? OutfitTags.getLanguagesStyles(context)
-                          : selectedList;
-                    }, type: "style_main")
-                  ])),
+                      child: MultiSelectChip(
+                          OutfitTags.getLanguagesStyles(context),
+                          chipsColor: ColorsConstants.darkPeach,
+                          onSelectionChanged: (selectedList) {
+                    selectedChips = selectedList.isEmpty
+                        ? OutfitTags.getLanguagesStyles(context)
+                        : selectedList;
+                  }, type: "style_main")),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                   Container(
                       alignment: Alignment.center,

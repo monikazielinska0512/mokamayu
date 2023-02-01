@@ -58,15 +58,15 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                 buildSearchBarAndFilters(),
                 SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child: Wrap(spacing: 10, children: [
-                      MultiSelectChip(Tags.getLanguagesTypes(context),
-                          chipsColor: ColorsConstants.darkPeach,
-                          onSelectionChanged: (selectedList) {
-                        selectedChips = selectedList.isEmpty
-                            ? Tags.getLanguagesTypes(context)
-                            : selectedList;
-                      }, type: "type_main")
-                    ])),
+                    child: MultiSelectChip(Tags.getLanguagesTypes(context),
+                        isScrollable: false,
+                        onSelectionChanged: (selectedList) {
+                      selectedChips = selectedList.isEmpty
+                          ? Tags.getLanguagesTypes(context)
+                          : selectedList;
+                    },
+                        type: "type_main",
+                        chipsColor: ColorsConstants.darkPeach)),
               ]),
               const SizedBox(height: 10),
               Expanded(

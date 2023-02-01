@@ -144,9 +144,8 @@ class OutfitSummaryScreen extends StatelessWidget {
 
             Provider.of<OutfitManager>(context, listen: false)
                 .setOutfitsCopy(null);
-            Provider.of<OutfitManager>(context, listen: false).setStyles([]);
-
-            context.go("/home/1");
+            Provider.of<OutfitManager>(context, listen: false).resetTagLists();
+            context.pushReplacement("/home/1");
             CustomSnackBar.showSuccessSnackBar(
                 context: context, message: "Zaktualizowano stylizację");
           });
@@ -215,8 +214,7 @@ class OutfitSummaryScreen extends StatelessWidget {
               .setOutfits(outfitsList!);
           Provider.of<OutfitManager>(context, listen: false)
               .setOutfitsCopy(null);
-          Provider.of<OutfitManager>(context, listen: false).setStyles([]);
-          Provider.of<OutfitManager>(context, listen: false).setSeasons([]);
+          Provider.of<OutfitManager>(context, listen: false).resetTagLists();
           context.pushReplacement("/home/1");
           CustomSnackBar.showSuccessSnackBar(
               context: context, message: S.of(context).outfit_created);
