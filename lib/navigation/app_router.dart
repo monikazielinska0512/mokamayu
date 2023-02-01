@@ -137,7 +137,7 @@ class AppRouter {
       GoRoute(
         name: 'summarize-outfits-screen',
         path: '/summarize-outfits-screen',
-        builder: (context, state) => const SummarizeOutfitsScreen(),
+        builder: (context, state) => SummarizeOutfitsScreen(),
       ),
       GoRoute(
         name: 'find-users',

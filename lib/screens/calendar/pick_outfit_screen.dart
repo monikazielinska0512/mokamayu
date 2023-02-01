@@ -26,7 +26,7 @@ class PickOutfitScreen extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-            color: ColorsConstants.whiteAccent,
+            color: ColorsConstants.mint.withOpacity(0.6),
             borderRadius: BorderRadius.circular(12)),
         child: Column(children: [
           Expanded(
@@ -34,7 +34,7 @@ class PickOutfitScreen extends StatelessWidget {
                   type: "pick_outfits",
                   outfitsList:
                       Provider.of<OutfitManager>(context, listen: false)
-                          .getOutfitList))
+                          .getOutfitList)),
         ]));
   }
 }

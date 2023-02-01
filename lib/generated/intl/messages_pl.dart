@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "camera": MessageLookupByLibrary.simpleMessage("Aparat"),
         "cardigan": MessageLookupByLibrary.simpleMessage("Kardigan"),
         "casual": MessageLookupByLibrary.simpleMessage("Na codzień"),
+        "change_photo": MessageLookupByLibrary.simpleMessage("Zmień zdjęcie"),
         "check_inbox":
             MessageLookupByLibrary.simpleMessage("Sprawdź skrzynkę pocztową!"),
         "classic": MessageLookupByLibrary.simpleMessage("Klasyczny"),
@@ -64,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Usuń"),
         "delete_outfit": MessageLookupByLibrary.simpleMessage(
             "Czy chcesz usunąć tą stylizację?"),
+        "delete_photo": MessageLookupByLibrary.simpleMessage("Usuń zdjęcie"),
         "deleted_item":
             MessageLookupByLibrary.simpleMessage("Usunięto element garderoby"),
         "dismiss": MessageLookupByLibrary.simpleMessage("ZAMKNIJ"),
@@ -125,6 +127,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "military": MessageLookupByLibrary.simpleMessage("Militarny"),
         "minimalism": MessageLookupByLibrary.simpleMessage("Minimalistyczny"),
         "month": MessageLookupByLibrary.simpleMessage("Miesiąc"),
+        "my_profile": MessageLookupByLibrary.simpleMessage("Mój profil"),
         "next": MessageLookupByLibrary.simpleMessage("Dalej"),
         "no_account": MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
         "no_found_friends": MessageLookupByLibrary.simpleMessage(
@@ -159,7 +162,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Proszę wprowadzić tekst"),
         "posted": MessageLookupByLibrary.simpleMessage("Opublikowano"),
         "posts": MessageLookupByLibrary.simpleMessage("Posty"),
+        "private": MessageLookupByLibrary.simpleMessage("Prywatny"),
+        "private_profile":
+            MessageLookupByLibrary.simpleMessage("Profil prywatny"),
         "profile": MessageLookupByLibrary.simpleMessage("Profil"),
+        "profile_name": MessageLookupByLibrary.simpleMessage("Nazwa profilu"),
         "pyjama": MessageLookupByLibrary.simpleMessage("Piżama"),
         "remove": MessageLookupByLibrary.simpleMessage("Usuń"),
         "requests": MessageLookupByLibrary.simpleMessage("Zaproszenia"),
@@ -213,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "user": MessageLookupByLibrary.simpleMessage("Użytkownik"),
         "user_not_exist": MessageLookupByLibrary.simpleMessage(
             "Podany użytkownik nie istnieje"),
+        "username": MessageLookupByLibrary.simpleMessage("Nazwa użytkownika"),
         "users": MessageLookupByLibrary.simpleMessage("Użytkwonicy"),
         "vintage": MessageLookupByLibrary.simpleMessage("Vintage"),
         "wardrobe": MessageLookupByLibrary.simpleMessage("Szafa"),

@@ -1559,6 +1559,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Private`
+  String get private {
+    return Intl.message(
+      'Private',
+      name: 'private',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Private profile`
+  String get private_profile {
+    return Intl.message(
+      'Private profile',
+      name: 'private_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change photo`
+  String get change_photo {
+    return Intl.message(
+      'Change photo',
+      name: 'change_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete photo`
+  String get delete_photo {
+    return Intl.message(
+      'Delete photo',
+      name: 'delete_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My profile`
+  String get my_profile {
+    return Intl.message(
+      'My profile',
+      name: 'my_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile name`
+  String get profile_name {
+    return Intl.message(
+      'Profile name',
+      name: 'profile_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Username`
+  String get username {
+    return Intl.message(
+      'Username',
+      name: 'username',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

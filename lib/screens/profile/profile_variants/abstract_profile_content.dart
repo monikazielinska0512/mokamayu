@@ -9,6 +9,7 @@ import 'package:mokamayu/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/constants.dart';
+import '../../../generated/l10n.dart';
 
 abstract class AbstractProfileContent extends StatefulWidget {
   final String? uid;
@@ -84,13 +85,17 @@ abstract class AbstractProfileContentState
                             Provider.of<FriendsManager>(context, listen: false)
                                 .isMyFriend(widget.uid)
                         ? buildProfileGallery(context)
-                        : EmptyScreen(
-                            context,
-                            Text("Prywatny",
-                                style: TextStyles.paragraphRegularSemiBold14(
-                                    Colors.grey)),
-                            Colors.grey,
-                            icon: Ionicons.lock_closed_outline)
+                        : userData?.reference !=
+                                AuthService().getCurrentUserID()
+                            ? EmptyScreen(
+                                context,
+                                Text(S.of(context).private,
+                                    style:
+                                        TextStyles.paragraphRegularSemiBold14(
+                                            Colors.grey)),
+                                Colors.grey,
+                                icon: Ionicons.lock_closed_outline)
+                            : buildProfileGallery(context)
                   ],
                 )),
           ),

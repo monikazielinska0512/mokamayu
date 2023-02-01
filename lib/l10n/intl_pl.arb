@@ -151,5 +151,12 @@
   "commented_on_your_post": "skomentował twój post!",
   "created_outfit_for_you": "stworzył dla Ciebie stylizację!",
   "you_and_user": "Ty i użytkownik",
-  "are_now_friends": "jesteście teraz znajomymi!"
+  "are_now_friends": "jesteście teraz znajomymi!",
+  "private": "Prywatny",
+  "private_profile": "Profil prywatny",
+  "change_photo": "Zmień zdjęcie",
+  "delete_photo": "Usuń zdjęcie",
+  "my_profile": "Mój profil",
+  "profile_name": "Nazwa profilu",
+  "username": "Nazwa użytkownika"
 }

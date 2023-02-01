@@ -149,5 +149,12 @@
   "commented_on_your_post": "commented on your post!",
   "created_outfit_for_you": "created ourfit for you!",
   "you_and_user": "You and user",
-  "are_now_friends": "are now friends!"
+  "are_now_friends": "are now friends!",
+  "private": "Private",
+  "private_profile": "Private profile",
+  "change_photo": "Change photo",
+  "delete_photo": "Delete photo",
+  "my_profile": "My profile",
+  "profile_name": "Profile name",
+  "username": "Username"
 }
