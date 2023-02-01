@@ -8,9 +8,7 @@ import 'package:mokamayu/models/models.dart';
 import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
 import '../../services/managers/managers.dart';
-import '../../utils/validator.dart';
 import '../fields/search_text_field.dart';
-import '../fields/text_field.dart';
 
 // ignore: must_be_immutable
 class WardrobeItemCard extends StatelessWidget {
@@ -82,7 +80,7 @@ class WardrobeItemCard extends StatelessWidget {
                       ? Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 5),
                           child: Text(event!.name!,
-                              style: TextStyles.paragraphRegularSemiBold14(
+                              style: TextStyles.paragraphRegularSemiBold16(
                                   Colors.grey)))
                       : const SizedBox.shrink()
               : const SizedBox.shrink()
