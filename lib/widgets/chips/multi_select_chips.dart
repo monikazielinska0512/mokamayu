@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 //ignore: must_be_immutable
 class MultiSelectChip extends StatefulWidget {
   final List<String> chipsList;
-  final List<String> initialValues;
+  final List<String>? initialValues;
   final Function(List<String>)? onSelectionChanged;
   String? type;
   bool usingFriendsWardrobe;
@@ -23,7 +23,7 @@ class MultiSelectChip extends StatefulWidget {
       required this.onSelectionChanged,
       this.type,
       this.disableChange = false,
-      this.initialValues = const [],
+      this.initialValues,
       this.isScrollable = true,
       required this.chipsColor,
       this.usingFriendsWardrobe = false});
@@ -37,7 +37,9 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
 
   @override
   void initState() {
-    selectedChoices = widget.initialValues;
+    if (widget.initialValues != null) {
+      selectedChoices = widget.initialValues!;
+    }
     if ((widget.type == 'type' || widget.type == 'type_main') &&
         Provider.of<WardrobeManager>(context, listen: false).getTypes != null) {
       selectedChoices =
@@ -83,11 +85,11 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
           backgroundColor: widget.chipsColor.withOpacity(0.6),
           selectedColor: widget.chipsColor,
           onSelected: (selected) {
-            if (!widget.disableChange) {
+            if (widget.disableChange == false) {
               setState(() {
                 selectedChoices.contains(item)
                     ? selectedChoices.remove(item)
-                    : selectedChoices.add(item);
+                    : selectedChoices = [...selectedChoices, item];
                 widget.onSelectionChanged!(selectedChoices);
                 if (widget.type == 'type_main') {
                   Provider.of<WardrobeManager>(context, listen: false)
