@@ -159,5 +159,6 @@
   "username": "Username",
   "added_comment": "Added comment",
   "no_comments": "This post has no comments",
-  "created_by": "Created by "
+  "created_by": "Created by ",
+  "deleted_outfit": "Outfit has been deleted"
 }

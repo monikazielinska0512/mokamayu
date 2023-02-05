@@ -111,7 +111,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                                       context.pop();
                                       CustomSnackBar.showErrorSnackBar(
                                           context: context,
-                                          message: "Usunięto stylizację");
+                                          message: S.of(context).deleted_item);
                                     },
                                   )
                                 : PhotoBox(
@@ -182,7 +182,9 @@ class _PhotoGridState extends State<PhotoGrid> {
                       var itemInfo = snapshot.data![index];
                       return widget.type == null
                           ? itemInfo.createdBy ==
-                                  AuthService().getCurrentUserID()
+                                      AuthService().getCurrentUserID() ||
+                                  itemInfo.owner ==
+                                      AuthService().getCurrentUserID()
                               ? DeleteBottomModal(
                                   outfit: itemInfo,
                                   actionFunction: () {
@@ -207,7 +209,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                                     context.pop();
                                     CustomSnackBar.showErrorSnackBar(
                                         context: context,
-                                        message: "Usunięto stylizację");
+                                        message: S.of(context).deleted_outfit);
 
                                     List<Post> postList =
                                         Provider.of<PostManager>(context,

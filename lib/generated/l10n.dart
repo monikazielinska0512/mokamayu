@@ -1659,6 +1659,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Outfit has been deleted`
+  String get deleted_outfit {
+    return Intl.message(
+      'Outfit has been deleted',
+      name: 'deleted_outfit',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

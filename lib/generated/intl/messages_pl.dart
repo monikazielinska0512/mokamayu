@@ -71,6 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_photo": MessageLookupByLibrary.simpleMessage("Usuń zdjęcie"),
         "deleted_item":
             MessageLookupByLibrary.simpleMessage("Usunięto element garderoby"),
+        "deleted_outfit":
+            MessageLookupByLibrary.simpleMessage("Usunięto stylizację"),
         "dismiss": MessageLookupByLibrary.simpleMessage("ZAMKNIJ"),
         "dress": MessageLookupByLibrary.simpleMessage("Sukienka"),
         "edit": MessageLookupByLibrary.simpleMessage("Edytuj"),

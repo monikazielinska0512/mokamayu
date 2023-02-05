@@ -161,5 +161,6 @@
   "username": "Nazwa użytkownika",
   "added_comment": "Dodano komentarz",
   "no_comments": "Ten post nie ma komentarzy",
-  "created_by": "Stworzona przez "
+  "created_by": "Stworzona przez ",
+  "deleted_outfit": "Usunięto stylizację"
 }

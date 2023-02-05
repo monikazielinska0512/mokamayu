@@ -213,7 +213,7 @@ class _OutfitsAddAttributesScreenState
               .removeOutfit(item?.reference);
           context.go("/home/1");
           CustomSnackBar.showErrorSnackBar(
-              context: context, message: "Usunięto stylizację");
+              context: context, message: S.of(context).deleted_outfit);
           Provider.of<OutfitManager>(context, listen: false).resetSingleTags();
           Provider.of<OutfitManager>(context, listen: false).nullListItemCopy();
           Provider.of<OutfitManager>(context, listen: false).resetTagLists();
