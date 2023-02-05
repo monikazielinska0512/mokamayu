@@ -62,7 +62,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
       : IconTextButton(
           onPressed: () => print('nie ma danych :c'),
           icon: Icons.person_outline_outlined,
-          text: "No data",
+          text: S.of(context).no_data,
           backgroundColor: ColorsConstants.mint,
         );
 
@@ -82,7 +82,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   });
             },
             icon: Icons.check,
-            text: "Znajomy",
+            text: S.of(context).friend,
             backgroundColor: ColorsConstants.mint,
           );
         }
@@ -94,7 +94,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   .cancelFriendInvite(friendData!);
             },
             icon: Icons.outgoing_mail,
-            text: "Wysłano zaproszenie",
+            text: S.of(context).friend_request_sent,
             backgroundColor: ColorsConstants.mint,
           );
         }
@@ -111,7 +111,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
                   });
             },
             icon: Icons.mark_email_unread,
-            text: "Odpowiedz",
+            text: S.of(context).answer,
             backgroundColor: ColorsConstants.mint,
           );
         }
@@ -129,7 +129,7 @@ class _OtherUserProfileContentState extends AbstractProfileContentState {
               Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, friendData!.uid);
             },
             icon: Icons.person_outline_outlined,
-            text: "Dodaj znajomego",
+            text: S.of(context).add_friend,
             backgroundColor: ColorsConstants.mint,
           );
         }

@@ -156,5 +156,17 @@
   "delete_photo": "Delete photo",
   "my_profile": "My profile",
   "profile_name": "Profile name",
-  "username": "Username"
+  "username": "Username",
+  "added_comment": "Added comment",
+  "no_comments": "This post has no comments",
+  "created_by": "Created by ",
+  "deleted_outfit": "Outfit has been deleted",
+  "no_data": "No data",
+  "friend": "Friend",
+  "friend_request_sent": "Friend request has been sent",
+  "answer": "Answer",
+  "add_friend": "Add friend",
+  "decline": "Decline",
+  "remove_friend": "Remove friend",
+  "accept": "Accept"
 }

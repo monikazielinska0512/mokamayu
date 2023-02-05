@@ -21,8 +21,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController emailController = TextEditingController();
   bool isProfilePrivate = false;
 
-  // TextEditingController birthdayDate = TextEditingController();
-
   @override
   void initState() {
     userData = Provider.of<ProfileManager>(context, listen: false)
@@ -54,6 +52,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             builder: (context, manager, _) => (FutureBuilder<UserData?>(
                 future: userData,
                 builder: (context, snapshot) {
+                  String? profilePic =
+                      Provider.of<ProfileManager>(context, listen: true)
+                          .profilePicture;
                   return Padding(
                       padding: const EdgeInsets.only(
                           top: 120, bottom: 100, right: 15, left: 15),
@@ -71,9 +72,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 padding: const EdgeInsets.all(15),
                                 child: Column(
                                   children: [
-                                    buildPhotoRow(
-                                        snapshot.data?.profilePicture),
-
+                                    buildPhotoRow(profilePic),
                                     Padding(
                                         padding: const EdgeInsets.only(top: 0),
                                         child: Column(children: [
@@ -104,9 +103,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                               isEmail: true)
                                         ])),
                                     buildPrivacySwitch(),
-
-                                    // buildRow('Birthday date',
-                                    //     snapshot.data?.birthdayDate.toString() ?? '', ),
                                   ],
                                 )),
                           ),
