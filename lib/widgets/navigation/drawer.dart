@@ -86,7 +86,7 @@ class CustomDrawer extends StatelessWidget {
       Provider.of<OutfitManager>(context, listen: false).setSeasons([]);
       Provider.of<OutfitManager>(context, listen: false).setOutfitsCopy(null);
       Provider.of<WardrobeManager>(context, listen: false)
-              .setWardrobeItemListCopy(null);
+          .setWardrobeItemListCopy(null);
     }
 
     return Align(

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 
 class Post{
@@ -8,6 +9,7 @@ class Post{
   final int creationDate;
   final List<String>? likes;
   final List<Map<String, String>>? comments;
+  final TextEditingController? textController;
   String? reference;
 
   Post({
@@ -18,6 +20,7 @@ class Post{
     this.likes,
     this.comments,
     this.reference,
+    this.textController
   });
 
   factory Post.fromJson(Map<dynamic, dynamic> json) => Post(
@@ -28,6 +31,7 @@ class Post{
     likes: List.from(json['likes']),
     comments: json['comments'] = (json['comments'] as List)
         .map((e) => Map<String, String>.from(e)).toList(),
+    textController: TextEditingController()
   );
 
   Map<String, dynamic> toJson() => <String, dynamic>{

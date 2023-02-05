@@ -80,6 +80,7 @@ class _FilterModalState extends State<FilterModal> {
           padding: const EdgeInsets.only(bottom: 5, top: 5),
           child: MultiSelectChip(Tags.getLanguagesTypes(context),
               isScrollable: false,
+              disableChange: false,
               onSelectionChanged: (selectedList) => {
                     setState(() {
                       widget.selectedTypes = selectedList;
@@ -100,6 +101,7 @@ class _FilterModalState extends State<FilterModal> {
           child: MultiSelectChip(
               chipsColor: ColorsConstants.mint,
               Tags.getLanguagesStyles(context),
+              disableChange: false,
               isScrollable: false,
               type: "style",
               onSelectionChanged: (selectedList) => {
@@ -200,7 +202,7 @@ class _FilterModalState extends State<FilterModal> {
                     if (widget.futureOutfitListCopy != null)
                       {
                         Provider.of<OutfitManager>(context, listen: false)
-                            .setOutfitsCopy(widget.futureOutfitListCopy!)
+                            .setOutfitsCopy(widget.futureOutfitListCopy!),
                       },
                   },
 

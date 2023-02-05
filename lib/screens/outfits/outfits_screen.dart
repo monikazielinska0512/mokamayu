@@ -20,7 +20,7 @@ class _OutfitsScreenState extends State<OutfitsScreen> {
   Future<List<Outfit>>? outfitsList;
   Future<List<Outfit>>? outfitsListCopy;
   Future<List<WardrobeItem>>? itemList;
-  List<String> selectedChips = [];
+  List<String>? selectedChips = [];
 
   @override
   void initState() {
