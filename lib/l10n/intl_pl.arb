@@ -170,5 +170,6 @@
   "add_friend": "Dodaj znajomego",
   "decline": "Odrzuć",
   "remove_friend": "Usuń znajomego",
-  "accept": "Zaakceptuj"
+  "accept": "Zaakceptuj",
+  "no_posts": "Brak postów do wyświtlenia"
 }

@@ -118,8 +118,8 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
           } else {
             return EmptyScreen(
                 context,
-                Text("There are no posts to display.",
-                    style: TextStyles.paragraphRegularSemiBold14(Colors.grey),
+                Text(S.of(context).no_posts,
+                    style: TextStyles.paragraphRegular14(Colors.grey),
                     textAlign: TextAlign.center),
                 ColorsConstants.darkMint);
           }

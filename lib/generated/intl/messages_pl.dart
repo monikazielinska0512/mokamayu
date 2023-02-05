@@ -153,6 +153,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Brak zaproszeń od znajomych"),
         "no_pending_invitation_user": MessageLookupByLibrary.simpleMessage(
             "Brak zaproszenia od tego użytkownika"),
+        "no_posts":
+            MessageLookupByLibrary.simpleMessage("Brak postów do wyświtlenia"),
         "notifications": MessageLookupByLibrary.simpleMessage("Powiadomienia"),
         "outfit_created":
             MessageLookupByLibrary.simpleMessage("Stworzono stylizację"),

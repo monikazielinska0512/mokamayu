@@ -151,6 +151,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No pending invitations"),
         "no_pending_invitation_user": MessageLookupByLibrary.simpleMessage(
             "No pending invitations from such user"),
+        "no_posts": MessageLookupByLibrary.simpleMessage(
+            "There are no posts to display"),
         "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
         "outfit_created":
             MessageLookupByLibrary.simpleMessage("Outfit has been created"),

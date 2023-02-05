@@ -168,5 +168,6 @@
   "add_friend": "Add friend",
   "decline": "Decline",
   "remove_friend": "Remove friend",
-  "accept": "Accept"
+  "accept": "Accept",
+  "no_posts": "There are no posts to display"
 }

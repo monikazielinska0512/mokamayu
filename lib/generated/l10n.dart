@@ -1749,6 +1749,16 @@ class S {
       args: [],
     );
   }
+
+  /// `There are no posts to display`
+  String get no_posts {
+    return Intl.message(
+      'There are no posts to display',
+      name: 'no_posts',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
