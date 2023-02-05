@@ -28,6 +28,8 @@ class ProfileManager extends ChangeNotifier {
   // Custom user - in the "users" collection
   UserData? get currentCustomUser => _currentCustomUser;
 
+  String? get profilePicture => currentCustomUser?.profilePicture;
+
   void createUser(String email, String username, String uid) async {
     await currentAuthUser?.updateDisplayName(username);
     _currentCustomUser =
