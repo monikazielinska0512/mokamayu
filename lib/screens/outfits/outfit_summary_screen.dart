@@ -180,6 +180,7 @@ class OutfitSummaryScreen extends StatelessWidget {
           creationDate: DateTime.now().millisecondsSinceEpoch,
           likes: [],
           comments: [],
+          textController: TextEditingController()
         );
 
         CustomNotification notif = CustomNotification(

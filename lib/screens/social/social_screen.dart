@@ -32,24 +32,13 @@ class _SocialScreenState extends State<SocialScreen> {
 // Your state change code goes here
       });
     }
-    if (Provider.of<ProfileManager>(context, listen: false).currentCustomUser !=
-        null) {
-      currentUser = Provider.of<ProfileManager>(context, listen: false)
-          .currentCustomUser!;
-    } else {
-      Provider.of<ProfileManager>(context, listen: false)
-          .getCurrentUserData()
-          .then((value) => currentUser = value!)
-          .whenComplete(() => null);
-    }
+
     Provider.of<UserListManager>(context, listen: false)
         .readUserOnce()
         .then((List<UserData> temp) {
       setState(() => userList = temp);
     });
 
-    Provider.of<PostManager>(context, listen: false)
-        .readFriendsPostsOnce(currentUser);
 
     return BasicScreen(
       title: S.of(context).social,

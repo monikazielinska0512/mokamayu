@@ -12,6 +12,7 @@ import '../../generated/l10n.dart';
 import '../../services/managers/managers.dart';
 
 import '../../utils/string_extensions.dart';
+import '../../widgets/fundamental/snackbar.dart';
 
 class PostList extends StatefulWidget {
   final List<UserData> userList;
@@ -27,13 +28,16 @@ class PostList extends StatefulWidget {
 
 class _PostListState extends State<PostList> {
   late List<Post> postList;
-  late List<TextEditingController> myController;
-
+  @override
+  void initState() {
+    UserData currentUser = widget.userList.singleWhere((element) => element.uid == AuthService().getCurrentUserID());
+    Provider.of<PostManager>(context, listen: false)
+        .readFriendsPostsOnce(currentUser);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    postList = Provider.of<PostManager>(context, listen: true).finalPostList;
-    myController =
-        List.generate(postList.length, (_) => TextEditingController());
+    postList = Provider.of<PostManager>(context, listen: false).finalPostList;
     return postList.isNotEmpty ? buildFeed(context) : buildEmpty();
   }
 
@@ -90,45 +94,55 @@ class _PostListState extends State<PostList> {
       buildLikeButton(index)
     ]);
   }
-
   Widget buildCommentField(int index) {
-    return TextField(
-      controller: myController[index],
-      onSubmitted: (String comment) {
-        postList[index].comments!.add(
-            {"author": AuthService().getCurrentUserID(), "content": comment});
-        Provider.of<PostManager>(context, listen: false).commentPost(
-            postList[index].reference!,
-            postList[index].createdFor,
-            postList[index].comments!);
-        myController[index].clear();
-        setState(() {});
-        if (AuthService().getCurrentUserID() != postList[index].createdBy) {
-          CustomNotification notif = CustomNotification(
-              sentFrom: AuthService().getCurrentUserID(),
-              type: NotificationType.COMMENT.toString(),
-              creationDate: DateTime.now().millisecondsSinceEpoch);
-          Provider.of<NotificationsManager>(context, listen: false)
-              .addNotificationToFirestore(notif, postList[index].createdBy);
-        }
-      },
-      decoration: InputDecoration(
-        hintText: S.of(context).comment,
-        filled: true,
-        fillColor: Colors.white,
-        suffixIcon: Icon(
-          Icons.arrow_forward_ios_rounded,
-          color: ColorsConstants.darkBrick,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(14)),
-          borderSide: BorderSide(
-            width: 0,
-            style: BorderStyle.none,
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 15, top: 10),
+        child: TextField(
+          controller: postList[index].textController,
+          decoration: InputDecoration(
+            hintText: S.of(context).comment,
+            filled: true,
+            fillColor: ColorsConstants.white,
+            suffixIcon: IconButton(
+              icon: const Icon(Icons.arrow_forward_ios_rounded,
+                  color: ColorsConstants.darkBrick),
+              onPressed: () {
+                if (postList[index].textController!.text != "") {
+                  postList[index].comments!.add({
+                    "author": AuthService().getCurrentUserID(),
+                    "content": postList[index].textController!.text
+                  });
+                  Provider.of<PostManager>(context, listen: false).commentPost(
+                      postList[index].reference!,
+                      postList[index].createdFor,
+                      postList[index].comments!);
+                  postList[index].textController!.clear();
+                  setState(() {});
+                }
+
+                if (AuthService().getCurrentUserID() != postList[index].createdBy) {
+                  CustomNotification notif = CustomNotification(
+                      sentFrom: AuthService().getCurrentUserID(),
+                      type: NotificationType.COMMENT.toString(),
+                      creationDate: DateTime.now().millisecondsSinceEpoch);
+                  Provider.of<NotificationsManager>(context, listen: false)
+                      .addNotificationToFirestore(notif, postList[index].createdBy);
+                }
+
+                CustomSnackBar.showSuccessSnackBar(
+                    context: context, message: "Dodano komentarz"
+                );
+              },
+            ),
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              borderSide: BorderSide(
+                width: 0,
+                style: BorderStyle.none,
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 
   Widget buildViewCommentButton(int index) {

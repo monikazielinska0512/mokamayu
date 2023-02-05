@@ -28,7 +28,6 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
-  final myController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -355,14 +354,13 @@ class _PostScreenState extends State<PostScreen> {
                 style: TextStyles.paragraphRegular12(Colors.grey)),
             ColorsConstants.grey);
 
-    SizedBox(height: MediaQuery.of(context).size.height * 0.01);
   }
 
   Widget buildCommentField() {
     return Padding(
         padding: const EdgeInsets.only(bottom: 15, top: 10),
         child: TextField(
-          controller: myController,
+          controller: widget.post.textController,
           decoration: InputDecoration(
             hintText: S.of(context).comment,
             filled: true,
@@ -371,16 +369,16 @@ class _PostScreenState extends State<PostScreen> {
               icon: const Icon(Icons.arrow_forward_ios_rounded,
                   color: ColorsConstants.darkBrick),
               onPressed: () {
-                if (myController.text != "") {
+                if (widget.post.textController!.text != "") {
                   widget.post.comments!.add({
                     "author": AuthService().getCurrentUserID(),
-                    "content": myController.text
+                    "content": widget.post.textController!.text
                   });
                   Provider.of<PostManager>(context, listen: false).commentPost(
                       widget.post.reference!,
                       widget.post.createdFor,
                       widget.post.comments!);
-                  myController.clear();
+                  widget.post.textController!.clear();
                   setState(() {});
                 }
 
@@ -392,9 +390,12 @@ class _PostScreenState extends State<PostScreen> {
                   Provider.of<NotificationsManager>(context, listen: false)
                       .addNotificationToFirestore(notif, widget.post.createdBy);
                 }
+                CustomSnackBar.showSuccessSnackBar(
+                    context: context, message: "Dodano komentarz"
+                );
               },
             ),
-            border: OutlineInputBorder(
+            border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12)),
               borderSide: BorderSide(
                 width: 0,
