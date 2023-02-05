@@ -130,17 +130,9 @@ abstract class AbstractProfileContentState
                               child: SizedBox.fromSize(
                                 size: const Size.square(85),
                                 child: snapshot.data?.profilePicture != null
-                                    ? ExtendedImage.network(
+                                    ? Image.network(
                                         snapshot.data!.profilePicture!,
-                                        fit: BoxFit.fill,
-                                        cacheWidth: 110 *
-                                            window.devicePixelRatio.ceil(),
-                                        cacheHeight: 110 *
-                                            window.devicePixelRatio.ceil(),
-                                        cache: true,
-                                        enableMemoryCache: false,
-                                        enableLoadState: true,
-                                      )
+                                        fit: BoxFit.cover)
                                     : Image.asset(Assets.avatarPlaceholder,
                                         fit: BoxFit.fill),
                               ),

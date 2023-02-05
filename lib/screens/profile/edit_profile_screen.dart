@@ -122,7 +122,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: SizedBox.fromSize(
             size: const Size.square(140),
             child: profilePicture != null
-                ? Image.network(profilePicture, fit: BoxFit.fill)
+                ? Image.network(profilePicture, fit: BoxFit.cover)
                 : Image.asset(Assets.avatarPlaceholder, fit: BoxFit.fill),
           ),
         ),
