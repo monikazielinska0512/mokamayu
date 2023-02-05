@@ -10,7 +10,8 @@ import '../../widgets/widgets.dart';
 
 //ignore: must_be_immutable
 class FriendDialogBox extends StatelessWidget {
-  FriendDialogBox({Key? key, required this.friend, required this.isResponse}) : super(key: key);
+  FriendDialogBox({Key? key, required this.friend, required this.isResponse})
+      : super(key: key);
   UserData friend;
   bool isResponse;
 
@@ -40,48 +41,59 @@ class FriendDialogBox extends StatelessWidget {
                         ? MediaQuery.of(context).size.height * 0.25
                         : MediaQuery.of(context).size.height * 0.14,
                     child: Padding(
-                        padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
+                        padding: const EdgeInsets.only(
+                            right: 15, left: 15, bottom: 15),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children:
-                              isResponse
-                          ? [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: friendDialogCard(S.of(context).accept, () {
-                                Provider.of<ProfileManager>(context, listen: false).acceptFriendInvite(friend);
-                                CustomNotification notif = CustomNotification(
-                                    sentFrom: AuthService().getCurrentUserID(),
-                                    type: NotificationType.ACCEPTED_INVITE.toString(),
-                                    creationDate: DateTime.now().millisecondsSinceEpoch
-                                );
-                                Provider.of<NotificationsManager>(context, listen: false).addNotificationToFirestore(notif, friend.uid);
-                                context.pop();
-                              }, 85)
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child:
-                                  friendDialogCard(S.of(context).decline,
-                                      () {
-                                    Provider.of<ProfileManager>(context, listen: false).rejectFriendInvite(friend);
-                                    context.pop();
-                                  }, 18)
-                            ),
-                          ]
-                          : [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child:
-                                  friendDialogCard(S.of(context).remove_friend,
-                                          () {
-                                        Provider.of<ProfileManager>(context, listen: false).removeFriend(friend);
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: isResponse
+                                ? [
+                                    Padding(
+                                        padding: const EdgeInsets.only(top: 20),
+                                        child: friendDialogCard(
+                                            S.of(context).accept, () {
+                                          Provider.of<ProfileManager>(context,
+                                                  listen: false)
+                                              .acceptFriendInvite(friend);
+                                          CustomNotification notif =
+                                              CustomNotification(
+                                                  sentFrom:
+                                                      AuthService()
+                                                          .getCurrentUserID(),
+                                                  type: NotificationType
+                                                      .ACCEPTED_INVITE
+                                                      .toString(),
+                                                  creationDate: DateTime.now()
+                                                      .millisecondsSinceEpoch);
+                                          Provider.of<NotificationsManager>(
+                                                  context,
+                                                  listen: false)
+                                              .addNotificationToFirestore(
+                                                  notif, friend.uid);
+                                          context.pop();
+                                        }, 85)),
+                                    Padding(
+                                        padding: const EdgeInsets.only(top: 20),
+                                        child: friendDialogCard(
+                                            S.of(context).decline, () {
+                                          Provider.of<ProfileManager>(context,
+                                                  listen: false)
+                                              .rejectFriendInvite(friend);
+                                          context.pop();
+                                        }, 85)),
+                                  ]
+                                : [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: friendDialogCard(
+                                          S.of(context).remove_friend, () {
+                                        Provider.of<ProfileManager>(context,
+                                                listen: false)
+                                            .removeFriend(friend);
                                         context.pop();
                                       }, 18),
-                                ),
-                              ]
-                        ))))
+                                    ),
+                                  ]))))
           ],
         ));
   }
@@ -116,20 +128,17 @@ Widget friendDialogCard(String text, Function onTap, double pad) {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child:
-                      Padding(
-                        padding: const EdgeInsets.only(top: 13),
-                        child: Text(
-                          text,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                        )
-                      )
-                  )
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 13),
+                          child: Text(
+                            text,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          )))
                 ],
               ),
             ),
