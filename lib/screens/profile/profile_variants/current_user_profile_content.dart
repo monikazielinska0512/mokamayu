@@ -43,12 +43,11 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
   double getHeight() => 0.78;
 
   @override
-  String getTitle() => "Mój profil";
+  String getTitle() => S.of(context).my_profile;
 
   @override
-  EdgeInsetsGeometry getPadding() => const EdgeInsets.only(
-      top: 10, right: 20, left: 20, bottom: 10);
-
+  EdgeInsetsGeometry getPadding() =>
+      const EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 10);
 
   @override
   Widget buildButtons() {
@@ -94,13 +93,12 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
                 color: ColorsConstants.peachy.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(15)),
             child: PhotoGrid(outfitsList: getOutfitsCreatedByMe())),
-        S.of(context).outfits_by_friends:
-        Container(
+        S.of(context).outfits_by_friends: Container(
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: ColorsConstants.darkBrick.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(15)),
-            child:PhotoGrid(outfitsList: getOutfitsCreatedByFriends())),
+            child: PhotoGrid(outfitsList: getOutfitsCreatedByFriends())),
         S.of(context).posts: buildPosts(),
       };
 
@@ -118,9 +116,12 @@ class _CurrentUserProfileContentState extends AbstractProfileContentState {
               },
             );
           } else {
-            return EmptyScreen(context, Text("There are no posts to display.",
-                style: TextStyles.paragraphRegularSemiBold14(Colors.grey),
-                textAlign: TextAlign.center), ColorsConstants.darkMint);
+            return EmptyScreen(
+                context,
+                Text(S.of(context).no_posts,
+                    style: TextStyles.paragraphRegular14(Colors.grey),
+                    textAlign: TextAlign.center),
+                ColorsConstants.darkMint);
           }
         }
         return const Center(
