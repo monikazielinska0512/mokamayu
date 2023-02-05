@@ -1669,6 +1669,86 @@ class S {
       args: [],
     );
   }
+
+  /// `No data`
+  String get no_data {
+    return Intl.message(
+      'No data',
+      name: 'no_data',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Friend`
+  String get friend {
+    return Intl.message(
+      'Friend',
+      name: 'friend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Friend request has been sent`
+  String get friend_request_sent {
+    return Intl.message(
+      'Friend request has been sent',
+      name: 'friend_request_sent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Answer`
+  String get answer {
+    return Intl.message(
+      'Answer',
+      name: 'answer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add friend`
+  String get add_friend {
+    return Intl.message(
+      'Add friend',
+      name: 'add_friend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Decline`
+  String get decline {
+    return Intl.message(
+      'Decline',
+      name: 'decline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove friend`
+  String get remove_friend {
+    return Intl.message(
+      'Remove friend',
+      name: 'remove_friend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept`
+  String get accept {
+    return Intl.message(
+      'Accept',
+      name: 'accept',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

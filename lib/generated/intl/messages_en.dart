@@ -22,13 +22,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "accessories": MessageLookupByLibrary.simpleMessage("Accessories"),
         "active": MessageLookupByLibrary.simpleMessage("Active"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
+        "add_friend": MessageLookupByLibrary.simpleMessage("Add friend"),
         "add_looks_for":
             MessageLookupByLibrary.simpleMessage("Plan outfits for"),
         "added_comment": MessageLookupByLibrary.simpleMessage("Added comment"),
         "all_friends": MessageLookupByLibrary.simpleMessage("All your friends"),
+        "answer": MessageLookupByLibrary.simpleMessage("Answer"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Apply filters"),
         "are_now_friends":
             MessageLookupByLibrary.simpleMessage("are now friends!"),
@@ -64,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "created_outfit_for_you":
             MessageLookupByLibrary.simpleMessage("created ourfit for you!"),
         "current_weather": MessageLookupByLibrary.simpleMessage("Current"),
+        "decline": MessageLookupByLibrary.simpleMessage("Decline"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "delete_outfit": MessageLookupByLibrary.simpleMessage(
             "Do you want delete this outfit?"),
@@ -106,6 +110,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "found": MessageLookupByLibrary.simpleMessage("Found"),
+        "friend": MessageLookupByLibrary.simpleMessage("Friend"),
+        "friend_request_sent": MessageLookupByLibrary.simpleMessage(
+            "Friend request has been sent"),
         "friend_requests":
             MessageLookupByLibrary.simpleMessage("Friends requests"),
         "friends": MessageLookupByLibrary.simpleMessage("Friends"),
@@ -135,6 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "no_comments":
             MessageLookupByLibrary.simpleMessage("This post has no comments"),
+        "no_data": MessageLookupByLibrary.simpleMessage("No data"),
         "no_found_friends":
             MessageLookupByLibrary.simpleMessage("No matched friends"),
         "no_friends":
@@ -175,6 +183,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_name": MessageLookupByLibrary.simpleMessage("Profile name"),
         "pyjama": MessageLookupByLibrary.simpleMessage("Pyjama"),
         "remove": MessageLookupByLibrary.simpleMessage("Remove"),
+        "remove_friend": MessageLookupByLibrary.simpleMessage("Remove friend"),
         "requests": MessageLookupByLibrary.simpleMessage("Invitations"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),

@@ -22,14 +22,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accept": MessageLookupByLibrary.simpleMessage("Zaakceptuj"),
         "accessories": MessageLookupByLibrary.simpleMessage("Akcesoria"),
         "active": MessageLookupByLibrary.simpleMessage("Aktwynie"),
         "add": MessageLookupByLibrary.simpleMessage("Dodaj"),
+        "add_friend": MessageLookupByLibrary.simpleMessage("Dodaj znajomego"),
         "add_looks_for":
             MessageLookupByLibrary.simpleMessage("Dodaj stylizacje na"),
         "added_comment":
             MessageLookupByLibrary.simpleMessage("Dodano komentarz"),
         "all_friends": MessageLookupByLibrary.simpleMessage("Wszyscy znajomi"),
+        "answer": MessageLookupByLibrary.simpleMessage("Odpowiedz"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Filtruj"),
         "are_now_friends":
             MessageLookupByLibrary.simpleMessage("jesteście teraz znajomymi!"),
@@ -65,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "created_outfit_for_you": MessageLookupByLibrary.simpleMessage(
             "stworzył dla Ciebie stylizację!"),
         "current_weather": MessageLookupByLibrary.simpleMessage("Aktualnie"),
+        "decline": MessageLookupByLibrary.simpleMessage("Odrzuć"),
         "delete": MessageLookupByLibrary.simpleMessage("Usuń"),
         "delete_outfit": MessageLookupByLibrary.simpleMessage(
             "Czy chcesz usunąć tą stylizację?"),
@@ -109,6 +113,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Zapomniałeś hasła?"),
         "found": MessageLookupByLibrary.simpleMessage("Znaleziono"),
+        "friend": MessageLookupByLibrary.simpleMessage("Znajomy"),
+        "friend_request_sent": MessageLookupByLibrary.simpleMessage(
+            "Zaproszenie do grona znajomych zostało wysłane"),
         "friend_requests":
             MessageLookupByLibrary.simpleMessage("Zaproszenia do znajomych"),
         "friends": MessageLookupByLibrary.simpleMessage("Znajomi"),
@@ -137,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_account": MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
         "no_comments":
             MessageLookupByLibrary.simpleMessage("Ten post nie ma komentarzy"),
+        "no_data": MessageLookupByLibrary.simpleMessage("Brak danych"),
         "no_found_friends": MessageLookupByLibrary.simpleMessage(
             "Nie znaleziono znajomych o takiej nazwie"),
         "no_friends": MessageLookupByLibrary.simpleMessage(
@@ -176,6 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_name": MessageLookupByLibrary.simpleMessage("Nazwa profilu"),
         "pyjama": MessageLookupByLibrary.simpleMessage("Piżama"),
         "remove": MessageLookupByLibrary.simpleMessage("Usuń"),
+        "remove_friend": MessageLookupByLibrary.simpleMessage("Usuń znajomego"),
         "requests": MessageLookupByLibrary.simpleMessage("Zaproszenia"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Zresetuj hasło"),

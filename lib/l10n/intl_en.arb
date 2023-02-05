@@ -160,5 +160,13 @@
   "added_comment": "Added comment",
   "no_comments": "This post has no comments",
   "created_by": "Created by ",
-  "deleted_outfit": "Outfit has been deleted"
+  "deleted_outfit": "Outfit has been deleted",
+  "no_data": "No data",
+  "friend": "Friend",
+  "friend_request_sent": "Friend request has been sent",
+  "answer": "Answer",
+  "add_friend": "Add friend",
+  "decline": "Decline",
+  "remove_friend": "Remove friend",
+  "accept": "Accept"
 }

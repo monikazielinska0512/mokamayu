@@ -162,5 +162,13 @@
   "added_comment": "Dodano komentarz",
   "no_comments": "Ten post nie ma komentarzy",
   "created_by": "Stworzona przez ",
-  "deleted_outfit": "Usunięto stylizację"
+  "deleted_outfit": "Usunięto stylizację",
+  "no_data": "Brak danych",
+  "friend": "Znajomy",
+  "friend_request_sent": "Zaproszenie do grona znajomych zostało wysłane",
+  "answer": "Odpowiedz",
+  "add_friend": "Dodaj znajomego",
+  "decline": "Odrzuć",
+  "remove_friend": "Usuń znajomego",
+  "accept": "Zaakceptuj"
 }

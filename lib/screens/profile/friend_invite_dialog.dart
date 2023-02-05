@@ -4,6 +4,7 @@ import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/models/models.dart';
 import 'package:mokamayu/services/authentication/auth.dart';
 import 'package:provider/provider.dart';
+import '../../generated/l10n.dart';
 import '../../services/managers/managers.dart';
 import '../../widgets/widgets.dart';
 
@@ -48,7 +49,7 @@ class FriendDialogBox extends StatelessWidget {
                           ? [
                             Padding(
                               padding: const EdgeInsets.only(top: 20),
-                              child: friendDialogCard("Zaakceptuj", () {
+                              child: friendDialogCard(S.of(context).accept, () {
                                 Provider.of<ProfileManager>(context, listen: false).acceptFriendInvite(friend);
                                 CustomNotification notif = CustomNotification(
                                     sentFrom: AuthService().getCurrentUserID(),
@@ -62,7 +63,7 @@ class FriendDialogBox extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 20),
                               child:
-                                  friendDialogCard("Odrzuć",
+                                  friendDialogCard(S.of(context).decline,
                                       () {
                                     Provider.of<ProfileManager>(context, listen: false).rejectFriendInvite(friend);
                                     context.pop();
@@ -73,7 +74,7 @@ class FriendDialogBox extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20),
                                   child:
-                                  friendDialogCard("Usuń znajomego",
+                                  friendDialogCard(S.of(context).remove_friend,
                                           () {
                                         Provider.of<ProfileManager>(context, listen: false).removeFriend(friend);
                                         context.pop();
