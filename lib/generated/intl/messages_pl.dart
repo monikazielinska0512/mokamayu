@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("Dodaj"),
         "add_looks_for":
             MessageLookupByLibrary.simpleMessage("Dodaj stylizacje na"),
+        "added_comment":
+            MessageLookupByLibrary.simpleMessage("Dodano komentarz"),
         "all_friends": MessageLookupByLibrary.simpleMessage("Wszyscy znajomi"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Filtruj"),
         "are_now_friends":
@@ -59,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "create": MessageLookupByLibrary.simpleMessage("Stwórz"),
         "create_outfit":
             MessageLookupByLibrary.simpleMessage("Stwórz stylizację"),
+        "created_by": MessageLookupByLibrary.simpleMessage("Stworzona przez "),
         "created_outfit_for_you": MessageLookupByLibrary.simpleMessage(
             "stworzył dla Ciebie stylizację!"),
         "current_weather": MessageLookupByLibrary.simpleMessage("Aktualnie"),
@@ -130,6 +133,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "my_profile": MessageLookupByLibrary.simpleMessage("Mój profil"),
         "next": MessageLookupByLibrary.simpleMessage("Dalej"),
         "no_account": MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
+        "no_comments":
+            MessageLookupByLibrary.simpleMessage("Ten post nie ma komentarzy"),
         "no_found_friends": MessageLookupByLibrary.simpleMessage(
             "Nie znaleziono znajomych o takiej nazwie"),
         "no_friends": MessageLookupByLibrary.simpleMessage(

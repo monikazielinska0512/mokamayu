@@ -1629,6 +1629,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Added comment`
+  String get added_comment {
+    return Intl.message(
+      'Added comment',
+      name: 'added_comment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This post has no comments`
+  String get no_comments {
+    return Intl.message(
+      'This post has no comments',
+      name: 'no_comments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Created by `
+  String get created_by {
+    return Intl.message(
+      'Created by ',
+      name: 'created_by',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

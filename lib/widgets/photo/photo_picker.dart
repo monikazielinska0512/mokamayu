@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -6,6 +7,8 @@ import 'package:ionicons/ionicons.dart';
 import 'package:mokamayu/constants/colors.dart';
 import 'package:mokamayu/widgets/buttons/button_darker_orange.dart';
 import 'package:mokamayu/widgets/fundamental/fundamentals.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 import '../../generated/l10n.dart';
 
@@ -80,15 +83,29 @@ class _PhotoPickerState extends State<PhotoPicker> {
     var pickedFile =
         await widget.picker.pickImage(source: source, imageQuality: 50);
 
-    setState(() {
-      if (pickedFile != null) {
+    if (pickedFile != null) {
+      setState(() {
         widget.photoPath = pickedFile.path;
         widget.photo = File(pickedFile.path);
-      } else {
-        CustomSnackBar.showErrorSnackBar(
-            context: context, message: S.of(context).photo_not_added);
-      }
-    });
+        Future.delayed(const Duration(seconds: 3),
+            () async => widget.photo = await compressFile(widget.photo!));
+      });
+    } else {
+      CustomSnackBar.showErrorSnackBar(
+          context: context, message: S.of(context).photo_not_added);
+    }
+  }
+
+  Future<File?> compressFile(File file, {int quality = 30}) async {
+    final dir = await path_provider.getTemporaryDirectory();
+    final targetPath =
+        dir.absolute.path + '/${Random().nextInt(1000)}-temp.jpg';
+
+    return await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      targetPath,
+      quality: quality,
+    );
   }
 
   Future removeImage() async {
@@ -126,7 +143,6 @@ class _PhotoPickerState extends State<PhotoPicker> {
             height: widget.photo == null
                 ? MediaQuery.of(context).size.height * 0.25
                 : MediaQuery.of(context).size.height * 0.35,
-            // color: Colors.white,
             child: Column(
               children: <Widget>[
                 Column(

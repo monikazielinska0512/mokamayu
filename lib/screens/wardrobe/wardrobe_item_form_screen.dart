@@ -17,10 +17,7 @@ class AddWardrobeItemForm extends StatefulWidget {
   WardrobeItem? editItem;
 
   AddWardrobeItemForm(
-      {Key? key,
-      this.photo,
-      this.editItem,
-      required this.isEdit})
+      {Key? key, this.photo, this.editItem, required this.isEdit})
       : super(key: key);
 
   @override
@@ -30,7 +27,6 @@ class AddWardrobeItemForm extends StatefulWidget {
 class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -40,6 +36,7 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
       context: context,
       isFullScreen: true,
       isEdit: true,
+      resizeToAvoidBottomInset: true,
       color: Colors.white,
       rightButton: null,
       leftButton: BackArrowButton(context),
@@ -65,22 +62,20 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
             context: context,
             height: 0.7,
             child: Stack(children: [
-                   Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child:
-                          WardrobeItemForm(
-                                      photoPath: widget.photo ?? "",
-                                      item: widget.editItem))),
-                ])));
+              Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: WardrobeItemForm(
+                          photoPath: widget.photo ?? "",
+                          item: widget.editItem))),
+            ])));
   }
 
   bool isWardrobeItemMine() =>
       Provider.of<WardrobeManager>(context, listen: false)
           .finalWardrobeItemList
           .contains(widget.editItem);
-
 
   Widget buildBackgroundImageForAddForm() {
     return Image.file(

@@ -53,6 +53,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         for (var element in val) {
           Map<String, dynamic> map = jsonDecode(element);
           Map<String, dynamic> mapOutfit = map['outfit'];
+          String name = map['name'];
 
           Outfit outfit = Outfit(
               owner: mapOutfit['owner'] as String,
@@ -71,7 +72,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             }
           }
 
-          final event = Event(outfit: finalOutfit);
+          final event = Event(outfit: finalOutfit, name: name);
           list.add(event);
         }
         selectedEvents[DateTime.parse(key)] = list;

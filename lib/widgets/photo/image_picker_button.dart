@@ -8,7 +8,6 @@ import 'package:ionicons/ionicons.dart';
 import '../../constants/constants.dart';
 import '../../generated/l10n.dart';
 import '../../services/storage.dart';
-import '../buttons/button_darker_orange.dart';
 import '../fundamental/background_image.dart';
 
 class ImagePickerButton extends StatelessWidget {
@@ -49,7 +48,7 @@ class ImagePickerButton extends StatelessWidget {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(30))),
                         child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Wrap(children: [
                               if (canRemoveImage) ...[
                                 buildImageSourceOption(
@@ -85,7 +84,7 @@ class ImagePickerButton extends StatelessWidget {
   Widget buildImageSourceOption(
       BuildContext context, Icon icon, String title, ImageSource? source) {
     return Padding(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
@@ -105,8 +104,12 @@ class ImagePickerButton extends StatelessWidget {
   }
 
   Future<void> pickImage(BuildContext context, ImageSource source) async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: source, imageQuality: 50);
+    final pickedFile = await ImagePicker().pickImage(
+      source: source,
+      imageQuality: 50,
+      maxHeight: 480,
+      maxWidth: 640,
+    );
     if (pickedFile != null) {
       var photoPath = pickedFile.path;
       String url = await StorageService().uploadFile(context, photoPath);

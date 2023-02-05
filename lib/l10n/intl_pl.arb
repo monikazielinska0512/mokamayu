@@ -158,5 +158,8 @@
   "delete_photo": "Usuń zdjęcie",
   "my_profile": "Mój profil",
   "profile_name": "Nazwa profilu",
-  "username": "Nazwa użytkownika"
+  "username": "Nazwa użytkownika",
+  "added_comment": "Dodano komentarz",
+  "no_comments": "Ten post nie ma komentarzy",
+  "created_by": "Stworzona przez "
 }

@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "add_looks_for":
             MessageLookupByLibrary.simpleMessage("Plan outfits for"),
+        "added_comment": MessageLookupByLibrary.simpleMessage("Added comment"),
         "all_friends": MessageLookupByLibrary.simpleMessage("All your friends"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Apply filters"),
         "are_now_friends":
@@ -59,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "create_outfit": MessageLookupByLibrary.simpleMessage("Create outfit"),
+        "created_by": MessageLookupByLibrary.simpleMessage("Created by "),
         "created_outfit_for_you":
             MessageLookupByLibrary.simpleMessage("created ourfit for you!"),
         "current_weather": MessageLookupByLibrary.simpleMessage("Current"),
@@ -129,6 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
+        "no_comments":
+            MessageLookupByLibrary.simpleMessage("This post has no comments"),
         "no_found_friends":
             MessageLookupByLibrary.simpleMessage("No matched friends"),
         "no_friends":

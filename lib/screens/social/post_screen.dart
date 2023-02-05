@@ -28,7 +28,6 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
-
   @override
   Widget build(BuildContext context) {
     if (widget.userList.isEmpty) {
@@ -350,10 +349,9 @@ class _PostScreenState extends State<PostScreen> {
                     itemCount: widget.post.comments!.length)))
         : EmptyScreen(
             context,
-            Text("Ten post nie ma komentarzy",
+            Text(S.of(context).no_comments,
                 style: TextStyles.paragraphRegular12(Colors.grey)),
             ColorsConstants.grey);
-
   }
 
   Widget buildCommentField() {
@@ -380,19 +378,21 @@ class _PostScreenState extends State<PostScreen> {
                       widget.post.comments!);
                   widget.post.textController!.clear();
                   setState(() {});
-                }
 
-                if (AuthService().getCurrentUserID() != widget.post.createdBy) {
-                  CustomNotification notif = CustomNotification(
-                      sentFrom: AuthService().getCurrentUserID(),
-                      type: NotificationType.COMMENT.toString(),
-                      creationDate: DateTime.now().millisecondsSinceEpoch);
-                  Provider.of<NotificationsManager>(context, listen: false)
-                      .addNotificationToFirestore(notif, widget.post.createdBy);
+                  if (AuthService().getCurrentUserID() !=
+                      widget.post.createdBy) {
+                    CustomNotification notif = CustomNotification(
+                        sentFrom: AuthService().getCurrentUserID(),
+                        type: NotificationType.COMMENT.toString(),
+                        creationDate: DateTime.now().millisecondsSinceEpoch);
+                    Provider.of<NotificationsManager>(context, listen: false)
+                        .addNotificationToFirestore(
+                            notif, widget.post.createdBy);
+                  }
+
+                  CustomSnackBar.showSuccessSnackBar(
+                      context: context, message: S.of(context).added_comment);
                 }
-                CustomSnackBar.showSuccessSnackBar(
-                    context: context, message: "Dodano komentarz"
-                );
               },
             ),
             border: const OutlineInputBorder(

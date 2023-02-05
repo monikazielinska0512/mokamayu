@@ -30,11 +30,13 @@ class _PostListState extends State<PostList> {
   late List<Post> postList;
   @override
   void initState() {
-    UserData currentUser = widget.userList.singleWhere((element) => element.uid == AuthService().getCurrentUserID());
+    UserData currentUser = widget.userList.singleWhere(
+        (element) => element.uid == AuthService().getCurrentUserID());
     Provider.of<PostManager>(context, listen: false)
         .readFriendsPostsOnce(currentUser);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     postList = Provider.of<PostManager>(context, listen: false).finalPostList;
@@ -94,6 +96,7 @@ class _PostListState extends State<PostList> {
       buildLikeButton(index)
     ]);
   }
+
   Widget buildCommentField(int index) {
     return Padding(
         padding: const EdgeInsets.only(bottom: 15, top: 10),
@@ -118,20 +121,21 @@ class _PostListState extends State<PostList> {
                       postList[index].comments!);
                   postList[index].textController!.clear();
                   setState(() {});
-                }
 
-                if (AuthService().getCurrentUserID() != postList[index].createdBy) {
-                  CustomNotification notif = CustomNotification(
-                      sentFrom: AuthService().getCurrentUserID(),
-                      type: NotificationType.COMMENT.toString(),
-                      creationDate: DateTime.now().millisecondsSinceEpoch);
-                  Provider.of<NotificationsManager>(context, listen: false)
-                      .addNotificationToFirestore(notif, postList[index].createdBy);
-                }
+                  if (AuthService().getCurrentUserID() !=
+                      postList[index].createdBy) {
+                    CustomNotification notif = CustomNotification(
+                        sentFrom: AuthService().getCurrentUserID(),
+                        type: NotificationType.COMMENT.toString(),
+                        creationDate: DateTime.now().millisecondsSinceEpoch);
+                    Provider.of<NotificationsManager>(context, listen: false)
+                        .addNotificationToFirestore(
+                            notif, postList[index].createdBy);
+                  }
 
-                CustomSnackBar.showSuccessSnackBar(
-                    context: context, message: "Dodano komentarz"
-                );
+                  CustomSnackBar.showSuccessSnackBar(
+                      context: context, message: S.of(context).added_comment);
+                }
               },
             ),
             border: const OutlineInputBorder(
@@ -191,7 +195,7 @@ class _PostListState extends State<PostList> {
                 children: [
                   buildPostingUser(index),
                   Row(children: [
-                    Text("Stworzono przez ",
+                    Text(S.of(context).created_by,
                         style: TextStyles.paragraphRegular12(Colors.grey),
                         textAlign: TextAlign.start),
                     buildCreator(index),
