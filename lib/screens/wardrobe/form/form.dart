@@ -323,12 +323,12 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
                     .uploadFile(context, widget.photoPath ?? "");
                 Provider.of<WardrobeManager>(context, listen: false)
                     .updateWardrobeItem(widget.item?.reference ?? "", _name,
-                        _type, _size, url, _styles);
+                        _type, _size, url, _styles, _colors, _materials);
               }
 
               Provider.of<WardrobeManager>(context, listen: false)
                   .updateWardrobeItem(widget.item?.reference ?? "", _name,
-                      _type, _size, widget.item?.photoURL ?? "", _styles);
+                      _type, _size, widget.item?.photoURL ?? "", _styles, _colors, _materials);
               reset();
               context.pushReplacement("/home/0");
               CustomSnackBar.showSuccessSnackBar(

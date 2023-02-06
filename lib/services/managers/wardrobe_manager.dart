@@ -200,8 +200,15 @@ class WardrobeManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateWardrobeItem(String reference, String? name, String? type,
-      String? size, String? photoURL, List<String>? styles) {
+  void updateWardrobeItem(
+      String reference,
+      String? name,
+      String? type,
+      String? size,
+      String? photoURL,
+      List<String>? styles,
+      List<String>? colors,
+      List<String>? materials) {
     db
         .collection('users')
         .doc(AuthService().getCurrentUserID())
@@ -213,6 +220,8 @@ class WardrobeManager extends ChangeNotifier {
           'size': size,
           'photoURL': photoURL,
           'styles': styles,
+          'colors': colors,
+          'materials': materials
         })
         .then((_) => print('Updated'))
         .catchError((error) => print('Update failed: $error'));
@@ -227,7 +236,6 @@ class WardrobeManager extends ChangeNotifier {
         .delete()
         .then((_) => print('Deleted'))
         .catchError((error) => print(' $error'));
-    // notifyListeners();
   }
 
   void resetBeforeCreatingNewOutfit() {
@@ -235,5 +243,7 @@ class WardrobeManager extends ChangeNotifier {
     setTypes([]);
     setSizes([]);
     setStyles([]);
+    setColors([]);
+    setMaterials([]);
   }
 }
