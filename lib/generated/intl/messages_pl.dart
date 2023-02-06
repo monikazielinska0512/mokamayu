@@ -44,11 +44,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "Email został wprowadzony w złym formacie"),
         "bad_password": MessageLookupByLibrary.simpleMessage(
             "Hasło musi mieć długość przynajmniej 6 znaków"),
+        "black": MessageLookupByLibrary.simpleMessage("Czarny"),
         "blazer": MessageLookupByLibrary.simpleMessage("Marynarka"),
+        "blue": MessageLookupByLibrary.simpleMessage("Niebieski"),
         "boho": MessageLookupByLibrary.simpleMessage("Boho"),
+        "brown": MessageLookupByLibrary.simpleMessage("Brązowy"),
         "calendar": MessageLookupByLibrary.simpleMessage("Kalendarz"),
         "camera": MessageLookupByLibrary.simpleMessage("Aparat"),
+        "canvas": MessageLookupByLibrary.simpleMessage("Płótno"),
         "cardigan": MessageLookupByLibrary.simpleMessage("Kardigan"),
+        "cashmere": MessageLookupByLibrary.simpleMessage("Kaszmir"),
         "casual": MessageLookupByLibrary.simpleMessage("Na codzień"),
         "change_photo": MessageLookupByLibrary.simpleMessage("Zmień zdjęcie"),
         "check_inbox":
@@ -61,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("skomentował twój post!"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Potwierdź hasło"),
+        "cotton": MessageLookupByLibrary.simpleMessage("Bawełna"),
         "create": MessageLookupByLibrary.simpleMessage("Stwórz"),
         "create_outfit":
             MessageLookupByLibrary.simpleMessage("Stwórz stylizację"),
@@ -77,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Usunięto element garderoby"),
         "deleted_outfit":
             MessageLookupByLibrary.simpleMessage("Usunięto stylizację"),
+        "denim": MessageLookupByLibrary.simpleMessage("Jeans"),
         "dismiss": MessageLookupByLibrary.simpleMessage("ZAMKNIJ"),
         "dress": MessageLookupByLibrary.simpleMessage("Sukienka"),
         "edit": MessageLookupByLibrary.simpleMessage("Edytuj"),
@@ -123,6 +130,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "gallery": MessageLookupByLibrary.simpleMessage("Twoja galeria"),
         "get_started": MessageLookupByLibrary.simpleMessage("Zaczynamy"),
         "glamour": MessageLookupByLibrary.simpleMessage("Glamour"),
+        "gold": MessageLookupByLibrary.simpleMessage("Złoty"),
+        "gray": MessageLookupByLibrary.simpleMessage("Szary"),
+        "green": MessageLookupByLibrary.simpleMessage("Zielony"),
         "hat": MessageLookupByLibrary.simpleMessage("Kapelusz"),
         "hippe": MessageLookupByLibrary.simpleMessage("Hippie"),
         "hoodie": MessageLookupByLibrary.simpleMessage("Bluza z kapturem"),
@@ -133,13 +143,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "items": MessageLookupByLibrary.simpleMessage("Elementy"),
         "jacket": MessageLookupByLibrary.simpleMessage("Kurtka"),
         "jeans": MessageLookupByLibrary.simpleMessage("Dżinsy"),
+        "leather": MessageLookupByLibrary.simpleMessage("Skóra"),
         "liked_your_post":
             MessageLookupByLibrary.simpleMessage("polubił twój post!"),
+        "linen": MessageLookupByLibrary.simpleMessage("Len"),
         "looks_for": MessageLookupByLibrary.simpleMessage("Stylizacje na"),
         "military": MessageLookupByLibrary.simpleMessage("Militarny"),
         "minimalism": MessageLookupByLibrary.simpleMessage("Minimalistyczny"),
         "month": MessageLookupByLibrary.simpleMessage("Miesiąc"),
         "my_profile": MessageLookupByLibrary.simpleMessage("Mój profil"),
+        "navy": MessageLookupByLibrary.simpleMessage("Granatowy"),
         "next": MessageLookupByLibrary.simpleMessage("Dalej"),
         "no_account": MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
         "no_comments":
@@ -155,7 +168,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Brak zaproszenia od tego użytkownika"),
         "no_posts":
             MessageLookupByLibrary.simpleMessage("Brak postów do wyświtlenia"),
+        "no_users_found":
+            MessageLookupByLibrary.simpleMessage("Nie znaleziono użytkowników"),
         "notifications": MessageLookupByLibrary.simpleMessage("Powiadomienia"),
+        "orange": MessageLookupByLibrary.simpleMessage("Pomarańczowy"),
         "outfit_created":
             MessageLookupByLibrary.simpleMessage("Stworzono stylizację"),
         "outfit_created_for_friend": MessageLookupByLibrary.simpleMessage(
@@ -174,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Wybierz stylizacje"),
         "pick_outfits_error":
             MessageLookupByLibrary.simpleMessage("Wybierz najpierw stylizacje"),
+        "pink": MessageLookupByLibrary.simpleMessage("Różowy"),
         "planned_outfits": MessageLookupByLibrary.simpleMessage("Zaplanowane"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Proszę wprowadzić tekst"),
@@ -186,7 +203,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Profil prywatny"),
         "profile": MessageLookupByLibrary.simpleMessage("Profil"),
         "profile_name": MessageLookupByLibrary.simpleMessage("Nazwa profilu"),
+        "purple": MessageLookupByLibrary.simpleMessage("Fioletowy"),
         "pyjama": MessageLookupByLibrary.simpleMessage("Piżama"),
+        "red": MessageLookupByLibrary.simpleMessage("Czerwony"),
         "remove": MessageLookupByLibrary.simpleMessage("Usuń"),
         "remove_friend": MessageLookupByLibrary.simpleMessage("Usuń znajomego"),
         "requests": MessageLookupByLibrary.simpleMessage("Zaproszenia"),
@@ -211,9 +230,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_in": MessageLookupByLibrary.simpleMessage("Zaloguj się"),
         "sign_out": MessageLookupByLibrary.simpleMessage("Wyloguj się"),
         "sign_up": MessageLookupByLibrary.simpleMessage(" Zarejestruj się"),
+        "silk": MessageLookupByLibrary.simpleMessage("Jedwab"),
+        "silver": MessageLookupByLibrary.simpleMessage("Srebrny"),
         "size": MessageLookupByLibrary.simpleMessage("Rozmiar"),
         "smart_casual": MessageLookupByLibrary.simpleMessage("Smart Casual"),
         "social": MessageLookupByLibrary.simpleMessage("Społeczność"),
+        "socks": MessageLookupByLibrary.simpleMessage("Skarpety"),
         "something_went_wrong":
             MessageLookupByLibrary.simpleMessage("Coś poszło nie tak"),
         "sport": MessageLookupByLibrary.simpleMessage("Sportowe"),
@@ -226,7 +248,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "sweater": MessageLookupByLibrary.simpleMessage("Sweter"),
         "sweatshirt": MessageLookupByLibrary.simpleMessage("Bluza"),
         "swimsuit": MessageLookupByLibrary.simpleMessage("Strój kąpielowy"),
+        "synthetic": MessageLookupByLibrary.simpleMessage("Poliester"),
         "tags": MessageLookupByLibrary.simpleMessage("Atrybuty"),
+        "tights": MessageLookupByLibrary.simpleMessage("Rajstopy"),
         "top": MessageLookupByLibrary.simpleMessage("Top"),
         "trousers": MessageLookupByLibrary.simpleMessage("Spodnie"),
         "tshirt": MessageLookupByLibrary.simpleMessage("Koszulka"),
@@ -248,9 +272,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Twoja szafa"),
         "wedding": MessageLookupByLibrary.simpleMessage("Na ślub"),
         "week": MessageLookupByLibrary.simpleMessage("TydzieĶ"),
+        "white": MessageLookupByLibrary.simpleMessage("Biały"),
         "winter": MessageLookupByLibrary.simpleMessage("Zima"),
+        "wool": MessageLookupByLibrary.simpleMessage("Wełna"),
         "wrong_password":
             MessageLookupByLibrary.simpleMessage("Hasło lub email jest błędne"),
+        "yellow": MessageLookupByLibrary.simpleMessage("Żółty"),
         "you_and_user": MessageLookupByLibrary.simpleMessage("Ty i użytkownik")
       };
 }

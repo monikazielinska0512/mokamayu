@@ -1769,6 +1769,266 @@ class S {
       args: [],
     );
   }
+
+  /// `No users found`
+  String get no_users_found {
+    return Intl.message(
+      'No users found',
+      name: 'no_users_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tights`
+  String get tights {
+    return Intl.message(
+      'Tights',
+      name: 'tights',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Socks`
+  String get socks {
+    return Intl.message(
+      'Socks',
+      name: 'socks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Black`
+  String get black {
+    return Intl.message(
+      'Black',
+      name: 'black',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blue`
+  String get blue {
+    return Intl.message(
+      'Blue',
+      name: 'blue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Brown`
+  String get brown {
+    return Intl.message(
+      'Brown',
+      name: 'brown',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gold`
+  String get gold {
+    return Intl.message(
+      'Gold',
+      name: 'gold',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gray`
+  String get gray {
+    return Intl.message(
+      'Gray',
+      name: 'gray',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Green`
+  String get green {
+    return Intl.message(
+      'Green',
+      name: 'green',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Navy`
+  String get navy {
+    return Intl.message(
+      'Navy',
+      name: 'navy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orange`
+  String get orange {
+    return Intl.message(
+      'Orange',
+      name: 'orange',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pink`
+  String get pink {
+    return Intl.message(
+      'Pink',
+      name: 'pink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purple`
+  String get purple {
+    return Intl.message(
+      'Purple',
+      name: 'purple',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Red`
+  String get red {
+    return Intl.message(
+      'Red',
+      name: 'red',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Silver`
+  String get silver {
+    return Intl.message(
+      'Silver',
+      name: 'silver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `White`
+  String get white {
+    return Intl.message(
+      'White',
+      name: 'white',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yellow`
+  String get yellow {
+    return Intl.message(
+      'Yellow',
+      name: 'yellow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cashmere`
+  String get cashmere {
+    return Intl.message(
+      'Cashmere',
+      name: 'cashmere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cotton`
+  String get cotton {
+    return Intl.message(
+      'Cotton',
+      name: 'cotton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Denim`
+  String get denim {
+    return Intl.message(
+      'Denim',
+      name: 'denim',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leather`
+  String get leather {
+    return Intl.message(
+      'Leather',
+      name: 'leather',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Linen`
+  String get linen {
+    return Intl.message(
+      'Linen',
+      name: 'linen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Silk`
+  String get silk {
+    return Intl.message(
+      'Silk',
+      name: 'silk',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Synthetic`
+  String get synthetic {
+    return Intl.message(
+      'Synthetic',
+      name: 'synthetic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wool`
+  String get wool {
+    return Intl.message(
+      'Wool',
+      name: 'wool',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Canvas`
+  String get canvas {
+    return Intl.message(
+      'Canvas',
+      name: 'canvas',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

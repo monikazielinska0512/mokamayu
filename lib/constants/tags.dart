@@ -46,6 +46,45 @@ class Tags {
       S.of(context).pyjama,
       S.of(context).shoes,
       S.of(context).accessories,
+      S.of(context).tights,
+      S.of(context).socks
+    ];
+    list.sort();
+    return list;
+  }
+
+  static List<String> getLanguagesColors(BuildContext context) {
+    List<String> list = [
+      S.of(context).black,
+      S.of(context).blue,
+      S.of(context).brown,
+      S.of(context).gold,
+      S.of(context).gray,
+      S.of(context).green,
+      S.of(context).navy,
+      S.of(context).orange,
+      S.of(context).pink,
+      S.of(context).purple,
+      S.of(context).red,
+      S.of(context).silver,
+      S.of(context).white,
+      S.of(context).yellow
+    ];
+    list.sort();
+    return list;
+  }
+
+  static List<String> getLanguagesMaterials(BuildContext context) {
+    List<String> list = [
+      S.of(context).cashmere,
+      S.of(context).cotton,
+      S.of(context).denim,
+      S.of(context).leather,
+      S.of(context).linen,
+      S.of(context).silk,
+      S.of(context).synthetic,
+      S.of(context).wool,
+      S.of(context).canvas
     ];
     list.sort();
     return list;

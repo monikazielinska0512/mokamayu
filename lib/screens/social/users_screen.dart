@@ -170,7 +170,7 @@ class _UsersScreenState extends State<UsersScreen> {
           height: MediaQuery.of(context).size.height * 0.07,
         ),
         Text(
-          "It seems user with such \n name doesn't exist",
+          S.of(context).no_users_found,
           style: TextStyles.paragraphRegularSemiBold20(ColorsConstants.grey),
           textAlign: TextAlign.center,
         ),

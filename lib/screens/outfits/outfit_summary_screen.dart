@@ -72,6 +72,8 @@ class OutfitSummaryScreen extends StatelessWidget {
                     photoURL: "Photo deleted",
                     createdBy: AuthService().getCurrentUserID(),
                     styles: [],
+                    colors: [],
+                    materials: [],
                     created: DateTime.now())));
       }).toList(),
     ));

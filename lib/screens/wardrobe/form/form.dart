@@ -33,6 +33,8 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
   String _size = "";
   String _name = "";
   List<String> _styles = [];
+  List<String> _colors = [];
+  List<String> _materials = [];
   bool? block;
 
   @override
@@ -42,6 +44,8 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
       _size = widget.item!.size;
       _name = widget.item!.name;
       _styles = widget.item!.styles;
+      _colors = widget.item!.colors;
+      _materials = widget.item!.materials;
     }
     block = Provider.of<WardrobeManager>(context, listen: false).getBlock;
     super.initState();
@@ -122,6 +126,10 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             child: KeepAliveWrapper(child: buildTypeChipsField())),
         S.of(context).style: SingleChildScrollView(
             child: KeepAliveWrapper(child: buildStyleChipsField())),
+        "Color": SingleChildScrollView(
+            child: KeepAliveWrapper(child: buildColorChipsField())),
+        "Material": SingleChildScrollView(
+            child: KeepAliveWrapper(child: buildMaterialChipsField())),
         S.of(context).size: SingleChildScrollView(
             child: KeepAliveWrapper(child: buildSizeChipsField()))
       };
@@ -194,6 +202,50 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
     ]);
   }
 
+  Widget buildColorChipsField() {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+          padding: const EdgeInsets.only(bottom: 10, top: 5),
+          child: MultiSelectChip(
+              chipsColor: ColorsConstants.olive,
+              Tags.getLanguagesColors(context),
+              isScrollable: false,
+              initialValues: _colors,
+              disableChange: widget.item == null
+                  ? false
+                  : widget.item!.createdBy !=
+                              AuthService().getCurrentUserID() ||
+                          block == true
+                      ? true
+                      : false,
+              onSelectionChanged: (selectedList) => {
+                    _colors = selectedList,
+                  })),
+    ]);
+  }
+
+  Widget buildMaterialChipsField() {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+          padding: const EdgeInsets.only(bottom: 10, top: 5),
+          child: MultiSelectChip(
+              chipsColor: ColorsConstants.turquoise,
+              Tags.getLanguagesMaterials(context),
+              isScrollable: false,
+              initialValues: _materials,
+              disableChange: widget.item == null
+                  ? false
+                  : widget.item!.createdBy !=
+                              AuthService().getCurrentUserID() ||
+                          block == true
+                      ? true
+                      : false,
+              onSelectionChanged: (selectedList) => {
+                    _materials = selectedList,
+                  })),
+    ]);
+  }
+
   Widget buildAddButton() {
     return ButtonDarker(context, S.of(context).add, () async {
       _formKey.currentState!.save();
@@ -207,6 +259,8 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             size: _size,
             photoURL: url,
             styles: _styles,
+            colors: _colors,
+            materials: _materials,
             createdBy: AuthService().getCurrentUserID(),
             created: DateTime.now());
         if (!mounted) return;
@@ -217,6 +271,8 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
         _size = "";
         _name = "";
         _styles = [];
+        _colors = [];
+        _materials = [];
 
         reset();
 

@@ -6,6 +6,8 @@ class WardrobeItem {
   final String size;
   final String photoURL;
   final List<String> styles;
+  final List<String> colors;
+  final List<String> materials;
   final DateTime created;
   final String createdBy;
   String? reference;
@@ -16,6 +18,8 @@ class WardrobeItem {
     required this.size,
     required this.photoURL,
     required this.styles,
+    required this.colors,
+    required this.materials,
     required this.created,
     required this.createdBy,
     this.reference,
@@ -28,6 +32,8 @@ class WardrobeItem {
         photoURL = '',
         createdBy = '',
         styles = [],
+        colors = [],
+        materials = [],
         created = DateTime.now();
 
   factory WardrobeItem.fromFirestore(Map<dynamic, dynamic> item) =>
@@ -38,6 +44,8 @@ class WardrobeItem {
           photoURL: item['photoURL'] as String,
           createdBy: item['createdBy'] as String,
           styles: List.from(item['styles']),
+          colors: List.from(item['colors']),
+          materials: List.from(item['materials']),
           created: DateTime.parse(item['created']));
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
@@ -46,6 +54,8 @@ class WardrobeItem {
         'size': size.toString(),
         'photoURL': photoURL.toString(),
         'styles': styles,
+        'colors': colors,
+        'materials': materials,
         'created': created.toString(),
         "createdBy": createdBy.toString(),
       };

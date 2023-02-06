@@ -43,6 +43,8 @@ class WardrobeManager extends ChangeNotifier {
   List<String>? itemTypes;
   List<String>? itemSizes;
   List<String>? itemStyles;
+  List<String>? itemColors;
+  List<String>? itemMaterials;
 
   void blockEdit(bool newblock) {
     block = newblock;
@@ -92,6 +94,18 @@ class WardrobeManager extends ChangeNotifier {
 
   List<String>? get getStyles => itemStyles;
 
+  void setColors(List<String>? colors) {
+    itemColors = colors;
+  }
+
+  List<String>? get getColors => itemColors;
+
+  void setMaterials(List<String>? materials) {
+    itemMaterials = materials;
+  }
+
+  List<String>? get getMaterials => itemMaterials;
+
   Future<List<WardrobeItem>> readWardrobeItemOnce() async {
     QuerySnapshot snapshot = await db
         .collection('users')
@@ -123,6 +137,8 @@ class WardrobeManager extends ChangeNotifier {
       List<String> typesList,
       List<String> stylesList,
       List<String> sizesList,
+      List<String> colorsList,
+      List<String> materialsList,
       List<WardrobeItem> itemList) async {
     List<WardrobeItem> filteredList = [];
     typesList =
@@ -131,15 +147,26 @@ class WardrobeManager extends ChangeNotifier {
     stylesList =
         stylesList.isNotEmpty ? stylesList : Tags.getLanguagesStyles(context);
 
-    var set = Set.of(stylesList);
+    colorsList =
+        colorsList.isNotEmpty ? colorsList : Tags.getLanguagesColors(context);
+
+    materialsList = materialsList.isNotEmpty
+        ? materialsList
+        : Tags.getLanguagesMaterials(context);
+
+    var stylesSet = Set.of(stylesList);
+    var colorsSet = Set.of(colorsList);
+    var materialsSet = Set.of(materialsList);
 
     for (var element in itemList) {
       WardrobeItem item = element;
       bool type = typesList.contains(item.type);
-      bool styles = set.containsAll(item.styles);
+      bool styles = stylesSet.containsAll(item.styles);
+      bool colors = colorsSet.containsAll(item.colors);
+      bool materials = materialsSet.containsAll(item.materials);
       bool size = sizesList.contains(item.size);
 
-      if (type && styles && size) {
+      if (type && styles && colors && materials && size) {
         filteredList.add(item);
       }
     }
