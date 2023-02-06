@@ -24,6 +24,7 @@ Widget Gallery(BuildContext context, Map<String, Widget>? tab) {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   TabBar(
+                    isScrollable: true,
                     padding: const EdgeInsets.only(top: 0, bottom: 5),
                     indicator: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),

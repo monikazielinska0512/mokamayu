@@ -17,6 +17,8 @@ class FilterModal extends StatefulWidget {
   Future<List<Outfit>>? futureOutfitListCopy;
   List<String> selectedTypes = [];
   List<String> selectedStyles = [];
+  List<String> selectedColors = [];
+  List<String> selectedMaterials = [];
   List<String> selectedSizes = Tags.sizes;
 
   List<String> selectedOutfitStyles = [];
@@ -57,6 +59,8 @@ class _FilterModalState extends State<FilterModal> {
       widget.selectedTypes = [];
       widget.selectedSizes = [];
       widget.selectedStyles = [];
+      widget.selectedColors = [];
+      widget.selectedMaterials = [];
     });
   }
 
@@ -106,6 +110,44 @@ class _FilterModalState extends State<FilterModal> {
               type: "style",
               onSelectionChanged: (selectedList) => {
                     widget.selectedStyles = selectedList,
+                  })),
+    ]);
+  }
+
+  Widget buildColorsSection() {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(S.of(context).color,
+          style: TextStyles.paragraphRegularSemiBold18(),
+          textAlign: TextAlign.start),
+      Padding(
+          padding: const EdgeInsets.only(bottom: 10, top: 5),
+          child: MultiSelectChip(
+              chipsColor: ColorsConstants.lightBrown,
+              Tags.getLanguagesColors(context),
+              disableChange: false,
+              isScrollable: false,
+              type: "color",
+              onSelectionChanged: (selectedList) => {
+                    widget.selectedColors = selectedList,
+                  })),
+    ]);
+  }
+
+  Widget buildMaterialsSection() {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(S.of(context).material,
+          style: TextStyles.paragraphRegularSemiBold18(),
+          textAlign: TextAlign.start),
+      Padding(
+          padding: const EdgeInsets.only(bottom: 10, top: 5),
+          child: MultiSelectChip(
+              chipsColor: ColorsConstants.olive,
+              Tags.getLanguagesMaterials(context),
+              disableChange: false,
+              isScrollable: false,
+              type: "material",
+              onSelectionChanged: (selectedList) => {
+                    widget.selectedMaterials = selectedList,
                   })),
     ]);
   }
@@ -180,6 +222,8 @@ class _FilterModalState extends State<FilterModal> {
                             widget.selectedTypes,
                             widget.selectedStyles,
                             widget.selectedSizes,
+                            widget.selectedColors,
+                            widget.selectedMaterials,
                             Provider.of<WardrobeManager>(context, listen: false)
                                 .getFinalWardrobeItemList),
                     if (widget.futureItemListCopy != null)
@@ -287,6 +331,8 @@ class _FilterModalState extends State<FilterModal> {
                     children: [
                         buildTypesSection(),
                         buildStylesSection(),
+                        buildColorsSection(),
+                        buildMaterialsSection(),
                         buildSizesSection()
                       ])
                 : Column(
