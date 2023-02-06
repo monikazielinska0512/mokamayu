@@ -176,6 +176,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Planned outfits"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Please enter text"),
+        "post_author_not_found":
+            MessageLookupByLibrary.simpleMessage("Post author not found"),
         "posted": MessageLookupByLibrary.simpleMessage("Posted"),
         "posts": MessageLookupByLibrary.simpleMessage("Posts"),
         "private": MessageLookupByLibrary.simpleMessage("Private"),

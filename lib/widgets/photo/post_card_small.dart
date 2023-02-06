@@ -4,6 +4,7 @@ import 'package:mokamayu/screens/social/post_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
+import '../../generated/l10n.dart';
 import '../../models/models.dart';
 import '../../services/managers/managers.dart';
 import '../fundamental/snackbar.dart';
@@ -81,14 +82,14 @@ class _PostCardSmallState extends State<PostCardSmall> {
                   post: post, user: postAuthor, userList: const [])));
     } else {
       CustomSnackBar.showErrorSnackBar(
-          message: 'Post author not found', context: context);
+          message: S.of(context).post_author_not_found, context: context);
     }
   }
 
   Widget buildDatePosted() {
     String creationDate = DateFormat('dd/MM/yyyy HH:mm')
         .format(DateTime.fromMillisecondsSinceEpoch(post.creationDate));
-    return Text("Opublikowano $creationDate",
+    return Text("${S.of(context).posted} $creationDate",
         style: TextStyles.paragraphRegular10(ColorsConstants.grey));
   }
 

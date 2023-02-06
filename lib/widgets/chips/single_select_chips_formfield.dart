@@ -53,11 +53,11 @@ class SingleSelectChipsFormField extends FormField<String> {
                                         listen: false)
                                     .setSeason(chipsList[index]);
                               }
-                              if (type == 'style') {
-                                Provider.of<OutfitManager>(context!,
-                                        listen: false)
-                                    .setStyle(chipsList[index]);
-                              }
+                              // if (type == 'style') {
+                              //   Provider.of<OutfitManager>(context!,
+                              //           listen: false)
+                              //       .setStyle(chipsList[index]);
+                              // }
                             }
                           });
                     }).toList()),

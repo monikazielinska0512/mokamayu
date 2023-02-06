@@ -23,10 +23,12 @@ class OutfitForm extends StatelessWidget {
     if (item != null) {
       _styles = item!.styles;
       _season = item!.season;
-    } else {
-      _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
-      _styles = Provider.of<OutfitManager>(context, listen: false).getStyle;
     }
+    // else {
+    //   _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;
+    //   _styles = Provider.of<OutfitManager>(context, listen: false).getStyle;
+    // }
+
     return Scrollbar(
         thickness: 2,
         radius: const Radius.circular(10),
@@ -81,25 +83,10 @@ class OutfitForm extends StatelessWidget {
               OutfitTags.getLanguagesStyles(context),
               isScrollable: false,
               initialValues: _styles,
-              // type: "style_outfit",
+              type: "outfitStyle",
               onSelectionChanged: (selectedList) => {
                     _styles = selectedList,
-                  })
-
-          // SingleSelectChipsFormField(
-          //   initialValue: _styles,
-          //   type: 'style',
-          //   autoValidate: true,
-          //   context: context,
-          //   validator: (value) =>
-          //       Validator.checkIfSingleValueSelected(value!, context),
-          //   onSaved: (value) {
-          //     _styles = value!;
-          //   },
-          //   color: ColorsConstants.sunflower,
-          //   chipsList: OutfitTags.getLanguagesStyles(context),
-          // )
-          ),
+                  })),
     ]);
   }
 }

@@ -171,5 +171,6 @@
   "decline": "Odrzuć",
   "remove_friend": "Usuń znajomego",
   "accept": "Zaakceptuj",
-  "no_posts": "Brak postów do wyświtlenia"
+  "no_posts": "Brak postów do wyświtlenia",
+  "post_author_not_found": "Nie znaleziono autora postu"
 }

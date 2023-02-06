@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 //ignore: must_be_immutable
 class MultiSelectChip extends StatefulWidget {
   final List<String> chipsList;
-  final List<String>? initialValues;
+  final List<String> initialValues;
   final Function(List<String>)? onSelectionChanged;
   String? type;
   bool usingFriendsWardrobe;
@@ -23,7 +23,7 @@ class MultiSelectChip extends StatefulWidget {
       required this.onSelectionChanged,
       this.type,
       this.disableChange = false,
-      this.initialValues,
+      this.initialValues = const [],
       this.isScrollable = true,
       required this.chipsColor,
       this.usingFriendsWardrobe = false});
@@ -37,9 +37,12 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
 
   @override
   void initState() {
-    if (widget.initialValues != null) {
-      selectedChoices = widget.initialValues!;
-    }
+    // if (widget.initialValues != []) {
+    //   print('tuuu');
+    //   print(widget.initialValues);
+    //   selectedChoices = widget.initialValues!;
+    // }
+    selectedChoices = widget.initialValues;
     if ((widget.type == 'type' || widget.type == 'type_main') &&
         Provider.of<WardrobeManager>(context, listen: false).getTypes != null) {
       selectedChoices =
@@ -65,6 +68,11 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
         Provider.of<OutfitManager>(context, listen: false).getSeasons != null) {
       selectedChoices =
           Provider.of<OutfitManager>(context, listen: false).getSeasons!;
+    }
+    if (widget.type == 'outfitStyle' &&
+        Provider.of<OutfitManager>(context, listen: false).getStyle != null) {
+      selectedChoices =
+          Provider.of<OutfitManager>(context, listen: false).getStyle;
     }
     super.initState();
   }
@@ -126,6 +134,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
                   }
                 }
                 if (widget.type == 'style_main') {
+                  print(selectedChoices);
                   Provider.of<OutfitManager>(context, listen: false)
                       .setStyles(selectedChoices);
                   widget.outfitList =
@@ -159,6 +168,10 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
               if (widget.type == 'outfit_style') {
                 Provider.of<OutfitManager>(context, listen: false)
                     .setStyles(selectedChoices);
+              }
+              if (widget.type == 'outfitStyle') {
+                Provider.of<OutfitManager>(context, listen: false)
+                    .setStyle(selectedChoices);
               }
               if (widget.type == 'outfit_season') {
                 Provider.of<OutfitManager>(context, listen: false)

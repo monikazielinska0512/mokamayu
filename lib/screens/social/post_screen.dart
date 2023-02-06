@@ -122,7 +122,7 @@ class _PostScreenState extends State<PostScreen> {
                 children: [
                   buildPostingUser(),
                   Row(children: [
-                    Text("Stworzono przez ",
+                    Text(S.of(context).created_by,
                         style: TextStyles.paragraphRegular12(Colors.grey),
                         textAlign: TextAlign.start),
                     buildCreator(),
@@ -148,7 +148,7 @@ class _PostScreenState extends State<PostScreen> {
                     .singleWhere(
                         (element) => element.uid == widget.post.createdFor)
                     .profilePicture!,
-                fit: BoxFit.fill)
+                fit: BoxFit.cover)
             : Image.asset(Assets.avatarPlaceholder,
                 width: MediaQuery.of(context).size.width * 0.7),
       ),
@@ -216,7 +216,7 @@ class _PostScreenState extends State<PostScreen> {
     return Padding(
         padding: const EdgeInsets.only(bottom: 5, top: 10),
         child: Text(
-            "Posted ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.post.creationDate))}",
+            "${S.of(context).posted} ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.post.creationDate))}",
             style: TextStyles.paragraphRegular12(ColorsConstants.grey)));
   }
 
