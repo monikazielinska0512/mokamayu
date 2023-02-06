@@ -61,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "classic": MessageLookupByLibrary.simpleMessage("Klasyczny"),
         "clothing_types": MessageLookupByLibrary.simpleMessage("Rodzaj"),
         "coat": MessageLookupByLibrary.simpleMessage("Płaszcz"),
+        "color": MessageLookupByLibrary.simpleMessage("Kolor"),
         "comment": MessageLookupByLibrary.simpleMessage("Skomentuj"),
         "commented_on_your_post":
             MessageLookupByLibrary.simpleMessage("skomentował twój post!"),
@@ -148,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("polubił twój post!"),
         "linen": MessageLookupByLibrary.simpleMessage("Len"),
         "looks_for": MessageLookupByLibrary.simpleMessage("Stylizacje na"),
+        "material": MessageLookupByLibrary.simpleMessage("Materiał"),
         "military": MessageLookupByLibrary.simpleMessage("Militarny"),
         "minimalism": MessageLookupByLibrary.simpleMessage("Minimalistyczny"),
         "month": MessageLookupByLibrary.simpleMessage("Miesiąc"),

@@ -116,7 +116,7 @@ class _FilterModalState extends State<FilterModal> {
 
   Widget buildColorsSection() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("Color",
+      Text(S.of(context).color,
           style: TextStyles.paragraphRegularSemiBold18(),
           textAlign: TextAlign.start),
       Padding(
@@ -135,7 +135,7 @@ class _FilterModalState extends State<FilterModal> {
 
   Widget buildMaterialsSection() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("Material",
+      Text(S.of(context).material,
           style: TextStyles.paragraphRegularSemiBold18(),
           textAlign: TextAlign.start),
       Padding(

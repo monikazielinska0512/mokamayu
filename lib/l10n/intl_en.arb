@@ -196,5 +196,7 @@
   "silk": "Silk",
   "synthetic": "Synthetic",
   "wool": "Wool",
-  "canvas": "Canvas"
+  "canvas": "Canvas",
+  "color": "Color",
+  "material": "Material"
 }

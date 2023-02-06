@@ -2029,6 +2029,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Color`
+  String get color {
+    return Intl.message(
+      'Color',
+      name: 'color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Material`
+  String get material {
+    return Intl.message(
+      'Material',
+      name: 'material',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

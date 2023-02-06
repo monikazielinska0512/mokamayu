@@ -198,5 +198,7 @@
   "silk": "Jedwab",
   "synthetic": "Poliester",
   "wool": "Wełna",
-  "canvas": "Płótno"
+  "canvas": "Płótno",
+  "color": "Kolor",
+  "material": "Materiał"
 }

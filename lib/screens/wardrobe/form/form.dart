@@ -126,9 +126,9 @@ class _WardrobeItemFormState extends State<WardrobeItemForm> {
             child: KeepAliveWrapper(child: buildTypeChipsField())),
         S.of(context).style: SingleChildScrollView(
             child: KeepAliveWrapper(child: buildStyleChipsField())),
-        "Color": SingleChildScrollView(
+        S.of(context).color: SingleChildScrollView(
             child: KeepAliveWrapper(child: buildColorChipsField())),
-        "Material": SingleChildScrollView(
+        S.of(context).material: SingleChildScrollView(
             child: KeepAliveWrapper(child: buildMaterialChipsField())),
         S.of(context).size: SingleChildScrollView(
             child: KeepAliveWrapper(child: buildSizeChipsField()))
