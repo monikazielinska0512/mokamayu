@@ -177,6 +177,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "planned_outfits": MessageLookupByLibrary.simpleMessage("Zaplanowane"),
         "please_enter_test":
             MessageLookupByLibrary.simpleMessage("Proszę wprowadzić tekst"),
+        "post_author_not_found":
+            MessageLookupByLibrary.simpleMessage("Nie znaleziono autora postu"),
         "posted": MessageLookupByLibrary.simpleMessage("Opublikowano"),
         "posts": MessageLookupByLibrary.simpleMessage("Posty"),
         "private": MessageLookupByLibrary.simpleMessage("Prywatny"),

@@ -174,14 +174,13 @@ class OutfitSummaryScreen extends StatelessWidget {
         _elements = [];
 
         Post postData = Post(
-          createdBy: currentUserUid,
-          createdFor: friendUid ?? currentUserUid,
-          cover: capturedOutfit,
-          creationDate: DateTime.now().millisecondsSinceEpoch,
-          likes: [],
-          comments: [],
-          textController: TextEditingController()
-        );
+            createdBy: currentUserUid,
+            createdFor: friendUid ?? currentUserUid,
+            cover: capturedOutfit,
+            creationDate: DateTime.now().millisecondsSinceEpoch,
+            likes: [],
+            comments: [],
+            textController: TextEditingController());
 
         CustomNotification notif = CustomNotification(
             sentFrom: currentUserUid,

@@ -169,5 +169,6 @@
   "decline": "Decline",
   "remove_friend": "Remove friend",
   "accept": "Accept",
-  "no_posts": "There are no posts to display"
+  "no_posts": "There are no posts to display",
+  "post_author_not_found": "Post author not found"
 }

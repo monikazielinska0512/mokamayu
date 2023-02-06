@@ -288,7 +288,7 @@ class _PostListState extends State<PostList> {
                     .singleWhere(
                         (element) => element.uid == postList[index].createdFor)
                     .profilePicture!,
-                fit: BoxFit.fill)
+                fit: BoxFit.cover)
             : Image.asset(Assets.avatarPlaceholder,
                 width: MediaQuery.of(context).size.width * 0.7),
       ),
@@ -315,7 +315,7 @@ class _PostListState extends State<PostList> {
               Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-                  child: Text(S.of(context).empty_feed,
+                  child: Text(S.of(context).no_posts,
                       textAlign: TextAlign.center,
                       style: TextStyles.paragraphRegular14(Colors.grey)))
             ])));

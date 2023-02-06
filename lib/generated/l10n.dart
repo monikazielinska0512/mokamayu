@@ -1759,6 +1759,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Post author not found`
+  String get post_author_not_found {
+    return Intl.message(
+      'Post author not found',
+      name: 'post_author_not_found',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
