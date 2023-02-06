@@ -10,8 +10,6 @@ import '../database/database_service.dart';
 class PostManager extends ChangeNotifier {
   List<Post> finalPostList = [];
   List<Post> finalCurrentUserPostList = [];
-  Future<List<Post>>? futurePostList;
-  Future<List<Post>>? get getPostList => futurePostList;
 
   Future<List<Post>>? get getFinalCurrentUserPostList async =>
       finalCurrentUserPostList;
@@ -20,23 +18,10 @@ class PostManager extends ChangeNotifier {
   List<Post> get getFinalCurrentPostList => finalCurrentUserPostList;
   List<Post> friendsPostList = [];
 
-  void setPosts(Future<List<Post>> postList) {
-    futurePostList = postList;
+  void setFinalPostList(List<Post> postList) {
+    finalCurrentUserPostList = postList;
     notifyListeners();
   }
-
-  // Future<List<Post>> readPostsOnce() async {
-  //   QuerySnapshot snapshot = await db.collectionGroup('posts').get();
-  //
-  //   List<Post> postList = [];
-  //   for (var element in snapshot.docs) {
-  //     Post item = Post.fromSnapshot(element);
-  //     postList.add(item);
-  //   }
-  //
-  //   finalPostList = postList;
-  //   return finalPostList;
-  // }
 
   Future<List<Post>> getUserPosts(String uid) async {
     QuerySnapshot snapshot =
@@ -70,6 +55,8 @@ class PostManager extends ChangeNotifier {
         snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
     list.sort((b, a) => a.creationDate.compareTo(b.creationDate));
     finalCurrentUserPostList = list;
+    print(list);
+    notifyListeners();
     return finalCurrentUserPostList;
   }
 
@@ -94,7 +81,7 @@ class PostManager extends ChangeNotifier {
     friendsPostList = list;
     return friendsPostList;
   }
-  
+
   Future<List<Post>> readFriendsPostsOnce(UserData currentUser) async {
     List<Post> postList = [];
     List<String> friends = [currentUser.uid];
@@ -118,7 +105,7 @@ class PostManager extends ChangeNotifier {
     finalPostList = postList;
     return finalPostList;
   }
-  
+
   void likePost(String reference, String owner, List<String> likes) {
     db
         .collection('users')
@@ -130,7 +117,8 @@ class PostManager extends ChangeNotifier {
         .catchError((error) => print('Update failed: $error'));
   }
 
-  void commentPost(String reference, String owner, List<Map<String, String>> comments) {
+  void commentPost(
+      String reference, String owner, List<Map<String, String>> comments) {
     db
         .collection('users')
         .doc(owner)

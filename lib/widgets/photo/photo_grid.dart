@@ -221,6 +221,16 @@ class _PhotoGridState extends State<PhotoGrid> {
                                         Provider.of<PostManager>(context,
                                                 listen: false)
                                             .removePost(element.reference);
+                                        Provider.of<PostManager>(context,
+                                                listen: false)
+                                            .getCurrentUserPosts();
+                                        List<Post> postList =
+                                            Provider.of<PostManager>(context,
+                                                    listen: false)
+                                                .getFinalCurrentPostList;
+                                        Provider.of<PostManager>(context,
+                                                listen: false)
+                                            .setFinalPostList(postList);
                                       }
                                     }
 
