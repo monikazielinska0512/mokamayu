@@ -47,7 +47,8 @@ class Tags {
       S.of(context).shoes,
       S.of(context).accessories,
       S.of(context).tights,
-      S.of(context).socks
+      S.of(context).socks,
+      S.of(context).skirt
     ];
     list.sort();
     return list;
