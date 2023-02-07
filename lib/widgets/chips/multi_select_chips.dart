@@ -150,7 +150,6 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
                   }
                 }
                 if (widget.type == 'style_main') {
-                  print(selectedChoices);
                   Provider.of<OutfitManager>(context, listen: false)
                       .setStyles(selectedChoices);
                   widget.outfitList =

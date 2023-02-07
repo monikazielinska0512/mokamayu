@@ -23,7 +23,6 @@ class OutfitForm extends StatelessWidget {
     if (item != null) {
       _styles = item!.styles;
       _season = item!.season;
-      print(item!.styles);
     }
     // else {
     //   _season = Provider.of<OutfitManager>(context, listen: false).getSeason!;

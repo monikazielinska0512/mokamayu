@@ -56,7 +56,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
               widget.photoURL ?? "",
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             )
           : widget.photo != null
               ? ClipRRect(
@@ -64,7 +64,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                   child: Image.file(
                     widget.photo!,
                     height: MediaQuery.of(context).size.height * 0.69,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 )
               : Container(
