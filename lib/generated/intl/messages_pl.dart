@@ -281,6 +281,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "wrong_password":
             MessageLookupByLibrary.simpleMessage("Hasło lub email jest błędne"),
         "yellow": MessageLookupByLibrary.simpleMessage("Żółty"),
-        "you_and_user": MessageLookupByLibrary.simpleMessage("Ty i użytkownik")
+        "you_and_user": MessageLookupByLibrary.simpleMessage("Ty i użytkownik"),
+        "you_have_friend_invite": MessageLookupByLibrary.simpleMessage(
+            "Masz zaproszenie do znajomych od użytkownika ")
       };
 }

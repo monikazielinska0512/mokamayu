@@ -228,7 +228,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   const Padding(padding: EdgeInsets.only(left: 10)),
                   Flexible(
                       child: Text(
-                          "Masz zaproszenie do znajomych od użytkownika $name!",
+                          "${S.of(context).you_have_friend_invite} $name!",
                           style: TextStyles.paragraphRegular14())),
                 ],
               ));
