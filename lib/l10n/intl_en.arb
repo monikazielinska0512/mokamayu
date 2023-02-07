@@ -199,5 +199,6 @@
   "canvas": "Canvas",
   "color": "Color",
   "material": "Material",
-  "skirt": "Skirt"
+  "skirt": "Skirt",
+  "you_have_friend_invite": "You have a friend invite from "
 }

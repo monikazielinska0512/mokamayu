@@ -2059,6 +2059,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You have a friend invite from `
+  String get you_have_friend_invite {
+    return Intl.message(
+      'You have a friend invite from ',
+      name: 'you_have_friend_invite',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
