@@ -142,7 +142,7 @@ class _UsersScreenState extends State<UsersScreen> {
                           child: _foundUsers[index].profilePicture != null
                               ? Image.network(
                                   _foundUsers[index].profilePicture!,
-                                  fit: BoxFit.fill)
+                                  fit: BoxFit.cover)
                               : Image.asset(Assets.avatarPlaceholder,
                                   fit: BoxFit.fill),
                         ),

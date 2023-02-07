@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../../models/outfit_container.dart';
 
-
 //ignore: must_be_immutable
 class DragTargetContainer extends StatefulWidget {
   DragTargetContainer({Key? key, this.map}) : super(key: key);
@@ -32,9 +31,9 @@ class DragTargetState extends State<DragTargetContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         color: ColorsConstants.white,
-          borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12),
       ),
       // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       width: MediaQuery.of(context).size.width,
@@ -67,7 +66,7 @@ class DragTargetState extends State<DragTargetContainer> {
               if (left < 0) left = 0;
               if (left > 0.72) left = 0.72;
               if (top < 0) top = 0;
-              if (top > 0.5) top = 0.5;
+              if (top > 0.6) top = 0.6;
 
               setState(() {
                 entry.value.xPosition = Offset(left, top).dx;
@@ -75,7 +74,6 @@ class DragTargetState extends State<DragTargetContainer> {
                 entry.value.rotation = details.rotation + _currentRotation;
                 entry.value.scale = details.scale * _currentScale;
                 if (entry.value.scale > 2) entry.value.scale = 2;
-
               });
             },
             child: Stack(
