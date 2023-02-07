@@ -234,6 +234,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "silk": MessageLookupByLibrary.simpleMessage("Silk"),
         "silver": MessageLookupByLibrary.simpleMessage("Silver"),
         "size": MessageLookupByLibrary.simpleMessage("Size"),
+        "skirt": MessageLookupByLibrary.simpleMessage("Skirt"),
         "smart_casual": MessageLookupByLibrary.simpleMessage("Smart Casual"),
         "social": MessageLookupByLibrary.simpleMessage("Social"),
         "socks": MessageLookupByLibrary.simpleMessage("Socks"),

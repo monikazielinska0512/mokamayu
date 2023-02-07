@@ -198,5 +198,6 @@
   "wool": "Wool",
   "canvas": "Canvas",
   "color": "Color",
-  "material": "Material"
+  "material": "Material",
+  "skirt": "Skirt"
 }

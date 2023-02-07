@@ -40,7 +40,6 @@
   "cardigan": "Kardigan",
   "swimsuit": "Strój kąpielowy",
   "sports": "Odzież sportowa",
-  "skirt": "Spódniczka",
   "shorts": "Spodenki",
   "pyjama": "Piżama",
   "shoes": "Buty",
@@ -200,5 +199,6 @@
   "wool": "Wełna",
   "canvas": "Płótno",
   "color": "Kolor",
-  "material": "Materiał"
+  "material": "Materiał",
+  "skirt": "Spódniczka"
 }

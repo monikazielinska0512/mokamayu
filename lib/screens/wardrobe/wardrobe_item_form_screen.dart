@@ -82,14 +82,14 @@ class _AddWardrobeItemFormState extends State<AddWardrobeItemForm> {
       File(widget.photo ?? ""),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      fit: BoxFit.fill,
+      fit: BoxFit.cover,
     );
   }
 
   Widget buildBackgroundImageForEditForm(Widget picker) {
     return ExtendedImage.network(
       widget.editItem!.photoURL,
-      fit: BoxFit.fill,
+      fit: BoxFit.cover,
       cacheWidth: MediaQuery.of(context).size.width.toInt() *
           window.devicePixelRatio.ceil(),
       cacheHeight: MediaQuery.of(context).size.height.toInt() *

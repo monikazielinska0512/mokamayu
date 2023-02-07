@@ -27,7 +27,6 @@ class SummarizeOutfitsScreen extends StatelessWidget {
           Map<Outfit, String> eventNames =
               Provider.of<CalendarManager>(context, listen: false)
                   .getEventNames;
-          print(eventNames);
 
           if (outfitList.isNotEmpty) {
             if (events[day] != null) {
