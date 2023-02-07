@@ -85,8 +85,8 @@ abstract class AbstractProfileContentState
                             Provider.of<FriendsManager>(context, listen: false)
                                 .isMyFriend(widget.uid)
                         ? buildProfileGallery(context)
-                        : userData?.reference !=
-                                AuthService().getCurrentUserID()
+                        : //userData?.reference !=
+                        widget.uid != AuthService().getCurrentUserID()
                             ? EmptyScreen(
                                 context,
                                 Text(S.of(context).private,

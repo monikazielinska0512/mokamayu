@@ -236,6 +236,21 @@ class _OutfitsAddAttributesScreenState
                       .getFinalCurrentPostList;
               Provider.of<PostManager>(context, listen: false)
                   .setFinalPostList(postList);
+
+              late UserData currentUser;
+
+              Provider.of<ProfileManager>(context, listen: false)
+                  .getCurrentUserData()
+                  .then((UserData? temp) {
+                setState(() => currentUser = temp!);
+                Provider.of<PostManager>(context, listen: false)
+                    .readFriendsPostsOnce(currentUser);
+              });
+              List<Post> finalPostList =
+                  Provider.of<PostManager>(context, listen: false)
+                      .getFinalPostList;
+              Provider.of<PostManager>(context, listen: false)
+                  .setFinalPostList(finalPostList);
             }
           }
 

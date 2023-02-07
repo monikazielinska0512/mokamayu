@@ -18,8 +18,13 @@ class PostManager extends ChangeNotifier {
   List<Post> get getFinalCurrentPostList => finalCurrentUserPostList;
   List<Post> friendsPostList = [];
 
-  void setFinalPostList(List<Post> postList) {
+  void setFinalCurrentUserPostList(List<Post> postList) {
     finalCurrentUserPostList = postList;
+    notifyListeners();
+  }
+
+  void setFinalPostList(List<Post> postList) {
+    finalPostList = postList;
     notifyListeners();
   }
 
@@ -55,8 +60,8 @@ class PostManager extends ChangeNotifier {
         snapshot.docs.map((element) => Post.fromSnapshot(element)).toList();
     list.sort((b, a) => a.creationDate.compareTo(b.creationDate));
     finalCurrentUserPostList = list;
-    print(list);
-    notifyListeners();
+    // print(list);
+    // notifyListeners();
     return finalCurrentUserPostList;
   }
 

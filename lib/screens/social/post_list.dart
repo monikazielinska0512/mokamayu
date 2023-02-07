@@ -39,8 +39,7 @@ class _PostListState extends State<PostList> {
 
   @override
   Widget build(BuildContext context) {
-    postList =
-        Provider.of<PostManager>(context, listen: true).getFinalCurrentPostList;
+    postList = Provider.of<PostManager>(context, listen: true).getFinalPostList;
     return postList.isNotEmpty ? buildFeed(context) : buildEmpty();
   }
 

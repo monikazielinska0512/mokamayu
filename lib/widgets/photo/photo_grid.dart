@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
@@ -230,7 +231,28 @@ class _PhotoGridState extends State<PhotoGrid> {
                                                 .getFinalCurrentPostList;
                                         Provider.of<PostManager>(context,
                                                 listen: false)
-                                            .setFinalPostList(postList);
+                                            .setFinalCurrentUserPostList(
+                                                postList);
+
+                                        late UserData currentUser;
+
+                                        Provider.of<ProfileManager>(context,
+                                                listen: false)
+                                            .getCurrentUserData()
+                                            .then((UserData? temp) {
+                                          setState(() => currentUser = temp!);
+                                          Provider.of<PostManager>(context,
+                                                  listen: false)
+                                              .readFriendsPostsOnce(
+                                                  currentUser);
+                                        });
+                                        List<Post> finalPostList =
+                                            Provider.of<PostManager>(context,
+                                                    listen: false)
+                                                .getFinalPostList;
+                                        Provider.of<PostManager>(context,
+                                                listen: false)
+                                            .setFinalPostList(finalPostList);
                                       }
                                     }
 
