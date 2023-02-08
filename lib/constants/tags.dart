@@ -4,25 +4,14 @@ import '../generated/l10n.dart';
 
 class Tags {
   static const List<String> sizes = [
-    'XS',
-    'S',
-    'M',
-    'L',
-    'XL',
-    'XXL',
-    '35',
-    '36',
-    '37',
-    '38',
-    '39',
-    '40',
-    '41',
-    '42',
-    '43',
-    '44',
-    '45',
+    'XXS/32',
+    'XS/34',
+    'S/36',
+    'M/38',
+    'L/40',
+    'XL/42',
+    'XXL/44',
     '46',
-    '47',
     '48'
   ];
 
@@ -48,7 +37,8 @@ class Tags {
       S.of(context).accessories,
       S.of(context).tights,
       S.of(context).socks,
-      S.of(context).skirt
+      S.of(context).skirt,
+      S.of(context).other
     ];
     list.sort();
     return list;
@@ -69,7 +59,9 @@ class Tags {
       S.of(context).red,
       S.of(context).silver,
       S.of(context).white,
-      S.of(context).yellow
+      S.of(context).yellow,
+      S.of(context).other,
+      S.of(context).camel
     ];
     list.sort();
     return list;
@@ -85,7 +77,12 @@ class Tags {
       S.of(context).silk,
       S.of(context).synthetic,
       S.of(context).wool,
-      S.of(context).canvas
+      S.of(context).canvas,
+      S.of(context).metal,
+      S.of(context).other,
+      S.of(context).rubber,
+      S.of(context).gold,
+      S.of(context).silver
     ];
     list.sort();
     return list;
@@ -106,6 +103,7 @@ class Tags {
       S.of(context).military,
       S.of(context).streetwear,
       S.of(context).boho,
+      S.of(context).other
     ];
     list.sort();
     return list;
@@ -132,6 +130,7 @@ class OutfitTags {
       S.of(context).military,
       S.of(context).streetwear,
       S.of(context).boho,
+      S.of(context).other
     ];
     list.sort();
     return list;
