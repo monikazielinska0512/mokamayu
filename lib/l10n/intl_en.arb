@@ -200,5 +200,9 @@
   "color": "Color",
   "material": "Material",
   "skirt": "Skirt",
-  "you_have_friend_invite": "You have a friend invite from "
+  "you_have_friend_invite": "You have a friend invite from ",
+  "other": "Other",
+  "camel": "Camel",
+  "metal": "Metal",
+  "rubber": "Rubber"
 }

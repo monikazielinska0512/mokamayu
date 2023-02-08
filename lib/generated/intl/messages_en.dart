@@ -50,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "boho": MessageLookupByLibrary.simpleMessage("Boho"),
         "brown": MessageLookupByLibrary.simpleMessage("Brown"),
         "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
+        "camel": MessageLookupByLibrary.simpleMessage("Camel"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "canvas": MessageLookupByLibrary.simpleMessage("Canvas"),
         "cardigan": MessageLookupByLibrary.simpleMessage("Cardigan"),
@@ -147,6 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "linen": MessageLookupByLibrary.simpleMessage("Linen"),
         "looks_for": MessageLookupByLibrary.simpleMessage("Looks for"),
         "material": MessageLookupByLibrary.simpleMessage("Material"),
+        "metal": MessageLookupByLibrary.simpleMessage("Metal"),
         "military": MessageLookupByLibrary.simpleMessage("Military"),
         "minimalism": MessageLookupByLibrary.simpleMessage("Minimalistic"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
@@ -172,6 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No users found"),
         "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
         "orange": MessageLookupByLibrary.simpleMessage("Orange"),
+        "other": MessageLookupByLibrary.simpleMessage("Other"),
         "outfit_created":
             MessageLookupByLibrary.simpleMessage("Outfit has been created"),
         "outfit_created_for_friend": MessageLookupByLibrary.simpleMessage(
@@ -215,6 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "results": MessageLookupByLibrary.simpleMessage("results"),
         "retro": MessageLookupByLibrary.simpleMessage("Retro"),
         "romantic": MessageLookupByLibrary.simpleMessage("Romantic"),
+        "rubber": MessageLookupByLibrary.simpleMessage("Rubber"),
         "school": MessageLookupByLibrary.simpleMessage("School"),
         "search_friend":
             MessageLookupByLibrary.simpleMessage("Find your friend"),
