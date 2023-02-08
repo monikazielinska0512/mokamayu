@@ -201,5 +201,9 @@
   "color": "Kolor",
   "material": "Materiał",
   "skirt": "Spódniczka",
-  "you_have_friend_invite": "Masz zaproszenie do znajomych od użytkownika "
+  "you_have_friend_invite": "Masz zaproszenie do znajomych od użytkownika ",
+  "other": "Inny",
+  "camel": "Karmelowy",
+  "metal": "Metal",
+  "rubber": "Guma"
 }

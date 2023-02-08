@@ -50,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "boho": MessageLookupByLibrary.simpleMessage("Boho"),
         "brown": MessageLookupByLibrary.simpleMessage("Brązowy"),
         "calendar": MessageLookupByLibrary.simpleMessage("Kalendarz"),
+        "camel": MessageLookupByLibrary.simpleMessage("Karmelowy"),
         "camera": MessageLookupByLibrary.simpleMessage("Aparat"),
         "canvas": MessageLookupByLibrary.simpleMessage("Płótno"),
         "cardigan": MessageLookupByLibrary.simpleMessage("Kardigan"),
@@ -150,6 +151,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "linen": MessageLookupByLibrary.simpleMessage("Len"),
         "looks_for": MessageLookupByLibrary.simpleMessage("Stylizacje na"),
         "material": MessageLookupByLibrary.simpleMessage("Materiał"),
+        "metal": MessageLookupByLibrary.simpleMessage("Metal"),
         "military": MessageLookupByLibrary.simpleMessage("Militarny"),
         "minimalism": MessageLookupByLibrary.simpleMessage("Minimalistyczny"),
         "month": MessageLookupByLibrary.simpleMessage("Miesiąc"),
@@ -174,6 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nie znaleziono użytkowników"),
         "notifications": MessageLookupByLibrary.simpleMessage("Powiadomienia"),
         "orange": MessageLookupByLibrary.simpleMessage("Pomarańczowy"),
+        "other": MessageLookupByLibrary.simpleMessage("Inny"),
         "outfit_created":
             MessageLookupByLibrary.simpleMessage("Stworzono stylizację"),
         "outfit_created_for_friend": MessageLookupByLibrary.simpleMessage(
@@ -216,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "results": MessageLookupByLibrary.simpleMessage("wyniki"),
         "retro": MessageLookupByLibrary.simpleMessage("Retro"),
         "romantic": MessageLookupByLibrary.simpleMessage("Romantyczny"),
+        "rubber": MessageLookupByLibrary.simpleMessage("Guma"),
         "school": MessageLookupByLibrary.simpleMessage("Szkolny"),
         "search_friend":
             MessageLookupByLibrary.simpleMessage("Poszukaj znajomego"),

@@ -2069,6 +2069,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Other`
+  String get other {
+    return Intl.message(
+      'Other',
+      name: 'other',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camel`
+  String get camel {
+    return Intl.message(
+      'Camel',
+      name: 'camel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Metal`
+  String get metal {
+    return Intl.message(
+      'Metal',
+      name: 'metal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rubber`
+  String get rubber {
+    return Intl.message(
+      'Rubber',
+      name: 'rubber',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
